@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit 7 – Colors & Clothes</title>
+<style>
+  :root {
+    --orange: #FF8C00;
+    --yellow: #FFD700;
+    --light:  #FFF8EC;
+    --text:   #333;
+    --muted:  #888;
+    --green:  #4CAF50;
+    --radius: 18px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: var(--light);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  header {
+    background: linear-gradient(135deg, var(--orange), var(--yellow));
+    color: white;
+    padding: 16px 24px 14px;
+    text-align: center;
+  }
+  header .unit-label { font-size: 12px; letter-spacing: 2px; opacity: .8; }
+  header h1 { font-size: 1.7rem; font-weight: 900; margin-top: 4px; }
+  .home-btn {
+    position: absolute; top: 14px; left: 14px;
+    background: rgba(255,255,255,.25);
+    border: none; border-radius: 10px;
+    color: white; font-size: 13px; font-weight: 700;
+    padding: 6px 12px; cursor: pointer; text-decoration: none;
+    display: inline-block;
+  }
+  .step-nav {
+    display: flex; background: white;
+    border-bottom: 3px solid #FFE0A0;
+    overflow-x: auto; scrollbar-width: none;
+  }
+  .step-nav::-webkit-scrollbar { display: none; }
+  .step-btn {
+    flex: 1; min-width: 70px;
+    padding: 10px 6px 8px;
+    border: none; background: none; cursor: pointer;
+    font-size: 12px; font-weight: 700; color: var(--muted);
+    display: flex; flex-direction: column; align-items: center; gap: 3px;
+    border-bottom: 4px solid transparent; transition: all .2s;
+  }
+  .step-btn .si { font-size: 1.3rem; }
+  .step-btn.active { color: var(--orange); border-bottom-color: var(--orange); background: #FFF8EC; }
+  .page { display: none; flex: 1; padding: 18px 16px 90px; max-width: 700px; margin: 0 auto; width: 100%; }
+  .page.active { display: block; }
+  .page-title { font-size: 1.4rem; font-weight: 900; color: var(--orange); margin-bottom: 4px; display: flex; align-items: center; gap: 8px; }
+  .page-sub { font-size: 13px; color: var(--muted); margin-bottom: 18px; }
+  .video-btn-wrap { text-align: center; margin-bottom: 16px; }
+  .video-btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: #FF0000; color: white;
+    border: none; border-radius: var(--radius);
+    padding: 16px 28px; font-size: 1.1rem; font-weight: 800;
+    cursor: pointer; text-decoration: none;
+    box-shadow: 0 4px 14px rgba(255,0,0,.3);
+    transition: transform .15s, box-shadow .15s;
+  }
+  .video-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(255,0,0,.35); }
+  .video-btn .yt-icon { font-size: 1.5rem; }
+  .task-card {
+    background: white; border-radius: var(--radius);
+    padding: 16px 20px; box-shadow: 0 2px 8px rgba(0,0,0,.07);
+    border-left: 5px solid var(--orange); font-size: 15px; line-height: 1.8;
+  }
+  .task-card strong { color: var(--orange); }
+  .vocab-section-label {
+    font-size: 13px; font-weight: 800; letter-spacing: 1px;
+    margin: 16px 0 8px; color: #555; text-transform: uppercase;
+  }
+  .vocab-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 10px; margin-bottom: 6px;
+  }
+  .vocab-card { height: 95px; perspective: 600px; cursor: pointer; }
+  .vocab-inner {
+    width: 100%; height: 100%;
+    transform-style: preserve-3d; transition: transform .45s ease;
+    border-radius: var(--radius); position: relative;
+  }
+  .vocab-card.flipped .vocab-inner { transform: rotateY(180deg); }
+  .vocab-front, .vocab-back {
+    position: absolute; width: 100%; height: 100%;
+    border-radius: var(--radius);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    backface-visibility: hidden; -webkit-backface-visibility: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,.1);
+  }
+  .vocab-front { background: white; border: 3px solid #FFD180; }
+  .vocab-front.ext { border-color: #B2DFDB; }
+  .vocab-front .en { font-size: 1.2rem; font-weight: 800; color: var(--orange); }
+  .vocab-front.ext .en { color: #00897B; }
+  .vocab-front .tap { font-size: 11px; color: var(--muted); margin-top: 3px; }
+  .vocab-back { background: linear-gradient(135deg, var(--orange), var(--yellow)); color: white; transform: rotateY(180deg); }
+  .vocab-back.ext { background: linear-gradient(135deg, #00897B, #4DB6AC); }
+  .vocab-back .zh { font-size: 1.1rem; font-weight: 700; }
+  .vocab-back .en2 { font-size: 12px; opacity: .85; margin-top: 2px; }
+  .flip-all-btn {
+    display: block; margin: 8px auto 16px;
+    background: var(--orange); color: white;
+    border: none; border-radius: 24px;
+    padding: 7px 20px; font-size: 13px; font-weight: 700; cursor: pointer;
+  }
+  .ext-note { font-size: 12px; color: #00897B; margin-bottom: 14px; }
+  .speak-btn {
+    background: none; border: none; cursor: pointer;
+    font-size: 1rem; padding: 3px 5px; border-radius: 8px;
+    transition: background .15s; line-height: 1; flex-shrink: 0;
+  }
+  .speak-btn:hover { background: rgba(0,0,0,.08); }
+  .speak-btn.speaking { animation: spk-pulse .5s infinite alternate; }
+  @keyframes spk-pulse { from{opacity:1} to{opacity:.3} }
+  .vocab-front .speak-btn { margin-top: 4px; }
+  .sentence-speak { float: right; margin-top: -2px; }
+  .qa-speak { margin-left: 4px; vertical-align: middle; }
+  .game-label { font-weight: 800; font-size: .95rem; margin-bottom: 8px; color: #555; }
+  .game-score { text-align: center; font-weight: 800; font-size: .95rem; color: var(--green); margin-bottom: 8px; min-height: 22px; }
+  .match-board { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px; }
+  .match-col { display: flex; flex-direction: column; gap: 7px; }
+  .match-item {
+    background: white; border: 3px solid #FFD180; border-radius: 12px;
+    padding: 9px 12px; text-align: center; cursor: pointer;
+    font-weight: 700; font-size: 14px; transition: all .2s; user-select: none;
+  }
+  .match-item:hover { border-color: var(--orange); background: #FFF3E0; }
+  .match-item.selected { border-color: var(--orange); background: var(--orange); color: white; }
+  .match-item.correct { border-color: var(--green); background: #E8F5E9; color: #2E7D32; pointer-events: none; }
+  .match-item.wrong { border-color: #f44336; background: #FFEBEE; animation: shake .3s; }
+  @keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-5px)} 75%{transform:translateX(5px)} }
+  .reset-btn {
+    display: block; margin: 0 auto;
+    background: #eee; color: #555; border: none; border-radius: 24px;
+    padding: 6px 18px; font-size: 13px; font-weight: 700; cursor: pointer;
+  }
+  .sentence-box {
+    background: white; border-radius: var(--radius);
+    padding: 16px 20px; margin-bottom: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.07);
+    border-left: 6px solid var(--orange);
+  }
+  .sentence-box .slabel { font-size: 11px; color: var(--muted); letter-spacing: 1px; margin-bottom: 5px; text-transform: uppercase; }
+  .sentence-box .pattern { font-size: 1.15rem; font-weight: 700; }
+  .sentence-box .blank {
+    display: inline-block; min-width: 75px;
+    border-bottom: 3px solid var(--orange); color: var(--orange);
+    text-align: center; margin: 0 3px; font-weight: 700;
+  }
+  .sentence-box .example { margin-top: 7px; font-size: 13px; color: var(--muted); }
+  .quiz-progress { text-align: center; font-size: 13px; color: var(--muted); margin-bottom: 10px; }
+  .quiz-question {
+    background: white; border-radius: var(--radius);
+    padding: 18px; text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,.07); margin-bottom: 12px;
+  }
+  .quiz-q { font-size: .95rem; color: var(--muted); margin-bottom: 6px; }
+  .quiz-en { font-size: 1.9rem; font-weight: 900; color: var(--orange); }
+  .quiz-choices { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; margin-bottom: 10px; }
+  .quiz-btn {
+    background: white; border: 3px solid #FFD180; border-radius: 12px;
+    padding: 11px; font-size: 1rem; font-weight: 700; cursor: pointer; transition: all .2s;
+  }
+  .quiz-btn:hover { border-color: var(--orange); background: #FFF3E0; }
+  .quiz-btn.correct { border-color: var(--green); background: #E8F5E9; color: #2E7D32; }
+  .quiz-btn.wrong   { border-color: #f44336; background: #FFEBEE; }
+  .quiz-status { text-align: center; font-weight: 800; font-size: .95rem; min-height: 26px; margin-bottom: 8px; }
+  .next-quiz-btn {
+    display: none; margin: 0 auto;
+    background: var(--orange); color: white;
+    border: none; border-radius: 24px;
+    padding: 8px 22px; font-size: 14px; font-weight: 700; cursor: pointer;
+  }
+  .qa-item {
+    background: white; border-radius: var(--radius);
+    padding: 13px 16px; margin-bottom: 9px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.07);
+    display: grid; grid-template-columns: 34px 1fr; gap: 10px; align-items: start;
+  }
+  .qa-num {
+    background: var(--orange); color: white; width: 34px; height: 34px;
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 14px; flex-shrink: 0;
+  }
+  .qa-q { font-weight: 700; font-size: 15px; }
+  .qa-a { color: var(--orange); margin-top: 3px; font-size: 14px; }
+  .tip-box {
+    background: #FFF3E0; border-left: 4px solid var(--orange);
+    border-radius: 10px; padding: 11px 14px;
+    font-size: 14px; color: #E65100; margin-top: 8px;
+  }
+  .intro-box {
+    background: white; border-radius: var(--radius);
+    padding: 22px; box-shadow: 0 2px 8px rgba(0,0,0,.07);
+    font-size: 1.1rem; line-height: 2.6; margin-bottom: 14px;
+  }
+  .intro-box .fill {
+    display: inline-block; min-width: 85px;
+    border-bottom: 2.5px solid var(--orange); color: var(--orange);
+    font-weight: 700; text-align: center;
+  }
+  .star-tip { text-align: center; font-size: 13px; color: var(--muted); margin-bottom: 18px; }
+  .complete-area { text-align: center; margin-top: 24px; }
+  .complete-btn {
+    background: linear-gradient(135deg, var(--green), #66BB6A);
+    color: white; border: none; border-radius: var(--radius);
+    padding: 16px 36px; font-size: 1.15rem; font-weight: 900;
+    cursor: pointer; box-shadow: 0 4px 14px rgba(76,175,80,.35);
+    transition: transform .15s;
+  }
+  .complete-btn:hover { transform: translateY(-2px); }
+  .complete-done {
+    display: none; text-align: center; padding: 20px;
+    background: white; border-radius: var(--radius);
+    box-shadow: 0 2px 8px rgba(0,0,0,.07);
+  }
+  .complete-done .big { font-size: 3rem; }
+  .complete-done h3 { font-size: 1.3rem; font-weight: 900; color: var(--green); margin: 8px 0 4px; }
+  .complete-done p { font-size: 14px; color: var(--muted); margin-bottom: 16px; }
+  .home-link-btn {
+    display: inline-block; background: var(--orange); color: white;
+    border: none; border-radius: 24px;
+    padding: 10px 28px; font-size: 15px; font-weight: 800;
+    cursor: pointer; text-decoration: none;
+  }
+  .bottom-nav-outer {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    background: white; border-top: 2px solid #FFE0A0; z-index: 100;
+  }
+  .bottom-nav {
+    display: flex; align-items: center;
+    padding: 9px 14px; gap: 9px;
+    max-width: 700px; margin: 0 auto;
+  }
+  .nav-btn {
+    flex: 1; padding: 11px; border: none; border-radius: 12px;
+    font-size: 14px; font-weight: 800; cursor: pointer; transition: all .2s;
+  }
+  .nav-prev { background: #F5F5F5; color: #555; }
+  .nav-next { background: var(--orange); color: white; }
+  .nav-btn:disabled { opacity: .3; pointer-events: none; }
+  .nav-step-info { text-align: center; font-size: 13px; color: var(--muted); min-width: 50px; }
+</style>
+</head>
+<body>
+
+<header style="position:relative">
+  <a href="index.html" class="home-btn">🏠 首頁</a>
+  <div class="unit-label">UNIT 7 OF 12 &nbsp;·&nbsp; GRADE 4</div>
+  <h1>👕 Colors & Clothes</h1>
+</header>
+
+<div class="step-nav" id="stepNav"></div>
+
+<!-- PAGE 1: WARM UP -->
+<div class="page active" id="page-0">
+  <div class="page-title"><span>🎵</span> 暖身</div>
+  <div class="page-sub">5 分鐘 · 唱歌 + 指顏色</div>
+  <div class="video-btn-wrap">
+    <a class="video-btn" href="https://www.youtube.com/watch?v=jYAWf8Y91hA" target="_blank" rel="noopener">
+      <span class="yt-icon">▶️</span> 開啟 Colors Song 影片
+    </a>
+  </div>
+  <div class="task-card">
+    <strong>一起做：</strong><br>
+    1. 點上面按鈕，一起唱顏色歌 🎤<br>
+    2. 唱完後，家長說顏色，孩子快速找到房間裡該顏色的東西<br>
+    3. 換孩子出題 😄
+  </div>
+</div>
+
+<!-- PAGE 2: VOCABULARY -->
+<div class="page" id="page-1">
+  <div class="page-title"><span>🃏</span> 本期單字</div>
+  <div class="page-sub">10 分鐘 · 翻牌記單字 + 配對遊戲</div>
+
+  <div class="vocab-section-label">⭐ 核心單字（要記住！）</div>
+  <div class="vocab-grid" id="coreGrid"></div>
+
+  <div class="vocab-section-label" style="color:#00897B">🌱 延伸單字（有印象就好）</div>
+  <div class="ext-note">點卡片翻面看中文，認識就好，不列入測驗</div>
+  <div class="vocab-grid" id="extGrid"></div>
+
+  <button class="flip-all-btn" onclick="flipAll()">全部翻面 / 全部收起</button>
+
+  <div class="game-label">🎮 配對遊戲：點左邊英文，再點右邊中文</div>
+  <div class="game-score" id="matchScore"></div>
+  <div class="match-board">
+    <div class="match-col" id="matchEn"></div>
+    <div class="match-col" id="matchZh"></div>
+  </div>
+  <button class="reset-btn" onclick="initMatch()">🔄 重新開始</button>
+</div>
+
+<!-- PAGE 3: SENTENCES + QUIZ -->
+<div class="page" id="page-2">
+  <div class="page-title"><span>✏️</span> 核心句型</div>
+  <div class="page-sub">換成你自己的資料試試看！</div>
+
+  <div class="sentence-box">
+    <div class="slabel">句型 1</div>
+    <div class="pattern">My <span class="blank">___</span> is <span class="blank">___</span>.</div>
+    <div class="example">→ My shirt is blue. <button class="speak-btn sentence-speak" onclick="speak('My shirt is blue.',this)">🔊</button></div>
+  </div>
+  <div class="sentence-box">
+    <div class="slabel">句型 2</div>
+    <div class="pattern">I am wearing a <span class="blank">___</span> <span class="blank">___</span>.</div>
+    <div class="example">→ I am wearing a red hat. <button class="speak-btn sentence-speak" onclick="speak('I am wearing a red hat.',this)">🔊</button></div>
+  </div>
+  <div class="sentence-box">
+    <div class="slabel">句型 3（延伸）</div>
+    <div class="pattern">I like the <span class="blank">___</span> <span class="blank">___</span>.</div>
+    <div class="example">→ I like the green shoes. <button class="speak-btn sentence-speak" onclick="speak('I like the green shoes.',this)">🔊</button></div>
+  </div>
+
+  <div class="game-label" style="margin-top:22px">🧠 單字小測驗：看中文選英文</div>
+  <div class="quiz-progress" id="quizProgress"></div>
+  <div class="quiz-question">
+    <div class="quiz-q">這個中文是哪個英文單字？</div>
+    <div class="quiz-en" id="quizWord"></div>
+  </div>
+  <div class="quiz-status" id="quizStatus"></div>
+  <div class="quiz-choices" id="quizChoices"></div>
+  <button class="next-quiz-btn" id="nextQuizBtn" onclick="nextQuiz()">下一題 →</button>
+</div>
+
+<!-- PAGE 4: QA PRACTICE -->
+<div class="page" id="page-3">
+  <div class="page-title"><span>🎯</span> 問答接力</div>
+  <div class="page-sub">10 分鐘 · 輪流問答，練習說英文</div>
+  <div class="qa-item">
+    <div class="qa-num">1</div>
+    <div>
+      <div class="qa-q">Q: What color is your shirt? <button class="speak-btn qa-speak" onclick="speak('What color is your shirt?',this)">🔊</button></div>
+      <div class="qa-a">A: My shirt is ___.</div>
+    </div>
+  </div>
+  <div class="qa-item">
+    <div class="qa-num">2</div>
+    <div>
+      <div class="qa-q">Q: What are you wearing today? <button class="speak-btn qa-speak" onclick="speak('What are you wearing today?',this)">🔊</button></div>
+      <div class="qa-a">A: I am wearing a ___.</div>
+    </div>
+  </div>
+  <div class="qa-item">
+    <div class="qa-num">3</div>
+    <div>
+      <div class="qa-q">Q: Do you like the color blue? <button class="speak-btn qa-speak" onclick="speak('Do you like the color blue?',this)">🔊</button></div>
+      <div class="qa-a">A: Yes, I do! / No, I don't.</div>
+    </div>
+  </div>
+  <div class="qa-item">
+    <div class="qa-num">4</div>
+    <div>
+      <div class="qa-q">Q: What color are your shoes? <button class="speak-btn qa-speak" onclick="speak('What color are your shoes?',this)">🔊</button></div>
+      <div class="qa-a">A: My shoes are ___.</div>
+    </div>
+  </div>
+  <div class="qa-item">
+    <div class="qa-num">5</div>
+    <div>
+      <div class="qa-q">Q: Is your hat red or yellow? <button class="speak-btn qa-speak" onclick="speak('Is your hat red or yellow?',this)">🔊</button></div>
+      <div class="qa-a">A: My hat is ___.</div>
+    </div>
+  </div>
+
+  <div class="tip-box">💡 家長小技巧：每天早上問孩子穿什麼衣服出門，用英文說！</div>
+</div>
+
+<!-- PAGE 5: WRAP UP -->
+<div class="page" id="page-4">
+  <div class="page-title"><span>🎤</span> 今日穿搭介紹</div>
+  <div class="page-sub">5 分鐘 · 說出你今天穿什麼！</div>
+  <div class="intro-box">
+    Today, I am wearing a <span class="fill">___</span> shirt.<br>
+    My pants are <span class="fill">___</span>.<br>
+    My shoes are <span class="fill">___</span>.<br>
+    I like the color <span class="fill">___</span>.<br>
+    My favorite clothes are <span class="fill">___</span>.<br>
+  </div>
+  <div class="star-tip">⭐ 目標：站在鏡子前，說出你身上穿的每樣東西！</div>
+  <div class="task-card" style="margin-bottom:0">
+    <strong>最後挑戰：</strong><br>
+    1. 孩子站在鏡子前，說出整套穿著 🪞<br>
+    2. 家長問：「What color is your ___?」孩子回答<br>
+    3. 加碼：設計夢想穿搭，畫下來並介紹 🌟
+  </div>
+
+  <div class="complete-area">
+    <button class="complete-btn" onclick="markDone()">✅ 完成本課！</button>
+  </div>
+  <div class="complete-done" id="completeDone">
+    <div class="big">🎉</div>
+    <h3>Unit 7 完成！</h3>
+    <p>你真棒！下次繼續 Unit 8：How's the Weather?</p>
+    <a href="index.html" class="home-link-btn">回首頁 🏠</a>
+  </div>
+</div>
+
+<!-- BOTTOM NAV -->
+<div class="bottom-nav-outer">
+  <div class="bottom-nav">
+    <button class="nav-btn nav-prev" id="prevBtn" onclick="changePage(-1)">← 上一步</button>
+    <div class="nav-step-info" id="stepInfo"></div>
+    <button class="nav-btn nav-next" id="nextBtn" onclick="changePage(1)">下一步 →</button>
+  </div>
+</div>
+
+<script>
+let ttsVoice = null;
+function loadVoice() {
+  const voices = speechSynthesis.getVoices();
+  ttsVoice = voices.find(v => v.lang === 'en-US' && v.localService)
+          || voices.find(v => v.lang.startsWith('en-') && v.localService)
+          || voices.find(v => v.lang.startsWith('en'))
+          || null;
+}
+if (window.speechSynthesis) {
+  loadVoice();
+  speechSynthesis.onvoiceschanged = loadVoice;
+}
+function speak(text, btn) {
+  if (!window.speechSynthesis) return;
+  speechSynthesis.cancel();
+  const utt = new SpeechSynthesisUtterance(text);
+  utt.lang = 'en-US';
+  utt.rate = 0.85;
+  utt.pitch = 1.05;
+  if (ttsVoice) utt.voice = ttsVoice;
+  if (btn) {
+    btn.classList.add('speaking');
+    utt.onend = () => btn.classList.remove('speaking');
+  }
+  speechSynthesis.speak(utt);
+}
+
+const UNIT_KEY = 'unit7';
+const steps = [
+  { label: '暖身', icon: '🎵' },
+  { label: '單字', icon: '🃏' },
+  { label: '句型', icon: '✏️' },
+  { label: '練習', icon: '🎯' },
+  { label: '收尾', icon: '🎤' },
+];
+const coreVocab = [
+  {en:"red",zh:"紅色"},
+  {en:"blue",zh:"藍色"},
+  {en:"green",zh:"綠色"},
+  {en:"yellow",zh:"黃色"},
+  {en:"shirt",zh:"上衣"},
+  {en:"pants",zh:"褲子"},
+  {en:"shoes",zh:"鞋子"},
+  {en:"hat",zh:"帽子"}
+];
+const extVocab = [
+  {en:"white",zh:"白色"},
+  {en:"black",zh:"黑色"},
+  {en:"dress",zh:"洋裝"},
+  {en:"jacket",zh:"外套"}
+];
+
+(function() {
+  const p = JSON.parse(localStorage.getItem('progress_g4') || '{}');
+  if (p[UNIT_KEY] !== 'done') { p[UNIT_KEY] = 'in_progress'; localStorage.setItem('progress_g4', JSON.stringify(p)); }
+  else { document.getElementById('completeDone').style.display = 'block'; document.querySelector('.complete-btn').style.display = 'none'; }
+})();
+
+let currentPage = 0;
+const stepNav = document.getElementById('stepNav');
+steps.forEach((s, i) => {
+  const btn = document.createElement('button');
+  btn.className = 'step-btn' + (i === 0 ? ' active' : '');
+  btn.id = `step-${i}`;
+  btn.innerHTML = `<span class="si">${s.icon}</span>${s.label}`;
+  btn.onclick = () => goTo(i);
+  stepNav.appendChild(btn);
+});
+
+function goTo(i) {
+  document.getElementById(`page-${currentPage}`).classList.remove('active');
+  document.getElementById(`step-${currentPage}`).classList.remove('active');
+  currentPage = i;
+  document.getElementById(`page-${i}`).classList.add('active');
+  document.getElementById(`step-${i}`).classList.add('active');
+  if (i === steps.length - 1) markDone();
+  updateNav();
+  window.scrollTo(0, 0);
+}
+function changePage(d) { goTo(currentPage + d); }
+function updateNav() {
+  document.getElementById('prevBtn').disabled = currentPage === 0;
+  const nb = document.getElementById('nextBtn');
+  nb.disabled = currentPage === steps.length - 1;
+  nb.textContent = '下一步 →';
+  document.getElementById('stepInfo').textContent = `${currentPage + 1} / ${steps.length}`;
+}
+updateNav();
+
+function makeCards(arr, gridId, isExt) {
+  const grid = document.getElementById(gridId);
+  arr.forEach(v => {
+    const card = document.createElement('div');
+    card.className = 'vocab-card';
+    card.innerHTML = `<div class="vocab-inner">
+      <div class="vocab-front${isExt?' ext':''}">
+        <div class="en">${v.en}</div>
+        <button class="speak-btn" onclick="event.stopPropagation();speak('${v.en}',this)">🔊</button>
+      </div>
+      <div class="vocab-back${isExt?' ext':''}"><div class="zh">${v.zh}</div><div class="en2">${v.en}</div></div>
+    </div>`;
+    card.addEventListener('click', () => card.classList.toggle('flipped'));
+    grid.appendChild(card);
+  });
+}
+makeCards(coreVocab, 'coreGrid', false);
+makeCards(extVocab, 'extGrid', true);
+
+let allFlipped = false;
+function flipAll() {
+  allFlipped = !allFlipped;
+  document.querySelectorAll('.vocab-card').forEach(c => c.classList.toggle('flipped', allFlipped));
+}
+
+let matchSel = null, matchCorrect = 0;
+function shuffle(a) { return [...a].sort(() => Math.random() - .5); }
+function initMatch() {
+  matchSel = null; matchCorrect = 0;
+  document.getElementById('matchScore').textContent = '';
+  const sub = shuffle(coreVocab).slice(0, 5);
+  document.getElementById('matchEn').innerHTML = '';
+  document.getElementById('matchZh').innerHTML = '';
+  shuffle(sub).forEach(v => document.getElementById('matchEn').appendChild(makeMatchEl(v.en, 'en', v.en)));
+  shuffle(sub).forEach(v => document.getElementById('matchZh').appendChild(makeMatchEl(v.zh, 'zh', v.en)));
+}
+function makeMatchEl(text, side, key) {
+  const el = document.createElement('div');
+  el.className = 'match-item'; el.textContent = text;
+  el.dataset.key = key; el.dataset.side = side;
+  el.addEventListener('click', () => onMatch(el));
+  return el;
+}
+function onMatch(el) {
+  if (el.classList.contains('correct')) return;
+  if (!matchSel) { document.querySelectorAll('.match-item.selected').forEach(e=>e.classList.remove('selected')); el.classList.add('selected'); matchSel = el; return; }
+  if (matchSel === el) { el.classList.remove('selected'); matchSel = null; return; }
+  if (matchSel.dataset.side === el.dataset.side) { matchSel.classList.remove('selected'); matchSel = el; el.classList.add('selected'); return; }
+  if (matchSel.dataset.key === el.dataset.key) {
+    [matchSel, el].forEach(e => { e.classList.remove('selected'); e.classList.add('correct'); });
+    matchCorrect++;
+    document.getElementById('matchScore').textContent = matchCorrect === 5 ? '🎉 全對！太厲害了！' : `✅ 答對 ${matchCorrect} 組`;
+  } else {
+    [matchSel, el].forEach(e => { e.classList.add('wrong'); setTimeout(()=>e.classList.remove('wrong','selected'),500); });
+  }
+  matchSel = null;
+}
+initMatch();
+
+let quizQueue = [], quizIdx = 0, quizAnswered = false;
+function buildQuiz() { quizQueue = shuffle(coreVocab); quizIdx = 0; nextQuiz(); }
+function nextQuiz() {
+  if (quizIdx >= quizQueue.length) {
+    document.getElementById('quizWord').textContent = '🎉 全部完成！';
+    document.getElementById('quizChoices').innerHTML = '';
+    document.getElementById('quizStatus').textContent = '';
+    document.getElementById('nextQuizBtn').style.display = 'none';
+    document.getElementById('quizProgress').textContent = '';
+    return;
+  }
+  quizAnswered = false;
+  const cur = quizQueue[quizIdx];
+  document.getElementById('quizWord').textContent = cur.zh;
+  document.getElementById('quizStatus').textContent = '';
+  document.getElementById('nextQuizBtn').style.display = 'none';
+  document.getElementById('quizProgress').textContent = `第 ${quizIdx+1} / ${quizQueue.length} 題`;
+  const wrongs = shuffle(coreVocab.filter(v => v.en !== cur.en)).slice(0, 3);
+  const choices = shuffle([cur, ...wrongs]);
+  const cont = document.getElementById('quizChoices');
+  cont.innerHTML = '';
+  choices.forEach(c => {
+    const btn = document.createElement('button');
+    btn.className = 'quiz-btn'; btn.textContent = c.en;
+    btn.onclick = () => {
+      if (quizAnswered) return; quizAnswered = true;
+      if (c.en === cur.en) { btn.classList.add('correct'); document.getElementById('quizStatus').textContent = '✅ 答對了！'; document.getElementById('quizStatus').style.color = '#4CAF50'; }
+      else { btn.classList.add('wrong'); cont.querySelectorAll('.quiz-btn').forEach(b=>{if(b.textContent===cur.en)b.classList.add('correct');}); document.getElementById('quizStatus').textContent = `❌ 答錯了，是 "${cur.en}"`; document.getElementById('quizStatus').style.color = '#f44336'; }
+      quizIdx++; document.getElementById('nextQuizBtn').style.display = 'block';
+    };
+    cont.appendChild(btn);
+  });
+}
+buildQuiz();
+
+
+function markDone() {
+  const p = JSON.parse(localStorage.getItem('progress_g4') || '{}');
+  p[UNIT_KEY] = 'done';
+  localStorage.setItem('progress_g4', JSON.stringify(p));
+  document.querySelector('.complete-btn').style.display = 'none';
+  document.getElementById('completeDone').style.display = 'block';
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>英文課程 – Grade 4</title>
+<style>
+  :root {
+    --orange: #FF8C00;
+    --yellow: #FFD700;
+    --light:  #FFF8EC;
+    --green:  #4CAF50;
+    --locked: #BDBDBD;
+    --radius: 16px;
+    --text:   #333;
+    --muted:  #888;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: var(--light);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  header {
+    background: linear-gradient(135deg, var(--orange), var(--yellow));
+    color: white; padding: 28px 20px 22px; text-align: center;
+  }
+  header h1 { font-size: 1.8rem; font-weight: 900; }
+  header p  { font-size: 14px; opacity: .85; margin-top: 6px; }
+
+  /* PROGRESS BAR */
+  .progress-wrap {
+    max-width: 600px; margin: 20px auto 0;
+    background: rgba(255,255,255,.3); border-radius: 20px; height: 14px; overflow: hidden;
+  }
+  .progress-bar {
+    height: 100%; background: white;
+    border-radius: 20px; transition: width .6s ease;
+  }
+  .progress-label { font-size: 13px; margin-top: 6px; opacity: .9; }
+  .reset-progress-btn {
+    margin-top: 10px; background: rgba(255,255,255,.2);
+    border: 1.5px solid rgba(255,255,255,.6); border-radius: 20px;
+    color: white; font-size: 12px; font-weight: 700;
+    padding: 5px 14px; cursor: pointer; opacity: .85;
+    transition: opacity .15s;
+  }
+  .reset-progress-btn:hover { opacity: 1; background: rgba(255,255,255,.3); }
+
+  /* CONTINUE BANNER */
+  .continue-banner {
+    display: none; max-width: 640px; margin: 16px auto 0;
+    background: white; border-radius: var(--radius);
+    padding: 14px 20px;
+    box-shadow: 0 3px 12px rgba(0,0,0,.1);
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 10px;
+  }
+  .continue-banner.hidden { display: none !important; }
+  .continue-banner .cb-text { font-size: 15px; font-weight: 700; }
+  .continue-banner .cb-text span { color: var(--orange); }
+  .cb-btn {
+    background: var(--orange); color: white;
+    border: none; border-radius: 24px;
+    padding: 8px 20px; font-size: 14px; font-weight: 800;
+    cursor: pointer; text-decoration: none; display: inline-block;
+  }
+
+  /* CONTAINER */
+  .container { max-width: 640px; margin: 0 auto; padding: 20px 16px 40px; }
+
+  /* SECTION */
+  .section-label {
+    font-size: 13px; font-weight: 800; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--muted);
+    margin: 24px 0 10px;
+  }
+
+  /* CARD GRID */
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 12px; }
+
+  /* UNIT CARD */
+  .unit-card {
+    border-radius: var(--radius); padding: 16px 14px;
+    text-align: center; cursor: pointer;
+    text-decoration: none; display: block;
+    transition: transform .15s, box-shadow .15s;
+    position: relative; overflow: hidden;
+  }
+  .unit-card:hover:not(.locked) { transform: translateY(-3px); box-shadow: 0 6px 18px rgba(0,0,0,.13); }
+  .unit-card .card-num { font-size: 11px; opacity: .7; font-weight: 700; letter-spacing: 1px; }
+  .unit-card .card-icon { font-size: 2rem; margin: 6px 0 4px; }
+  .unit-card .card-title { font-size: .9rem; font-weight: 800; line-height: 1.3; }
+  .unit-card .card-sub { font-size: 11px; margin-top: 3px; opacity: .75; }
+  .unit-card .card-badge {
+    position: absolute; top: 8px; right: 8px;
+    font-size: 14px;
+  }
+
+  /* STATES */
+  .unit-card.available {
+    background: white;
+    border: 3px solid var(--orange);
+    box-shadow: 0 3px 10px rgba(255,140,0,.15);
+    color: var(--text);
+  }
+  .unit-card.available .card-num { color: var(--orange); }
+  .unit-card.in-progress {
+    background: #FFF3E0;
+    border: 3px solid var(--orange);
+    box-shadow: 0 3px 10px rgba(255,140,0,.2);
+    color: var(--text);
+  }
+  .unit-card.in-progress .card-num { color: var(--orange); }
+  .unit-card.done {
+    background: #E8F5E9;
+    border: 3px solid var(--green);
+    color: var(--text);
+  }
+  .unit-card.done .card-num { color: var(--green); }
+  .unit-card.done .card-title { color: #2E7D32; }
+  .unit-card.locked {
+    background: #F5F5F5;
+    border: 3px solid #E0E0E0;
+    color: var(--locked);
+    cursor: default;
+  }
+  .unit-card.locked .card-icon { filter: grayscale(1) opacity(.4); }
+
+  /* GAME CARD */
+  .game-flex-wrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 12px;
+  }
+  .game-card {
+    border-radius: var(--radius); padding: 16px 14px;
+    text-align: center; cursor: pointer;
+    text-decoration: none; display: block;
+    transition: transform .15s, box-shadow .15s;
+  }
+  .game-card:hover:not(.locked) { transform: translateY(-3px); box-shadow: 0 6px 18px rgba(0,0,0,.15); }
+  .game-card .card-icon { font-size: 2rem; margin-bottom: 4px; }
+  .game-card .card-title { font-size: 0.95rem; font-weight: 900; line-height: 1.2; }
+  .game-card .card-sub { font-size: 11px; margin-top: 3px; opacity: .8; }
+  .game-card.available {
+    background: linear-gradient(135deg, #FFD700, #FFA000);
+    border: none; color: white;
+    box-shadow: 0 4px 14px rgba(255,160,0,.35);
+  }
+  .game-card.done {
+    background: linear-gradient(135deg, #66BB6A, #388E3C);
+    border: none; color: white;
+    box-shadow: 0 4px 12px rgba(56,142,60,.3);
+  }
+  .game-card.locked {
+    background: #F5F5F5; border: 3px dashed #E0E0E0;
+    color: var(--locked); cursor: default;
+  }
+  .game-card.locked .card-icon { filter: grayscale(1) opacity(.35); }
+
+  /* LEGEND */
+  .legend {
+    display: flex; flex-wrap: wrap; gap: 12px;
+    margin-top: 28px; justify-content: center;
+  }
+  .legend-item { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--muted); }
+  .legend-dot { width: 14px; height: 14px; border-radius: 4px; flex-shrink: 0; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>📚 小四英文課程</h1>
+  <p>Grade 4 English · 12 Units + 6 Games</p>
+  <div class="progress-wrap">
+    <div class="progress-bar" id="progressBar" style="width:0%"></div>
+  </div>
+  <div class="progress-label" id="progressLabel">0 / 18 完成</div>
+  <button class="reset-progress-btn" onclick="resetProgress()">🔄 重設進度</button>
+</header>
+
+<div class="container">
+
+  <div class="continue-banner hidden" id="continueBanner">
+    <div class="cb-text">繼續上次：<span id="continueTitle"></span></div>
+    <a href="#" class="cb-btn" id="continueLink">繼續上課 →</a>
+  </div>
+
+  <!-- UNITS 1–4 -->
+  <div class="section-label">第一章：認識自己與家人</div>
+  <div class="card-grid" id="group1"></div>
+
+  <!-- GAMES CHAPTER 1 -->
+  <div class="game-flex-wrap">
+    <div id="game1wrap"></div>
+    <div id="game4wrap"></div>
+  </div>
+
+  <!-- UNITS 5–8 -->
+  <div class="section-label">第二章：生活與自然</div>
+  <div class="card-grid" id="group2"></div>
+
+  <!-- GAMES CHAPTER 2 -->
+  <div class="game-flex-wrap">
+    <div id="game2wrap"></div>
+    <div id="game5wrap"></div>
+  </div>
+
+  <!-- UNITS 9–12 -->
+  <div class="section-label">第三章：能力與世界</div>
+  <div class="card-grid" id="group3"></div>
+
+  <!-- GAMES CHAPTER 3 -->
+  <div class="game-flex-wrap">
+    <div id="game3wrap"></div>
+    <div id="game6wrap"></div>
+  </div>
+
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot" style="background:#FFD180;border:2px solid #FF8C00"></div> 可開始</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#FFF3E0;border:2px solid #FF8C00"></div> 進行中</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#E8F5E9;border:2px solid #4CAF50"></div> 已完成</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#F5F5F5;border:2px solid #E0E0E0"></div> 鎖定</div>
+    <div class="legend-item"><div class="legend-dot" style="background:linear-gradient(135deg,#FFD700,#FFA000)"></div> 遊戲關卡</div>
+  </div>
+
+</div>
+
+<script>
+const units = [
+  { id:'unit1',  title:"Hello, I'm Me!", sub:'自我介紹',   icon:'🌟', file:'unit1.html'  },
+  { id:'unit2',  title:'My Family',      sub:'家庭成員',   icon:'👨‍👩‍👧', file:'unit2.html'  },
+  { id:'unit3',  title:'School Days',    sub:'學校文具',   icon:'🎒', file:'unit3.html'  },
+  { id:'unit4',  title:'I Love Food',    sub:'食物飲料',   icon:'🍎', file:'unit4.html'  },
+  { id:'unit5',  title:'Animals Are Cool',sub:'動物',      icon:'🐶', file:'unit5.html'  },
+  { id:'unit6',  title:'My Day',         sub:'時間作息',   icon:'⏰', file:'unit6.html'  },
+  { id:'unit7',  title:'Colors & Clothes',sub:'顏色衣物',  icon:'👕', file:'unit7.html'  },
+  { id:'unit8',  title:"How's the Weather?",sub:'天氣季節',icon:'🌤', file:'unit8.html'  },
+  { id:'unit9',  title:'I Can Do It!',   sub:'能力嗜好',   icon:'💪', file:'unit9.html'  },
+  { id:'unit10', title:'In the City',    sub:'城市場所',   icon:'🏙', file:'unit10.html' },
+  { id:'unit11', title:'My Body',        sub:'身體部位',   icon:'🙋', file:'unit11.html' },
+  { id:'unit12', title:'Show & Tell',    sub:'綜合發表',   icon:'🎤', file:'unit12.html' },
+];
+const games = [
+  { id:'game1', title:'單字大富翁',  sub:'Unit 1–4 複習', icon:'🎲', file:'game1.html', unlockAfter:['unit1','unit2','unit3','unit4'], wrap:'game1wrap' },
+  { id:'game4', title:'限時配對',    sub:'Unit 1–4 挑戰', icon:'🧠', file:'game4.html', unlockAfter:['unit1','unit2','unit3','unit4'], wrap:'game4wrap' },
+  { id:'game2', title:'打地鼠',      sub:'Unit 5–8 複習', icon:'🔨', file:'game2.html', unlockAfter:['unit5','unit6','unit7','unit8'], wrap:'game2wrap' },
+  { id:'game5', title:'疾速氣球',    sub:'Unit 5–8 挑戰', icon:'🎈', file:'game5.html', unlockAfter:['unit5','unit6','unit7','unit8'], wrap:'game5wrap' },
+  { id:'game3', title:'句子拼圖',    sub:'Unit 9–12 複習', icon:'🧩', file:'game3.html', unlockAfter:['unit9','unit10','unit11','unit12'], wrap:'game3wrap' },
+  { id:'game6', title:'聽音拼字',    sub:'Unit 9–12 挑戰', icon:'🎧', file:'game6.html', unlockAfter:['unit9','unit10','unit11','unit12'], wrap:'game6wrap' },
+];
+
+window.addEventListener('pageshow', e => { if (e.persisted) location.reload(); });
+
+const progress = JSON.parse(localStorage.getItem('progress_g4') || '{}');
+
+function resetProgress() {
+  if (confirm('確定要清除所有進度嗎？\n（所有單元將重新鎖定）')) {
+    localStorage.removeItem('progress_g4');
+    location.reload();
+  }
+}
+const sequence = [
+  'unit1','unit2','unit3','unit4','game1','game4',
+  'unit5','unit6','unit7','unit8','game2','game5',
+  'unit9','unit10','unit11','unit12','game3','game6',
+];
+
+function getState(id) {
+  if (progress[id] === 'done') return 'done';
+  if (progress[id] === 'in_progress') return 'in-progress';
+  const idx = sequence.indexOf(id);
+  if (idx === 0) return 'available';
+  const prevId = sequence[idx - 1];
+  
+  if (prevId.startsWith('game')) {
+    // 檢查該遊戲是否已達到「可開始」狀態 (代表前一章單元已全數完成)
+    const gameObj = games.find(g => g.id === prevId);
+    const gameStatus = getGameState(gameObj);
+    return (gameStatus === 'available' || gameStatus === 'done' || gameStatus === 'in-progress') ? 'available' : 'locked';
+  }
+  
+  if (progress[prevId] === 'done') return 'available';
+  return 'locked';
+}
+
+// For games, need all units in unlockAfter done
+function getGameState(game) {
+  if (progress[game.id] === 'done') return 'done';
+  if (progress[game.id] === 'in_progress') return 'in-progress';
+  const allDone = game.unlockAfter.every(u => progress[u] === 'done');
+  return allDone ? 'available' : 'locked';
+}
+
+function makeUnitCard(u, num) {
+  const state = getState(u.id);
+  const a = document.createElement('a');
+  a.className = `unit-card ${state}`;
+  a.href = state === 'locked' ? '#' : u.file;
+  if (state === 'locked') a.onclick = e => e.preventDefault();
+  const badge = state === 'done' ? '✅' : state === 'in-progress' ? '▶️' : state === 'locked' ? '🔒' : '';
+  a.innerHTML = `
+    ${badge ? `<div class="card-badge">${badge}</div>` : ''}
+    <div class="card-num">UNIT ${num}</div>
+    <div class="card-icon">${u.icon}</div>
+    <div class="card-title">${u.title}</div>
+    <div class="card-sub">${u.sub}</div>`;
+  return a;
+}
+
+function makeGameCard(game) {
+  const state = getGameState(game);
+  const a = document.createElement('a');
+  a.className = `game-card ${state}`;
+  a.href = state === 'locked' ? '#' : game.file;
+  if (state === 'locked') a.onclick = e => e.preventDefault();
+  const badge = state === 'done' ? ' ✅' : state === 'locked' ? ' 🔒' : ' 🎮';
+  a.innerHTML = `
+    <div class="card-icon">${game.icon}${badge}</div>
+    <div class="card-title">${game.title}</div>
+    <div class="card-sub">${game.sub}</div>`;
+  return a;
+}
+
+// Populate groups
+[units.slice(0,4), units.slice(4,8), units.slice(8,12)].forEach((group, gi) => {
+  const grid = document.getElementById(`group${gi+1}`);
+  group.forEach((u, i) => grid.appendChild(makeUnitCard(u, gi*4 + i + 1)));
+});
+games.forEach((g) => {
+  const wrap = document.getElementById(g.wrap);
+  if (wrap) wrap.appendChild(makeGameCard(g));
+});
+
+// Progress bar
+const total = sequence.length;
+const done = sequence.filter(id => progress[id] === 'done').length;
+document.getElementById('progressBar').style.width = `${Math.round(done/total*100)}%`;
+document.getElementById('progressLabel').textContent = `${done} / ${total} 完成`;
+
+// Continue banner
+const inProgress = sequence.find(id => progress[id] === 'in_progress');
+const nextUp = sequence.find(id => !progress[id] || progress[id] !== 'done');
+const target = inProgress || nextUp;
+if (target) {
+  const banner = document.getElementById('continueBanner');
+  banner.classList.remove('hidden');
+  const u = units.find(x => x.id === target) || games.find(x => x.id === target);
+  if (u) {
+    document.getElementById('continueTitle').textContent = u.title;
+    document.getElementById('continueLink').href = u.file;
+  }
+}
+</script>
+</body>
+</html>

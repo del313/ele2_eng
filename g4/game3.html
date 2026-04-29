@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Game 3 – 句子拼圖</title>
+<style>
+  :root {
+    --blue: #1565C0; --lblue: #42A5F5; --light: #E3F2FD;
+    --green: #4CAF50; --orange: #FF8C00;
+    --radius: 16px; --text: #333; --muted: #888;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--light); color: var(--text); min-height: 100vh; }
+
+  header {
+    background: linear-gradient(135deg, #0D47A1, #42A5F5);
+    color: white; padding: 14px 20px; text-align: center; position: relative;
+  }
+  header h1 { font-size: 1.5rem; font-weight: 900; }
+  header p  { font-size: 12px; opacity: .8; margin-top: 3px; }
+  .home-btn {
+    position: absolute; top: 12px; left: 12px;
+    background: rgba(255,255,255,.25); border: none; border-radius: 10px;
+    color: white; font-size: 13px; font-weight: 700;
+    padding: 5px 11px; cursor: pointer; text-decoration: none; display: inline-block;
+  }
+
+  /* HUD */
+  .hud {
+    display: flex; justify-content: center; gap: 12px;
+    padding: 14px 16px; max-width: 540px; margin: 0 auto;
+  }
+  .hud-box {
+    flex: 1; background: white; border-radius: var(--radius);
+    padding: 10px; text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,.08);
+  }
+  .hud-box .h-val { font-size: 1.6rem; font-weight: 900; color: var(--blue); }
+  .hud-box .h-lbl { font-size: 11px; color: var(--muted); font-weight: 700; letter-spacing: 1px; }
+
+  /* PUZZLE AREA */
+  .container { max-width: 540px; margin: 0 auto; padding: 0 14px 30px; }
+
+  .zh-hint {
+    background: white; border-radius: var(--radius);
+    padding: 14px 18px; margin-bottom: 14px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.08);
+    text-align: center;
+  }
+  .zh-hint .zh-label { font-size: 11px; color: var(--muted); font-weight: 700; letter-spacing: 1px; margin-bottom: 6px; }
+  .zh-hint .zh-text { font-size: 1.3rem; font-weight: 900; color: #333; }
+
+  /* ANSWER ZONE */
+  .answer-zone {
+    min-height: 64px; background: white;
+    border: 3px dashed #BBDEFB; border-radius: var(--radius);
+    display: flex; flex-wrap: wrap; gap: 8px;
+    align-items: center; padding: 10px 12px;
+    margin-bottom: 14px;
+    transition: border-color .2s;
+  }
+  .answer-zone.drag-over { border-color: var(--lblue); background: #E3F2FD; }
+  .answer-zone .placeholder {
+    color: #BBDEFB; font-size: 14px; font-weight: 700; margin: auto;
+    pointer-events: none;
+  }
+
+  /* WORD BANK */
+  .bank-label { font-size: 11px; color: var(--muted); font-weight: 700; letter-spacing: 1px; margin-bottom: 8px; text-align: center; }
+  .word-bank {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    justify-content: center; min-height: 54px;
+    background: rgba(255,255,255,.5); border-radius: var(--radius);
+    padding: 10px 10px; margin-bottom: 16px;
+  }
+
+  /* TILE */
+  .tile {
+    background: white; border: 3px solid #90CAF9;
+    border-radius: 12px; padding: 9px 14px;
+    font-size: 1rem; font-weight: 800; cursor: grab;
+    user-select: none; touch-action: none;
+    transition: transform .12s, box-shadow .12s, border-color .12s;
+    box-shadow: 0 2px 6px rgba(0,0,0,.1);
+  }
+  .tile:hover { transform: translateY(-2px); box-shadow: 0 5px 14px rgba(0,0,0,.13); border-color: var(--lblue); }
+  .tile.dragging { opacity: .4; transform: scale(.95); }
+  .tile.in-answer { border-color: var(--blue); background: #E3F2FD; cursor: grab; }
+  .tile.in-answer:hover { border-color: #0D47A1; }
+
+  /* BUTTONS */
+  .btn-row { display: flex; gap: 10px; justify-content: center; margin-bottom: 14px; }
+  .check-btn {
+    background: linear-gradient(135deg, #0D47A1, #42A5F5);
+    color: white; border: none; border-radius: 24px;
+    padding: 12px 32px; font-size: 1rem; font-weight: 900;
+    cursor: pointer; box-shadow: 0 4px 12px rgba(13,71,161,.3);
+    transition: transform .15s;
+  }
+  .check-btn:hover { transform: translateY(-2px); }
+  .check-btn:disabled { opacity: .4; pointer-events: none; }
+  .clear-btn {
+    background: white; color: var(--muted);
+    border: 2px solid #CFD8DC; border-radius: 24px;
+    padding: 12px 22px; font-size: .95rem; font-weight: 800;
+    cursor: pointer;
+  }
+
+  /* FEEDBACK */
+  .feedback {
+    text-align: center; font-size: 1.1rem; font-weight: 900;
+    min-height: 28px; margin-bottom: 10px;
+  }
+  .feedback.ok  { color: var(--green); }
+  .feedback.no  { color: #f44336; }
+
+  /* CORRECT ANSWER REVEAL */
+  .answer-reveal {
+    display: none; background: #E8F5E9; border-radius: var(--radius);
+    border: 2px solid #A5D6A7; padding: 12px 16px;
+    margin-bottom: 14px; text-align: center;
+  }
+  .answer-reveal.show { display: block; }
+  .answer-reveal .ar-label { font-size: 11px; color: var(--muted); font-weight: 700; letter-spacing: 1px; margin-bottom: 4px; }
+  .answer-reveal .ar-text { font-size: 1.1rem; font-weight: 900; color: #2E7D32; }
+
+  /* NEXT BTN */
+  .next-btn {
+    display: none; width: 100%; padding: 14px;
+    background: var(--green); color: white;
+    border: none; border-radius: 24px;
+    font-size: 1rem; font-weight: 900; cursor: pointer;
+    box-shadow: 0 4px 12px rgba(76,175,80,.3);
+    transition: transform .15s;
+  }
+  .next-btn.show { display: block; }
+  .next-btn:hover { transform: translateY(-2px); }
+
+  /* OVERLAY */
+  .overlay {
+    display: none; position: fixed; inset: 0;
+    background: rgba(0,0,0,.55); z-index: 200;
+    align-items: center; justify-content: center;
+  }
+  .overlay.show { display: flex; }
+  .overlay-box {
+    background: white; border-radius: 24px;
+    padding: 32px 24px; width: 92%; max-width: 380px;
+    text-align: center; box-shadow: 0 8px 32px rgba(0,0,0,.2);
+    animation: pop-in .25s ease;
+  }
+  @keyframes pop-in { from{transform:scale(.85);opacity:0} to{transform:scale(1);opacity:1} }
+  .overlay-box .o-icon { font-size: 4rem; margin-bottom: 10px; }
+  .overlay-box h2 { font-size: 1.6rem; font-weight: 900; margin-bottom: 8px; }
+  .overlay-box p  { font-size: 15px; color: var(--muted); margin-bottom: 24px; line-height: 1.6; }
+  .o-btn {
+    display: inline-block; margin: 6px;
+    background: var(--blue); color: white;
+    border: none; border-radius: 24px;
+    padding: 12px 28px; font-size: 1rem; font-weight: 900;
+    cursor: pointer; text-decoration: none;
+    box-shadow: 0 4px 12px rgba(21,101,192,.3);
+  }
+  .o-btn.secondary { background: #607D8B; box-shadow: none; }
+
+  /* PROGRESS DOTS */
+  .dots { display: flex; gap: 8px; justify-content: center; margin-bottom: 16px; }
+  .dot {
+    width: 12px; height: 12px; border-radius: 50%;
+    background: #BBDEFB; transition: background .3s;
+  }
+  .dot.done { background: var(--green); }
+  .dot.current { background: var(--blue); }
+</style>
+</head>
+<body>
+
+<header>
+  <a href="index.html" class="home-btn">🏠 首頁</a>
+  <h1>🧩 句子拼圖</h1>
+  <p>Unit 9–12 複習闖關 · 拼出正確句子！</p>
+</header>
+
+<div class="hud">
+  <div class="hud-box">
+    <div class="h-val" id="levelVal">1 / 10</div>
+    <div class="h-lbl">LEVEL</div>
+  </div>
+  <div class="hud-box">
+    <div class="h-val" id="scoreVal">0</div>
+    <div class="h-lbl">SCORE</div>
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="dots" id="dots"></div>
+
+  <div class="zh-hint">
+    <div class="zh-label">中文提示</div>
+    <div class="zh-text" id="zhHint"></div>
+  </div>
+
+  <div class="answer-zone" id="answerZone">
+    <span class="placeholder">把單字拖到這裡排列 →</span>
+  </div>
+
+  <div class="bank-label">單字庫 — 點擊或拖曳單字</div>
+  <div class="word-bank" id="wordBank"></div>
+
+  <div class="feedback" id="feedback"></div>
+  <div class="answer-reveal" id="answerReveal">
+    <div class="ar-label">正確答案</div>
+    <div class="ar-text" id="revealText"></div>
+  </div>
+
+  <div class="btn-row">
+    <button class="clear-btn" onclick="clearAnswer()">清除</button>
+    <button class="check-btn" id="checkBtn" onclick="checkAnswer()">確認答案 ✓</button>
+  </div>
+
+  <button class="next-btn" id="nextBtn" onclick="nextLevel()">下一題 →</button>
+</div>
+
+<!-- START OVERLAY -->
+<div class="overlay show" id="startOverlay">
+  <div class="overlay-box">
+    <div class="o-icon">🧩</div>
+    <h2>句子拼圖！</h2>
+    <p>看中文提示<br>把打亂的英文單字拼成正確的句子<br><br>共 <strong>10 關</strong>，答對得 10 分<br>答錯仍可繼續，但不得分</p>
+    <button class="o-btn" onclick="startGame()">開始挑戰！</button>
+  </div>
+</div>
+
+<!-- WIN OVERLAY -->
+<div class="overlay" id="winOverlay">
+  <div class="overlay-box">
+    <div class="o-icon" id="winIcon"></div>
+    <h2 id="winTitle"></h2>
+    <p id="winMsg"></p>
+    <button class="o-btn" onclick="restartGame()">🔄 再玩一次</button>
+    <a class="o-btn secondary" href="index.html">🏠 回首頁</a>
+  </div>
+</div>
+
+<script>
+const levels = [
+  // Unit 9 — I Can Do It!
+  { zh: '我會游泳。', answer: ['I','can','swim','.'] },
+  { zh: '我不會煮飯。', answer: ['I','can\'t','cook','.'] },
+  { zh: '你會跳舞嗎？', answer: ['Can','you','dance','?'] },
+  // Unit 10 — In the City
+  { zh: '我去公園。', answer: ['I','go','to','the','park','.'] },
+  { zh: '我們去圖書館吧！', answer: ['Let\'s','go','to','the','library','!'] },
+  { zh: '商店在附近。', answer: ['The','store','is','near','here','.'] },
+  // Unit 11 — My Body
+  { zh: '我有兩隻眼睛。', answer: ['I','have','two','eyes','.'] },
+  { zh: '摸摸你的鼻子！', answer: ['Touch','your','nose','!'] },
+  { zh: '我的頭好痛。', answer: ['My','head','hurts','.'] },
+  // Unit 12 — Show & Tell
+  { zh: '我今天感到很快樂。', answer: ['I','feel','happy','today','.'] },
+];
+
+// Decoys pool — common small words to add as distractors
+const decoys = ['am','are','the','an','a','is','not','do','does','her','him','we','they','was'];
+
+let currentLevel = 0;
+let score = 0;
+let answered = false;
+let gotCorrect = false;
+let answerWords = []; // current words in answer zone (in order)
+
+function shuffle(a) { return [...a].sort(() => Math.random() - .5); }
+
+function startGame() {
+  document.getElementById('startOverlay').classList.remove('show');
+  buildDots();
+  loadLevel();
+}
+
+function buildDots() {
+  const cont = document.getElementById('dots');
+  cont.innerHTML = '';
+  for (let i = 0; i < levels.length; i++) {
+    const d = document.createElement('div');
+    d.className = 'dot' + (i === 0 ? ' current' : '');
+    d.id = `dot-${i}`;
+    cont.appendChild(d);
+  }
+}
+
+function updateDots() {
+  for (let i = 0; i < levels.length; i++) {
+    const d = document.getElementById(`dot-${i}`);
+    if (!d) continue;
+    d.className = 'dot' + (i < currentLevel ? ' done' : i === currentLevel ? ' current' : '');
+  }
+}
+
+function loadLevel() {
+  answered = false;
+  gotCorrect = false;
+  answerWords = [];
+  const lv = levels[currentLevel];
+
+  document.getElementById('levelVal').textContent = `${currentLevel + 1} / ${levels.length}`;
+  document.getElementById('zhHint').textContent = lv.zh;
+  document.getElementById('feedback').textContent = '';
+  document.getElementById('feedback').className = 'feedback';
+  document.getElementById('answerReveal').classList.remove('show');
+  document.getElementById('checkBtn').disabled = false;
+  document.getElementById('nextBtn').className = 'next-btn';
+
+  // Build word set: answer + distractors (2-3 extra)
+  const answerSet = [...lv.answer];
+  const extra = shuffle(decoys.filter(d => !answerSet.includes(d))).slice(0, 2);
+  const allWords = shuffle([...answerSet, ...extra]);
+
+  renderAnswerZone();
+  renderBank(allWords);
+  updateDots();
+}
+
+function renderAnswerZone() {
+  const zone = document.getElementById('answerZone');
+  zone.innerHTML = '';
+  if (answerWords.length === 0) {
+    zone.innerHTML = '<span class="placeholder">把單字拖到這裡排列 →</span>';
+    return;
+  }
+  answerWords.forEach((word, idx) => {
+    zone.appendChild(makeTile(word, 'answer', idx));
+  });
+}
+
+function renderBank(words) {
+  const bank = document.getElementById('wordBank');
+  bank.innerHTML = '';
+  // Only show words not yet in answer zone
+  const usedCounts = {};
+  answerWords.forEach(w => { usedCounts[w] = (usedCounts[w] || 0) + 1; });
+  const remaining = [...words];
+  const toShow = [];
+  const tempCounts = {};
+  remaining.forEach(w => {
+    const used = usedCounts[w] || 0;
+    const shown = tempCounts[w] || 0;
+    if (shown < (words.filter(x => x === w).length - used) || used === 0) {
+      toShow.push(w);
+      tempCounts[w] = (tempCounts[w] || 0) + 1;
+    }
+  });
+  // Simpler: just store all bank words and filter
+  bank._allWords = words;
+  refreshBank();
+}
+
+function refreshBank() {
+  const bank = document.getElementById('wordBank');
+  const allWords = bank._allWords || [];
+  // Count usage in answer zone
+  const usedCount = {};
+  answerWords.forEach(w => { usedCount[w] = (usedCount[w] || 0) + 1; });
+  // Show each word from allWords that hasn't been fully used
+  const shown = {};
+  bank.innerHTML = '';
+  allWords.forEach(w => {
+    shown[w] = (shown[w] || 0);
+    const used = usedCount[w] || 0;
+    const totalInAll = allWords.filter(x => x === w).length;
+    if (shown[w] < totalInAll - used) {
+      bank.appendChild(makeTile(w, 'bank', shown[w]));
+      shown[w]++;
+    } else {
+      shown[w]++;
+    }
+  });
+}
+
+function makeTile(word, source, idx) {
+  const t = document.createElement('div');
+  t.className = 'tile' + (source === 'answer' ? ' in-answer' : '');
+  t.textContent = word;
+  t.draggable = true;
+  t.dataset.word = word;
+  t.dataset.source = source;
+  t.dataset.idx = idx;
+
+  // Click to move
+  t.addEventListener('click', () => {
+    if (answered) return;
+    if (source === 'bank') {
+      answerWords.push(word);
+    } else {
+      answerWords.splice(idx, 1);
+    }
+    renderAnswerZone();
+    refreshBank();
+  });
+
+  // Drag
+  t.addEventListener('dragstart', e => {
+    e.dataTransfer.setData('text/plain', JSON.stringify({ word, source, idx }));
+    t.classList.add('dragging');
+  });
+  t.addEventListener('dragend', () => t.classList.remove('dragging'));
+  return t;
+}
+
+// Drop on answer zone — append
+const answerZone = document.getElementById('answerZone');
+answerZone.addEventListener('dragover', e => { e.preventDefault(); answerZone.classList.add('drag-over'); });
+answerZone.addEventListener('dragleave', () => answerZone.classList.remove('drag-over'));
+answerZone.addEventListener('drop', e => {
+  e.preventDefault();
+  answerZone.classList.remove('drag-over');
+  if (answered) return;
+  const { word, source, idx } = JSON.parse(e.dataTransfer.getData('text/plain'));
+  if (source === 'bank') {
+    answerWords.push(word);
+  }
+  // if from answer zone it's a reorder — just leave as is (click handles removal)
+  renderAnswerZone();
+  refreshBank();
+});
+
+// Drop on word bank — remove from answer
+const wordBank = document.getElementById('wordBank');
+wordBank.addEventListener('dragover', e => e.preventDefault());
+wordBank.addEventListener('drop', e => {
+  e.preventDefault();
+  if (answered) return;
+  const { word, source, idx } = JSON.parse(e.dataTransfer.getData('text/plain'));
+  if (source === 'answer') {
+    answerWords.splice(idx, 1);
+    renderAnswerZone();
+    refreshBank();
+  }
+});
+
+function clearAnswer() {
+  if (gotCorrect) return; // lock after correct — move on with next button
+  answerWords = [];
+  if (answered) {
+    // allow retry after wrong answer
+    answered = false;
+    document.getElementById('checkBtn').disabled = false;
+    document.getElementById('nextBtn').className = 'next-btn';
+    document.getElementById('answerReveal').classList.remove('show');
+    document.getElementById('feedback').textContent = '';
+    document.getElementById('feedback').className = 'feedback';
+  }
+  renderAnswerZone();
+  refreshBank();
+}
+
+function checkAnswer() {
+  if (answered) return;
+  if (answerWords.length === 0) {
+    showFeedback('請先排列單字！', false);
+    return;
+  }
+  answered = true;
+  document.getElementById('checkBtn').disabled = true;
+
+  const correct = levels[currentLevel].answer;
+  const userStr = answerWords.join(' ');
+  const correctStr = correct.join(' ');
+  const isCorrect = userStr === correctStr;
+
+  if (isCorrect) {
+    gotCorrect = true;
+    score += 10;
+    document.getElementById('scoreVal').textContent = score;
+    showFeedback('✅ 答對了！太棒了！', true);
+  } else {
+    showFeedback('❌ 不太對，可以清除後再試！', false);
+    document.getElementById('revealText').textContent = correctStr;
+    document.getElementById('answerReveal').classList.add('show');
+  }
+
+  const isLast = currentLevel === levels.length - 1;
+  const nextBtn = document.getElementById('nextBtn');
+  nextBtn.textContent = isLast ? '查看結果 →' : '下一題 →';
+  nextBtn.className = 'next-btn show';
+}
+
+function showFeedback(msg, ok) {
+  const el = document.getElementById('feedback');
+  el.textContent = msg;
+  el.className = 'feedback ' + (ok ? 'ok' : 'no');
+}
+
+function nextLevel() {
+  currentLevel++;
+  if (currentLevel >= levels.length) {
+    showWin();
+    return;
+  }
+  loadLevel();
+}
+
+function showWin() {
+  // mark done
+  const prog = JSON.parse(localStorage.getItem('progress_g4') || '{}');
+  prog['game3'] = 'done';
+  localStorage.setItem('progress_g4', JSON.stringify(prog));
+
+  const icon = score >= 80 ? '🏆' : score >= 50 ? '🎉' : '💪';
+  const title = score >= 80 ? '完美！' : score >= 50 ? '很棒！' : '繼續加油！';
+  document.getElementById('winIcon').textContent = icon;
+  document.getElementById('winTitle').textContent = title;
+  document.getElementById('winMsg').textContent = `你得了 ${score} / ${levels.length * 10} 分！\n恭喜完成全部 12 單元課程！🎊`;
+  document.getElementById('winOverlay').classList.add('show');
+
+  // mark all dots done
+  for (let i = 0; i < levels.length; i++) {
+    const d = document.getElementById(`dot-${i}`);
+    if (d) d.className = 'dot done';
+  }
+}
+
+function restartGame() {
+  currentLevel = 0;
+  score = 0;
+  document.getElementById('scoreVal').textContent = 0;
+  document.getElementById('winOverlay').classList.remove('show');
+  buildDots();
+  loadLevel();
+}
+
+// init progress
+(function() {
+  const prog = JSON.parse(localStorage.getItem('progress_g4') || '{}');
+  if (prog['game3'] !== 'done') { prog['game3'] = 'in_progress'; localStorage.setItem('progress_g4', JSON.stringify(prog)); }
+})();
+</script>
+</body>
+</html>

@@ -3,219 +3,164 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>小二英文課程 – Grade 2</title>
-<link rel="stylesheet" href="style-g2.css">
+<title>英文學習入口網 - English Learning Portal</title>
 <style>
-  /* 讓 Unit 與 Game 的 Grid 結構一致且對齊 */
-  .card-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 強制 3 列 */
-    gap: 16px;
-    margin-bottom: 16px;
-  }
-
-  .game-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); /* 強制 2 列 */
-    gap: 16px;
-  }
-
-  /* 覆蓋 style-g2.css 中的 game-card 樣式，使其適合網格顯示 */
-  .game-card {
-    grid-column: auto !important; /* 取消佔據整列 */
-    margin: 0 !important; /* 取消邊距 */
-    flex-direction: column !important; /* 改為垂直排列以節省空間 */
-    padding: 15px !important;
-    text-align: center !important;
+  :root {
+    --primary: #4A90E2;
+    --secondary: #50E3C2;
+    --accent: #F5A623;
+    --bg: #F8F9FA;
+    --card-bg: #FFFFFF;
+    --text: #333333;
+    --muted: #666666;
   }
   
-  .game-card .card-icon { margin-bottom: 5px; }
-  .game-card .content { text-align: center !important; }
-  .game-card .card-title { font-size: 1.1rem !important; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  
+  body {
+    font-family: 'Segoe UI', "Microsoft JhengHei", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+  }
 
-  /* 行動裝置適應 */
+  header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  header h1 {
+    font-size: 2.5rem;
+    color: var(--primary);
+    margin-bottom: 10px;
+    font-weight: 900;
+  }
+
+  header p {
+    font-size: 1.1rem;
+    color: var(--muted);
+  }
+
+  .portal-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    max-width: 1000px;
+    width: 100%;
+  }
+
+  .portal-card {
+    background: var(--card-bg);
+    border-radius: 20px;
+    padding: 30px;
+    text-align: center;
+    text-decoration: none;
+    color: inherit;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 3px solid transparent;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 320px;
+  }
+
+  .portal-card:hover:not(.locked) {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(74,144,226,0.15);
+    border-color: var(--primary);
+  }
+
+  .card-icon {
+    font-size: 4rem;
+    margin-bottom: 20px;
+  }
+
+  .card-title {
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin-bottom: 10px;
+    color: var(--primary);
+  }
+
+  .card-desc {
+    font-size: 1rem;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  .portal-card.g2 { border-top: 8px solid #FF8C00; }
+  .portal-card.g4 { border-top: 8px solid #F5A623; }
+  .portal-card.kinder { border-top: 8px solid #50E3C2; }
+
+  .portal-card.locked {
+    opacity: 0.7;
+    cursor: not-allowed;
+    background: #eeeeee;
+  }
+
+  .locked-badge {
+    display: inline-block;
+    background: #999;
+    color: white;
+    padding: 4px 12px;
+    border-radius: 10px;
+    font-size: 0.8rem;
+    margin-top: 10px;
+    font-weight: bold;
+  }
+
+  .footer {
+    margin-top: auto;
+    padding-top: 40px;
+    font-size: 0.9rem;
+    color: var(--muted);
+  }
+
   @media (max-width: 600px) {
-    .card-grid, .game-grid {
-      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-    }
+    header h1 { font-size: 1.8rem; }
+    .portal-grid { grid-template-columns: 1fr; }
   }
 </style>
 </head>
 <body>
 
 <header>
-  <h1>🌈 小二英文冒險</h1>
-  <p>Grade 2 English · 12 Units + 8 Games</p>
-  <div class="progress-wrap">
-    <div class="progress-bar" id="progressBar" style="width:0%"></div>
-  </div>
-  <div class="progress-label" id="progressLabel">0 / 20 完成</div>
-  <button class="reset-progress-btn" onclick="resetProgress()">🔄 重設學習進度</button>
+  <h1>📚 英文學習樂園</h1>
+  <p>選擇適合您的學習階段，開始冒險吧！</p>
 </header>
 
-<div class="container">
-
-  <div class="continue-banner hidden" id="continueBanner">
-    <div class="cb-text" style="font-size: 1.1rem;">繼續挑戰：<span id="continueTitle" style="color:#F06292"></span></div>
-    <a href="#" class="cb-btn" id="continueLink" style="background:#F06292; color:white; padding:10px 20px; border-radius:30px; text-decoration:none; font-weight:800; margin-left:15px;">GO! →</a>
+<div class="portal-grid">
+  <!-- Kindergarten -->
+  <div class="portal-card kinder locked">
+    <div class="card-icon">🐣</div>
+    <div class="card-title">幼兒園英文</div>
+    <div class="card-desc">建立英文好感度<br>聽力與遊戲啟蒙</div>
+    <div class="locked-badge">敬請期待</div>
   </div>
 
-  <div class="section-label">第一階段：基礎單字 (Unit 1-3)</div>
-  <div class="card-grid" id="group1"></div>
-  <div class="game-grid" id="games-p1"></div>
+  <!-- Grade 2 -->
+  <a href="g2/index.html" class="portal-card g2">
+    <div class="card-icon">🎨</div>
+    <div class="card-title">小二英文冒險</div>
+    <div class="card-desc">基礎單字與句型練習<br>適合 7-8 歲兒童</div>
+  </a>
 
-  <div class="section-label" style="margin-top:40px;">第二階段：我與身體 (Unit 4-6)</div>
-  <div class="card-grid" id="group2"></div>
-  <div class="game-grid" id="games-p2"></div>
-
-  <div class="section-label" style="margin-top:40px;">第三階段：色彩自然 (Unit 7-9)</div>
-  <div class="card-grid" id="group3"></div>
-  <div class="game-grid" id="games-p3"></div>
-
-  <div class="section-label" style="margin-top:40px;">第四階段：美味生活 (Unit 10-12)</div>
-  <div class="card-grid" id="group4"></div>
-  <div class="game-grid" id="games-p4"></div>
-
-  <div class="legend">
-    <div class="legend-item"><div class="legend-dot" style="background:#FFF;border:3px solid #4FC3F7"></div> 準備好</div>
-    <div class="legend-item"><div class="legend-dot" style="background:#FFFDE7;border:3px solid #FFB74D"></div> 進行中</div>
-    <div class="legend-item"><div class="legend-dot" style="background:#F1F8E9;border:3px solid #81C784"></div> 已完成</div>
-    <div class="legend-item"><div class="legend-dot" style="background:#ECEFF1;border:3px solid #D1D9E0"></div> 鎖定中</div>
-  </div>
-
+  <!-- Grade 4 -->
+  <a href="g4/index.html" class="portal-card g4">
+    <div class="card-icon">🚀</div>
+    <div class="card-title">小四英文課程</div>
+    <div class="card-desc">進階溝通與情境對話<br>適合 9-10 歲兒童</div>
+  </a>
 </div>
 
-<script>
-const units = [
-  { id:'unit1',  title:'字母與發音', sub:'Letters & Sounds', icon:'🍎', file:'unit1.html'  },
-  { id:'unit2',  title:'數字 1-10', sub:'Numbers 1-10', icon:'🔢', file:'unit2.html'  },
-  { id:'unit3',  title:'My School',         sub:'我的學校',   icon:'🏫', file:'unit3.html'  },
-  { id:'unit4',  title:'My Body',           sub:'我的身體',   icon:'👋', file:'unit4.html'  },
-  { id:'unit5',  title:'My Family',         sub:'我的家人',   icon:'👨‍👩‍👧‍👦', file:'unit5.html'  },
-  { id:'unit6',  title:'Feelings',          sub:'我的心情',   icon:'😊', file:'unit6.html'  },
-  { id:'unit7',  title:'Colors & Animals',  sub:'色彩與動物', icon:'🐘', file:'unit7.html'  },
-  { id:'unit8',  title:'Weather & Clothes', sub:'天氣衣物',   icon:'☀️', file:'unit8.html'  },
-  { id:'unit9',  title:'I Can Do It!',      sub:'我會做的事', icon:'🏃', file:'unit9.html'  },
-  { id:'unit10', title:'Yummy Food',        sub:'好吃的食物', icon:'🍕', file:'unit10.html' },
-  { id:'unit11', title:'In the House',      sub:'我的家',     icon:'🏠', file:'unit11.html' },
-  { id:'unit12', title:'The Park',          sub:'公園走走',   icon:'🌳', file:'unit12.html' },
-];
+<div class="footer">
+  &copy; 2026 英文學習樂園. All rights reserved.
+</div>
 
-const games = [
-  { id:'game1', title:'Memory Match', sub:'單字翻牌大賽', icon:'🃏', file:'game1.html', phase: 1 },
-  { id:'game2', title:'Bubble Pop',   sub:'泡泡射擊手',   icon:'🫧', file:'game2.html', phase: 1 },
-  { id:'game3', title:'Feed Monster', sub:'餓餓小怪獸',   icon:'👾', file:'game3.html', phase: 2 },
-  { id:'game4', title:'Adventure Path',sub:'森林大冒險',   icon:'🏃‍♂️', file:'game4.html', phase: 2 },
-  { id:'game5', title:'Word Scramble', sub:'拼字小天才',  icon:'✨', file:'game5.html', phase: 3 },
-  { id:'game6', title:'Flash Match',  sub:'快速配對挑戰',  icon:'⚡', file:'game6.html', phase: 3 },
-  { id:'game7', title:'Word Catcher', sub:'單字接接樂',    icon:'🧺', file:'game7.html', phase: 4 },
-  { id:'game8', title:'Final Challenge',sub:'終極大考驗',  icon:'👑', file:'game8.html', phase: 4 },
-];
-
-const unitSequence = units.map(u => u.id);
-const PROGRESS_KEY = 'progress_g2';
-const progress = JSON.parse(localStorage.getItem(PROGRESS_KEY) || '{}');
-
-window.addEventListener('pageshow', e => { if (e.persisted) location.reload(); });
-
-function resetProgress() {
-  if (confirm('確定要清除所有進度嗎？')) {
-    localStorage.removeItem(PROGRESS_KEY);
-    location.reload();
-  }
-}
-
-function getState(id) {
-  if (progress[id] === 'done') return 'done';
-  if (progress[id] === 'in_progress') return 'in-progress';
-  
-  if (id.startsWith('unit')) {
-    const idx = unitSequence.indexOf(id);
-    if (idx === 0) return 'available';
-    const prev = unitSequence[idx - 1];
-    if (progress[prev] === 'done') return 'available';
-    return 'locked';
-  } else if (id.startsWith('game')) {
-    const game = games.find(g => g.id === id);
-    if (game.phase === 1) return progress['unit3'] === 'done' ? 'available' : 'locked';
-    if (game.phase === 2) return progress['unit6'] === 'done' ? 'available' : 'locked';
-    if (game.phase === 3) return progress['unit9'] === 'done' ? 'available' : 'locked';
-    if (game.phase === 4) return progress['unit12'] === 'done' ? 'available' : 'locked';
-  }
-  return 'locked';
-}
-
-function makeUnitCard(u, num) {
-  const state = getState(u.id);
-  const a = document.createElement('a');
-  a.className = `unit-card ${state}`;
-  a.href = state === 'locked' ? '#' : u.file;
-  if (state === 'locked') a.onclick = e => e.preventDefault();
-  
-  const badge = state === 'done' ? '⭐' : state === 'in-progress' ? '▶️' : state === 'locked' ? '🔒' : '';
-  a.innerHTML = `
-    ${badge ? `<div class="card-badge">${badge}</div>` : ''}
-    <div class="card-num">UNIT ${num}</div>
-    <div class="card-icon">${u.icon}</div>
-    <div class="card-title">${u.title}</div>
-    <div class="card-sub">${u.sub}</div>`;
-  return a;
-}
-
-function makeGameCard(game) {
-  const state = getState(game.id);
-  const a = document.createElement('a');
-  a.className = `game-card ${state}`;
-  a.href = state === 'locked' ? '#' : game.file;
-  if (state === 'locked') a.onclick = e => e.preventDefault();
-  
-  const badge = state === 'done' ? ' 🏆' : state === 'locked' ? ' 🔒' : ' 🎁';
-  a.innerHTML = `
-    <div class="card-icon">${game.icon}</div>
-    <div class="content">
-      <div class="card-title">${game.title}${badge}</div>
-      <div class="card-sub">${game.sub}</div>
-    </div>`;
-  return a;
-}
-
-// 渲染單元 (3個一組)
-[units.slice(0,3), units.slice(3,6), units.slice(6,9), units.slice(9,12)].forEach((group, gi) => {
-  const grid = document.getElementById(`group${gi+1}`);
-  if (grid) {
-    group.forEach((u, i) => grid.appendChild(makeUnitCard(u, gi*3 + i + 1)));
-  }
-});
-
-// 渲染遊戲
-games.forEach((g) => {
-  const area = document.getElementById(`games-p${g.phase}`);
-  if (area) area.appendChild(makeGameCard(g));
-});
-
-// 進度條
-const sequence = [...unitSequence, ...games.map(g => g.id)];
-const total = sequence.length;
-const done = sequence.filter(id => progress[id] === 'done').length;
-document.getElementById('progressBar').style.width = `${Math.round(done/total*100)}%`;
-document.getElementById('progressLabel').textContent = `${done} / ${total} 完成`;
-
-// 繼續挑戰
-const targetUnit = unitSequence.find(id => progress[id] !== 'done');
-const target = targetUnit || games.map(g => g.id).find(id => progress[id] !== 'done');
-if (target) {
-  const state = getState(target);
-  if (state !== 'locked') {
-    const banner = document.getElementById('continueBanner');
-    banner.classList.remove('hidden');
-    banner.style.display = 'flex';
-    const u = units.find(x => x.id === target) || games.find(x => x.id === target);
-    if (u) {
-      document.getElementById('continueTitle').textContent = u.title;
-      document.getElementById('continueLink').href = u.file;
-    }
-  }
-}
-</script>
 </body>
 </html>

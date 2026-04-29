@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Game 6 – 聽音拼字大挑戰</title>
+<style>
+  :root {
+    --blue: #1565C0; --lblue: #42A5F5; --light: #E3F2FD;
+    --green: #4CAF50; --red: #f44336; --radius: 16px;
+    --text: #333; --muted: #888;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--light); color: var(--text); min-height: 100vh; }
+
+  header {
+    background: linear-gradient(135deg, #0D47A1, #42A5F5);
+    color: white; padding: 14px 20px; text-align: center; position: relative;
+  }
+  header h1 { font-size: 1.5rem; font-weight: 900; }
+  .home-btn {
+    position: absolute; top: 12px; left: 12px;
+    background: rgba(255,255,255,.25); border: none; border-radius: 10px;
+    color: white; font-size: 13px; font-weight: 700;
+    padding: 5px 11px; cursor: pointer; text-decoration: none;
+  }
+
+  /* HUD */
+  .hud {
+    display: flex; justify-content: center; gap: 12px;
+    padding: 14px 16px; max-width: 500px; margin: 0 auto;
+  }
+  .hud-box {
+    flex: 1; background: white; border-radius: var(--radius);
+    padding: 10px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,.08);
+  }
+  .hud-box .h-val { font-size: 1.6rem; font-weight: 900; color: var(--blue); }
+  .hud-box .h-lbl { font-size: 11px; color: var(--muted); font-weight: 700; text-transform: uppercase; }
+
+  /* GAME CONTAINER */
+  .container { max-width: 500px; margin: 0 auto; padding: 0 16px 30px; text-align: center; }
+  
+  .audio-zone {
+    background: white; border-radius: 50%; width: 100px; height: 100px;
+    margin: 20px auto; display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1); border: 4px solid var(--blue);
+    cursor: pointer; transition: transform 0.1s;
+  }
+  .audio-zone:active { transform: scale(0.9); }
+  .audio-zone .speaker-icon { font-size: 3rem; color: var(--blue); }
+
+  .spell-area {
+    min-height: 60px; background: white; border: 3px solid var(--lblue);
+    border-radius: var(--radius); display: flex; flex-wrap: wrap;
+    gap: 8px; align-items: center; justify-content: center;
+    padding: 10px; margin-bottom: 20px;
+  }
+  .spell-letter {
+    width: 40px; height: 45px; background: var(--blue); color: white;
+    border-radius: 8px; display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem; font-weight: 900; animation: pop-letter 0.2s;
+  }
+  @keyframes pop-letter { from{transform:scale(0)} to{transform:scale(1)} }
+
+  .letter-bank {
+    display: flex; flex-wrap: wrap; gap: 8px; justify-content: center;
+    margin-bottom: 30px;
+  }
+  .letter-btn {
+    width: 45px; height: 45px; background: white; border: 2px solid var(--lblue);
+    border-radius: 10px; display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem; font-weight: 800; cursor: pointer; transition: all 0.1s;
+    user-select: none;
+  }
+  .letter-btn:active { background: var(--lblue); color: white; }
+  .letter-btn.wrong { background: var(--red); color: white; border-color: var(--red); animation: shake 0.3s; }
+  @keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-4px)} 75%{transform:translateX(4px)} }
+
+  .feedback { font-size: 1.2rem; font-weight: 800; min-height: 30px; margin-bottom: 10px; }
+  .feedback.ok { color: var(--green); }
+  .feedback.no { color: var(--red); }
+
+  /* OVERLAYS */
+  .overlay {
+    display: none; position: fixed; inset: 0;
+    background: rgba(0,0,0,.7); z-index: 200;
+    align-items: center; justify-content: center; padding: 20px;
+  }
+  .overlay.show { display: flex; }
+  .overlay-box {
+    background: white; border-radius: 24px;
+    padding: 30px 20px; width: 100%; max-width: 360px;
+    text-align: center;
+  }
+  .o-icon { font-size: 4rem; margin-bottom: 10px; }
+  .o-btn {
+    display: block; width: 100%; margin: 10px 0;
+    padding: 14px; background: var(--blue); color: white;
+    border: none; border-radius: 20px; font-size: 1.1rem; font-weight: 900;
+    cursor: pointer; text-decoration: none;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <a href="index.html" class="home-btn">🏠</a>
+  <h1>🎧 聽音拼字大挑戰</h1>
+</header>
+
+<div class="hud">
+  <div class="hud-box">
+    <div class="h-val" id="levelVal">1 / 10</div>
+    <div class="h-lbl">關卡</div>
+  </div>
+  <div class="hud-box">
+    <div class="h-val" id="scoreVal">0</div>
+    <div class="h-lbl">得分</div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="feedback" id="feedback"></div>
+
+  <div class="audio-zone" onclick="playCurrentWord()">
+    <div class="speaker-icon">🔊</div>
+  </div>
+  <p style="color:var(--muted); font-size:12px; margin-bottom:15px;">點擊喇叭聽取發音</p>
+
+  <div class="spell-area" id="spellArea"></div>
+
+  <div class="letter-bank" id="letterBank"></div>
+
+  <div style="display:flex; gap:10px; justify-content:center;">
+    <button id="resetBtn" class="o-btn" style="background:#607D8B; flex:1;" onclick="resetWord()">❌ 清除重拼</button>
+    <button id="nextBtn" class="o-btn" style="background:var(--green); flex:1; display:none;" onclick="nextLevel()">➡️ 下一題</button>
+  </div>
+</div>
+
+<!-- START OVERLAY -->
+<div class="overlay show" id="startOverlay">
+  <div class="overlay-box">
+    <div class="o-icon">👂</div>
+    <h2>純聽力拼字！</h2>
+    <p>沒有中文提示，挑戰你的耳朵！<br><br>⚠️ <strong>聽取發音後拼出單字。</strong><br>⚠️ <strong>字母庫有干擾字母！</strong></p>
+    <button class="o-btn" onclick="startGame()">開始挑戰！</button>
+  </div>
+</div>
+
+<!-- WIN OVERLAY -->
+<div class="overlay" id="winOverlay">
+  <div class="overlay-box">
+    <div class="o-icon">🏆</div>
+    <h2>挑戰成功！</h2>
+    <p id="winMsg"></p>
+    <button class="o-btn" onclick="location.reload()">🔄 再玩一次</button>
+    <a class="o-btn" style="background:#eee; color:#555;" href="index.html">🏠 回首頁</a>
+  </div>
+</div>
+
+<script>
+const words = [
+  'hospital', 'library', 'museum', 'restaurant', 
+  'shoulder', 'stomach', 'finger', 'pretty', 
+  'strong', 'happy'
+];
+
+let currentIdx = 0;
+let currentWord = '';
+let spelled = '';
+let score = 0;
+let gameRunning = false;
+
+function shuffle(a) { return a.sort(() => Math.random() - 0.5); }
+
+function startGame() {
+  document.getElementById('startOverlay').classList.remove('show');
+  shuffle(words); // 每次開始時打亂單字順序
+  gameRunning = true;
+  loadWord();
+}
+
+function loadWord() {
+  if (currentIdx >= words.length) { win(); return; }
+  currentWord = words[currentIdx];
+  spelled = '';
+  document.getElementById('levelVal').textContent = `${currentIdx + 1} / ${words.length}`;
+  document.getElementById('feedback').textContent = '';
+  renderSpellArea();
+  renderBank();
+  playCurrentWord();
+}
+
+function renderSpellArea() {
+  const area = document.getElementById('spellArea');
+  area.innerHTML = '';
+  for (let i = 0; i < currentWord.length; i++) {
+    const s = document.createElement('div');
+    s.className = 'spell-letter';
+    if (i < spelled.length) {
+      s.textContent = spelled[i];
+    } else {
+      s.textContent = '';
+      s.style.background = 'transparent';
+      s.style.border = '2px dashed var(--lblue)';
+    }
+    area.appendChild(s);
+  }
+}
+
+function renderBank() {
+  const bank = document.getElementById('letterBank');
+  bank.innerHTML = '';
+  const letters = currentWord.split('');
+  // Add 3 random decoy letters
+  const decoys = 'abcdefghijklmnopqrstuvwxyz'.split('').filter(l => !letters.includes(l));
+  const bankLetters = shuffle([...letters, ...shuffle(decoys).slice(0, 3)]);
+  
+  bankLetters.forEach(l => {
+    const btn = document.createElement('div');
+    btn.className = 'letter-btn';
+    btn.textContent = l;
+    btn.onclick = () => handleLetterClick(l, btn);
+    bank.appendChild(btn);
+  });
+}
+
+function handleLetterClick(letter, btn) {
+  if (!gameRunning) return;
+  const target = currentWord[spelled.length];
+  if (letter === target) {
+    spelled += letter;
+    renderSpellArea();
+    document.getElementById('feedback').textContent = '';
+    // Correct letter remains visible but disable multiple clicks if needed, 
+    // though renderBank is re-called only on loadWord, let's keep it simple.
+    if (spelled === currentWord) {
+      success();
+    }
+  } else {
+    btn.classList.add('wrong');
+    document.getElementById('feedback').textContent = '❌ 再試一次！';
+    document.getElementById('feedback').className = 'feedback no';
+    setTimeout(() => btn.classList.remove('wrong'), 500);
+  }
+}
+
+function success() {
+  score += 10;
+  document.getElementById('scoreVal').textContent = score;
+  document.getElementById('feedback').textContent = '✅ 太棒了！';
+  document.getElementById('feedback').className = 'feedback ok';
+  gameRunning = false;
+  document.getElementById('nextBtn').style.display = 'block';
+  document.getElementById('resetBtn').style.display = 'none';
+}
+
+function nextLevel() {
+  document.getElementById('nextBtn').style.display = 'none';
+  document.getElementById('resetBtn').style.display = 'block';
+  currentIdx++;
+  gameRunning = true;
+  loadWord();
+}
+
+function resetWord() {
+  spelled = '';
+  renderSpellArea();
+  document.querySelectorAll('.letter-btn').forEach(b => b.classList.remove('wrong'));
+}
+
+function playCurrentWord() {
+  if (!window.speechSynthesis) return;
+  speechSynthesis.cancel();
+  const utt = new SpeechSynthesisUtterance(currentWord);
+  utt.lang = 'en-US';
+  utt.rate = 0.8;
+  speechSynthesis.speak(utt);
+}
+
+function win() {
+  saveProgress();
+  document.getElementById('winMsg').textContent = `你完成了所有 10 個單字的聽力拼寫！\n得分：${score}`;
+  document.getElementById('winOverlay').classList.add('show');
+}
+
+function saveProgress() {
+  const prog = JSON.parse(localStorage.getItem('progress_g4') || '{}');
+  prog['game6'] = 'done';
+  localStorage.setItem('progress_g4', JSON.stringify(prog));
+}
+
+// Mark in_progress on load
+(function() {
+  const prog = JSON.parse(localStorage.getItem('progress_g4') || '{}');
+  if (prog['game6'] !== 'done') { prog['game6'] = 'in_progress'; localStorage.setItem('progress_g4', JSON.stringify(prog)); }
+})();
+</script>
+</body>
+</html>
