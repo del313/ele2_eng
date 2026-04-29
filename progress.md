@@ -36,8 +36,11 @@
 - [x] 建立通用樣式 `style-common.css`
 - [x] 整合入口網頁 `index.html` (串聯幼兒園、小二、小四)
 - [x] **網站線上託管**：已透過 GitHub Pages 上線 (https://del313.github.io/ele2_eng/)
-
+| **Phase K** | Unit 1 - 8 | 幼兒啟蒙、顏色、動作 | Game 1 - 8 | ✅ 已完成 |
+| **Phase 1** | Unit 1 - 3 | 字母、數字、學校 | Game 1, 2 | ✅ 已完成 |
+...
 ### ✍️ 內容開發
+- [x] 完成幼兒園 (Grade K) Unit 1 - 8 與 Game 1 - 8
 - [x] 完成小二 (Grade 2) Unit 1 - 12 與 Game 1 - 8
 - [x] 完成小四 (Grade 4) Unit 1 - 12 與 Game 1 - 6
 
@@ -46,7 +49,7 @@
 ## 🚀 託管與佈局 (Hosting & Deployment)
 - **託管平台**: GitHub Pages
 - **部署方式**: GitHub Actions / Branch Deploy (main)
-- **子目錄結構**: `/g2/` (小二), `/g4/` (小四), `/` (入口首頁)
+- **子目錄結構**: `/gk/` (幼兒), `/g2/` (小二), `/g4/` (小四), `/` (入口首頁)
 - **線上網址**: [https://del313.github.io/ele2_eng/](https://del313.github.io/ele2_eng/)
 
 ---
@@ -56,21 +59,22 @@
 ### 1. 目錄結構重構
 採用子目錄結構以避免檔案衝突：
 - `/` (根目錄)：主入口首頁 `index.html`
+- `/gk/`：幼兒園教材檔案
 - `/g2/`：存放所有小二英文教材檔案
 - `/g4/`：存放所有小四英文教材檔案
-- `/kinder/`：(預留) 存放幼兒園教材
 
 ### 2. 實作步驟
 - [x] **A. 遷移小二教材 (Grade 2)**
   - 建立 `g2/` 資料夾並移入所有 `unit*.html`, `game*.html`, `index.html`, `style-common.css`。
 - [x] **B. 遷移小四教材 (Grade 4)**
   - 建立 `g4/` 資料夾並從 `child_eng/` 複製所有教材檔案。
-  - **進度隔離**：將 `g4/` 檔案中的 `localStorage` key 從 `'progress'` 改為 `'progress_g4'`。
-- [x] **C. 建立主入口首頁**
-  - 在根目錄建立新的 `index.html`，設計「幼兒園(預留)」、「小二」、「小四」三個切換按鈕。
-- [x] **D. 驗證測試**
+- [x] **C. 整合幼兒園教材 (Grade K)**
+  - 建立 `gk/` 資料夾並從 `ls_eng/` 整合教材檔案。
+  - 套用通用樣式並重新設計 Unit/Game 流程。
+- [x] **D. 建立主入口首頁**
+  - 在根目錄建立新的 `index.html`，設計「幼兒園」、「小二」、「小四」三個切換按鈕。
+- [x] **E. 驗證測試**
   - 確認各年級連結正確、進度獨立且 GitHub Pages 部署正常。
-  - **已修正**：解決小二教材遷移後的 CSS 路徑失效問題。
 
 ---
 

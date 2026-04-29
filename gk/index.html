@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>幼兒英文樂園 – Grade K</title>
+<link rel="stylesheet" href="../style-common.css">
+<style>
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 幼兒版建議 2 列比較大 */
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+
+  .game-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .game-card {
+    grid-column: auto !important;
+    margin: 0 !important;
+    flex-direction: column !important;
+    padding: 15px !important;
+    text-align: center !important;
+  }
+  
+  .game-card .card-icon { margin-bottom: 5px; }
+  .game-card .content { text-align: center !important; }
+  .game-card .card-title { font-size: 1.1rem !important; }
+
+  @media (max-width: 600px) {
+    .card-grid, .game-grid {
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🐣 幼兒英文樂園</h1>
+  <p>Kindergarten English · 8 Units + 8 Games</p>
+  <div class="progress-wrap">
+    <div class="progress-bar" id="progressBar" style="width:0%"></div>
+  </div>
+  <div class="progress-label" id="progressLabel">0 / 16 完成</div>
+  <button class="reset-progress-btn" onclick="resetProgress()">🔄 重設學習進度</button>
+</header>
+
+<div class="container">
+
+  <div class="continue-banner hidden" id="continueBanner">
+    <div class="cb-text" style="font-size: 1.1rem;">繼續挑戰：<span id="continueTitle" style="color:#F06292"></span></div>
+    <a href="#" class="cb-btn" id="continueLink" style="background:#F06292; color:white; padding:10px 20px; border-radius:30px; text-decoration:none; font-weight:800; margin-left:15px;">GO! →</a>
+  </div>
+
+  <div class="section-label">第一階段：探索世界 (Unit 1-4)</div>
+  <div class="card-grid" id="group1"></div>
+  <div class="game-grid" id="games-p1"></div>
+
+  <div class="section-label" style="margin-top:40px;">第二階段：日常點滴 (Unit 5-8)</div>
+  <div class="card-grid" id="group2"></div>
+  <div class="game-grid" id="games-p2"></div>
+
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot" style="background:#FFF;border:3px solid #4FC3F7"></div> 準備好</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#FFFDE7;border:3px solid #FFB74D"></div> 進行中</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#F1F8E9;border:3px solid #81C784"></div> 已完成</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#ECEFF1;border:3px solid #D1D9E0"></div> 鎖定中</div>
+  </div>
+
+</div>
+
+<script src="kinder.js"></script>
+<script>
+(function() {
+  const units = unitsMeta.map(u => ({
+    ...u,
+    sub: '學單字 + 跟讀 + 小測驗',
+    file: u.id + '.html'
+  }));
+
+  const games = gamesMeta.map((g, idx) => ({
+    ...g,
+    sub: '解鎖自 Unit ' + (idx + 1),
+    file: g.id + '.html',
+    phase: idx < 4 ? 1 : 2,
+    unlockUnit: 'unit' + (idx + 1)
+  }));
+
+  const unitSequence = units.map(u => u.id);
+  const progress = loadProgress();
+
+  window.addEventListener('pageshow', e => { if (e.persisted) location.reload(); });
+
+  window.resetProgress = function() {
+    if (confirm('確定要清除所有進度嗎？')) {
+      localStorage.removeItem(PROGRESS_KEY);
+      location.reload();
+    }
+  };
+
+  function getState(id) {
+    if (progress[id] === 'done') return 'done';
+    if (progress[id] === 'in_progress') return 'in-progress';
+    
+    if (id.startsWith('unit')) {
+      const idx = unitSequence.indexOf(id);
+      if (idx === 0) return 'available';
+      const prev = unitSequence[idx - 1];
+      if (progress[prev] === 'done') return 'available';
+      return 'locked';
+    } else if (id.startsWith('game')) {
+      const game = games.find(g => g.id === id);
+      return progress[game.unlockUnit] === 'done' ? 'available' : 'locked';
+    }
+    return 'locked';
+  }
+
+  function makeUnitCard(u, num) {
+    const state = getState(u.id);
+    const a = document.createElement('a');
+    a.className = `unit-card ${state}`;
+    a.href = state === 'locked' ? '#' : u.file;
+    if (state === 'locked') a.onclick = e => e.preventDefault();
+    
+    const badge = state === 'done' ? '⭐' : state === 'in-progress' ? '▶️' : state === 'locked' ? '🔒' : '';
+    a.innerHTML = `
+      ${badge ? `<div class="card-badge">${badge}</div>` : ''}
+      <div class="card-num">UNIT ${num}</div>
+      <div class="card-icon">${u.icon}</div>
+      <div class="card-title">${u.title}</div>
+      <div class="card-sub">${u.sub}</div>`;
+    return a;
+  }
+
+  function makeGameCard(game) {
+    const state = getState(game.id);
+    const a = document.createElement('a');
+    a.className = `game-card ${state}`;
+    a.href = state === 'locked' ? '#' : game.file;
+    if (state === 'locked') a.onclick = e => e.preventDefault();
+    
+    const badge = state === 'done' ? ' 🏆' : state === 'locked' ? ' 🔒' : ' 🎁';
+    a.innerHTML = `
+      <div class="card-icon">${game.icon}</div>
+      <div class="content">
+        <div class="card-title">${game.title}${badge}</div>
+        <div class="card-sub">${game.sub}</div>
+      </div>`;
+    return a;
+  }
+
+  // 渲染單元
+  [units.slice(0,4), units.slice(4,8)].forEach((group, gi) => {
+    const grid = document.getElementById(`group${gi+1}`);
+    if (grid) {
+      group.forEach((u, i) => grid.appendChild(makeUnitCard(u, gi*4 + i + 1)));
+    }
+  });
+
+  // 渲染遊戲
+  games.forEach((g) => {
+    const area = document.getElementById(`games-p${g.phase}`);
+    if (area) area.appendChild(makeGameCard(g));
+  });
+
+  // 進度條
+  const sequence = [...unitSequence, ...games.map(g => g.id)];
+  const total = sequence.length;
+  const done = sequence.filter(id => progress[id] === 'done').length;
+  document.getElementById('progressBar').style.width = `${Math.round(done/total*100)}%`;
+  document.getElementById('progressLabel').textContent = `${done} / ${total} 完成`;
+
+  // 繼續挑戰
+  const targetUnit = unitSequence.find(id => progress[id] !== 'done');
+  const target = targetUnit || games.map(g => g.id).find(id => progress[id] !== 'done');
+  if (target) {
+    const state = getState(target);
+    if (state !== 'locked') {
+      const banner = document.getElementById('continueBanner');
+      banner.classList.remove('hidden');
+      banner.style.display = 'flex';
+      const u = units.find(x => x.id === target) || games.find(x => x.id === target);
+      if (u) {
+        document.getElementById('continueTitle').textContent = u.title;
+        document.getElementById('continueLink').href = u.file;
+      }
+    }
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Game 5 - Family Sort</title>
+<link rel="stylesheet" href="../style-common.css">
+<style>
+  body { background: #E1F5FE; }
+  .game-container { max-width: 600px; margin: 0 auto; padding: 20px; text-align: center; }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 20px; }
+  
+  .card {
+    height: 120px; perspective: 1000px; cursor: pointer;
+  }
+  .card-inner {
+    position: relative; width: 100%; height: 100%; text-align: center;
+    transition: transform 0.6s; transform-style: preserve-3d;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); border-radius: 15px;
+  }
+  .card.flipped .card-inner { transform: rotateY(180deg); }
+  .card.matched .card-inner { opacity: 0.6; transform: rotateY(180deg); border: 4px solid var(--green); }
+
+  .card-front, .card-back {
+    position: absolute; width: 100%; height: 100%;
+    backface-visibility: hidden; border-radius: 15px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .card-front { background: var(--blue); color: white; font-size: 3rem; }
+  .card-back { background: white; transform: rotateY(180deg); border: 3px solid var(--blue); }
+  .card-back .content { font-size: 2.5rem; }
+  .card-back .word { font-size: 1.2rem; font-weight: 800; color: var(--text); }
+
+  .stats { margin-top: 20px; font-size: 1.2rem; font-weight: 800; color: var(--text); }
+  
+  #finish-screen {
+    display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(255,255,255,0.95); z-index: 100;
+    flex-direction: column; align-items: center; justify-content: center;
+  }
+</style>
+</head>
+<body>
+
+<header style="padding:20px; text-align:center; background:var(--blue); color:white;">
+  <a href="index.html" style="position:absolute; left:20px; color:white; text-decoration:none; font-weight:800;">🏠 首頁</a>
+  <h1>Game 5</h1>
+  <p>Family Sort</p>
+</header>
+
+<div class="game-container">
+  <div class="stats">找到的配對: <span id="matches">0</span> / 6</div>
+  <div class="grid" id="grid"></div>
+</div>
+
+<div id="finish-screen">
+  <div style="font-size:6rem;">🏆</div>
+  <h2 style="font-size:2rem; color:var(--blue);">You Won!</h2>
+  <p style="font-size:1.2rem; margin:10px 0;">太棒了！你完成了挑戰！</p>
+  <button onclick="finishGame()" style="padding:15px 40px; border-radius:30px; border:none; background:var(--green); color:white; font-size:1.5rem; font-weight:900; cursor:pointer; margin-top:20px;">
+    領取獎牌並回首頁
+  </button>
+</div>
+
+<script src="kinder.js"></script>
+<script>
+const UNIT_ID = 'unit5';
+const GAME_ID = 'game5';
+
+let cards = [];
+let flippedCards = [];
+let matchCount = 0;
+
+function init() {
+  const progress = loadProgress();
+  if (progress[UNIT_ID] !== 'done') {
+    location.href = 'index.html';
+    return;
+  }
+
+  const items = unitDataMap[UNIT_ID].vocab.slice(0, 6);
+  let deck = [];
+  items.forEach(item => {
+    deck.push({ type: 'icon', value: item.icon, id: item.word });
+    deck.push({ type: 'word', value: item.word, id: item.word });
+  });
+
+  // Shuffle
+  deck.sort(() => Math.random() - 0.5);
+
+  const grid = document.getElementById('grid');
+  deck.forEach((data, index) => {
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.dataset.id = data.id;
+    card.innerHTML = `
+      <div class="card-inner">
+        <div class="card-front">❓</div>
+        <div class="card-back">
+          <div class="content">${data.type === 'icon' ? data.value : ''}</div>
+          <div class="word">${data.type === 'word' ? data.value : ''}</div>
+        </div>
+      </div>
+    `;
+    card.onclick = () => flipCard(card);
+    grid.appendChild(card);
+  });
+}
+
+function flipCard(card) {
+  if (flippedCards.length === 2 || card.classList.contains('flipped') || card.classList.contains('matched')) return;
+
+  card.classList.add('flipped');
+  flippedCards.push(card);
+
+  if (flippedCards.length === 2) {
+    checkMatch();
+  }
+}
+
+function checkMatch() {
+  const [c1, c2] = flippedCards;
+  if (c1.dataset.id === c2.dataset.id) {
+    c1.classList.add('matched');
+    c2.classList.add('matched');
+    matchCount++;
+    document.getElementById('matches').textContent = matchCount;
+    speakText(c1.dataset.id);
+    flippedCards = [];
+    if (matchCount === 6) {
+      setTimeout(() => {
+        document.getElementById('finish-screen').style.display = 'flex';
+      }, 500);
+    }
+  } else {
+    setTimeout(() => {
+      c1.classList.remove('flipped');
+      c2.classList.remove('flipped');
+      flippedCards = [];
+    }, 1000);
+  }
+}
+
+function finishGame() {
+  setProgress(GAME_ID, 'done');
+  window.location.href = 'index.html';
+}
+
+init();
+</script>
+</body>
+</html>
