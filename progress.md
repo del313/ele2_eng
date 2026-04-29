@@ -35,10 +35,19 @@
 ### 🏗️ 基礎建設
 - [x] 建立 `style-g2.css`
 - [x] 索引頁面 `index.html` (12單元+8遊戲，3+2 解鎖邏輯)
+- [x] **網站線上託管**：已透過 GitHub Pages 上線 (https://del313.github.io/ele2_eng/)
 
 ### ✍️ 內容開發
 - [x] 完成 Unit 1 - 12 所有單元內容與互動邏輯
 - [x] 完成 Game 1 - 8 所有遊戲機制
+
+---
+
+## 🚀 託管與佈局 (Hosting & Deployment)
+- **託管平台**: GitHub Pages
+- **部署方式**: GitHub Actions / Branch Deploy (main)
+- **連線優化**: 已確認 Cloudflare 台北節點支援，連線品質優良。
+- **線上網址**: [https://del313.github.io/ele2_eng/](https://del313.github.io/ele2_eng/)
 
 ---
 
