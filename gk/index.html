@@ -6,34 +6,41 @@
 <title>幼兒英文樂園 – Grade K</title>
 <link rel="stylesheet" href="../style-common.css">
 <style>
-  .card-grid {
+  .pair-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr); /* 幼兒版建議 2 列比較大 */
+    grid-template-columns: 1.2fr 1fr; /* 左邊 Unit 稍微寬一點點，右邊 Game */
     gap: 16px;
-    margin-bottom: 16px;
+    margin-bottom: 20px;
   }
 
-  .game-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
+  /* 覆蓋樣式使其在並排時更美觀 */
+  .unit-card, .game-card {
+    margin: 0 !important;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px 10px !important;
   }
 
   .game-card {
     grid-column: auto !important;
-    margin: 0 !important;
-    flex-direction: column !important;
-    padding: 15px !important;
     text-align: center !important;
   }
   
-  .game-card .card-icon { margin-bottom: 5px; }
   .game-card .content { text-align: center !important; }
   .game-card .card-title { font-size: 1.1rem !important; }
+  .game-card .card-icon { margin-bottom: 8px; }
 
   @media (max-width: 600px) {
-    .card-grid, .game-grid {
-      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    .pair-grid {
+      gap: 10px;
+    }
+    .unit-card .card-icon, .game-card .card-icon {
+      font-size: 2.5rem !important;
+    }
+    .unit-card .card-title, .game-card .card-title {
+      font-size: 1rem !important;
     }
   }
 </style>
@@ -58,12 +65,10 @@
   </div>
 
   <div class="section-label">第一階段：探索世界 (Unit 1-4)</div>
-  <div class="card-grid" id="group1"></div>
-  <div class="game-grid" id="games-p1"></div>
+  <div class="pair-grid" id="pairs1"></div>
 
   <div class="section-label" style="margin-top:40px;">第二階段：日常點滴 (Unit 5-8)</div>
-  <div class="card-grid" id="group2"></div>
-  <div class="game-grid" id="games-p2"></div>
+  <div class="pair-grid" id="pairs2"></div>
 
   <div class="legend">
     <div class="legend-item"><div class="legend-dot" style="background:#FFF;border:3px solid #4FC3F7"></div> 準備好</div>
@@ -154,19 +159,16 @@
     return a;
   }
 
-  // 渲染單元
-  [units.slice(0,4), units.slice(4,8)].forEach((group, gi) => {
-    const grid = document.getElementById(`group${gi+1}`);
-    if (grid) {
-      group.forEach((u, i) => grid.appendChild(makeUnitCard(u, gi*4 + i + 1)));
-    }
-  });
+  // 渲染卡片 (左右配對)
+  const renderPair = (idx, targetId) => {
+    const area = document.getElementById(targetId);
+    if (!area) return;
+    area.appendChild(makeUnitCard(units[idx], idx + 1));
+    area.appendChild(makeGameCard(games[idx]));
+  };
 
-  // 渲染遊戲
-  games.forEach((g) => {
-    const area = document.getElementById(`games-p${g.phase}`);
-    if (area) area.appendChild(makeGameCard(g));
-  });
+  [0, 1, 2, 3].forEach(i => renderPair(i, 'pairs1'));
+  [4, 5, 6, 7].forEach(i => renderPair(i, 'pairs2'));
 
   // 進度條
   const sequence = [...unitSequence, ...games.map(g => g.id)];
