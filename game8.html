@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Game 8 – Final Challenge</title>
+<link rel="stylesheet" href="style-g2.css">
+<style>
+  body { background: #E1F5FE; overflow: hidden; }
+  .game-container { text-align: center; padding: 20px; }
+  
+  .question-box {
+    background: white; border: 4px solid var(--blue); padding: 20px;
+    border-radius: 30px; display: inline-block; min-width: 300px;
+    font-size: 2.5rem; font-weight: 900; color: var(--blue); margin-bottom: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  }
+  .question-hint { font-size: 1.5rem; color: #666; margin-bottom: 10px; font-weight: 800; color: var(--pink); }
+
+  .balloon-area { position: relative; width: 100vw; height: 60vh; }
+  
+  .balloon {
+    position: absolute; width: 140px; height: 180px;
+    background: var(--pink); border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    color: white; font-weight: 900; font-size: 1.5rem; cursor: pointer;
+    animation: sway 3s ease-in-out infinite alternate;
+    box-shadow: inset -10px -10px 20px rgba(0,0,0,0.1);
+  }
+  .balloon::after {
+    content: ''; position: absolute; bottom: -30px; left: 50%;
+    width: 2px; height: 50px; background: #999;
+  }
+  @keyframes sway {
+    from { transform: rotate(-5deg) translateY(0); }
+    to { transform: rotate(5deg) translateY(-20px); }
+  }
+
+  #score-info { font-size: 1.2rem; font-weight: 800; color: var(--blue); margin-top: 20px; }
+
+  #finish-screen {
+    display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(255,255,255,0.95); z-index: 100;
+    flex-direction: column; align-items: center; justify-content: center;
+  }
+</style>
+</head>
+<body>
+
+<header style="padding:20px; text-align:center; background:var(--blue); color:white;">
+  <a href="index.html" style="position:absolute; left:20px; top:15px; color:white; text-decoration:none; font-weight:800;">🏠 Home</a>
+  <h1>Final Challenge</h1>
+  <p>終極大考驗</p>
+</header>
+
+<div class="game-container">
+  <div class="question-hint" id="hint">題目讀取中...</div>
+  <div class="question-box" id="question">🍎</div>
+  <div class="balloon-area" id="balloon-area"></div>
+  <div id="score-info">第 <span id="q-num">1</span> / 10 題</div>
+</div>
+
+<div id="finish-screen">
+  <div style="font-size:8rem;">👑</div>
+  <h2 style="font-size:2rem; color:var(--blue);">Grade 2 Master!</h2>
+  <p style="font-size:1.2rem; margin:10px 0;">恭喜你！你已經完成了所有挑戰！</p>
+  <button onclick="finishGame()" style="padding:15px 40px; border-radius:30px; border:none; background:var(--green); color:white; font-size:1.5rem; font-weight:900; cursor:pointer; margin-top:20px;">
+    領取大獎杯回首頁
+  </button>
+</div>
+
+<script>
+const challenges = [
+  { q: '🍎', a: 'Apple', hint: '找找看水果' }, 
+  { q: '🔢', a: 'Number', hint: '找找看數字' }, 
+  { q: '🏫', a: 'School', hint: '找找看地點' },
+  { q: '👋', a: 'Body', hint: '找找看身體部位' }, 
+  { q: '👨‍👩‍👧‍👦', a: 'Family', hint: '找找看家人' }, 
+  { q: '😊', a: 'Happy', hint: '找找看心情' },
+  { q: '🐘', a: 'Animal', hint: '找找看動物' }, 
+  { q: '☀️', a: 'Weather', hint: '找找看天氣' }, 
+  { q: '🏃', a: 'Move', hint: '找找看動作' },
+  { q: '🍕', a: 'Food', hint: '找找看好吃的食物' }, 
+  { q: '🏠', a: 'House', hint: '找找看你住的地方' }, 
+  { q: '🌳', a: 'Park', hint: '找找看去哪裡玩' }
+];
+
+let score = 0;
+let current = null;
+let lastTargets = [];
+const PROGRESS_KEY = 'progress_g2';
+
+function speak(text) {
+  const msg = new SpeechSynthesisUtterance();
+  msg.text = text;
+  msg.lang = 'en-US';
+  window.speechSynthesis.speak(msg);
+}
+
+function nextRound() {
+  if (score >= 10) {
+    document.getElementById('finish-screen').style.display = 'flex';
+    return;
+  }
+  
+  let idx;
+  do {
+    idx = Math.floor(Math.random() * challenges.length);
+  } while (lastTargets.includes(idx));
+
+  lastTargets.push(idx);
+  if (lastTargets.length > 2) lastTargets.shift();
+
+  current = challenges[idx];
+  document.getElementById('question').textContent = current.q;
+  document.getElementById('hint').textContent = current.hint;
+  document.getElementById('q-num').textContent = score + 1;
+  speak(current.a); // 語音播放英文單字
+  
+  const area = document.getElementById('balloon-area');
+  area.innerHTML = '';
+  
+  const opts = [current.a];
+  while(opts.length < 3) {
+    const r = challenges[Math.floor(Math.random() * challenges.length)].a;
+    if(!opts.includes(r)) opts.push(r);
+  }
+  opts.sort(() => Math.random() - 0.5);
+  
+  opts.forEach((o, i) => {
+    const b = document.createElement('div');
+    b.className = 'balloon';
+    b.style.left = (15 + i * 30) + 'vw';
+    b.style.top = (15 + Math.random() * 20) + 'vh';
+    b.style.background = ['#FF4081', '#7C4DFF', '#00E676'][i];
+    b.textContent = o;
+    b.onclick = () => check(o, b);
+    area.appendChild(b);
+  });
+}
+
+function check(ans, el) {
+  if (ans === current.a) {
+    score++;
+    el.style.transform = 'scale(0)';
+    speak("Yes! " + ans);
+    setTimeout(nextRound, 600);
+  } else {
+    speak("No, try again");
+    el.style.opacity = '0.5';
+  }
+}
+
+function finishGame() {
+  const progress = JSON.parse(localStorage.getItem(PROGRESS_KEY) || '{}');
+  progress['game8'] = 'done';
+  localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress));
+  window.location.href = 'index.html';
+}
+
+nextRound();
+</script>
+</body>
+</html>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Game 6 – Flash Match</title>
+<link rel="stylesheet" href="style-g2.css">
+<style>
+  body { background: #E8EAF6; }
+  .game-container { max-width: 600px; margin: 0 auto; padding: 20px; text-align: center; }
+  
+  .flash-card {
+    background: white; border: 4px solid var(--blue); border-radius: 20px;
+    padding: 30px; font-size: 6rem; margin-bottom: 30px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1); animation: zoomIn 0.3s;
+  }
+  @keyframes zoomIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+  .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+  .opt-btn {
+    padding: 20px; background: white; border: 3px solid #DDD;
+    border-radius: 15px; font-size: 1.5rem; font-weight: 800; cursor: pointer;
+    transition: 0.2s;
+  }
+  .opt-btn:hover { border-color: var(--blue); transform: translateY(-3px); }
+
+  #timer-bar {
+    width: 100%; height: 10px; background: #DDD; border-radius: 5px;
+    margin-bottom: 20px; overflow: hidden;
+  }
+  #timer-fill { width: 100%; height: 100%; background: var(--blue); transition: width 0.1s linear; }
+
+  #finish-screen {
+    display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(255,255,255,0.95); z-index: 100;
+    flex-direction: column; align-items: center; justify-content: center;
+  }
+</style>
+</head>
+<body>
+
+<header style="padding:20px; text-align:center; background:var(--blue); color:white;">
+  <a href="index.html" style="position:absolute; left:20px; color:white; text-decoration:none; font-weight:800;">🏠 Home</a>
+  <h1>Flash Match</h1>
+  <p>快速配對挑戰</p>
+</header>
+
+<div class="game-container">
+  <div id="timer-bar"><div id="timer-fill"></div></div>
+  <div class="flash-card" id="flash-card">❓</div>
+  <div class="options-grid" id="options-grid"></div>
+  <div style="margin-top:20px; font-weight:800;">Score: <span id="score">0</span> / 10</div>
+</div>
+
+<div id="finish-screen">
+  <div style="font-size:6rem;">⚡</div>
+  <h2 style="font-size:2rem; color:var(--blue);">Fast & Accurate!</h2>
+  <p style="font-size:1.2rem; margin:10px 0;">你反應真快！</p>
+  <button onclick="finishGame()" style="padding:15px 40px; border-radius:30px; border:none; background:var(--green); color:white; font-size:1.5rem; font-weight:900; cursor:pointer; margin-top:20px;">
+    完成並回首頁
+  </button>
+</div>
+
+<script>
+const items = [
+  { w: 'Pizza', i: '🍕' }, { w: 'Milk', i: '🥛' }, { w: 'House', i: '🏠' },
+  { w: 'Park', i: '🌳' }, { w: 'Sun', i: '☀️' }, { w: 'Rain', i: '🌧️' },
+  { w: 'Eyes', i: '👁️' }, { w: 'Ears', i: '👂' }, { w: 'Mom', i: '👩' }
+];
+
+let score = 0;
+let currentItem = null;
+let lastTargets = [];
+let timerWidth = 100;
+let timerInterval = null;
+const PROGRESS_KEY = 'progress_g2';
+
+function speak(text) {
+  const msg = new SpeechSynthesisUtterance();
+  msg.text = text;
+  msg.lang = 'en-US';
+  window.speechSynthesis.speak(msg);
+}
+
+function nextRound() {
+  if (score >= 10) {
+    clearInterval(timerInterval);
+    document.getElementById('finish-screen').style.display = 'flex';
+    return;
+  }
+
+  let idx;
+  do {
+    idx = Math.floor(Math.random() * items.length);
+  } while (lastTargets.includes(idx));
+
+  lastTargets.push(idx);
+  if (lastTargets.length > 2) lastTargets.shift();
+
+  currentItem = items[idx];
+  document.getElementById('flash-card').textContent = currentItem.i;
+  
+  const opts = [currentItem.w];
+  while(opts.length < 4) {
+    const r = items[Math.floor(Math.random() * items.length)].w;
+    if(!opts.includes(r)) opts.push(r);
+  }
+  opts.sort(() => Math.random() - 0.5);
+
+  const grid = document.getElementById('options-grid');
+  grid.innerHTML = '';
+  opts.forEach(o => {
+    const btn = document.createElement('button');
+    btn.className = 'opt-btn';
+    btn.textContent = o;
+    btn.onclick = () => check(o);
+    grid.appendChild(btn);
+  });
+
+  resetTimer();
+}
+
+function check(ans) {
+  if (ans === currentItem.w) {
+    score++;
+    document.getElementById('score').textContent = score;
+    speak(ans);
+    nextRound();
+  } else {
+    speak("No");
+    timerWidth -= 20; // Penalty
+  }
+}
+
+function resetTimer() {
+  clearInterval(timerInterval);
+  timerWidth = 100;
+  timerInterval = setInterval(() => {
+    timerWidth -= 1.5;
+    document.getElementById('timer-fill').style.width = timerWidth + '%';
+    if (timerWidth <= 0) {
+      nextRound();
+    }
+  }, 100);
+}
+
+function finishGame() {
+  const progress = JSON.parse(localStorage.getItem(PROGRESS_KEY) || '{}');
+  progress['game6'] = 'done';
+  localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress));
+  window.location.href = 'index.html';
+}
+
+nextRound();
+</script>
+</body>
+</html>

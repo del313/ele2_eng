@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Game 5 – Word Scramble</title>
+<link rel="stylesheet" href="style-g2.css">
+<style>
+  body { background: #FCE4EC; }
+  .game-container { max-width: 600px; margin: 0 auto; padding: 20px; text-align: center; }
+  
+  #q-info { font-size: 1.2rem; font-weight: 800; color: var(--pink); margin-bottom: 15px; }
+  .hint-img { font-size: 5rem; margin-bottom: 20px; }
+  
+  .scrambled-area { display: flex; justify-content: center; gap: 10px; margin-bottom: 30px; flex-wrap: wrap; }
+  .letter-tile {
+    width: 50px; height: 50px; background: white; border: 3px solid var(--pink);
+    border-radius: 10px; font-size: 1.5rem; font-weight: 800; display: flex;
+    align-items: center; justify-content: center; cursor: pointer;
+  }
+  
+  .answer-area {
+    min-height: 60px; border-bottom: 4px solid var(--pink);
+    display: flex; justify-content: center; gap: 10px; margin-bottom: 20px;
+  }
+  
+  .ans-tile { color: var(--pink); font-size: 2rem; font-weight: 900; }
+
+  #finish-screen {
+    display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(255,255,255,0.95); z-index: 100;
+    flex-direction: column; align-items: center; justify-content: center;
+  }
+</style>
+</head>
+<body>
+
+<header style="padding:20px; text-align:center; background:var(--pink); color:white;">
+  <a href="index.html" style="position:absolute; left:20px; color:white; text-decoration:none; font-weight:800;">🏠 Home</a>
+  <h1>Word Scramble</h1>
+  <p>拼字小天才</p>
+</header>
+
+<div class="game-container">
+  <div id="q-info">第 <span id="q-num">1</span> / 6 題</div>
+  <div class="hint-img" id="hint-img">🍎</div>
+  
+  <div class="answer-area" id="answer-area"></div>
+  
+  <div class="scrambled-area" id="scrambled-area"></div>
+  
+  <button onclick="clearAnswer()" style="padding:10px 20px; border-radius:20px; border:none; background:#EEE; color:#666; font-weight:800; cursor:pointer;">
+    清除重選
+  </button>
+</div>
+
+<div id="finish-screen">
+  <div style="font-size:6rem;">✨</div>
+  <h2 style="font-size:2rem; color:var(--pink);">Excellent!</h2>
+  <p style="font-size:1.2rem; margin:10px 0;">你是一個拼字高手！</p>
+  <button onclick="finishGame()" style="padding:15px 40px; border-radius:30px; border:none; background:var(--green); color:white; font-size:1.5rem; font-weight:900; cursor:pointer; margin-top:20px;">
+    完成並回首頁
+  </button>
+</div>
+
+<script>
+const words = [
+  { w: 'APPLE', i: '🍎' }, { w: 'CAT', i: '🐱' }, { w: 'DOG', i: '🐶' },
+  { w: 'FISH', i: '🐟' }, { w: 'BIRD', i: '🐦' }, { w: 'MILK', i: '🥛' }
+];
+
+let shuffledWords = [];
+let currentIdx = 0;
+let userAns = "";
+const PROGRESS_KEY = 'progress_g2';
+
+function shuffle(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+}
+
+function speak(text) {
+  const msg = new SpeechSynthesisUtterance();
+  msg.text = text;
+  msg.lang = 'en-US';
+  window.speechSynthesis.speak(msg);
+}
+
+function init() {
+  shuffledWords = shuffle([...words]);
+  nextRound();
+}
+
+function nextRound() {
+  if (currentIdx >= shuffledWords.length) {
+    document.getElementById('finish-screen').style.display = 'flex';
+    return;
+  }
+  
+  userAns = "";
+  const word = shuffledWords[currentIdx];
+  document.getElementById('q-num').textContent = currentIdx + 1;
+  document.getElementById('hint-img').textContent = word.i;
+  document.getElementById('answer-area').innerHTML = word.w.split('').map(() => `<span class="ans-tile">_</span>`).join(' ');
+  
+  const tiles = word.w.split('').sort(() => Math.random() - 0.5);
+  const area = document.getElementById('scrambled-area');
+  area.innerHTML = '';
+  tiles.forEach(l => {
+    const div = document.createElement('div');
+    div.className = 'letter-tile';
+    div.textContent = l;
+    div.onclick = () => addLetter(l, div);
+    area.appendChild(div);
+  });
+  
+  speak(word.w);
+}
+
+function addLetter(l, el) {
+  if (el.style.visibility === 'hidden') return;
+  userAns += l;
+  el.style.visibility = 'hidden';
+  
+  const word = shuffledWords[currentIdx];
+  const ansDiv = document.getElementById('answer-area');
+  ansDiv.innerHTML = userAns.split('').map(char => `<span class="ans-tile">${char}</span>`).join(' ') + 
+                    word.w.slice(userAns.length).split('').map(() => `<span class="ans-tile">_</span>`).join(' ');
+
+  if (userAns.length === word.w.length) {
+    if (userAns === word.w) {
+      speak("Great! " + word.w);
+      currentIdx++;
+      setTimeout(nextRound, 1000);
+    } else {
+      speak("Try again!");
+      setTimeout(clearAnswer, 500);
+    }
+  }
+}
+
+function clearAnswer() {
+  userAns = "";
+  document.querySelectorAll('.letter-tile').forEach(t => t.style.visibility = 'visible');
+  const word = shuffledWords[currentIdx];
+  document.getElementById('answer-area').innerHTML = word.w.split('').map(() => `<span class="ans-tile">_</span>`).join(' ');
+}
+
+function finishGame() {
+  const progress = JSON.parse(localStorage.getItem(PROGRESS_KEY) || '{}');
+  progress['game5'] = 'done';
+  localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress));
+  window.location.href = 'index.html';
+}
+
+init();
+</script>
+</body>
+</html>

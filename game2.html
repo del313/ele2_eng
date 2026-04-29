@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Game 2 – Bubble Pop</title>
+<link rel="stylesheet" href="style-g2.css">
+<style>
+  body { background: #E0F7FA; overflow: hidden; touch-action: manipulation; }
+  .game-header { background: var(--blue); color: white; padding: 15px; text-align: center; position: relative; z-index: 10; }
+  .home-btn { position: absolute; left: 15px; top: 15px; color: white; text-decoration: none; font-weight: 800; }
+  
+  .target-display {
+    background: white; margin: 10px auto; padding: 10px 20px; border-radius: 20px;
+    display: inline-block; font-size: 2rem; font-weight: 900; color: var(--blue);
+    border: 3px solid var(--blue); box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  }
+
+  .bubble-container { position: relative; width: 100vw; height: calc(100vh - 120px); }
+  
+  .bubble {
+    position: absolute; width: 130px; height: 130px;
+    background: rgba(255, 255, 255, 0.4); border: 2px solid rgba(255,255,255,0.8);
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    cursor: pointer; box-shadow: inset -10px -10px 20px rgba(255,255,255,0.3);
+    animation: floatUp 8s linear infinite; text-align: center;
+    transition: transform 0.1s;
+  }
+  .bubble:active { transform: scale(0.8); }
+  .bubble .icon { font-size: 3rem; display: block; line-height: 1; }
+  .bubble .word { font-size: 1.4rem; font-weight: 900; display: block; }
+  
+  @keyframes floatUp {
+    from { transform: translateY(100vh) translateX(0); }
+    to { transform: translateY(-20vh) translateX(20px); }
+  }
+
+  #score-panel { position: fixed; bottom: 20px; right: 20px; font-size: 1.5rem; font-weight: 900; color: var(--blue); background: white; padding: 5px 15px; border-radius: 20px; }
+
+  #finish-screen {
+    display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(255,255,255,0.95); z-index: 100;
+    flex-direction: column; align-items: center; justify-content: center; text-align: center;
+  }
+</style>
+</head>
+<body>
+
+<header class="game-header">
+  <a href="index.html" class="home-btn">🏠 Home</a>
+  <h1>Bubble Pop</h1>
+  <div class="target-display" id="target-word">Wait...</div>
+</header>
+
+<div class="bubble-container" id="bubble-area"></div>
+<div id="score-panel">第 <span id="q-num">1</span> / 10 題</div>
+
+<div id="finish-screen">
+  <div style="font-size:6rem;">🧼</div>
+  <h2 style="font-size:2rem; color:var(--blue);">Fantastic!</h2>
+  <p style="font-size:1.2rem; margin:10px 0;">你成功打破了所有正確的泡泡！</p>
+  <button onclick="finishGame()" style="padding:15px 40px; border-radius:30px; border:none; background:var(--green); color:white; font-size:1.5rem; font-weight:900; cursor:pointer; margin-top:20px;">
+    完成並回首頁
+  </button>
+</div>
+
+<script>
+const items = [
+  { text: 'Happy', icon: '😊' }, { text: 'Sad', icon: '😢' }, { text: 'Angry', icon: '😠' },
+  { text: 'Father', icon: '👨' }, { text: 'Mother', icon: '👩' }, { text: 'Sister', icon: '👧' },
+  { text: 'Eye', icon: '👁️' }, { text: 'Ear', icon: '👂' }, { text: 'Nose', icon: '👃' }
+];
+
+let score = 0;
+let targetItem = null;
+let lastTargets = []; // 紀錄前兩題的索引
+const PROGRESS_KEY = 'progress_g2';
+
+function speak(text) {
+  const msg = new SpeechSynthesisUtterance();
+  msg.text = text;
+  msg.lang = 'en-US';
+  window.speechSynthesis.speak(msg);
+}
+
+function nextRound() {
+  let idx;
+  do {
+    idx = Math.floor(Math.random() * items.length);
+  } while (lastTargets.includes(idx));
+
+  lastTargets.push(idx);
+  if (lastTargets.length > 2) lastTargets.shift();
+
+  targetItem = items[idx];
+  document.getElementById('target-word').textContent = `Find: ${targetItem.text} ${targetItem.icon}`;
+  document.getElementById('q-num').textContent = score + 1;
+  speak(targetItem.text);
+}
+
+function createBubble() {
+  const area = document.getElementById('bubble-area');
+  const bubble = document.createElement('div');
+  const item = items[Math.floor(Math.random() * items.length)];
+  
+  bubble.className = 'bubble';
+  bubble.style.left = Math.random() * 70 + 'vw';
+  bubble.style.animationDuration = (Math.random() * 4 + 4) + 's';
+  bubble.innerHTML = `<div><span class="icon">${item.icon}</span><span class="word">${item.text}</span></div>`;
+  
+  bubble.onclick = () => {
+    if (item.text === targetItem.text) {
+      score++;
+      bubble.style.transform = 'scale(2)';
+      bubble.style.opacity = '0';
+      setTimeout(() => bubble.remove(), 200);
+      
+      if (score >= 10) {
+        document.getElementById('finish-screen').style.display = 'flex';
+      } else {
+        nextRound();
+      }
+    } else {
+      bubble.style.background = 'rgba(255, 0, 0, 0.3)';
+      setTimeout(() => { bubble.style.background = 'rgba(255, 255, 255, 0.4)'; }, 300);
+      speak("No, " + targetItem.text);
+    }
+  };
+
+  area.appendChild(bubble);
+  setTimeout(() => { if(bubble.parentElement) bubble.remove(); }, 8000);
+}
+
+function finishGame() {
+  const progress = JSON.parse(localStorage.getItem(PROGRESS_KEY) || '{}');
+  progress['game2'] = 'done';
+  localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress));
+  window.location.href = 'index.html';
+}
+
+setInterval(createBubble, 1500);
+nextRound();
+</script>
+</body>
+</html>

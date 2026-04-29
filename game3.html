@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Game 3 – Feed Monster</title>
+<link rel="stylesheet" href="style-g2.css">
+<style>
+  body { background: #F1F8E9; }
+  .game-container { max-width: 600px; margin: 0 auto; padding: 20px; text-align: center; }
+  
+  /* MONSTER */
+  .monster-area { margin: 40px auto; position: relative; width: 200px; height: 200px; }
+  .monster { font-size: 8rem; transition: transform 0.3s; cursor: pointer; }
+  .monster.eating { transform: scale(1.3); }
+  .monster-bubble {
+    position: absolute; top: -40px; right: -80px; background: white;
+    padding: 10px 15px; border-radius: 20px; border: 3px solid var(--green);
+    font-weight: 800; font-size: 1.1rem; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  }
+
+  /* FOOD ITEMS */
+  .food-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 50px; }
+  .food-item {
+    background: white; border: 3px solid #DDD; border-radius: 20px; padding: 15px;
+    font-size: 2.5rem; cursor: pointer; transition: 0.2s;
+  }
+  .food-item:hover { transform: translateY(-5px); border-color: var(--green); }
+  .food-item .name { font-size: 1rem; font-weight: 800; display: block; margin-top: 5px; color: var(--text); }
+
+  #q-panel { font-size: 1.2rem; font-weight: 800; color: var(--green); margin-bottom: 10px; }
+
+  #finish-screen {
+    display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(255,255,255,0.95); z-index: 100;
+    flex-direction: column; align-items: center; justify-content: center; text-align: center;
+  }
+</style>
+</head>
+<body>
+
+<header style="padding:20px; text-align:center; background:var(--green); color:white;">
+  <a href="index.html" style="position:absolute; left:20px; color:white; text-decoration:none; font-weight:800;">🏠 Home</a>
+  <h1>Feed the Monster</h1>
+  <p>餵食小怪物</p>
+</header>
+
+<div class="game-container">
+  <div id="q-panel">第 <span id="q-num">1</span> / 6 題</div>
+  <div class="monster-area">
+    <div id="monster" class="monster">👾</div>
+    <div class="monster-bubble" id="instruction">I want...</div>
+  </div>
+
+  <div class="food-grid" id="food-grid"></div>
+</div>
+
+<div id="finish-screen">
+  <div style="font-size:6rem;">😋</div>
+  <h2 style="font-size:2rem; color:var(--green);">Yummy!</h2>
+  <p style="font-size:1.2rem; margin:10px 0;">小怪物吃飽了！謝謝你的幫忙！</p>
+  <button onclick="finishGame()" style="padding:15px 40px; border-radius:30px; border:none; background:var(--green); color:white; font-size:1.5rem; font-weight:900; cursor:pointer; margin-top:20px;">
+    完成並回首頁
+  </button>
+</div>
+
+<script>
+const foods = [
+  { name: 'Red Apple', icon: '🍎', color: '#FF0000' }, 
+  { name: 'Green Frog', icon: '🐸', color: '#4CAF50' }, 
+  { name: 'Yellow Bird', icon: '🐦', color: '#FBC02D' },
+  { name: 'Blue Dog', icon: '🐶', color: '#2196F3' }, 
+  { name: 'Black Cat', icon: '🐱', color: '#333333' }, 
+  { name: 'Gray Rabbit', icon: '🐰', color: '#9E9E9E' }, // 修改名稱與顏色為灰色
+  { name: 'Rainy', icon: '🌧️', color: '#90CAF9' }, 
+  { name: 'Sunny', icon: '☀️', color: '#F9A825' }, 
+  { name: 'Snowy', icon: '❄️', color: '#64B5F6' }
+];
+
+let targetFood = null;
+let feeds = 0;
+let lastTargets = [];
+const PROGRESS_KEY = 'progress_g2';
+
+function speak(text) {
+  const msg = new SpeechSynthesisUtterance();
+  msg.text = text;
+  msg.lang = 'en-US';
+  window.speechSynthesis.speak(msg);
+}
+
+function nextRound() {
+  let idx;
+  do {
+    idx = Math.floor(Math.random() * foods.length);
+  } while (lastTargets.includes(idx));
+
+  lastTargets.push(idx);
+  if (lastTargets.length > 2) lastTargets.shift();
+
+  targetFood = foods[idx];
+  document.getElementById('instruction').textContent = `I want: ${targetFood.name}`;
+  document.getElementById('q-num').textContent = feeds + 1;
+  speak("I want " + targetFood.name);
+  renderFood();
+}
+
+function renderFood() {
+  const grid = document.getElementById('food-grid');
+  grid.innerHTML = '';
+  const shuffled = [...foods].sort(() => Math.random() - 0.5).slice(0, 6);
+  if (!shuffled.find(f => f.name === targetFood.name)) {
+    shuffled[0] = targetFood;
+  }
+  shuffled.sort(() => Math.random() - 0.5);
+
+  shuffled.forEach(item => {
+    const div = document.createElement('div');
+    div.className = 'food-item';
+    div.style.borderColor = item.color;
+    div.innerHTML = `${item.icon}<span class="name" style="color:${item.color}">${item.name}</span>`;
+    div.onclick = () => feed(item);
+    grid.appendChild(div);
+  });
+}
+
+function feed(item) {
+  if (item.name === targetFood.name) {
+    feeds++;
+    const m = document.getElementById('monster');
+    m.classList.add('eating');
+    m.textContent = '🤤';
+    speak("Delicious!");
+    
+    setTimeout(() => {
+      m.classList.remove('eating');
+      m.textContent = '👾';
+      if (feeds >= 6) {
+        document.getElementById('finish-screen').style.display = 'flex';
+      } else {
+        nextRound();
+      }
+    }, 600);
+  } else {
+    speak("No, I want " + targetFood.name);
+    document.getElementById('monster').textContent = '🤢';
+    setTimeout(() => { document.getElementById('monster').textContent = '👾'; }, 500);
+  }
+}
+
+function finishGame() {
+  const progress = JSON.parse(localStorage.getItem(PROGRESS_KEY) || '{}');
+  progress['game3'] = 'done';
+  localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress));
+  window.location.href = 'index.html';
+}
+
+nextRound();
+</script>
+</body>
+</html>

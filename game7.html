@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Game 7 – Word Catcher</title>
+<link rel="stylesheet" href="style-g2.css">
+<style>
+  body { background: #FFF3E0; overflow: hidden; touch-action: manipulation; }
+  .game-header { background: #FB8C00; color: white; padding: 15px; text-align: center; }
+  
+  .target-box {
+    background: white; padding: 10px 25px; border-radius: 20px;
+    display: inline-block; font-size: 1.5rem; font-weight: 900; color: #E65100;
+    margin-top: 10px; border: 3px solid #E65100;
+  }
+
+  .catch-area { position: relative; width: 100vw; height: calc(100vh - 150px); }
+  
+  .falling-item {
+    position: absolute; width: 100px; height: 100px;
+    background: white; border-radius: 15px; border: 3px solid #FB8C00;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    cursor: pointer; animation: fall linear forwards; text-align: center;
+  }
+  .falling-item .icon { font-size: 2.5rem; }
+  .falling-item .word { font-size: 1rem; font-weight: 800; color: #E65100; }
+  .falling-item .zh { font-size: 0.8rem; color: #666; font-weight: 600; }
+
+  @keyframes fall {
+    from { transform: translateY(-100px); }
+    to { transform: translateY(110vh); }
+  }
+
+  #score-panel { position: fixed; bottom: 20px; left: 20px; font-size: 1.5rem; font-weight: 900; color: #E65100; background: white; padding: 5px 15px; border-radius: 20px; }
+
+  #finish-screen {
+    display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(255,255,255,0.95); z-index: 100;
+    flex-direction: column; align-items: center; justify-content: center; text-align: center;
+  }
+</style>
+</head>
+<body>
+
+<header class="game-header">
+  <a href="index.html" style="position:absolute; left:20px; top:15px; color:white; text-decoration:none; font-weight:800;">🏠 Home</a>
+  <h1>Word Catcher</h1>
+  <div class="target-box" id="target-word">Catch: ???</div>
+</header>
+
+<div class="catch-area" id="catch-area"></div>
+<div id="score-panel">第 <span id="q-num">1</span> / 10 題</div>
+
+<div id="finish-screen">
+  <div style="font-size:6rem;">🧺</div>
+  <h2 style="font-size:2rem; color: #E65100;">Great Harvest!</h2>
+  <p style="font-size:1.2rem; margin:10px 0;">你接住了所有正確的單字水果！</p>
+  <button onclick="finishGame()" style="padding:15px 40px; border-radius:30px; border:none; background:var(--green); color:white; font-size:1.5rem; font-weight:900; cursor:pointer; margin-top:20px;">
+    完成並回首頁
+  </button>
+</div>
+
+<script>
+const items = [
+  { w: 'Apple', zh: '蘋果', i: '🍎' }, { w: 'Banana', zh: '香蕉', i: '🍌' }, { w: 'Grapes', zh: '葡萄', i: '🍇' },
+  { w: 'Orange', zh: '柳橙', i: '🍊' }, { w: 'Egg', zh: '雞蛋', i: '🥚' }, { w: 'Bread', zh: '麵包', i: '🍞' }
+];
+
+let score = 0;
+let target = null;
+let lastTargets = [];
+const PROGRESS_KEY = 'progress_g2';
+
+function speak(text) {
+  const msg = new SpeechSynthesisUtterance();
+  msg.text = text;
+  msg.lang = 'en-US';
+  window.speechSynthesis.speak(msg);
+}
+
+function nextTarget() {
+  let idx;
+  do {
+    idx = Math.floor(Math.random() * items.length);
+  } while (lastTargets.includes(idx));
+
+  lastTargets.push(idx);
+  if (lastTargets.length > 2) lastTargets.shift();
+
+  target = items[idx];
+  document.getElementById('target-word').textContent = `Catch: ${target.w} (${target.zh}) ${target.i}`;
+  document.getElementById('q-num').textContent = score + 1;
+  speak("Catch the " + target.w);
+}
+
+function createItem() {
+  const area = document.getElementById('catch-area');
+  const div = document.createElement('div');
+  const data = items[Math.floor(Math.random() * items.length)];
+  
+  div.className = 'falling-item';
+  div.style.left = Math.random() * 70 + 'vw';
+  div.style.animationDuration = (Math.random() * 2 + 3) + 's';
+  div.innerHTML = `<span class="icon">${data.i}</span><span class="word">${data.w}</span><span class="zh">${data.zh}</span>`;
+  
+  div.onclick = () => {
+    if (data.w === target.w) {
+      score++;
+      div.style.background = 'var(--green)';
+      setTimeout(() => div.remove(), 100);
+      if (score >= 10) {
+        document.getElementById('finish-screen').style.display = 'flex';
+      } else {
+        nextTarget();
+      }
+    } else {
+      div.style.background = 'red';
+      speak("No, that is " + data.w);
+    }
+  };
+
+  area.appendChild(div);
+  setTimeout(() => { if(div.parentElement) div.remove(); }, 5000);
+}
+
+function finishGame() {
+  const progress = JSON.parse(localStorage.getItem(PROGRESS_KEY) || '{}');
+  progress['game7'] = 'done';
+  localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress));
+  window.location.href = 'index.html';
+}
+
+setInterval(createItem, 1500);
+nextTarget();
+</script>
+</body>
+</html>

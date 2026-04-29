@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Game 4 – Adventure Path</title>
+<link rel="stylesheet" href="style-g2.css">
+<style>
+  body { background: #FFF9C4; overflow-x: hidden; }
+  .game-container { max-width: 600px; margin: 0 auto; padding: 20px; text-align: center; position: relative; }
+
+  /* MAP */
+  .map {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;
+    padding: 60px 10px; position: relative;
+  }
+  .tile {
+    width: 100px; height: 100px; background: white; border: 4px solid #FBC02D;
+    border-radius: 20px; display: flex; align-items: center; justify-content: center;
+    font-size: 2.5rem; position: relative; transition: 0.3s;
+  }
+  .tile.active { background: #FFF59D; border-color: var(--blue); transform: scale(1.1); box-shadow: 0 0 15px var(--blue); }
+  .tile.finish { background: #FFD54F; border-color: #E65100; font-size: 3rem; }
+
+  /* PLAYER */
+  #player {
+    position: absolute; font-size: 4rem; transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 10; pointer-events: none;
+  }
+  /* 🏃 預設向左，scaleX(-1) 變向右 */
+  .face-right { transform: scaleX(-1) !important; }
+  .face-left { transform: scaleX(1) !important; }
+
+  #q-info { font-size: 1.2rem; font-weight: 800; color: var(--blue); margin-top: 10px; }
+
+  /* QUIZ POPUP */
+  #quiz-overlay {
+    display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.8); z-index: 100;
+    align-items: center; justify-content: center; padding: 20px;
+  }
+  .quiz-card {
+    background: white; width: 100%; max-width: 400px; border-radius: 30px;
+    padding: 30px; animation: pop 0.4s;
+  }
+  @keyframes pop { from { transform: scale(0.5); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+  .quiz-img { font-size: 6rem; margin-bottom: 20px; }
+  .quiz-options { display: grid; gap: 10px; }
+  .opt-btn {
+    padding: 15px; border-radius: 15px; border: 3px solid #EEE;
+    font-size: 1.5rem; font-weight: 800; cursor: pointer; background: white;
+  }
+  .opt-btn:hover { border-color: var(--blue); background: #E1F5FE; }
+
+  #finish-screen {
+    display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(255,255,255,0.95); z-index: 200;
+    flex-direction: column; align-items: center; justify-content: center;
+  }
+</style>
+</head>
+<body>
+
+<header style="padding:20px; text-align:center; background:var(--blue); color:white;">
+  <a href="index.html" style="position:absolute; left:20px; color:white; text-decoration:none; font-weight:800;">🏠 Home</a>
+  <h1>Adventure Path</h1>
+  <p>森林大冒險</p>
+</header>
+
+<div class="game-container">
+  <div id="q-info">第 <span id="q-num">1</span> / 8 步</div>
+  <div id="player" class="face-right">🏃</div>
+  <div class="map" id="map"></div>
+  
+  <button id="roll-btn" onclick="startChallenge()" style="padding:20px 50px; border-radius:40px; border:none; background:var(--blue); color:white; font-size:1.5rem; font-weight:900; cursor:pointer; margin-top:30px; box-shadow:0 6px 0 #0D47A1;">
+    Challenge!
+  </button>
+</div>
+
+<div id="quiz-overlay">
+  <div class="quiz-card">
+    <div class="quiz-img" id="quiz-img">❓</div>
+    <div class="quiz-options" id="quiz-options"></div>
+  </div>
+</div>
+
+<div id="finish-screen">
+  <div style="font-size:8rem;">🏰</div>
+  <h2 style="font-size:2rem; color:var(--blue);">You Reached the Castle!</h2>
+  <p style="font-size:1.2rem; margin:10px 0;">你是冒險王！所有挑戰都難不倒你！</p>
+  <button onclick="finishGame()" style="padding:15px 40px; border-radius:30px; border:none; background:var(--green); color:white; font-size:1.5rem; font-weight:900; cursor:pointer; margin-top:20px;">
+    領取獎杯並回首頁
+  </button>
+</div>
+
+<script>
+const challenges = [
+  { q: 'Bread', icon: '🍞', opts: ['Bread', 'Milk', 'Egg'] },
+  { q: 'Pizza', icon: '🍕', opts: ['Pizza', 'Rice', 'Water'] },
+  { q: 'House', icon: '🏠', opts: ['House', 'Park', 'School'] },
+  { q: 'Tree', icon: '🌳', opts: ['Flower', 'Tree', 'Grass'] },
+  { q: 'Swing', icon: '🎡', opts: ['Slide', 'Swing', 'See-saw'] },
+  { q: 'Milk', icon: '🥛', opts: ['Juice', 'Milk', 'Tea'] },
+  { q: 'Bedroom', icon: '🛏️', opts: ['Kitchen', 'Bedroom', 'Toilet'] },
+  { q: 'Grass', icon: '🌿', opts: ['Tree', 'Flower', 'Grass'] }
+];
+
+// 地圖順序 (0 1 2 3 為第一行, 7 6 5 4 為第二行)
+// 這會形成 1->2->3->4 (右), 5->6->7->8 (左) 的順時鐘路徑
+const tileOrder = [0, 1, 2, 3, 7, 6, 5, 4];
+let currentStep = 0; 
+const totalSteps = 8;
+let lastQIdx = -1;
+const PROGRESS_KEY = 'progress_g2';
+
+function init() {
+  const map = document.getElementById('map');
+  for (let i = 0; i < totalSteps; i++) {
+    const tile = document.createElement('div');
+    const stepNum = tileOrder.indexOf(i) + 1;
+    tile.className = 'tile' + (stepNum === totalSteps ? ' finish' : '');
+    tile.id = 'tile-' + i;
+    tile.textContent = stepNum === totalSteps ? '🏰' : stepNum;
+    map.appendChild(tile);
+  }
+  updatePlayer();
+}
+
+function updatePlayer() {
+  const logicalIdx = tileOrder[currentStep];
+  const tile = document.getElementById('tile-' + logicalIdx);
+  const player = document.getElementById('player');
+  
+  // 1-4 步 (currentStep 0-3) 向右跑
+  // 5-8 步 (currentStep 4-7) 向左跑
+  if (currentStep < 4) {
+    player.className = 'face-right';
+  } else {
+    player.className = 'face-left';
+  }
+
+  player.style.left = (tile.offsetLeft + tile.offsetWidth / 2 - 32) + 'px';
+  player.style.top = (tile.offsetTop - 50) + 'px';
+  
+  document.querySelectorAll('.tile').forEach(t => t.classList.remove('active'));
+  tile.classList.add('active');
+  document.getElementById('q-num').textContent = currentStep + 1;
+}
+
+function startChallenge() {
+  if (currentStep >= totalSteps - 1) return;
+  
+  let qIdx;
+  do {
+    qIdx = Math.floor(Math.random() * challenges.length);
+  } while (qIdx === lastQIdx);
+  lastQIdx = qIdx;
+
+  const quiz = challenges[qIdx];
+  document.getElementById('quiz-img').textContent = quiz.icon;
+  const optsDiv = document.getElementById('quiz-options');
+  optsDiv.innerHTML = '';
+  
+  [...quiz.opts].sort(() => Math.random() - 0.5).forEach(opt => {
+    const btn = document.createElement('button');
+    btn.className = 'opt-btn';
+    btn.textContent = opt;
+    btn.onclick = () => checkAnswer(opt, quiz.q);
+    optsDiv.appendChild(btn);
+  });
+  
+  document.getElementById('quiz-overlay').style.display = 'flex';
+  speak("What is this?");
+}
+
+function checkAnswer(ans, correct) {
+  if (ans === correct) {
+    speak("Correct! " + correct);
+    document.getElementById('quiz-overlay').style.display = 'none';
+    currentStep++;
+    updatePlayer();
+    
+    if (currentStep === totalSteps - 1) {
+      setTimeout(() => {
+        document.getElementById('finish-screen').style.display = 'flex';
+      }, 1000);
+    }
+  } else {
+    speak("Try again!");
+  }
+}
+
+function speak(text) {
+  const msg = new SpeechSynthesisUtterance();
+  msg.text = text;
+  msg.lang = 'en-US';
+  window.speechSynthesis.speak(msg);
+}
+
+function finishGame() {
+  const progress = JSON.parse(localStorage.getItem(PROGRESS_KEY) || '{}');
+  progress['game4'] = 'done';
+  localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress));
+  window.location.href = 'index.html';
+}
+
+init();
+</script>
+</body>
+</html>
