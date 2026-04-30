@@ -3,62 +3,85 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Game 1 - Memory Match</title>
+<title>氣球快手 - Balloon Pop</title>
 <link rel="stylesheet" href="../style-common.css">
 <style>
-  body { background: #E1F5FE; }
-  .game-container { max-width: 600px; margin: 0 auto; padding: 20px; text-align: center; }
-  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 20px; }
+  body { background: #E1F5FE; overflow: hidden; touch-action: none; }
+  #game-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
   
-  .card {
-    height: 120px; perspective: 1000px; cursor: pointer;
-  }
-  .card-inner {
-    position: relative; width: 100%; height: 100%; text-align: center;
-    transition: transform 0.6s; transform-style: preserve-3d;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1); border-radius: 15px;
-  }
-  .card.flipped .card-inner { transform: rotateY(180deg); }
-  .card.matched .card-inner { opacity: 0.6; transform: rotateY(180deg); border: 4px solid var(--green); }
+  .ui-layer { position: relative; z-index: 10; pointer-events: none; padding: 20px; }
+  .ui-layer * { pointer-events: auto; }
 
-  .card-front, .card-back {
-    position: absolute; width: 100%; height: 100%;
-    backface-visibility: hidden; border-radius: 15px;
-    display: flex; align-items: center; justify-content: center;
+  .target-prompt {
+    background: white; border-radius: 40px; padding: 10px 25px;
+    display: inline-flex; align-items: center; gap: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1); border: 4px solid var(--pink);
+    margin-top: 10px;
   }
-  .card-front { background: var(--blue); color: white; font-size: 3rem; }
-  .card-back { background: white; transform: rotateY(180deg); border: 3px solid var(--blue); }
-  .card-back .content { font-size: 2.5rem; }
-  .card-back .word { font-size: 1.2rem; font-weight: 800; color: var(--text); }
+  .target-icon { font-size: 2.5rem; }
+  .target-word { font-size: 1.5rem; font-weight: 900; color: var(--text); }
 
-  .stats { margin-top: 20px; font-size: 1.2rem; font-weight: 800; color: var(--text); }
-  
+  .balloon {
+    position: absolute; cursor: pointer; user-select: none;
+    transition: transform 0.1s;
+    filter: drop-shadow(0 5px 10px rgba(0,0,0,0.2));
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    width: 100px; height: 130px;
+  }
+  .balloon-body {
+    width: 80px; height: 100px; border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+    display: flex; align-items: center; justify-content: center; font-size: 3rem;
+    position: relative;
+  }
+  .balloon-body::after {
+    content: ''; position: absolute; bottom: -5px; left: 50%; transform: translateX(-50%);
+    border-left: 8px solid transparent; border-right: 8px solid transparent;
+    border-bottom: 12px solid inherit; opacity: 0.8;
+  }
+  .balloon-string { width: 2px; height: 40px; background: rgba(0,0,0,0.2); margin-top: -2px; }
+
+  @keyframes pop {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.4); opacity: 0.8; }
+    100% { transform: scale(0.2); opacity: 0; }
+  }
+  .popping { animation: pop 0.2s forwards; pointer-events: none; }
+
   #finish-screen {
     display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(255,255,255,0.95); z-index: 100;
-    flex-direction: column; align-items: center; justify-content: center;
+    background: rgba(255,255,255,0.9); z-index: 100;
+    flex-direction: column; align-items: center; justify-content: center; text-align: center;
+  }
+
+  .score-badge {
+    background: var(--orange); color: white; padding: 5px 20px;
+    border-radius: 20px; font-weight: 800; font-size: 1.2rem;
   }
 </style>
 </head>
 <body>
 
-<header style="padding:20px; text-align:center; background:var(--blue); color:white;">
-  <a href="index.html" style="position:absolute; left:20px; color:white; text-decoration:none; font-weight:800;">🏠 首頁</a>
-  <h1>Game 1</h1>
-  <p>Memory Match</p>
+<header style="padding:15px; text-align:center; background:var(--blue); color:white; position:relative; z-index:20;">
+  <a href="index.html" style="position:absolute; left:20px; top:50%; transform:translateY(-50%); color:white; text-decoration:none; font-weight:800;">🏠 返回</a>
+  <h1 style="font-size:1.5rem;">🎈 氣球快手</h1>
 </header>
 
-<div class="game-container">
-  <div class="stats">找到的配對: <span id="matches">0</span> / 6</div>
-  <div class="grid" id="grid"></div>
+<div class="ui-layer" style="text-align:center;">
+  <div class="score-badge">進度: <span id="score">0</span> / 8</div>
+  <br>
+  <div class="target-prompt" id="prompt">
+    <div class="target-word">準備好了嗎？</div>
+  </div>
 </div>
 
+<div id="game-area"></div>
+
 <div id="finish-screen">
-  <div style="font-size:6rem;">🏆</div>
-  <h2 style="font-size:2rem; color:var(--blue);">You Won!</h2>
-  <p style="font-size:1.2rem; margin:10px 0;">太棒了！你完成了挑戰！</p>
-  <button onclick="finishGame()" style="padding:15px 40px; border-radius:30px; border:none; background:var(--green); color:white; font-size:1.5rem; font-weight:900; cursor:pointer; margin-top:20px;">
-    領取獎牌並回首頁
+  <div style="font-size:6rem;">🌟</div>
+  <h2 style="font-size:2.5rem; color:var(--pink);">太棒了！</h2>
+  <p style="font-size:1.2rem; margin:15px;">你接住了所有氣球！</p>
+  <button onclick="finishGame()" style="padding:15px 50px; border-radius:40px; border:none; background:var(--green); color:white; font-size:1.5rem; font-weight:900; cursor:pointer; box-shadow:0 10px 0 #66BB6A;">
+    領取獎牌 🏆
   </button>
 </div>
 
@@ -66,84 +89,120 @@
 <script>
 const UNIT_ID = 'unit1';
 const GAME_ID = 'game1';
+const colors = ['#FF7043', '#42A5F5', '#66BB6A', '#FFCA28', '#AB47BC', '#26A69A'];
 
-let cards = [];
-let flippedCards = [];
-let matchCount = 0;
+let vocab = [];
+let targetIndex = 0;
+let score = 0;
+let gameActive = true;
 
 function init() {
-  const progress = loadProgress();
-  if (progress[UNIT_ID] !== 'done') {
-    location.href = 'index.html';
-    return;
-  }
-
-  const items = unitDataMap[UNIT_ID].vocab.slice(0, 6);
-  let deck = [];
-  items.forEach(item => {
-    deck.push({ type: 'icon', value: item.icon, id: item.word });
-    deck.push({ type: 'word', value: item.word, id: item.word });
-  });
-
-  // Shuffle
-  deck.sort(() => Math.random() - 0.5);
-
-  const grid = document.getElementById('grid');
-  deck.forEach((data, index) => {
-    const card = document.createElement('div');
-    card.className = 'card';
-    card.dataset.id = data.id;
-    card.innerHTML = `
-      <div class="card-inner">
-        <div class="card-front">❓</div>
-        <div class="card-back">
-          <div class="content">${data.type === 'icon' ? data.value : ''}</div>
-          <div class="word">${data.type === 'word' ? data.value : ''}</div>
-        </div>
-      </div>
-    `;
-    card.onclick = () => flipCard(card);
-    grid.appendChild(card);
-  });
+  const data = unitDataMap[UNIT_ID];
+  vocab = shuffle(data.vocab);
+  
+  updatePrompt();
+  
+  // 開始生成氣球
+  setInterval(spawnBalloon, 1500);
 }
 
-function flipCard(card) {
-  if (flippedCards.length === 2 || card.classList.contains('flipped') || card.classList.contains('matched')) return;
-
-  card.classList.add('flipped');
-  flippedCards.push(card);
-
-  if (flippedCards.length === 2) {
-    checkMatch();
-  }
+function updatePrompt() {
+  const target = vocab[targetIndex];
+  const prompt = document.getElementById('prompt');
+  prompt.innerHTML = `
+    <div class="target-word">點擊: ${target.word}</div>
+    <div class="target-icon">${target.icon}</div>
+  `;
+  speakText("Find the " + target.word);
 }
 
-function checkMatch() {
-  const [c1, c2] = flippedCards;
-  if (c1.dataset.id === c2.dataset.id) {
-    c1.classList.add('matched');
-    c2.classList.add('matched');
-    matchCount++;
-    document.getElementById('matches').textContent = matchCount;
-    speakText(c1.dataset.id);
-    flippedCards = [];
-    if (matchCount === 6) {
-      setTimeout(() => {
-        document.getElementById('finish-screen').style.display = 'flex';
-      }, 500);
+function spawnBalloon() {
+  if (!gameActive) return;
+
+  const area = document.getElementById('game-area');
+  const balloon = document.createElement('div');
+  balloon.className = 'balloon';
+  
+  // 隨機選一個單字（包括目標和干擾項）
+  const isTarget = Math.random() > 0.6;
+  const item = isTarget ? vocab[targetIndex] : vocab[Math.floor(Math.random() * vocab.length)];
+  
+  const color = colors[Math.floor(Math.random() * colors.length)];
+  const startX = Math.random() * (window.innerWidth - 100);
+  
+  balloon.style.left = startX + 'px';
+  balloon.style.bottom = '-150px';
+  
+  balloon.innerHTML = `
+    <div class="balloon-body" style="background:${color}; color:white;">${item.icon}</div>
+    <div class="balloon-string"></div>
+  `;
+
+  balloon.onclick = () => {
+    if (item.word === vocab[targetIndex].word) {
+      popBalloon(balloon, true);
+    } else {
+      // 點錯了，氣球晃動
+      balloon.style.transform = 'translateX(10px)';
+      setTimeout(() => balloon.style.transform = 'translateX(-10px)', 50);
+      setTimeout(() => balloon.style.transform = 'translateX(0)', 100);
+      speakText("Try again!");
     }
-  } else {
-    setTimeout(() => {
-      c1.classList.remove('flipped');
-      c2.classList.remove('flipped');
-      flippedCards = [];
-    }, 1000);
+  };
+
+  area.appendChild(balloon);
+
+  // 動畫：向上飄
+  let posY = -150;
+  const speed = 1 + Math.random() * 2;
+  const drift = (Math.random() - 0.5) * 2;
+  let currentX = startX;
+
+  function move() {
+    if (!balloon.parentElement) return;
+    posY += speed;
+    currentX += drift;
+    balloon.style.bottom = posY + 'px';
+    balloon.style.left = currentX + 'px';
+
+    if (posY > window.innerHeight) {
+      balloon.remove();
+    } else {
+      requestAnimationFrame(move);
+    }
   }
+  requestAnimationFrame(move);
+}
+
+function popBalloon(el, isCorrect) {
+  el.classList.add('popping');
+  speakText("Great!");
+  
+  setTimeout(() => {
+    el.remove();
+    if (isCorrect) {
+      score++;
+      document.getElementById('score').textContent = score;
+      targetIndex = (targetIndex + 1) % vocab.length;
+      
+      if (score >= 8) {
+        winGame();
+      } else {
+        updatePrompt();
+      }
+    }
+  }, 200);
+}
+
+function winGame() {
+  gameActive = false;
+  document.getElementById('finish-screen').style.display = 'flex';
+  speakText("You won! Excellent job!");
 }
 
 function finishGame() {
   setProgress(GAME_ID, 'done');
-  window.location.href = 'index.html';
+  location.href = 'index.html';
 }
 
 init();

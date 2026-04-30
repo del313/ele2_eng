@@ -3,36 +3,40 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Game 6 - Food Basket</title>
+<title>字母接接樂 - Letter Catcher</title>
 <link rel="stylesheet" href="../style-common.css">
 <style>
-  body { background: #E1F5FE; }
-  .game-container { max-width: 600px; margin: 0 auto; padding: 20px; text-align: center; }
-  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 20px; }
+  body { background: #E1F5FE; overflow: hidden; touch-action: none; }
+  #game-area { position: fixed; top: 0; left: 0; width: 100%; height: 100%; }
   
-  .card {
-    height: 120px; perspective: 1000px; cursor: pointer;
+  .basket {
+    position: absolute; bottom: 50px; left: 50%; transform: translateX(-50%);
+    width: 100px; height: 60px; background: #795548; border-radius: 0 0 40px 40px;
+    display: flex; align-items: center; justify-content: center; font-size: 2rem;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2); border: 4px solid #5D4037;
+    z-index: 10;
   }
-  .card-inner {
-    position: relative; width: 100%; height: 100%; text-align: center;
-    transition: transform 0.6s; transform-style: preserve-3d;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1); border-radius: 15px;
+  .basket::before {
+    content: ''; position: absolute; top: -15px; width: 110px; height: 15px;
+    background: #8D6E63; border-radius: 10px;
   }
-  .card.flipped .card-inner { transform: rotateY(180deg); }
-  .card.matched .card-inner { opacity: 0.6; transform: rotateY(180deg); border: 4px solid var(--green); }
 
-  .card-front, .card-back {
-    position: absolute; width: 100%; height: 100%;
-    backface-visibility: hidden; border-radius: 15px;
-    display: flex; align-items: center; justify-content: center;
+  .letter {
+    position: absolute; font-size: 2.5rem; font-weight: 900; color: #1565C0;
+    text-shadow: 2px 2px 0 white; cursor: default;
   }
-  .card-front { background: var(--blue); color: white; font-size: 3rem; }
-  .card-back { background: white; transform: rotateY(180deg); border: 3px solid var(--blue); }
-  .card-back .content { font-size: 2.5rem; }
-  .card-back .word { font-size: 1.2rem; font-weight: 800; color: var(--text); }
 
-  .stats { margin-top: 20px; font-size: 1.2rem; font-weight: 800; color: var(--text); }
-  
+  .ui {
+    position: relative; z-index: 20; padding: 20px; text-align: center; pointer-events: none;
+  }
+  .target-word-display {
+    font-size: 2.5rem; font-weight: 900; letter-spacing: 5px; color: var(--text);
+    background: rgba(255,255,255,0.8); padding: 5px 20px; border-radius: 30px;
+    display: inline-block;
+  }
+  .target-word-display span { color: #ccc; }
+  .target-word-display span.filled { color: var(--pink); }
+
   #finish-screen {
     display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
     background: rgba(255,255,255,0.95); z-index: 100;
@@ -42,23 +46,26 @@
 </head>
 <body>
 
-<header style="padding:20px; text-align:center; background:var(--blue); color:white;">
-  <a href="index.html" style="position:absolute; left:20px; color:white; text-decoration:none; font-weight:800;">🏠 首頁</a>
-  <h1>Game 6</h1>
-  <p>Food Basket</p>
+<header style="padding:15px; text-align:center; background:var(--blue); color:white; position:relative; z-index:30;">
+  <a href="index.html" style="position:absolute; left:20px; color:white; text-decoration:none; font-weight:800;">🏠 返回</a>
+  <h1>🧺 字母接接樂</h1>
 </header>
 
-<div class="game-container">
-  <div class="stats">找到的配對: <span id="matches">0</span> / 6</div>
-  <div class="grid" id="grid"></div>
+<div class="ui">
+  <div class="target-word-display" id="target-display"></div>
+  <div style="margin-top:10px; font-weight:800;">接住對應的字母！</div>
+</div>
+
+<div id="game-area">
+  <div class="basket" id="basket">🧺</div>
 </div>
 
 <div id="finish-screen">
-  <div style="font-size:6rem;">🏆</div>
-  <h2 style="font-size:2rem; color:var(--blue);">You Won!</h2>
-  <p style="font-size:1.2rem; margin:10px 0;">太棒了！你完成了挑戰！</p>
-  <button onclick="finishGame()" style="padding:15px 40px; border-radius:30px; border:none; background:var(--green); color:white; font-size:1.5rem; font-weight:900; cursor:pointer; margin-top:20px;">
-    領取獎牌並回首頁
+  <div style="font-size:6rem;">🍎</div>
+  <h2 style="font-size:2.5rem; color:var(--blue);">接得好！</h2>
+  <p style="font-size:1.2rem;">你學會了拼寫這些單字！</p>
+  <button onclick="finishGame()" style="padding:15px 50px; border-radius:40px; border:none; background:var(--blue); color:white; font-size:1.5rem; font-weight:900; cursor:pointer; margin-top:30px; box-shadow:0 8px 0 #1976D2;">
+    領取獎牌 🏅
   </button>
 </div>
 
@@ -67,83 +74,131 @@
 const UNIT_ID = 'unit6';
 const GAME_ID = 'game6';
 
-let cards = [];
-let flippedCards = [];
-let matchCount = 0;
+let vocab = [];
+let targetIndex = 0;
+let currentWord = '';
+let currentLetters = [];
+let letterIndex = 0;
+let basketX = window.innerWidth / 2;
+let gameActive = true;
 
 function init() {
-  const progress = loadProgress();
-  if (progress[UNIT_ID] !== 'done') {
-    location.href = 'index.html';
+  vocab = shuffle(unitDataMap[UNIT_ID].vocab).slice(0, 4);
+  nextWord();
+  
+  // 監聽觸控/滑鼠移動籃子
+  document.addEventListener('mousemove', e => moveBasket(e.clientX));
+  document.addEventListener('touchmove', e => {
+    e.preventDefault();
+    moveBasket(e.touches[0].clientX);
+  }, { passive: false });
+
+  // 開始掉落字母
+  setInterval(spawnLetter, 1000);
+}
+
+function nextWord() {
+  if (targetIndex >= vocab.length) {
+    win();
     return;
   }
-
-  const items = unitDataMap[UNIT_ID].vocab.slice(0, 6);
-  let deck = [];
-  items.forEach(item => {
-    deck.push({ type: 'icon', value: item.icon, id: item.word });
-    deck.push({ type: 'word', value: item.word, id: item.word });
-  });
-
-  // Shuffle
-  deck.sort(() => Math.random() - 0.5);
-
-  const grid = document.getElementById('grid');
-  deck.forEach((data, index) => {
-    const card = document.createElement('div');
-    card.className = 'card';
-    card.dataset.id = data.id;
-    card.innerHTML = `
-      <div class="card-inner">
-        <div class="card-front">❓</div>
-        <div class="card-back">
-          <div class="content">${data.type === 'icon' ? data.value : ''}</div>
-          <div class="word">${data.type === 'word' ? data.value : ''}</div>
-        </div>
-      </div>
-    `;
-    card.onclick = () => flipCard(card);
-    grid.appendChild(card);
-  });
+  currentWord = vocab[targetIndex].word.toUpperCase();
+  currentLetters = currentWord.split('');
+  letterIndex = 0;
+  updateDisplay();
+  speakText("Catch the letters for " + currentWord);
 }
 
-function flipCard(card) {
-  if (flippedCards.length === 2 || card.classList.contains('flipped') || card.classList.contains('matched')) return;
+function updateDisplay() {
+  const display = document.getElementById('target-display');
+  display.innerHTML = currentLetters.map((l, i) => 
+    `<span class="${i < letterIndex ? 'filled' : ''}">${l}</span>`
+  ).join('');
+}
 
-  card.classList.add('flipped');
-  flippedCards.push(card);
+function moveBasket(x) {
+  if (!gameActive) return;
+  basketX = Math.max(50, Math.min(window.innerWidth - 50, x));
+  document.getElementById('basket').style.left = basketX + 'px';
+}
 
-  if (flippedCards.length === 2) {
-    checkMatch();
+function spawnLetter() {
+  if (!gameActive) return;
+
+  const area = document.getElementById('game-area');
+  const letterEl = document.createElement('div');
+  letterEl.className = 'letter';
+  
+  // 決定掉落哪個字母 (目標字母或隨機字母)
+  const isTarget = Math.random() > 0.4;
+  const char = isTarget ? currentLetters[letterIndex] : String.fromCharCode(65 + Math.floor(Math.random() * 26));
+  
+  letterEl.textContent = char;
+  const startX = 30 + Math.random() * (window.innerWidth - 60);
+  letterEl.style.left = startX + 'px';
+  letterEl.style.top = '-50px';
+  area.appendChild(letterEl);
+
+  let posY = -50;
+  const speed = 2 + Math.random() * 3;
+
+  function move() {
+    if (!gameActive || !letterEl.parentElement) return;
+    posY += speed;
+    letterEl.style.top = posY + 'px';
+
+    // 碰撞檢查
+    const basketRect = document.getElementById('basket').getBoundingClientRect();
+    const letterRect = letterEl.getBoundingClientRect();
+
+    if (
+      letterRect.bottom >= basketRect.top &&
+      letterRect.left < basketRect.right &&
+      letterRect.right > basketRect.left &&
+      letterRect.top < basketRect.bottom
+    ) {
+      checkLetter(char);
+      letterEl.remove();
+      return;
+    }
+
+    if (posY > window.innerHeight) {
+      letterEl.remove();
+    } else {
+      requestAnimationFrame(move);
+    }
   }
+  requestAnimationFrame(move);
 }
 
-function checkMatch() {
-  const [c1, c2] = flippedCards;
-  if (c1.dataset.id === c2.dataset.id) {
-    c1.classList.add('matched');
-    c2.classList.add('matched');
-    matchCount++;
-    document.getElementById('matches').textContent = matchCount;
-    speakText(c1.dataset.id);
-    flippedCards = [];
-    if (matchCount === 6) {
-      setTimeout(() => {
-        document.getElementById('finish-screen').style.display = 'flex';
-      }, 500);
+function checkLetter(char) {
+  if (char === currentLetters[letterIndex]) {
+    letterIndex++;
+    speakText(char);
+    updateDisplay();
+    if (letterIndex >= currentLetters.length) {
+      speakText(currentWord);
+      targetIndex++;
+      setTimeout(nextWord, 1000);
     }
   } else {
-    setTimeout(() => {
-      c1.classList.remove('flipped');
-      c2.classList.remove('flipped');
-      flippedCards = [];
-    }, 1000);
+    // 震動籃子
+    const b = document.getElementById('basket');
+    b.style.transform = 'translateX(-50%) rotate(10deg)';
+    setTimeout(() => b.style.transform = 'translateX(-50%) rotate(-10deg)', 100);
+    setTimeout(() => b.style.transform = 'translateX(-50%) rotate(0)', 200);
   }
+}
+
+function win() {
+  gameActive = false;
+  document.getElementById('finish-screen').style.display = 'flex';
+  speakText("You are a spelling star!");
 }
 
 function finishGame() {
   setProgress(GAME_ID, 'done');
-  window.location.href = 'index.html';
+  location.href = 'index.html';
 }
 
 init();

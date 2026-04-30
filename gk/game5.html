@@ -3,36 +3,67 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Game 5 - Family Sort</title>
+<title>單字轉盤 - Spin & Match</title>
 <link rel="stylesheet" href="../style-common.css">
 <style>
-  body { background: #E1F5FE; }
+  body { background: #E0F2F1; overflow-x: hidden; }
   .game-container { max-width: 600px; margin: 0 auto; padding: 20px; text-align: center; }
-  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 20px; }
   
-  .card {
-    height: 120px; perspective: 1000px; cursor: pointer;
+  .wheel-wrapper {
+    position: relative; width: 300px; height: 300px; margin: 40px auto;
   }
-  .card-inner {
-    position: relative; width: 100%; height: 100%; text-align: center;
-    transition: transform 0.6s; transform-style: preserve-3d;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1); border-radius: 15px;
+  
+  /* 使用 conic-gradient 繪製轉盤背景，避免 skewY 的錯位問題 */
+  .wheel {
+    width: 300px; height: 300px; border-radius: 50%; border: 10px solid white;
+    position: relative; overflow: visible; transition: transform 3s cubic-bezier(0.1, 0, 0.2, 1);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
   }
-  .card.flipped .card-inner { transform: rotateY(180deg); }
-  .card.matched .card-inner { opacity: 0.6; transform: rotateY(180deg); border: 4px solid var(--green); }
 
-  .card-front, .card-back {
+  /* 指針固定在正上方 */
+  .pointer {
+    position: absolute; top: -20px; left: 50%; transform: translateX(-50%);
+    width: 0; height: 0; 
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    border-top: 40px solid var(--pink);
+    z-index: 100; filter: drop-shadow(0 2px 5px rgba(0,0,0,0.3));
+  }
+
+  /* 放置 Emoji 的容器，保持垂直不隨轉盤傾斜 */
+  .slice-label {
     position: absolute; width: 100%; height: 100%;
-    backface-visibility: hidden; border-radius: 15px;
-    display: flex; align-items: center; justify-content: center;
+    top: 0; left: 0; pointer-events: none;
   }
-  .card-front { background: var(--blue); color: white; font-size: 3rem; }
-  .card-back { background: white; transform: rotateY(180deg); border: 3px solid var(--blue); }
-  .card-back .content { font-size: 2.5rem; }
-  .card-back .word { font-size: 1.2rem; font-weight: 800; color: var(--text); }
+  .label-content {
+    position: absolute; top: 15%; left: 50%; transform: translateX(-50%);
+    font-size: 2.8rem;
+  }
 
-  .stats { margin-top: 20px; font-size: 1.2rem; font-weight: 800; color: var(--text); }
-  
+  .options {
+    display: flex; justify-content: center; gap: 15px; margin-top: 30px; flex-wrap: wrap;
+  }
+  .option-btn {
+    padding: 15px 25px; border-radius: 20px; border: 3px solid var(--blue);
+    background: white; font-size: 1.2rem; font-weight: 800; cursor: pointer;
+    transition: all 0.2s;
+  }
+  .option-btn:hover { background: var(--blue); color: white; transform: scale(1.05); }
+  .option-btn.wrong { background: #FFCDD2; border-color: #F44336; animation: shake 0.3s; }
+
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+  }
+
+  #spin-btn {
+    margin-top: 20px; padding: 15px 40px; border-radius: 30px; border: none;
+    background: var(--pink); color: white; font-size: 1.5rem; font-weight: 900;
+    cursor: pointer; box-shadow: 0 6px 0 #AD1457;
+  }
+  #spin-btn:disabled { background: #ccc; box-shadow: 0 6px 0 #999; cursor: default; }
+
   #finish-screen {
     display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
     background: rgba(255,255,255,0.95); z-index: 100;
@@ -42,23 +73,30 @@
 </head>
 <body>
 
-<header style="padding:20px; text-align:center; background:var(--blue); color:white;">
-  <a href="index.html" style="position:absolute; left:20px; color:white; text-decoration:none; font-weight:800;">🏠 首頁</a>
-  <h1>Game 5</h1>
-  <p>Family Sort</p>
+<header style="padding:15px; text-align:center; background:var(--blue); color:white;">
+  <a href="index.html" style="position:absolute; left:20px; color:white; text-decoration:none; font-weight:800;">🏠 返回</a>
+  <h1>🎡 單字轉盤</h1>
 </header>
 
 <div class="game-container">
-  <div class="stats">找到的配對: <span id="matches">0</span> / 6</div>
-  <div class="grid" id="grid"></div>
+  <div class="wheel-wrapper">
+    <div class="pointer"></div>
+    <div class="wheel" id="wheel"></div>
+  </div>
+
+  <button id="spin-btn" onclick="spin()">按我旋轉！ 🔄</button>
+
+  <div class="options" id="options"></div>
+  
+  <div style="margin-top:20px; font-weight:800; color:var(--text);">得分: <span id="score">0</span> / 5</div>
 </div>
 
 <div id="finish-screen">
-  <div style="font-size:6rem;">🏆</div>
-  <h2 style="font-size:2rem; color:var(--blue);">You Won!</h2>
-  <p style="font-size:1.2rem; margin:10px 0;">太棒了！你完成了挑戰！</p>
-  <button onclick="finishGame()" style="padding:15px 40px; border-radius:30px; border:none; background:var(--green); color:white; font-size:1.5rem; font-weight:900; cursor:pointer; margin-top:20px;">
-    領取獎牌並回首頁
+  <div style="font-size:6rem;">🌈</div>
+  <h2 style="font-size:2.5rem; color:var(--blue);">轉盤大師！</h2>
+  <p style="font-size:1.2rem;">你太厲害了，轉得真準！</p>
+  <button onclick="finishGame()" style="padding:15px 50px; border-radius:40px; border:none; background:var(--blue); color:white; font-size:1.5rem; font-weight:900; cursor:pointer; margin-top:30px; box-shadow:0 8px 0 #1976D2;">
+    領取獎牌 🏆
   </button>
 </div>
 
@@ -66,84 +104,139 @@
 <script>
 const UNIT_ID = 'unit5';
 const GAME_ID = 'game5';
+const colors = ['#FF8A65', '#4FC3F7', '#81C784', '#FFF176', '#BA68C8', '#FFD54F'];
 
-let cards = [];
-let flippedCards = [];
-let matchCount = 0;
+let vocab = [];
+let currentRotation = 0;
+let score = 0;
+let isSpinning = false;
+let targetItem = null;
 
 function init() {
-  const progress = loadProgress();
-  if (progress[UNIT_ID] !== 'done') {
-    location.href = 'index.html';
-    return;
-  }
-
-  const items = unitDataMap[UNIT_ID].vocab.slice(0, 6);
-  let deck = [];
-  items.forEach(item => {
-    deck.push({ type: 'icon', value: item.icon, id: item.word });
-    deck.push({ type: 'word', value: item.word, id: item.word });
+  vocab = unitDataMap[UNIT_ID].vocab.slice(0, 6);
+  const wheel = document.getElementById('wheel');
+  
+  // 使用 conic-gradient 動態生成背景顏色分佈
+  let gradientParts = vocab.map((_, i) => {
+    let start = (i * 360 / vocab.length);
+    let end = ((i + 1) * 360 / vocab.length);
+    return `${colors[i % colors.length]} ${start}deg ${end}deg`;
   });
+  wheel.style.background = `conic-gradient(${gradientParts.join(', ')})`;
 
-  // Shuffle
-  deck.sort(() => Math.random() - 0.5);
-
-  const grid = document.getElementById('grid');
-  deck.forEach((data, index) => {
-    const card = document.createElement('div');
-    card.className = 'card';
-    card.dataset.id = data.id;
-    card.innerHTML = `
-      <div class="card-inner">
-        <div class="card-front">❓</div>
-        <div class="card-back">
-          <div class="content">${data.type === 'icon' ? data.value : ''}</div>
-          <div class="word">${data.type === 'word' ? data.value : ''}</div>
-        </div>
-      </div>
-    `;
-    card.onclick = () => flipCard(card);
-    grid.appendChild(card);
+  // 放置 Emoji 標籤
+  vocab.forEach((item, i) => {
+    const label = document.createElement('div');
+    label.className = 'slice-label';
+    // 標籤旋轉到分區的中間角度
+    const angle = (i * 360 / vocab.length) + (360 / vocab.length / 2);
+    label.style.transform = `rotate(${angle}deg)`;
+    
+    const content = document.createElement('div');
+    content.className = 'label-content';
+    content.textContent = item.icon;
+    // 抵消標籤容器的旋轉，讓 Emoji 保持頭朝上（或可根據需要調整）
+    // content.style.transform = `translateX(-50%) rotate(${-angle}deg)`; 
+    
+    label.appendChild(content);
+    wheel.appendChild(label);
   });
 }
 
-function flipCard(card) {
-  if (flippedCards.length === 2 || card.classList.contains('flipped') || card.classList.contains('matched')) return;
-
-  card.classList.add('flipped');
-  flippedCards.push(card);
-
-  if (flippedCards.length === 2) {
-    checkMatch();
-  }
+function playTick() {
+  const ctx = new (window.AudioContext || window.webkitAudioContext)();
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.type = 'sine';
+  osc.frequency.setValueAtTime(800, ctx.currentTime);
+  gain.gain.setValueAtTime(0.1, ctx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.1);
+  osc.connect(gain);
+  gain.connect(ctx.destination);
+  osc.start();
+  osc.stop(ctx.currentTime + 0.1);
 }
 
-function checkMatch() {
-  const [c1, c2] = flippedCards;
-  if (c1.dataset.id === c2.dataset.id) {
-    c1.classList.add('matched');
-    c2.classList.add('matched');
-    matchCount++;
-    document.getElementById('matches').textContent = matchCount;
-    speakText(c1.dataset.id);
-    flippedCards = [];
-    if (matchCount === 6) {
+function spin() {
+  if (isSpinning) return;
+  isSpinning = true;
+  document.getElementById('spin-btn').disabled = true;
+  document.getElementById('options').innerHTML = '';
+
+  // 隨機旋轉多圈
+  const extraRotation = 1440 + Math.random() * 1800; 
+  currentRotation += extraRotation;
+  
+  const wheel = document.getElementById('wheel');
+  wheel.style.transform = `rotate(${currentRotation}deg)`;
+
+  // 播放旋轉音效
+  let ticks = 0;
+  const tickInterval = setInterval(() => {
+    playTick();
+    ticks++;
+    if (ticks >= 20) clearInterval(tickInterval);
+  }, 150);
+
+  setTimeout(() => {
+    isSpinning = false;
+    const finalRotation = (currentRotation % 360);
+    // 轉盤順時針轉，指針對應的是旋轉後的反向角度
+    // 例如轉盤轉了 30 度，則原本在 0 度的區域移動到了 30 度位置，指針指向的是原轉盤 330 度的區域
+    const sliceAngle = 360 / vocab.length;
+    const pointerRelativeAngle = (360 - finalRotation) % 360;
+    const sliceIndex = Math.floor(pointerRelativeAngle / sliceAngle);
+    
+    targetItem = vocab[sliceIndex];
+    showOptions();
+  }, 3000);
+}
+
+function showOptions() {
+  const optionsArea = document.getElementById('options');
+  const others = shuffle(vocab.filter(v => v.word !== targetItem.word)).slice(0, 2);
+  const choices = shuffle([targetItem, ...others]);
+
+  speakText("What is this?");
+
+  choices.forEach(choice => {
+    const btn = document.createElement('button');
+    btn.className = 'option-btn';
+    btn.textContent = choice.word;
+    btn.onclick = () => checkAnswer(choice, btn);
+    optionsArea.appendChild(btn);
+  });
+}
+
+function checkAnswer(choice, btn) {
+  if (choice.word === targetItem.word) {
+    speakText("Correct! " + choice.word);
+    score++;
+    document.getElementById('score').textContent = score;
+    btn.style.background = 'var(--green)';
+    btn.style.color = 'white';
+    
+    if (score >= 5) {
+      setTimeout(win, 1000);
+    } else {
       setTimeout(() => {
-        document.getElementById('finish-screen').style.display = 'flex';
-      }, 500);
+        document.getElementById('spin-btn').disabled = false;
+      }, 1000);
     }
   } else {
-    setTimeout(() => {
-      c1.classList.remove('flipped');
-      c2.classList.remove('flipped');
-      flippedCards = [];
-    }, 1000);
+    speakText("Try again!");
+    btn.classList.add('wrong');
   }
+}
+
+function win() {
+  document.getElementById('finish-screen').style.display = 'flex';
+  speakText("Wonderful! You are a spin master!");
 }
 
 function finishGame() {
   setProgress(GAME_ID, 'done');
-  window.location.href = 'index.html';
+  location.href = 'index.html';
 }
 
 init();

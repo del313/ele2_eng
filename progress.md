@@ -80,15 +80,16 @@
 ## 📝 後續待辦清單 (Future TODOs)
 
 ### 1. 🐣 幼兒園教材開發 (Kindergarten)
-- [ ] **按鈕樣式修正**：在 `g2/index.html` 與 `g4/index.html` 統一「重設進度」與「回首頁」的按鈕樣式。
-- [ ] **遊戲機制全面升級**：將既有的配對遊戲替換為 7 種新的平板友善互動遊戲：
+- [x] **按鈕樣式與佈局統一**：在 `gk/index.html`、`g2/index.html` 與 `g4/index.html` 統一「重設進度」與「回首頁」的按鈕高度 (40px) 與兩端對齊佈局。
+- [x] **遊戲機制全面升級**：已完成 8 種新的平板友善互動遊戲：
     1. **氣球快手 (Balloon Pop)**：氣球飄動點擊。
-    2. **對對碰 (Tap the Pair)**：隨機散落卡片配對。
-    3. **單字敲敲樂 (Whack-a-Mole)**：洞口彈出式點擊。
-    4. **影子拼圖 (Silhouette Fill)**：圖案拖曳至陰影。
-    5. **單字轉盤 (Spin & Match)**：輪盤選定配對。
+    2. **對對碰 (Tap the Pair)**：散落卡片配對。
+    3. **單字敲敲樂 (Whack-a-Mole)**：**3x3 (9 洞)** 網格快節奏反應。
+    4. **影子拼圖 (Silhouette Fill)**：**6 組** 拖曳配對，區域等高優化。
+    5. **單字轉盤 (Spin & Match)**：**conic-gradient 重構**，加入旋轉滴答音效。
     6. **字母接接樂 (Letter Catcher)**：順序字母點擊。
-    7. **圖片拼拼看 (Jigsaw Puzzle)**：4 格圖片拖曳拼圖。
+    7. **圖片拼拼看 (Jigsaw Puzzle)**：**3x3 (9 格)** 拼圖難度。
+    8. **指令大挑戰 (Action Challenge)**：全新 **Simon Says** 記憶玩法。
 - [ ] **視覺優化**：確保按鈕寬度一致、對齊與平板互動友善。
 
 ### 2. 📱 平台優化 (Platform Optimization)

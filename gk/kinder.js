@@ -124,14 +124,14 @@ const unitsMeta = [
 ];
 
 const gamesMeta = [
-  { id: 'game1', title: 'Memory Match', icon: '🧠' },
-  { id: 'game2', title: 'Number Tap', icon: '🎯' },
-  { id: 'game3', title: 'Color Pop', icon: '🎈' },
-  { id: 'game4', title: 'Animal Match', icon: '🐶' },
-  { id: 'game5', title: 'Family Sort', icon: '🏠' },
-  { id: 'game6', title: 'Food Basket', icon: '🧺' },
-  { id: 'game7', title: 'Body Point', icon: '👆' },
-  { id: 'game8', title: 'Action Says', icon: '🎬' }
+  { id: 'game1', title: '氣球快手', icon: '🎈' },
+  { id: 'game2', title: '對對碰', icon: '🎴' },
+  { id: 'game3', title: '單字敲敲樂', icon: '🔨' },
+  { id: 'game4', title: '影子拼圖', icon: '🧩' },
+  { id: 'game5', title: '單字轉盤', icon: '🎡' },
+  { id: 'game6', title: '字母接接樂', icon: '🧺' },
+  { id: 'game7', title: '圖片拼拼看', icon: '🖼️' },
+  { id: 'game8', title: '終極挑戰', icon: '👑' }
 ];
 
 const unitDataMap = {

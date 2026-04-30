@@ -41,14 +41,40 @@
     border-radius: 20px; transition: width .6s ease;
   }
   .progress-label { font-size: 13px; margin-top: 6px; opacity: .9; }
-  .reset-progress-btn {
-    margin-top: 10px; background: rgba(255,255,255,.2);
-    border: 1.5px solid rgba(255,255,255,.6); border-radius: 20px;
-    color: white; font-size: 12px; font-weight: 700;
-    padding: 5px 14px; cursor: pointer; opacity: .85;
-    transition: opacity .15s;
+
+  /* TODO: 調整「回首頁」與「重設進度」按鈕大小一致 */
+  .header-btns {
+    display: flex;
+    justify-content: space-between;
+    margin: 15px auto 0 auto;
+    max-width: 800px;
+    padding: 0 20px;
+    gap: 20px;
   }
-  .reset-progress-btn:hover { opacity: 1; background: rgba(255,255,255,.3); }
+  .back-home-btn, .reset-progress-btn {
+    box-sizing: border-box;
+    background: rgba(255,255,255,0.15);
+    border: 2px solid rgba(255,255,255,0.5);
+    border-radius: 20px;
+    color: white;
+    font-size: 13px;
+    font-weight: 800;
+    padding: 0;
+    height: 40px;
+    width: 130px;
+    text-decoration: none;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    line-height: 1;
+    margin: 0 !important;
+  }
+  .back-home-btn:hover, .reset-progress-btn:hover {
+    background: rgba(255,255,255,0.3);
+    transform: scale(1.05);
+  }
 
   /* CONTINUE BANNER */
   .continue-banner {
@@ -181,7 +207,10 @@
     <div class="progress-bar" id="progressBar" style="width:0%"></div>
   </div>
   <div class="progress-label" id="progressLabel">0 / 18 完成</div>
-  <button class="reset-progress-btn" onclick="resetProgress()">🔄 重設進度</button>
+  <div class="header-btns">
+    <button class="reset-progress-btn" onclick="resetProgress()">🔄 重設進度</button>
+    <a href="../index.html" class="back-home-btn">🏠 回首頁</a>
+  </div>
 </header>
 
 <div class="container">
