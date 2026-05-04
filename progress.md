@@ -105,15 +105,15 @@
 - [ ] **音效回饋**：除了語音朗讀，加入「答對 (Success)」與「答錯 (Try Again)」的音效回饋。
 - [ ] **離線功能**：研究 Service Worker 技術，讓教材在無網路環境（PWA）下也能開啟。
 
-### 4. 🛠️ 系統底層優化 (System Optimization) - [已完成階段性目標]
+### 4. 🛠️ 系統底層優化 (System Optimization) - [已完成]
 - [x] **全域語音修復 (Speech Synthesis Fix)**：建立 `js-common.js` 並整合，解決點擊失效與 GC 中斷。
 - [x] **G4 教材重構**：完成 JSON 化、萬用產生器、動態渲染修復。
 - [x] **G2 教材重構**：完成 JSON 化、難度調降、重新生成。
 - [x] **G2 遊戲修復**：全系列 Game 1-8 語音修復完成，Game 4 難度同步調降。
-- [ ] **GK 內容增強**：為 GK 每個單元加入 YouTube 唱歌學習連結。 (待續)
-- [x] **連結檢查**：使用 `check_videos.py` 完成全站遞迴掃描，影片有效率 100%。
+- [x] **GK 內容增強**：完成 GK 單元重構，並整合 YouTube 唱歌學習連結。
+- [x] **連結檢查**：使用 `check_videos.py` 完成全站遞迴掃描，影片有效率 100% (含替換失效 404 連結)。
 - [x] **單字庫 JSON 化 (Vocabulary Refactoring)**：
-    - [x] 已完成 `vocab_g2.json` 與 `vocab_g4.json`。
+    - [x] 已完成 `vocab_gk.json`, `vocab_g2.json` 與 `vocab_g4.json`。
     - [x] 成功對齊台灣教育部小學英語建議字彙難度。
     - [x] 開發基於萬用模板的通用教材產生器 `build_units.py`。
 
