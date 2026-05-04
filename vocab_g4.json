@@ -1,0 +1,1538 @@
+[
+  {
+    "num": 1,
+    "id": "unit1",
+    "next_id": "unit2",
+    "title": "Hello, I'm Me!",
+    "zh_title": "自我介紹",
+    "icon": "🌟",
+    "grade_label": "UNIT 1 OF 12",
+    "video_url": "https://www.youtube.com/watch?v=36IBDpTRVNE",
+    "video_label": "開啟 ABC Song 影片",
+    "warmup_sub": "5 分鐘 · 唱歌 + 字母練習",
+    "warmup_tasks": [
+      "1. 點上面按鈕，一起唱 ABC Song 🎤",
+      "2. 唱完後，家長說一個字母，孩子要馬上指出周圍的那個字母！",
+      "3. 換孩子出題，家長來找 😄"
+    ],
+    "core_vocab": [
+      [
+        "name",
+        "名字"
+      ],
+      [
+        "old",
+        "歲數的"
+      ],
+      [
+        "years old",
+        "…歲"
+      ],
+      [
+        "grade",
+        "年級"
+      ],
+      [
+        "favorite",
+        "最喜歡的"
+      ],
+      [
+        "color",
+        "顏色"
+      ],
+      [
+        "food",
+        "食物"
+      ],
+      [
+        "friend",
+        "朋友"
+      ]
+    ],
+    "ext_vocab": [
+      [
+        "hello",
+        "你好"
+      ],
+      [
+        "hi",
+        "嗨"
+      ],
+      [
+        "nice",
+        "棒的"
+      ],
+      [
+        "meet",
+        "認識/見面"
+      ]
+    ],
+    "sentences": [
+      [
+        "句型 1",
+        "Hi! My name is <blank>___</blank>.",
+        "Hi! My name is Amy.",
+        "Hi! My name is Amy."
+      ],
+      [
+        "句型 2",
+        "I am <blank>___</blank> years old. I am in Grade <blank>___</blank>.",
+        "I am 10 years old. I am in Grade 4.",
+        "I am 10 years old. I am in Grade 4."
+      ],
+      [
+        "句型 3（延伸）",
+        "My favorite <blank>___</blank> is <blank>___</blank>.",
+        "My favorite color is blue.",
+        "My favorite color is blue."
+      ]
+    ],
+    "qa": [
+      [
+        "What's your name?",
+        "My name is ___."
+      ],
+      [
+        "How old are you?",
+        "I am ___ years old."
+      ],
+      [
+        "What grade are you in?",
+        "I am in Grade 4."
+      ],
+      [
+        "What's your favorite color?",
+        "My favorite color is ___."
+      ],
+      [
+        "What's your favorite food?",
+        "My favorite food is ___."
+      ]
+    ],
+    "wrapup_title": "收尾挑戰",
+    "wrapup_sub": "5 分鐘 · 不看提示，完整說出自我介紹！",
+    "wrapup_lines": [
+      "Hi! My name is <fill>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</fill>.",
+      "I am <fill>&nbsp;&nbsp;&nbsp;&nbsp;</fill> years old.",
+      "I am in Grade <fill>&nbsp;&nbsp;</fill>.",
+      "My favorite color is <fill>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</fill>.",
+      "My favorite food is <fill>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</fill>."
+    ],
+    "wrapup_tip": "⭐ 目標：不看提示，流暢說完！",
+    "wrapup_challenge": [
+      "1. 孩子不看提示，試著說出完整自我介紹 🗣️",
+      "2. 家長用英文問任一個問題，孩子回答",
+      "3. 說得好就給貼紙獎勵！ 🌟"
+    ],
+    "complete_next": "Unit 2：My Family",
+    "tip_box": "💡 家長小技巧：故意說一個<strong>錯誤答案</strong>，看孩子會不會糾正你！"
+  },
+  {
+    "num": 2,
+    "id": "unit2",
+    "next_id": "unit3",
+    "title": "My Family",
+    "zh_title": "家庭成員",
+    "icon": "👨‍👩‍👧",
+    "grade_label": "UNIT 2 OF 12",
+    "video_url": "https://www.youtube.com/watch?v=GiRUF7hvWuM",
+    "video_label": "開啟 Family Song 影片",
+    "warmup_sub": "5 分鐘 · 唱歌 + 認識家人",
+    "warmup_tasks": [
+      "1. 點上面按鈕，一起唱 Family Song 🎤",
+      "2. 唱完後，指著家裡的人說他們的英文稱呼",
+      "3. 家長問：「Who is this?」孩子練習回答 😄"
+    ],
+    "core_vocab": [
+      [
+        "father",
+        "爸爸"
+      ],
+      [
+        "mother",
+        "媽媽"
+      ],
+      [
+        "brother",
+        "哥哥/弟弟"
+      ],
+      [
+        "sister",
+        "姊姊/妹妹"
+      ],
+      [
+        "grandfather",
+        "爺爺/外公"
+      ],
+      [
+        "grandmother",
+        "奶奶/外婆"
+      ],
+      [
+        "family",
+        "家庭"
+      ],
+      [
+        "baby",
+        "寶寶"
+      ]
+    ],
+    "ext_vocab": [
+      [
+        "uncle",
+        "叔叔/伯伯"
+      ],
+      [
+        "aunt",
+        "阿姨/姑姑"
+      ],
+      [
+        "cousin",
+        "表/堂兄弟姊妹"
+      ],
+      [
+        "pet",
+        "寵物"
+      ]
+    ],
+    "sentences": [
+      [
+        "句型 1",
+        "This is my <blank>___</blank>.",
+        "This is my mother.",
+        "This is my mother."
+      ],
+      [
+        "句型 2",
+        "I have a <blank>___</blank> and a <blank>___</blank>.",
+        "I have a brother and a sister.",
+        "I have a brother and a sister."
+      ],
+      [
+        "句型 3（延伸）",
+        "My family has <blank>___</blank> people.",
+        "My family has four people.",
+        "My family has four people."
+      ]
+    ],
+    "qa": [
+      [
+        "How many people are in your family?",
+        "My family has ___ people."
+      ],
+      [
+        "Do you have a brother?",
+        "Yes, I do. / No, I don't."
+      ],
+      [
+        "Who is this?",
+        "This is my ___."
+      ],
+      [
+        "Do you have a pet?",
+        "Yes, I have a ___. / No, I don't."
+      ],
+      [
+        "What is your mother's name?",
+        "My mother's name is ___."
+      ]
+    ],
+    "wrapup_title": "家庭介紹挑戰",
+    "wrapup_sub": "5 分鐘 · 介紹你的家人！",
+    "wrapup_lines": [
+      "This is my <fill>father</fill>.",
+      "This is my <fill>mother</fill>.",
+      "I have a <fill>___</fill>.",
+      "My family has <fill>___</fill> people.",
+      "I love my <fill>family</fill>!"
+    ],
+    "wrapup_tip": "⭐ 目標：指著家人照片，流暢介紹每一位！",
+    "wrapup_challenge": [
+      "1. 拿出家人照片，孩子逐一介紹 📸",
+      "2. 家長用英文問：「Who is this?」孩子回答",
+      "3. 全部說完就給貼紙！ 🌟"
+    ],
+    "complete_next": "Unit 3：School Days",
+    "tip_box": "💡 家長小技巧：讓孩子用英文當小老師，教你說家人的稱呼！"
+  },
+  {
+    "num": 3,
+    "id": "unit3",
+    "next_id": "unit4",
+    "title": "School Days",
+    "zh_title": "學校文具",
+    "icon": "🎒",
+    "grade_label": "UNIT 3 OF 12",
+    "video_url": "https://www.youtube.com/watch?v=UOo3fuH4PoA",
+    "video_label": "開啟 School Supplies Song 影片",
+    "warmup_sub": "5 分鐘 · 唱歌 + 認識文具",
+    "warmup_tasks": [
+      "1. 點上面按鈕，一起唱文具歌 🎤",
+      "2. 唱完後，從書包裡拿出每樣文具說英文名字",
+      "3. 家長說英文，孩子快速從桌上找到那個文具 😄"
+    ],
+    "core_vocab": [
+      [
+        "pencil",
+        "鉛筆"
+      ],
+      [
+        "eraser",
+        "橡皮擦"
+      ],
+      [
+        "ruler",
+        "尺"
+      ],
+      [
+        "book",
+        "書"
+      ],
+      [
+        "bag",
+        "書包"
+      ],
+      [
+        "desk",
+        "桌子"
+      ],
+      [
+        "chair",
+        "椅子"
+      ],
+      [
+        "classroom",
+        "教室"
+      ]
+    ],
+    "ext_vocab": [
+      [
+        "pen",
+        "原子筆"
+      ],
+      [
+        "notebook",
+        "筆記本"
+      ],
+      [
+        "scissors",
+        "剪刀"
+      ],
+      [
+        "crayon",
+        "蠟筆"
+      ]
+    ],
+    "sentences": [
+      [
+        "句型 1",
+        "This is a <blank>___</blank>.",
+        "This is a pencil.",
+        "This is a pencil."
+      ],
+      [
+        "句型 2",
+        "I have a <blank>___</blank> in my bag.",
+        "I have a ruler in my bag.",
+        "I have a ruler in my bag."
+      ],
+      [
+        "句型 3（延伸）",
+        "How many <blank>___</blank> do you have?",
+        "How many pencils do you have?",
+        "How many pencils do you have?"
+      ]
+    ],
+    "qa": [
+      [
+        "What's this?",
+        "This is a ___."
+      ],
+      [
+        "Is this your eraser?",
+        "Yes, it is. / No, it isn't."
+      ],
+      [
+        "How many books do you have?",
+        "I have ___ books."
+      ],
+      [
+        "Where is your bag?",
+        "My bag is on the chair."
+      ],
+      [
+        "What color is your pencil?",
+        "My pencil is ___."
+      ]
+    ],
+    "wrapup_title": "書包大搜查",
+    "wrapup_sub": "5 分鐘 · 打開書包，一一說出文具！",
+    "wrapup_lines": [
+      "I have a <fill>pencil</fill> in my bag.",
+      "I have an <fill>eraser</fill> in my bag.",
+      "I have a <fill>ruler</fill> in my bag.",
+      "I have a <fill>book</fill> in my bag.",
+      "My bag is on the <fill>desk</fill>."
+    ],
+    "wrapup_tip": "⭐ 目標：從書包拿出每樣文具，說出完整英文句子！",
+    "wrapup_challenge": [
+      "1. 孩子打開書包，邊拿邊說：「I have a ___!」📚",
+      "2. 家長問：「What color is your ___?」",
+      "3. 全說完就給貼紙！ 🌟"
+    ],
+    "complete_next": "Unit 4：I Love Food",
+    "tip_box": "💡 家長小技巧：把文具貼上英文標籤貼紙，每天看到就加深記憶！"
+  },
+  {
+    "num": 4,
+    "id": "unit4",
+    "next_id": "unit5",
+    "title": "I Love Food",
+    "zh_title": "食物飲料",
+    "icon": "🍎",
+    "grade_label": "UNIT 4 OF 12",
+    "video_url": "https://www.youtube.com/watch?v=frN3nvhIHUk",
+    "video_label": "開啟 Food Song 影片",
+    "warmup_sub": "5 分鐘 · 唱歌 + 認識食物",
+    "warmup_tasks": [
+      "1. 點上面按鈕，一起唱食物歌 🎤",
+      "2. 唱完後，打開冰箱，用英文說出看到的食物",
+      "3. 家長說中文，孩子說英文，比賽誰說得快 😄"
+    ],
+    "core_vocab": [
+      [
+        "rice",
+        "飯"
+      ],
+      [
+        "noodle",
+        "麵"
+      ],
+      [
+        "bread",
+        "麵包"
+      ],
+      [
+        "apple",
+        "蘋果"
+      ],
+      [
+        "milk",
+        "牛奶"
+      ],
+      [
+        "water",
+        "水"
+      ],
+      [
+        "egg",
+        "雞蛋"
+      ],
+      [
+        "chicken",
+        "雞肉"
+      ]
+    ],
+    "ext_vocab": [
+      [
+        "pizza",
+        "披薩"
+      ],
+      [
+        "juice",
+        "果汁"
+      ],
+      [
+        "cake",
+        "蛋糕"
+      ],
+      [
+        "cookie",
+        "餅乾"
+      ]
+    ],
+    "sentences": [
+      [
+        "句型 1",
+        "I like <blank>___</blank>.",
+        "I like rice.",
+        "I like rice."
+      ],
+      [
+        "句型 2",
+        "I don't like <blank>___</blank>.",
+        "I don't like noodles.",
+        "I don't like noodles."
+      ],
+      [
+        "句型 3（延伸）",
+        "I want some <blank>___</blank>, please.",
+        "I want some milk, please.",
+        "I want some milk, please."
+      ]
+    ],
+    "qa": [
+      [
+        "Do you like apples?",
+        "Yes, I do. / No, I don't."
+      ],
+      [
+        "What do you want for lunch?",
+        "I want ___."
+      ],
+      [
+        "Do you drink milk every day?",
+        "Yes, I do. / No, I don't."
+      ],
+      [
+        "What's your favorite food?",
+        "My favorite food is ___."
+      ],
+      [
+        "Do you like bread or rice?",
+        "I like ___."
+      ]
+    ],
+    "wrapup_title": "點餐挑戰",
+    "wrapup_sub": "5 分鐘 · 假裝在餐廳點餐！",
+    "wrapup_lines": [
+      "I like <fill>rice</fill> and <fill>chicken</fill>.",
+      "I don't like <fill>___</fill>.",
+      "I want some <fill>milk</fill>, please.",
+      "My favorite food is <fill>___</fill>.",
+      "I eat <fill>bread</fill> in the morning."
+    ],
+    "wrapup_tip": "⭐ 目標：假裝家長是服務生，孩子用英文完整點餐！",
+    "wrapup_challenge": [
+      "1. 角色扮演：家長是服務生，孩子是客人 🍽️",
+      "2. 服務生問：「What do you want?」孩子用英文回答",
+      "3. 加碼挑戰：說出不喜歡的食物，加說原因 🌟"
+    ],
+    "complete_next": "Unit 5：Animals Are Cool",
+    "tip_box": "💡 家長小技巧：吃飯時用英文說食物名，自然增加練習機會！"
+  },
+  {
+    "num": 5,
+    "id": "unit5",
+    "next_id": "unit6",
+    "title": "Animals Are Cool",
+    "zh_title": "動物",
+    "icon": "🐶",
+    "grade_label": "UNIT 5 OF 12",
+    "video_url": "https://www.youtube.com/watch?v=zXEq-QO3xTg",
+    "video_label": "開啟 Animals Song 影片",
+    "warmup_sub": "5 分鐘 · 唱歌 + 模仿動物",
+    "warmup_tasks": [
+      "1. 點上面按鈕，一起唱動物歌 🎤",
+      "2. 唱完後，家長模仿一種動物的叫聲，孩子猜英文名字",
+      "3. 換孩子模仿，家長猜 😄"
+    ],
+    "core_vocab": [
+      [
+        "dog",
+        "狗"
+      ],
+      [
+        "cat",
+        "貓"
+      ],
+      [
+        "bird",
+        "鳥"
+      ],
+      [
+        "fish",
+        "魚"
+      ],
+      [
+        "rabbit",
+        "兔子"
+      ],
+      [
+        "tiger",
+        "老虎"
+      ],
+      [
+        "elephant",
+        "大象"
+      ],
+      [
+        "monkey",
+        "猴子"
+      ]
+    ],
+    "ext_vocab": [
+      [
+        "bear",
+        "熊"
+      ],
+      [
+        "lion",
+        "獅子"
+      ],
+      [
+        "panda",
+        "熊貓"
+      ],
+      [
+        "giraffe",
+        "長頸鹿"
+      ]
+    ],
+    "sentences": [
+      [
+        "句型 1",
+        "I have a <blank>___</blank>.",
+        "I have a dog.",
+        "I have a dog."
+      ],
+      [
+        "句型 2",
+        "The <blank>___</blank> can <blank>___</blank>.",
+        "The bird can fly.",
+        "The bird can fly."
+      ],
+      [
+        "句型 3（延伸）",
+        "My favorite animal is the <blank>___</blank>.",
+        "My favorite animal is the elephant.",
+        "My favorite animal is the elephant."
+      ]
+    ],
+    "qa": [
+      [
+        "Do you have a pet?",
+        "Yes, I have a ___. / No, I don't."
+      ],
+      [
+        "What animal do you like?",
+        "I like ___."
+      ],
+      [
+        "Can a fish fly?",
+        "No, it can't. It can swim."
+      ],
+      [
+        "Is a tiger big or small?",
+        "A tiger is big."
+      ],
+      [
+        "What sound does a dog make?",
+        "A dog says Woof!"
+      ]
+    ],
+    "wrapup_title": "動物達人挑戰",
+    "wrapup_sub": "5 分鐘 · 介紹你最喜歡的動物！",
+    "wrapup_lines": [
+      "My favorite animal is the <fill>___</fill>.",
+      "It is <fill>big</fill> / <fill>small</fill>.",
+      "It can <fill>run</fill> / <fill>swim</fill> / <fill>fly</fill>.",
+      "I think it is very <fill>cool</fill>!",
+      "Do you like <fill>___</fill>?"
+    ],
+    "wrapup_tip": "⭐ 目標：說出最喜歡的動物，並用2句話介紹它！",
+    "wrapup_challenge": [
+      "1. 孩子畫一隻最喜歡的動物，然後介紹它 🎨",
+      "2. 家長問：「Can it fly? Can it swim?」孩子回答",
+      "3. 猜謎遊戲：孩子描述，家長猜是什麼動物 🌟"
+    ],
+    "complete_next": "Unit 6：My Day",
+    "tip_box": "💡 家長小技巧：去動物園或看動物影片時，鼓勵孩子說英文名字！"
+  },
+  {
+    "num": 6,
+    "id": "unit6",
+    "next_id": "unit7",
+    "title": "My Day",
+    "zh_title": "時間與作息",
+    "icon": "⏰",
+    "grade_label": "UNIT 6 OF 12",
+    "video_url": "https://www.youtube.com/watch?v=eUXkj6j6Ezw",
+    "video_label": "開啟 Daily Routine Song 影片",
+    "warmup_sub": "5 分鐘 · 唱歌 + 認識作息",
+    "warmup_tasks": [
+      "1. 點上面按鈕，一起唱日常作息歌 🎤",
+      "2. 唱完後，家長說時間，孩子說那個時候在做什麼",
+      "3. 一起比比看，誰的生活作息最規律 😄"
+    ],
+    "core_vocab": [
+      [
+        "morning",
+        "早上"
+      ],
+      [
+        "noon",
+        "中午"
+      ],
+      [
+        "afternoon",
+        "下午"
+      ],
+      [
+        "night",
+        "晚上"
+      ],
+      [
+        "eat",
+        "吃"
+      ],
+      [
+        "sleep",
+        "睡覺"
+      ],
+      [
+        "study",
+        "讀書"
+      ],
+      [
+        "play",
+        "玩"
+      ]
+    ],
+    "ext_vocab": [
+      [
+        "exercise",
+        "運動"
+      ],
+      [
+        "shower",
+        "淋浴"
+      ],
+      [
+        "read",
+        "閱讀"
+      ],
+      [
+        "watch",
+        "看（電視）"
+      ]
+    ],
+    "sentences": [
+      [
+        "句型 1",
+        "In the morning, I <blank>___</blank>.",
+        "In the morning, I eat breakfast.",
+        "In the morning, I eat breakfast."
+      ],
+      [
+        "句型 2",
+        "I <blank>___</blank> at <blank>___</blank> o'clock.",
+        "I sleep at nine o'clock.",
+        "I sleep at nine o'clock."
+      ],
+      [
+        "句型 3（延伸）",
+        "Every day, I <blank>___</blank> and <blank>___</blank>.",
+        "Every day, I study and play.",
+        "Every day, I study and play."
+      ]
+    ],
+    "qa": [
+      [
+        "What do you do in the morning?",
+        "In the morning, I ___."
+      ],
+      [
+        "When do you go to sleep?",
+        "I sleep at ___ o'clock."
+      ],
+      [
+        "Do you study every day?",
+        "Yes, I do. / No, I don't."
+      ],
+      [
+        "What do you do after school?",
+        "I ___ after school."
+      ],
+      [
+        "Do you play in the afternoon?",
+        "Yes, I do!"
+      ]
+    ],
+    "wrapup_title": "我的一天",
+    "wrapup_sub": "5 分鐘 · 說出你今天的作息！",
+    "wrapup_lines": [
+      "In the morning, I <fill>eat breakfast</fill>.",
+      "I go to school at <fill>___</fill> o'clock.",
+      "In the afternoon, I <fill>study</fill>.",
+      "At night, I <fill>sleep</fill>.",
+      "Every day, I <fill>play</fill> and <fill>read</fill>."
+    ],
+    "wrapup_tip": "⭐ 目標：說出今天從早到晚做了哪些事！",
+    "wrapup_challenge": [
+      "1. 孩子畫一個今天的時間表，用英文說每格 📅",
+      "2. 家長問：「What time do you eat lunch?」孩子回答",
+      "3. 互相比較作息，說說有什麼不同 🌟"
+    ],
+    "complete_next": "Unit 7：Colors & Clothes",
+    "tip_box": "💡 家長小技巧：每天問孩子一句「What did you do this morning?」養成英文習慣！"
+  },
+  {
+    "num": 7,
+    "id": "unit7",
+    "next_id": "unit8",
+    "title": "Colors & Clothes",
+    "zh_title": "顏色衣物",
+    "icon": "👕",
+    "grade_label": "UNIT 7 OF 12",
+    "video_url": "https://www.youtube.com/watch?v=kK00Qj-2X38",
+    "video_label": "開啟 Colors Song 影片",
+    "warmup_sub": "5 分鐘 · 唱歌 + 指顏色",
+    "warmup_tasks": [
+      "1. 點上面按鈕，一起唱顏色歌 🎤",
+      "2. 唱完後，家長說顏色，孩子快速找到房間裡該顏色的東西",
+      "3. 換孩子出題 😄"
+    ],
+    "core_vocab": [
+      [
+        "red",
+        "紅色"
+      ],
+      [
+        "blue",
+        "藍色"
+      ],
+      [
+        "green",
+        "綠色"
+      ],
+      [
+        "yellow",
+        "黃色"
+      ],
+      [
+        "shirt",
+        "上衣"
+      ],
+      [
+        "pants",
+        "褲子"
+      ],
+      [
+        "shoes",
+        "鞋子"
+      ],
+      [
+        "hat",
+        "帽子"
+      ]
+    ],
+    "ext_vocab": [
+      [
+        "white",
+        "白色"
+      ],
+      [
+        "black",
+        "黑色"
+      ],
+      [
+        "dress",
+        "洋裝"
+      ],
+      [
+        "jacket",
+        "外套"
+      ]
+    ],
+    "sentences": [
+      [
+        "句型 1",
+        "My <blank>___</blank> is <blank>___</blank>.",
+        "My shirt is blue.",
+        "My shirt is blue."
+      ],
+      [
+        "句型 2",
+        "I am wearing a <blank>___</blank> <blank>___</blank>.",
+        "I am wearing a red hat.",
+        "I am wearing a red hat."
+      ],
+      [
+        "句型 3（延伸）",
+        "I like the <blank>___</blank> <blank>___</blank>.",
+        "I like the green shoes.",
+        "I like the green shoes."
+      ]
+    ],
+    "qa": [
+      [
+        "What color is your shirt?",
+        "My shirt is ___."
+      ],
+      [
+        "What are you wearing today?",
+        "I am wearing a ___."
+      ],
+      [
+        "Do you like the color blue?",
+        "Yes, I do! / No, I don't."
+      ],
+      [
+        "What color are your shoes?",
+        "My shoes are ___."
+      ],
+      [
+        "Is your hat red or yellow?",
+        "My hat is ___."
+      ]
+    ],
+    "wrapup_title": "今日穿搭介紹",
+    "wrapup_sub": "5 分鐘 · 說出你今天穿什麼！",
+    "wrapup_lines": [
+      "Today, I am wearing a <fill>___</fill> shirt.",
+      "My pants are <fill>___</fill>.",
+      "My shoes are <fill>___</fill>.",
+      "I like the color <fill>___</fill>.",
+      "My favorite clothes are <fill>___</fill>."
+    ],
+    "wrapup_tip": "⭐ 目標：站在鏡子前，說出你身上穿的每樣東西！",
+    "wrapup_challenge": [
+      "1. 孩子站在鏡子前，說出整套穿著 🪞",
+      "2. 家長問：「What color is your ___?」孩子回答",
+      "3. 加碼：設計夢想穿搭，畫下來並介紹 🌟"
+    ],
+    "complete_next": "Unit 8：How's the Weather?",
+    "tip_box": "💡 家長小技巧：每天早上問孩子穿什麼衣服出門，用英文說！"
+  },
+  {
+    "num": 8,
+    "id": "unit8",
+    "next_id": "unit9",
+    "title": "How's the Weather?",
+    "zh_title": "天氣季節",
+    "icon": "🌤",
+    "grade_label": "UNIT 8 OF 12",
+    "video_url": "https://www.youtube.com/watch?v=I8GeA3anPdo",
+    "video_label": "開啟 Weather Song 影片",
+    "warmup_sub": "5 分鐘 · 唱歌 + 看天氣",
+    "warmup_tasks": [
+      "1. 點上面按鈕，一起唱天氣歌 🎤",
+      "2. 唱完後，看看窗外，用英文說今天的天氣",
+      "3. 猜猜明天天氣如何，用英文說出來 😄"
+    ],
+    "core_vocab": [
+      [
+        "sunny",
+        "晴天"
+      ],
+      [
+        "cloudy",
+        "多雲"
+      ],
+      [
+        "rainy",
+        "下雨"
+      ],
+      [
+        "windy",
+        "刮風"
+      ],
+      [
+        "hot",
+        "熱"
+      ],
+      [
+        "cold",
+        "冷"
+      ],
+      [
+        "spring",
+        "春天"
+      ],
+      [
+        "winter",
+        "冬天"
+      ]
+    ],
+    "ext_vocab": [
+      [
+        "snowy",
+        "下雪"
+      ],
+      [
+        "foggy",
+        "起霧"
+      ],
+      [
+        "summer",
+        "夏天"
+      ],
+      [
+        "autumn",
+        "秋天"
+      ]
+    ],
+    "sentences": [
+      [
+        "句型 1",
+        "It is <blank>___</blank> today.",
+        "It is sunny today.",
+        "It is sunny today."
+      ],
+      [
+        "句型 2",
+        "The weather is <blank>___</blank> and <blank>___</blank>.",
+        "The weather is hot and sunny.",
+        "The weather is hot and sunny."
+      ],
+      [
+        "句型 3（延伸）",
+        "In <blank>___</blank>, it is <blank>___</blank>.",
+        "In winter, it is cold.",
+        "In winter, it is cold."
+      ]
+    ],
+    "qa": [
+      [
+        "How's the weather today?",
+        "It is ___ today."
+      ],
+      [
+        "Is it hot or cold?",
+        "It is ___."
+      ],
+      [
+        "What's your favorite season?",
+        "My favorite season is ___."
+      ],
+      [
+        "Do you like rainy days?",
+        "Yes, I do. / No, I don't."
+      ],
+      [
+        "What do you wear when it's cold?",
+        "I wear a jacket."
+      ]
+    ],
+    "wrapup_title": "天氣播報員",
+    "wrapup_sub": "5 分鐘 · 假裝你是天氣播報員！",
+    "wrapup_lines": [
+      "Hello! Today is <fill>___</fill>.",
+      "The weather is <fill>___</fill>.",
+      "It is <fill>hot</fill> / <fill>cold</fill>.",
+      "My favorite season is <fill>___</fill>.",
+      "In <fill>summer</fill>, it is very <fill>hot</fill>!"
+    ],
+    "wrapup_tip": "⭐ 目標：像播報員一樣，流暢報告今日天氣！",
+    "wrapup_challenge": [
+      "1. 假裝攝影機，孩子對著家長播報天氣 📺",
+      "2. 家長問：「What should I wear today?」孩子建議穿著",
+      "3. 加碼：說說最喜歡的季節和原因 🌟"
+    ],
+    "complete_next": "Unit 9：I Can Do It!",
+    "tip_box": "💡 家長小技巧：每天早上讓孩子看天氣，用英文說天氣狀況！"
+  },
+  {
+    "num": 9,
+    "id": "unit9",
+    "next_id": "unit10",
+    "title": "I Can Do It!",
+    "zh_title": "能力嗜好",
+    "icon": "💪",
+    "grade_label": "UNIT 9 OF 12",
+    "video_url": "https://www.youtube.com/watch?v=71hiB8Z-03k",
+    "video_label": "開啟 I Can Song 影片",
+    "warmup_sub": "5 分鐘 · 唱歌 + 表演動作",
+    "warmup_tasks": [
+      "1. 點上面按鈕，一起唱能力歌 🎤",
+      "2. 唱完後，家長說動詞，孩子馬上做出那個動作",
+      "3. 用英文說「I can ___!」 😄"
+    ],
+    "core_vocab": [
+      [
+        "run",
+        "跑步"
+      ],
+      [
+        "swim",
+        "游泳"
+      ],
+      [
+        "sing",
+        "唱歌"
+      ],
+      [
+        "dance",
+        "跳舞"
+      ],
+      [
+        "draw",
+        "畫畫"
+      ],
+      [
+        "read",
+        "閱讀"
+      ],
+      [
+        "cook",
+        "做飯"
+      ],
+      [
+        "ride",
+        "騎"
+      ]
+    ],
+    "ext_vocab": [
+      [
+        "jump",
+        "跳"
+      ],
+      [
+        "climb",
+        "爬"
+      ],
+      [
+        "paint",
+        "繪畫"
+      ],
+      [
+        "play piano",
+        "彈鋼琴"
+      ]
+    ],
+    "sentences": [
+      [
+        "句型 1",
+        "I can <blank>___</blank>.",
+        "I can swim.",
+        "I can swim."
+      ],
+      [
+        "句型 2",
+        "I can't <blank>___</blank>.",
+        "I can't cook.",
+        "I can't cook."
+      ],
+      [
+        "句型 3（延伸）",
+        "Can you <blank>___</blank>? Yes, I can. / No, I can't.",
+        "Can you dance? Yes, I can!",
+        "Can you dance? Yes, I can!"
+      ]
+    ],
+    "qa": [
+      [
+        "Can you swim?",
+        "Yes, I can! / No, I can't."
+      ],
+      [
+        "What can you do?",
+        "I can ___ and ___."
+      ],
+      [
+        "Can you cook?",
+        "Yes, I can. / No, I can't."
+      ],
+      [
+        "Can your mother sing?",
+        "Yes, she can. / No, she can't."
+      ],
+      [
+        "What do you like to do?",
+        "I like to ___."
+      ]
+    ],
+    "wrapup_title": "才藝秀",
+    "wrapup_sub": "5 分鐘 · 展示你的才能！",
+    "wrapup_lines": [
+      "I can <fill>___</fill> and <fill>___</fill>.",
+      "I can't <fill>___</fill> yet.",
+      "I want to learn to <fill>___</fill>.",
+      "My best skill is <fill>___</fill>.",
+      "Can you <fill>___</fill>? Let me show you!"
+    ],
+    "wrapup_tip": "⭐ 目標：展示一項才能，並用英文介紹！",
+    "wrapup_challenge": [
+      "1. 孩子展示一項才能（唱歌/畫畫/跑步） 🎭",
+      "2. 說出：「I can ___! Watch me!」",
+      "3. 家長也表演一項，孩子猜並說英文 🌟"
+    ],
+    "complete_next": "Unit 10：In the City",
+    "tip_box": "💡 家長小技巧：鼓勵孩子說「I can do it!」當遇到困難的時候！"
+  },
+  {
+    "num": 10,
+    "id": "unit10",
+    "next_id": "unit11",
+    "title": "In the City",
+    "zh_title": "城市場所",
+    "icon": "🏙",
+    "grade_label": "UNIT 10 OF 12",
+    "video_url": "https://www.youtube.com/watch?v=EfD2k9beP-4",
+    "video_label": "開啟 Places in the City Song 影片",
+    "warmup_sub": "5 分鐘 · 唱歌 + 認識地點",
+    "warmup_tasks": [
+      "1. 點上面按鈕，一起唱城市歌 🎤",
+      "2. 唱完後，說說你家附近有哪些地方，用英文說",
+      "3. 比賽：誰能說出最多城市地點的英文 😄"
+    ],
+    "core_vocab": [
+      [
+        "school",
+        "學校"
+      ],
+      [
+        "park",
+        "公園"
+      ],
+      [
+        "hospital",
+        "醫院"
+      ],
+      [
+        "store",
+        "商店"
+      ],
+      [
+        "library",
+        "圖書館"
+      ],
+      [
+        "bus",
+        "公車"
+      ],
+      [
+        "car",
+        "汽車"
+      ],
+      [
+        "road",
+        "路"
+      ]
+    ],
+    "ext_vocab": [
+      [
+        "bank",
+        "銀行"
+      ],
+      [
+        "restaurant",
+        "餐廳"
+      ],
+      [
+        "museum",
+        "博物館"
+      ],
+      [
+        "subway",
+        "地鐵"
+      ]
+    ],
+    "sentences": [
+      [
+        "句型 1",
+        "I go to the <blank>___</blank>.",
+        "I go to the park.",
+        "I go to the park."
+      ],
+      [
+        "句型 2",
+        "Let's go to the <blank>___</blank>!",
+        "Let's go to the library!",
+        "Let's go to the library!"
+      ],
+      [
+        "句型 3（延伸）",
+        "The <blank>___</blank> is near here.",
+        "The store is near here.",
+        "The store is near here."
+      ]
+    ],
+    "qa": [
+      [
+        "Where do you go on weekends?",
+        "I go to the ___."
+      ],
+      [
+        "Is there a park near your home?",
+        "Yes, there is. / No, there isn't."
+      ],
+      [
+        "How do you go to school?",
+        "I go by bus / car."
+      ],
+      [
+        "What do you do at the library?",
+        "I read books there."
+      ],
+      [
+        "Let's go to the park! Do you want to go?",
+        "Yes! / No, let's go to the ___."
+      ]
+    ],
+    "wrapup_title": "城市導遊",
+    "wrapup_sub": "5 分鐘 · 介紹你家附近的地方！",
+    "wrapup_lines": [
+      "Near my home, there is a <fill>park</fill>.",
+      "I go to the <fill>school</fill> every day.",
+      "On weekends, I go to the <fill>___</fill>.",
+      "I go by <fill>bus</fill> / <fill>car</fill>.",
+      "Let's go to the <fill>library</fill>!"
+    ],
+    "wrapup_tip": "⭐ 目標：介紹三個你家附近的地方，說明怎麼去！",
+    "wrapup_challenge": [
+      "1. 孩子畫一張簡單地圖，標上英文地點名稱 🗺️",
+      "2. 用英文說：「Near my home, there is a ___」",
+      "3. 家長說：「I want to go to the ___」，孩子指地圖說方向 🌟"
+    ],
+    "complete_next": "Unit 11：My Body",
+    "tip_box": "💡 家長小技巧：外出時，路過地點就說英文名字，自然學習！"
+  },
+  {
+    "num": 11,
+    "id": "unit11",
+    "next_id": "unit12",
+    "title": "My Body",
+    "zh_title": "身體部位",
+    "icon": "🙋",
+    "grade_label": "UNIT 11 OF 12",
+    "video_url": "https://www.youtube.com/watch?v=ZanHgPprl-0",
+    "video_label": "開啟 Head Shoulders Knees & Toes 影片",
+    "warmup_sub": "5 分鐘 · 唱歌 + 指身體部位",
+    "warmup_tasks": [
+      "1. 點上面按鈕，一起唱 Head, Shoulders, Knees and Toes 🎤",
+      "2. 唱完後，家長說身體部位，孩子快速指到",
+      "3. 越唱越快，看能不能跟上 😄"
+    ],
+    "core_vocab": [
+      [
+        "head",
+        "頭"
+      ],
+      [
+        "eyes",
+        "眼睛"
+      ],
+      [
+        "ears",
+        "耳朵"
+      ],
+      [
+        "nose",
+        "鼻子"
+      ],
+      [
+        "mouth",
+        "嘴巴"
+      ],
+      [
+        "hands",
+        "手"
+      ],
+      [
+        "legs",
+        "腿"
+      ],
+      [
+        "feet",
+        "腳"
+      ]
+    ],
+    "ext_vocab": [
+      [
+        "neck",
+        "脖子"
+      ],
+      [
+        "shoulders",
+        "肩膀"
+      ],
+      [
+        "fingers",
+        "手指"
+      ],
+      [
+        "stomach",
+        "肚子"
+      ]
+    ],
+    "sentences": [
+      [
+        "句型 1",
+        "I have two <blank>___</blank>.",
+        "I have two eyes.",
+        "I have two eyes."
+      ],
+      [
+        "句型 2",
+        "Touch your <blank>___</blank>!",
+        "Touch your nose!",
+        "Touch your nose!"
+      ],
+      [
+        "句型 3（延伸）",
+        "My <blank>___</blank> hurts.",
+        "My head hurts.",
+        "My head hurts."
+      ]
+    ],
+    "qa": [
+      [
+        "How many eyes do you have?",
+        "I have two eyes."
+      ],
+      [
+        "Point to your nose!",
+        "Here it is! (點鼻子)"
+      ],
+      [
+        "Does your head hurt?",
+        "Yes, it does. / No, it doesn't."
+      ],
+      [
+        "What do you use your hands for?",
+        "I use my hands to ___."
+      ],
+      [
+        "How many fingers do you have?",
+        "I have ten fingers."
+      ]
+    ],
+    "wrapup_title": "Simon Says 挑戰",
+    "wrapup_sub": "5 分鐘 · 玩 Simon Says 遊戲！",
+    "wrapup_lines": [
+      "I have a <fill>head</fill>, <fill>eyes</fill>, and a <fill>nose</fill>.",
+      "I have two <fill>hands</fill> and two <fill>feet</fill>.",
+      "Simon says: touch your <fill>ears</fill>!",
+      "I use my <fill>eyes</fill> to see.",
+      "I use my <fill>mouth</fill> to speak English!"
+    ],
+    "wrapup_tip": "⭐ 目標：玩 Simon Says，指令全部用英文說！",
+    "wrapup_challenge": [
+      "1. 孩子當 Simon，用英文發指令給家長 🎭",
+      "2. 說：「Simon says, touch your ___!」",
+      "3. 不說 Simon says 直接下指令時，家長不要動，看孩子記不記得規則 🌟"
+    ],
+    "complete_next": "Unit 12：Show & Tell",
+    "tip_box": "💡 家長小技巧：洗澡時，讓孩子一邊洗一邊說身體部位的英文！"
+  },
+  {
+    "num": 12,
+    "id": "unit12",
+    "next_id": null,
+    "title": "Show & Tell",
+    "zh_title": "綜合發表",
+    "icon": "🎤",
+    "grade_label": "UNIT 12 OF 12",
+    "video_url": "https://www.youtube.com/watch?v=l4WNrvVjiTw",
+    "video_label": "開啟 Feelings Song 影片",
+    "warmup_sub": "5 分鐘 · 唱歌 + 說心情",
+    "warmup_tasks": [
+      "1. 點上面按鈕，一起唱心情歌 🎤",
+      "2. 唱完後，說說今天的心情是什麼",
+      "3. 互相用英文問：「How do you feel today?」 😄"
+    ],
+    "core_vocab": [
+      [
+        "happy",
+        "快樂"
+      ],
+      [
+        "sad",
+        "難過"
+      ],
+      [
+        "big",
+        "大"
+      ],
+      [
+        "small",
+        "小"
+      ],
+      [
+        "fast",
+        "快"
+      ],
+      [
+        "slow",
+        "慢"
+      ],
+      [
+        "pretty",
+        "漂亮"
+      ],
+      [
+        "strong",
+        "強壯"
+      ]
+    ],
+    "ext_vocab": [
+      [
+        "scared",
+        "害怕"
+      ],
+      [
+        "angry",
+        "生氣"
+      ],
+      [
+        "quiet",
+        "安靜"
+      ],
+      [
+        "loud",
+        "吵鬧"
+      ]
+    ],
+    "sentences": [
+      [
+        "句型 1",
+        "I feel <blank>___</blank> today.",
+        "I feel happy today.",
+        "I feel happy today."
+      ],
+      [
+        "句型 2",
+        "It is <blank>___</blank> and <blank>___</blank>.",
+        "It is big and strong.",
+        "It is big and strong."
+      ],
+      [
+        "句型 3（延伸）",
+        "This is my <blank>___</blank> because <blank>___</blank>.",
+        "This is my favorite book because it is funny.",
+        "This is my favorite book because it is funny."
+      ]
+    ],
+    "qa": [
+      [
+        "How do you feel today?",
+        "I feel ___ today."
+      ],
+      [
+        "Are you happy or sad?",
+        "I am ___."
+      ],
+      [
+        "Tell me about your favorite thing.",
+        "My favorite ___ is ___."
+      ],
+      [
+        "Is a elephant fast or slow?",
+        "An elephant is slow."
+      ],
+      [
+        "What makes you happy?",
+        "___ makes me happy."
+      ]
+    ],
+    "wrapup_title": "Show & Tell 大挑戰！",
+    "wrapup_sub": "10 分鐘 · 完整發表你的最愛！",
+    "wrapup_lines": [
+      "Hello, everyone! I feel <fill>happy</fill> today.",
+      "My name is <fill>___</fill>. I am in Grade <fill>4</fill>.",
+      "My favorite animal is the <fill>___</fill>.",
+      "My favorite food is <fill>___</fill>.",
+      "I can <fill>___</fill>. Thank you!"
+    ],
+    "wrapup_tip": "⭐ 最終目標：60秒完整英文自我介紹，從 Unit 1 到 Unit 12 全用上！",
+    "wrapup_challenge": [
+      "1. 孩子拿著最喜歡的東西（玩具/書），站起來發表 🌟",
+      "2. 介紹：名字、年齡、家人、最喜歡的食物/動物/活動",
+      "3. 說得流暢就給大獎！ 🏆"
+    ],
+    "complete_next": null,
+    "tip_box": "💡 恭喜完成全部12個單元！你的孩子太棒了！💪"
+  }
+]

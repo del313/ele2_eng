@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="../js-common.js"></script>
 <title>Game 3 – Feed Monster</title>
 <link rel="stylesheet" href="../style-common.css">
 <style>
@@ -82,12 +83,7 @@ let feeds = 0;
 let lastTargets = [];
 const PROGRESS_KEY = 'progress_g2';
 
-function speak(text) {
-  const msg = new SpeechSynthesisUtterance();
-  msg.text = text;
-  msg.lang = 'en-US';
-  window.speechSynthesis.speak(msg);
-}
+
 
 function nextRound() {
   let idx;

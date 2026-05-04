@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Game 4 – Adventure Path</title>
+<script src="../js-common.js"></script>
 <link rel="stylesheet" href="../style-common.css">
 <style>
   body { background: #FFF9C4; overflow-x: hidden; }
@@ -96,14 +97,14 @@
 
 <script>
 const challenges = [
-  { q: 'Bread', icon: '🍞', opts: ['Bread', 'Milk', 'Egg'] },
-  { q: 'Pizza', icon: '🍕', opts: ['Pizza', 'Rice', 'Water'] },
-  { q: 'House', icon: '🏠', opts: ['House', 'Park', 'School'] },
-  { q: 'Tree', icon: '🌳', opts: ['Flower', 'Tree', 'Grass'] },
-  { q: 'Swing', icon: '🎡', opts: ['Slide', 'Swing', 'See-saw'] },
-  { q: 'Milk', icon: '🥛', opts: ['Juice', 'Milk', 'Tea'] },
-  { q: 'Bedroom', icon: '🛏️', opts: ['Kitchen', 'Bedroom', 'Toilet'] },
-  { q: 'Grass', icon: '🌿', opts: ['Tree', 'Flower', 'Grass'] }
+  { q: 'Apple', icon: '🍎', opts: ['Apple', 'Egg', 'Fish'] },
+  { q: 'Cat', icon: '🐱', opts: ['Cat', 'Dog', 'Bear'] },
+  { q: 'Dad', icon: '👨', opts: ['Dad', 'Mom', 'Brother'] },
+  { q: 'Red', icon: '🔴', opts: ['Red', 'Blue', 'Green'] },
+  { q: 'One', icon: '1️⃣', opts: ['One', 'Two', 'Three'] },
+  { q: 'Nose', icon: '👃', opts: ['Nose', 'Eyes', 'Mouth'] },
+  { q: 'Dog', icon: '🐶', opts: ['Dog', 'Cat', 'Bear'] },
+  { q: 'Mom', icon: '👩', opts: ['Mom', 'Dad', 'Sister'] }
 ];
 
 // 地圖順序 (0 1 2 3 為第一行, 7 6 5 4 為第二行)
@@ -189,13 +190,6 @@ function checkAnswer(ans, correct) {
   } else {
     speak("Try again!");
   }
-}
-
-function speak(text) {
-  const msg = new SpeechSynthesisUtterance();
-  msg.text = text;
-  msg.lang = 'en-US';
-  window.speechSynthesis.speak(msg);
 }
 
 function finishGame() {

@@ -24,26 +24,33 @@ def check_youtube_video(video_id):
         return False, f"❌ 檢查出錯: {str(e)}"
 
 def scan_and_fix():
-    files = [f for f in os.listdir('.') if f.endswith('.html')]
-    youtube_pattern = re.compile(r'youtube\.com/watch\?v=([a-zA-Z0-9_-]{11})')
+    youtube_pattern = re.compile(r'youtube\.com/watch\?v=([a-zA-Z0-9_{}-]{11,})')
     
-    print("🔍 啟動終極影片驗證程序...\n")
+    print("🔍 啟動全站影片驗證程序 (含子目錄)...\n")
     
     all_ok = True
-    for file_path in files:
-        with open(file_path, 'r', encoding='utf-8') as f:
-            content = f.read()
-            matches = youtube_pattern.findall(content)
-            
-            if not matches:
-                continue
-                
-            for video_id in set(matches):
-                is_ok, msg = check_youtube_video(video_id)
-                status_icon = "✅" if is_ok else "🚨"
-                print(f"{status_icon} 檔案: {file_path} | ID: {video_id} | 狀態: {msg}")
-                if not is_ok:
-                    all_ok = False
+    for root, dirs, files in os.walk('.'):
+        for file in files:
+            if file.endswith('.html'):
+                file_path = os.path.join(root, file)
+                with open(file_path, 'r', encoding='utf-8') as f:
+                    content = f.read()
+                    matches = youtube_pattern.findall(content)
+                    
+                    if not matches:
+                        continue
+                        
+                    for video_id in set(matches):
+                        if video_id == "{video_id}":
+                            print(f"🚨 檔案: {file_path} | 發現錯誤佔位符: {{video_id}}")
+                            all_ok = False
+                            continue
+                            
+                        is_ok, msg = check_youtube_video(video_id)
+                        status_icon = "✅" if is_ok else "🚨"
+                        print(f"{status_icon} 檔案: {file_path} | ID: {video_id} | 狀態: {msg}")
+                        if not is_ok:
+                            all_ok = False
 
     if all_ok:
         print("\n🎉 恭喜！目前所有檔案中的影片連結在 API 驗證下皆為有效。")

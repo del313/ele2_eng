@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Unit 1 – Hello, I'm Me!</title>
+<script src="../js-common.js"></script>
 <style>
   :root {
     --orange: #FF8C00;
@@ -23,8 +24,6 @@
     display: flex;
     flex-direction: column;
   }
-
-  /* HEADER */
   header {
     background: linear-gradient(135deg, var(--orange), var(--yellow));
     color: white;
@@ -41,8 +40,6 @@
     padding: 6px 12px; cursor: pointer; text-decoration: none;
     display: inline-block;
   }
-
-  /* STEP NAV */
   .step-nav {
     display: flex; background: white;
     border-bottom: 3px solid #FFE0A0;
@@ -59,14 +56,10 @@
   }
   .step-btn .si { font-size: 1.3rem; }
   .step-btn.active { color: var(--orange); border-bottom-color: var(--orange); background: #FFF8EC; }
-
-  /* PAGES */
   .page { display: none; flex: 1; padding: 18px 16px 90px; max-width: 700px; margin: 0 auto; width: 100%; }
   .page.active { display: block; }
   .page-title { font-size: 1.4rem; font-weight: 900; color: var(--orange); margin-bottom: 4px; display: flex; align-items: center; gap: 8px; }
   .page-sub { font-size: 13px; color: var(--muted); margin-bottom: 18px; }
-
-  /* VIDEO BUTTON */
   .video-btn-wrap { text-align: center; margin-bottom: 16px; }
   .video-btn {
     display: inline-flex; align-items: center; gap: 10px;
@@ -79,16 +72,12 @@
   }
   .video-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(255,0,0,.35); }
   .video-btn .yt-icon { font-size: 1.5rem; }
-
-  /* TASK CARD */
   .task-card {
     background: white; border-radius: var(--radius);
     padding: 16px 20px; box-shadow: 0 2px 8px rgba(0,0,0,.07);
     border-left: 5px solid var(--orange); font-size: 15px; line-height: 1.8;
   }
   .task-card strong { color: var(--orange); }
-
-  /* VOCAB */
   .vocab-section-label {
     font-size: 13px; font-weight: 800; letter-spacing: 1px;
     margin: 16px 0 8px; color: #555; text-transform: uppercase;
@@ -127,8 +116,6 @@
     padding: 7px 20px; font-size: 13px; font-weight: 700; cursor: pointer;
   }
   .ext-note { font-size: 12px; color: #00897B; margin-bottom: 14px; }
-
-  /* SPEAK BUTTON */
   .speak-btn {
     background: none; border: none; cursor: pointer;
     font-size: 1rem; padding: 3px 5px; border-radius: 8px;
@@ -140,8 +127,6 @@
   .vocab-front .speak-btn { margin-top: 4px; }
   .sentence-speak { float: right; margin-top: -2px; }
   .qa-speak { margin-left: 4px; vertical-align: middle; }
-
-  /* MATCHING GAME */
   .game-label { font-weight: 800; font-size: .95rem; margin-bottom: 8px; color: #555; }
   .game-score { text-align: center; font-weight: 800; font-size: .95rem; color: var(--green); margin-bottom: 8px; min-height: 22px; }
   .match-board { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px; }
@@ -161,8 +146,6 @@
     background: #eee; color: #555; border: none; border-radius: 24px;
     padding: 6px 18px; font-size: 13px; font-weight: 700; cursor: pointer;
   }
-
-  /* SENTENCES */
   .sentence-box {
     background: white; border-radius: var(--radius);
     padding: 16px 20px; margin-bottom: 10px;
@@ -177,8 +160,6 @@
     text-align: center; margin: 0 3px; font-weight: 700;
   }
   .sentence-box .example { margin-top: 7px; font-size: 13px; color: var(--muted); }
-
-  /* QUIZ */
   .quiz-progress { text-align: center; font-size: 13px; color: var(--muted); margin-bottom: 10px; }
   .quiz-question {
     background: white; border-radius: var(--radius);
@@ -202,8 +183,6 @@
     border: none; border-radius: 24px;
     padding: 8px 22px; font-size: 14px; font-weight: 700; cursor: pointer;
   }
-
-  /* QA */
   .qa-item {
     background: white; border-radius: var(--radius);
     padding: 13px 16px; margin-bottom: 9px;
@@ -222,8 +201,6 @@
     border-radius: 10px; padding: 11px 14px;
     font-size: 14px; color: #E65100; margin-top: 8px;
   }
-
-  /* INTRO */
   .intro-box {
     background: white; border-radius: var(--radius);
     padding: 22px; box-shadow: 0 2px 8px rgba(0,0,0,.07);
@@ -235,8 +212,6 @@
     font-weight: 700; text-align: center;
   }
   .star-tip { text-align: center; font-size: 13px; color: var(--muted); margin-bottom: 18px; }
-
-  /* COMPLETE BUTTON */
   .complete-area { text-align: center; margin-top: 24px; }
   .complete-btn {
     background: linear-gradient(135deg, var(--green), #66BB6A);
@@ -260,8 +235,6 @@
     padding: 10px 28px; font-size: 15px; font-weight: 800;
     cursor: pointer; text-decoration: none;
   }
-
-  /* BOTTOM NAV */
   .bottom-nav-outer {
     position: fixed; bottom: 0; left: 0; right: 0;
     background: white; border-top: 2px solid #FFE0A0; z-index: 100;
@@ -279,6 +252,7 @@
   .nav-next { background: var(--orange); color: white; }
   .nav-btn:disabled { opacity: .3; pointer-events: none; }
   .nav-step-info { text-align: center; font-size: 13px; color: var(--muted); min-width: 50px; }
+
 </style>
 </head>
 <body>
@@ -336,21 +310,7 @@
   <div class="page-title"><span>✏️</span> 核心句型</div>
   <div class="page-sub">換成你自己的資料試試看！</div>
 
-  <div class="sentence-box">
-    <div class="slabel">句型 1</div>
-    <div class="pattern">Hi! My name is <span class="blank">___</span>.</div>
-    <div class="example">→ Hi! My name is Amy. <button class="speak-btn sentence-speak" onclick="speak('Hi! My name is Amy.',this)">🔊</button></div>
-  </div>
-  <div class="sentence-box">
-    <div class="slabel">句型 2</div>
-    <div class="pattern">I am <span class="blank">___</span> years old. &nbsp;I am in Grade <span class="blank">___</span>.</div>
-    <div class="example">→ I am 10 years old. I am in Grade 4. <button class="speak-btn sentence-speak" onclick="speak('I am 10 years old. I am in Grade 4.',this)">🔊</button></div>
-  </div>
-  <div class="sentence-box">
-    <div class="slabel">句型 3（延伸）</div>
-    <div class="pattern">My favorite <span class="blank">___</span> is <span class="blank">___</span>.</div>
-    <div class="example">→ My favorite color is blue. <button class="speak-btn sentence-speak" onclick="speak('My favorite color is blue.',this)">🔊</button></div>
-  </div>
+  <div id="sentenceList"></div>
 
   <div class="game-label" style="margin-top:22px">🧠 單字小測驗：看中文選英文</div>
   <div class="quiz-progress" id="quizProgress"></div>
@@ -380,7 +340,7 @@
     I am <span class="fill">&nbsp;&nbsp;&nbsp;&nbsp;</span> years old.<br>
     I am in Grade <span class="fill">&nbsp;&nbsp;</span>.<br>
     My favorite color is <span class="fill">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>.<br>
-    My favorite food is <span class="fill">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>.
+    My favorite food is <span class="fill">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>.<br>
   </div>
   <div class="star-tip">⭐ 目標：不看提示，流暢說完！</div>
   <div class="task-card" style="margin-bottom:0">
@@ -411,35 +371,8 @@
 </div>
 
 <script>
-// ── Speech ──
-let ttsVoice = null;
-function loadVoice() {
-  const voices = speechSynthesis.getVoices();
-  ttsVoice = voices.find(v => v.lang === 'en-US' && v.localService)
-          || voices.find(v => v.lang.startsWith('en-') && v.localService)
-          || voices.find(v => v.lang.startsWith('en'))
-          || null;
-}
-if (window.speechSynthesis) {
-  loadVoice();
-  speechSynthesis.onvoiceschanged = loadVoice;
-}
-function speak(text, btn) {
-  if (!window.speechSynthesis) return;
-  speechSynthesis.cancel();
-  const utt = new SpeechSynthesisUtterance(text);
-  utt.lang = 'en-US';
-  utt.rate = 0.85;
-  utt.pitch = 1.05;
-  if (ttsVoice) utt.voice = ttsVoice;
-  if (btn) {
-    btn.classList.add('speaking');
-    utt.onend = () => btn.classList.remove('speaking');
-  }
-  speechSynthesis.speak(utt);
-}
-
 const UNIT_KEY = 'unit1';
+const PROGRESS_KEY = 'progress_g4';
 const steps = [
   { label: '暖身', icon: '🎵' },
   { label: '單字', icon: '🃏' },
@@ -448,37 +381,73 @@ const steps = [
   { label: '收尾', icon: '🎤' },
 ];
 const coreVocab = [
-  { en: 'name',      zh: '名字' },
-  { en: 'old',       zh: '歲數的' },
-  { en: 'years old', zh: '…歲' },
-  { en: 'grade',     zh: '年級' },
-  { en: 'favorite',  zh: '最喜歡的' },
-  { en: 'color',     zh: '顏色' },
-  { en: 'food',      zh: '食物' },
-  { en: 'friend',    zh: '朋友' },
+  {en:"name",zh:"名字"},
+  {en:"old",zh:"歲數的"},
+  {en:"years old",zh:"…歲"},
+  {en:"grade",zh:"年級"},
+  {en:"favorite",zh:"最喜歡的"},
+  {en:"color",zh:"顏色"},
+  {en:"food",zh:"食物"},
+  {en:"friend",zh:"朋友"}
 ];
 const extVocab = [
-  { en: 'hello',  zh: '你好' },
-  { en: 'hi',     zh: '嗨' },
-  { en: 'nice',   zh: '棒的' },
-  { en: 'meet',   zh: '認識/見面' },
+  {en:"hello",zh:"你好"},
+  {en:"hi",zh:"嗨"},
+  {en:"nice",zh:"棒的"},
+  {en:"meet",zh:"認識/見面"}
 ];
-const qa = [
-  { q: "What's your name?",          a: "My name is ___." },
-  { q: "How old are you?",            a: "I am ___ years old." },
-  { q: "What grade are you in?",      a: "I am in Grade 4." },
-  { q: "What's your favorite color?", a: "My favorite color is ___." },
-  { q: "What's your favorite food?",  a: "My favorite food is ___." },
-];
+const sentenceData = [{"label": "句型 1", "pattern": "Hi! My name is <blank>___</blank>.", "example": "Hi! My name is Amy.", "speak_text": "Hi! My name is Amy."}, {"label": "句型 2", "pattern": "I am <blank>___</blank> years old. I am in Grade <blank>___</blank>.", "example": "I am 10 years old. I am in Grade 4.", "speak_text": "I am 10 years old. I am in Grade 4."}, {"label": "句型 3（延伸）", "pattern": "My favorite <blank>___</blank> is <blank>___</blank>.", "example": "My favorite color is blue.", "speak_text": "My favorite color is blue."}];
+const qaData = [{"q": "What's your name?", "a": "My name is ___."}, {"q": "How old are you?", "a": "I am ___ years old."}, {"q": "What grade are you in?", "a": "I am in Grade 4."}, {"q": "What's your favorite color?", "a": "My favorite color is ___."}, {"q": "What's your favorite food?", "a": "My favorite food is ___."}];
 
-// Mark in_progress on load
 (function() {
-  const p = JSON.parse(localStorage.getItem('progress_g4') || '{}');
-  if (p[UNIT_KEY] !== 'done') { p[UNIT_KEY] = 'in_progress'; localStorage.setItem('progress_g4', JSON.stringify(p)); }
+  const p = JSON.parse(localStorage.getItem(PROGRESS_KEY) || '{}');
+  if (p[UNIT_KEY] !== 'done') { p[UNIT_KEY] = 'in_progress'; localStorage.setItem(PROGRESS_KEY, JSON.stringify(p)); }
   else { document.getElementById('completeDone').style.display = 'block'; document.querySelector('.complete-btn').style.display = 'none'; }
 })();
 
-// Step nav
+// 渲染句型
+function renderSentences() {
+  const container = document.getElementById('sentenceList');
+  if(!container) return;
+  sentenceData.forEach(s => {
+    const div = document.createElement('div');
+    div.className = 'sentence-box';
+    div.innerHTML = `
+      <div class="slabel">${s.label}</div>
+      <div class="pattern">${s.pattern.replace(/<blank>/g, '<span class="blank">').replace(/<\/blank>/g, '</span>')}</div>
+      <div class="example">→ ${s.example} <button class="speak-btn sentence-speak">🔊</button></div>
+    `;
+    const btn = div.querySelector('.speak-btn');
+    btn.onclick = () => speak(s.speak_text, btn);
+    container.appendChild(div);
+  });
+}
+
+// 渲染 Q&A
+function renderQA() {
+  const container = document.getElementById('qaList');
+  if(!container) return;
+  qaData.forEach((item, i) => {
+    const div = document.createElement('div');
+    div.className = 'qa-item';
+    div.innerHTML = `
+      <div class="qa-num">${i + 1}</div>
+      <div>
+        <div class="qa-q">Q: ${item.q} <button class="speak-btn qa-speak">🔊</button></div>
+        <div class="qa-a">A: ${item.a}</div>
+      </div>
+    `;
+    const btn = div.querySelector('.speak-btn');
+    btn.onclick = () => speak(item.q, btn);
+    container.appendChild(div);
+  });
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  renderSentences();
+  renderQA();
+});
+
 let currentPage = 0;
 const stepNav = document.getElementById('stepNav');
 steps.forEach((s, i) => {
@@ -496,7 +465,6 @@ function goTo(i) {
   currentPage = i;
   document.getElementById(`page-${i}`).classList.add('active');
   document.getElementById(`step-${i}`).classList.add('active');
-  if (i === steps.length - 1) markDone();
   updateNav();
   window.scrollTo(0, 0);
 }
@@ -510,7 +478,6 @@ function updateNav() {
 }
 updateNav();
 
-// Render vocab cards
 function makeCards(arr, gridId, isExt) {
   const grid = document.getElementById(gridId);
   arr.forEach(v => {
@@ -519,7 +486,7 @@ function makeCards(arr, gridId, isExt) {
     card.innerHTML = `<div class="vocab-inner">
       <div class="vocab-front${isExt?' ext':''}">
         <div class="en">${v.en}</div>
-        <button class="speak-btn" onclick="event.stopPropagation();speak('${v.en}',this)">🔊</button>
+        <button class="speak-btn" onclick="event.stopPropagation();speak(\`${v.en}\`,this)">🔊</button>
       </div>
       <div class="vocab-back${isExt?' ext':''}"><div class="zh">${v.zh}</div><div class="en2">${v.en}</div></div>
     </div>`;
@@ -536,7 +503,6 @@ function flipAll() {
   document.querySelectorAll('.vocab-card').forEach(c => c.classList.toggle('flipped', allFlipped));
 }
 
-// Matching game (core vocab only)
 let matchSel = null, matchCorrect = 0;
 function shuffle(a) { return [...a].sort(() => Math.random() - .5); }
 function initMatch() {
@@ -571,7 +537,6 @@ function onMatch(el) {
 }
 initMatch();
 
-// Quiz
 let quizQueue = [], quizIdx = 0, quizAnswered = false;
 function buildQuiz() { quizQueue = shuffle(coreVocab); quizIdx = 0; nextQuiz(); }
 function nextQuiz() {
@@ -607,20 +572,11 @@ function nextQuiz() {
 }
 buildQuiz();
 
-// Q&A
-const qaList = document.getElementById('qaList');
-qa.forEach((item, i) => {
-  const div = document.createElement('div');
-  div.className = 'qa-item';
-  div.innerHTML = `<div class="qa-num">${i+1}</div><div><div class="qa-q">Q: ${item.q} <button class="speak-btn qa-speak" onclick="speak('${item.q}',this)">🔊</button></div><div class="qa-a">A: ${item.a}</div></div>`;
-  qaList.appendChild(div);
-});
 
-// Complete
 function markDone() {
-  const p = JSON.parse(localStorage.getItem('progress_g4') || '{}');
+  const p = JSON.parse(localStorage.getItem(PROGRESS_KEY) || '{}');
   p[UNIT_KEY] = 'done';
-  localStorage.setItem('progress_g4', JSON.stringify(p));
+  localStorage.setItem(PROGRESS_KEY, JSON.stringify(p));
   document.querySelector('.complete-btn').style.display = 'none';
   document.getElementById('completeDone').style.display = 'block';
 }

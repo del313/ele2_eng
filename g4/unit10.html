@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Unit 10 – In the City</title>
+<script src="../js-common.js"></script>
 <style>
   :root {
     --orange: #FF8C00;
@@ -251,6 +252,7 @@
   .nav-next { background: var(--orange); color: white; }
   .nav-btn:disabled { opacity: .3; pointer-events: none; }
   .nav-step-info { text-align: center; font-size: 13px; color: var(--muted); min-width: 50px; }
+
 </style>
 </head>
 <body>
@@ -268,7 +270,7 @@
   <div class="page-title"><span>🎵</span> 暖身</div>
   <div class="page-sub">5 分鐘 · 唱歌 + 認識地點</div>
   <div class="video-btn-wrap">
-    <a class="video-btn" href="https://www.youtube.com/watch?v=A61624xjl_I" target="_blank" rel="noopener">
+    <a class="video-btn" href="https://www.youtube.com/watch?v=EfD2k9beP-4" target="_blank" rel="noopener">
       <span class="yt-icon">▶️</span> 開啟 Places in the City Song 影片
     </a>
   </div>
@@ -308,21 +310,7 @@
   <div class="page-title"><span>✏️</span> 核心句型</div>
   <div class="page-sub">換成你自己的資料試試看！</div>
 
-  <div class="sentence-box">
-    <div class="slabel">句型 1</div>
-    <div class="pattern">I go to the <span class="blank">___</span>.</div>
-    <div class="example">→ I go to the park. <button class="speak-btn sentence-speak" onclick="speak('I go to the park.',this)">🔊</button></div>
-  </div>
-  <div class="sentence-box">
-    <div class="slabel">句型 2</div>
-    <div class="pattern">Let's go to the <span class="blank">___</span>!</div>
-    <div class="example">→ Let's go to the library! <button class="speak-btn sentence-speak" onclick="speak('Let\'s go to the library!',this)">🔊</button></div>
-  </div>
-  <div class="sentence-box">
-    <div class="slabel">句型 3（延伸）</div>
-    <div class="pattern">The <span class="blank">___</span> is near here.</div>
-    <div class="example">→ The store is near here. <button class="speak-btn sentence-speak" onclick="speak('The store is near here.',this)">🔊</button></div>
-  </div>
+  <div id="sentenceList"></div>
 
   <div class="game-label" style="margin-top:22px">🧠 單字小測驗：看中文選英文</div>
   <div class="quiz-progress" id="quizProgress"></div>
@@ -339,42 +327,7 @@
 <div class="page" id="page-3">
   <div class="page-title"><span>🎯</span> 問答接力</div>
   <div class="page-sub">10 分鐘 · 輪流問答，練習說英文</div>
-  <div class="qa-item">
-    <div class="qa-num">1</div>
-    <div>
-      <div class="qa-q">Q: Where do you go on weekends? <button class="speak-btn qa-speak" onclick="speak('Where do you go on weekends?',this)">🔊</button></div>
-      <div class="qa-a">A: I go to the ___.</div>
-    </div>
-  </div>
-  <div class="qa-item">
-    <div class="qa-num">2</div>
-    <div>
-      <div class="qa-q">Q: Is there a park near your home? <button class="speak-btn qa-speak" onclick="speak('Is there a park near your home?',this)">🔊</button></div>
-      <div class="qa-a">A: Yes, there is. / No, there isn't.</div>
-    </div>
-  </div>
-  <div class="qa-item">
-    <div class="qa-num">3</div>
-    <div>
-      <div class="qa-q">Q: How do you go to school? <button class="speak-btn qa-speak" onclick="speak('How do you go to school?',this)">🔊</button></div>
-      <div class="qa-a">A: I go by bus / car.</div>
-    </div>
-  </div>
-  <div class="qa-item">
-    <div class="qa-num">4</div>
-    <div>
-      <div class="qa-q">Q: What do you do at the library? <button class="speak-btn qa-speak" onclick="speak('What do you do at the library?',this)">🔊</button></div>
-      <div class="qa-a">A: I read books there.</div>
-    </div>
-  </div>
-  <div class="qa-item">
-    <div class="qa-num">5</div>
-    <div>
-      <div class="qa-q">Q: Let's go to the park! Do you want to go? <button class="speak-btn qa-speak" onclick="speak('Let\'s go to the park! Do you want to go?',this)">🔊</button></div>
-      <div class="qa-a">A: Yes! / No, let's go to the ___.</div>
-    </div>
-  </div>
-
+  <div id="qaList"></div>
   <div class="tip-box">💡 家長小技巧：外出時，路過地點就說英文名字，自然學習！</div>
 </div>
 
@@ -418,34 +371,8 @@
 </div>
 
 <script>
-let ttsVoice = null;
-function loadVoice() {
-  const voices = speechSynthesis.getVoices();
-  ttsVoice = voices.find(v => v.lang === 'en-US' && v.localService)
-          || voices.find(v => v.lang.startsWith('en-') && v.localService)
-          || voices.find(v => v.lang.startsWith('en'))
-          || null;
-}
-if (window.speechSynthesis) {
-  loadVoice();
-  speechSynthesis.onvoiceschanged = loadVoice;
-}
-function speak(text, btn) {
-  if (!window.speechSynthesis) return;
-  speechSynthesis.cancel();
-  const utt = new SpeechSynthesisUtterance(text);
-  utt.lang = 'en-US';
-  utt.rate = 0.85;
-  utt.pitch = 1.05;
-  if (ttsVoice) utt.voice = ttsVoice;
-  if (btn) {
-    btn.classList.add('speaking');
-    utt.onend = () => btn.classList.remove('speaking');
-  }
-  speechSynthesis.speak(utt);
-}
-
 const UNIT_KEY = 'unit10';
+const PROGRESS_KEY = 'progress_g4';
 const steps = [
   { label: '暖身', icon: '🎵' },
   { label: '單字', icon: '🃏' },
@@ -469,12 +396,57 @@ const extVocab = [
   {en:"museum",zh:"博物館"},
   {en:"subway",zh:"地鐵"}
 ];
+const sentenceData = [{"label": "句型 1", "pattern": "I go to the <blank>___</blank>.", "example": "I go to the park.", "speak_text": "I go to the park."}, {"label": "句型 2", "pattern": "Let's go to the <blank>___</blank>!", "example": "Let's go to the library!", "speak_text": "Let's go to the library!"}, {"label": "句型 3（延伸）", "pattern": "The <blank>___</blank> is near here.", "example": "The store is near here.", "speak_text": "The store is near here."}];
+const qaData = [{"q": "Where do you go on weekends?", "a": "I go to the ___."}, {"q": "Is there a park near your home?", "a": "Yes, there is. / No, there isn't."}, {"q": "How do you go to school?", "a": "I go by bus / car."}, {"q": "What do you do at the library?", "a": "I read books there."}, {"q": "Let's go to the park! Do you want to go?", "a": "Yes! / No, let's go to the ___."}];
 
 (function() {
-  const p = JSON.parse(localStorage.getItem('progress_g4') || '{}');
-  if (p[UNIT_KEY] !== 'done') { p[UNIT_KEY] = 'in_progress'; localStorage.setItem('progress_g4', JSON.stringify(p)); }
+  const p = JSON.parse(localStorage.getItem(PROGRESS_KEY) || '{}');
+  if (p[UNIT_KEY] !== 'done') { p[UNIT_KEY] = 'in_progress'; localStorage.setItem(PROGRESS_KEY, JSON.stringify(p)); }
   else { document.getElementById('completeDone').style.display = 'block'; document.querySelector('.complete-btn').style.display = 'none'; }
 })();
+
+// 渲染句型
+function renderSentences() {
+  const container = document.getElementById('sentenceList');
+  if(!container) return;
+  sentenceData.forEach(s => {
+    const div = document.createElement('div');
+    div.className = 'sentence-box';
+    div.innerHTML = `
+      <div class="slabel">${s.label}</div>
+      <div class="pattern">${s.pattern.replace(/<blank>/g, '<span class="blank">').replace(/<\/blank>/g, '</span>')}</div>
+      <div class="example">→ ${s.example} <button class="speak-btn sentence-speak">🔊</button></div>
+    `;
+    const btn = div.querySelector('.speak-btn');
+    btn.onclick = () => speak(s.speak_text, btn);
+    container.appendChild(div);
+  });
+}
+
+// 渲染 Q&A
+function renderQA() {
+  const container = document.getElementById('qaList');
+  if(!container) return;
+  qaData.forEach((item, i) => {
+    const div = document.createElement('div');
+    div.className = 'qa-item';
+    div.innerHTML = `
+      <div class="qa-num">${i + 1}</div>
+      <div>
+        <div class="qa-q">Q: ${item.q} <button class="speak-btn qa-speak">🔊</button></div>
+        <div class="qa-a">A: ${item.a}</div>
+      </div>
+    `;
+    const btn = div.querySelector('.speak-btn');
+    btn.onclick = () => speak(item.q, btn);
+    container.appendChild(div);
+  });
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  renderSentences();
+  renderQA();
+});
 
 let currentPage = 0;
 const stepNav = document.getElementById('stepNav');
@@ -493,7 +465,6 @@ function goTo(i) {
   currentPage = i;
   document.getElementById(`page-${i}`).classList.add('active');
   document.getElementById(`step-${i}`).classList.add('active');
-  if (i === steps.length - 1) markDone();
   updateNav();
   window.scrollTo(0, 0);
 }
@@ -515,7 +486,7 @@ function makeCards(arr, gridId, isExt) {
     card.innerHTML = `<div class="vocab-inner">
       <div class="vocab-front${isExt?' ext':''}">
         <div class="en">${v.en}</div>
-        <button class="speak-btn" onclick="event.stopPropagation();speak('${v.en}',this)">🔊</button>
+        <button class="speak-btn" onclick="event.stopPropagation();speak(\`${v.en}\`,this)">🔊</button>
       </div>
       <div class="vocab-back${isExt?' ext':''}"><div class="zh">${v.zh}</div><div class="en2">${v.en}</div></div>
     </div>`;
@@ -603,9 +574,9 @@ buildQuiz();
 
 
 function markDone() {
-  const p = JSON.parse(localStorage.getItem('progress_g4') || '{}');
+  const p = JSON.parse(localStorage.getItem(PROGRESS_KEY) || '{}');
   p[UNIT_KEY] = 'done';
-  localStorage.setItem('progress_g4', JSON.stringify(p));
+  localStorage.setItem(PROGRESS_KEY, JSON.stringify(p));
   document.querySelector('.complete-btn').style.display = 'none';
   document.getElementById('completeDone').style.display = 'block';
 }

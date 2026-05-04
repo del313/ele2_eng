@@ -3,315 +3,577 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>第三單元 – 我的學校</title>
-<link rel="stylesheet" href="../style-common.css">
+<title>Unit 3 – In My Bag</title>
+<script src="../js-common.js"></script>
 <style>
-  body { display: flex; flex-direction: column; background: #fff; }
-  .unit-header {
-    background: linear-gradient(135deg, var(--blue), var(--green));
-    color: white; padding: 20px; text-align: center; position: relative;
+  :root {
+    --orange: #FF8C00;
+    --yellow: #FFD700;
+    --light:  #FFF8EC;
+    --text:   #333;
+    --muted:  #888;
+    --green:  #4CAF50;
+    --radius: 18px;
   }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: var(--light);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  header {
+    background: linear-gradient(135deg, var(--orange), var(--yellow));
+    color: white;
+    padding: 16px 24px 14px;
+    text-align: center;
+  }
+  header .unit-label { font-size: 12px; letter-spacing: 2px; opacity: .8; }
+  header h1 { font-size: 1.7rem; font-weight: 900; margin-top: 4px; }
   .home-btn {
-    position: absolute; top: 15px; left: 15px;
-    background: rgba(255,255,255,0.3); border: none; padding: 8px 15px;
-    border-radius: 20px; color: white; text-decoration: none; font-weight: 800;
+    position: absolute; top: 14px; left: 14px;
+    background: rgba(255,255,255,.25);
+    border: none; border-radius: 10px;
+    color: white; font-size: 13px; font-weight: 700;
+    padding: 6px 12px; cursor: pointer; text-decoration: none;
+    display: inline-block;
   }
-
-  /* STEP NAV */
   .step-nav {
-    display: flex; background: #F8F9FA; border-bottom: 2px solid #EEE;
+    display: flex; background: white;
+    border-bottom: 3px solid #FFE0A0;
+    overflow-x: auto; scrollbar-width: none;
   }
+  .step-nav::-webkit-scrollbar { display: none; }
   .step-btn {
-    flex: 1; padding: 12px; border: none; background: none; cursor: pointer;
-    font-size: 14px; font-weight: 800; color: var(--muted);
-    transition: all 0.2s; border-bottom: 4px solid transparent;
+    flex: 1; min-width: 70px;
+    padding: 10px 6px 8px;
+    border: none; background: none; cursor: pointer;
+    font-size: 12px; font-weight: 700; color: var(--muted);
+    display: flex; flex-direction: column; align-items: center; gap: 3px;
+    border-bottom: 4px solid transparent; transition: all .2s;
   }
-  .step-btn.active { color: var(--blue); border-bottom-color: var(--blue); background: #E1F5FE; }
-
-  /* PAGES */
-  .page { display: none; padding: 25px 20px 100px; max-width: 600px; margin: 0 auto; width: 100%; animation: fadeIn 0.4s; }
+  .step-btn .si { font-size: 1.3rem; }
+  .step-btn.active { color: var(--orange); border-bottom-color: var(--orange); background: #FFF8EC; }
+  .page { display: none; flex: 1; padding: 18px 16px 90px; max-width: 700px; margin: 0 auto; width: 100%; }
   .page.active { display: block; }
-  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-  .page-title { font-size: 1.8rem; font-weight: 900; color: var(--blue); margin-bottom: 20px; text-align: center; }
-
-  /* VIDEO */
+  .page-title { font-size: 1.4rem; font-weight: 900; color: var(--orange); margin-bottom: 4px; display: flex; align-items: center; gap: 8px; }
+  .page-sub { font-size: 13px; color: var(--muted); margin-bottom: 18px; }
+  .video-btn-wrap { text-align: center; margin-bottom: 16px; }
   .video-btn {
-    display: block; background: #FF0000; color: white; text-align: center;
-    padding: 20px; border-radius: 20px; text-decoration: none; font-size: 1.2rem;
-    font-weight: 800; margin: 20px 0; box-shadow: 0 4px 15px rgba(255,0,0,0.3);
+    display: inline-flex; align-items: center; gap: 10px;
+    background: #FF0000; color: white;
+    border: none; border-radius: var(--radius);
+    padding: 16px 28px; font-size: 1.1rem; font-weight: 800;
+    cursor: pointer; text-decoration: none;
+    box-shadow: 0 4px 14px rgba(255,0,0,.3);
+    transition: transform .15s, box-shadow .15s;
   }
-
-  /* VOCAB CARDS */
-  .vocab-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-  .vocab-card {
-    background: #F0F9FF; border-radius: 20px; padding: 20px; text-align: center;
-    border: 3px solid var(--blue); cursor: pointer; transition: 0.2s;
+  .video-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(255,0,0,.35); }
+  .video-btn .yt-icon { font-size: 1.5rem; }
+  .task-card {
+    background: white; border-radius: var(--radius);
+    padding: 16px 20px; box-shadow: 0 2px 8px rgba(0,0,0,.07);
+    border-left: 5px solid var(--orange); font-size: 15px; line-height: 1.8;
   }
-  .vocab-card:hover { transform: scale(1.05); }
-  .vocab-card .icon { font-size: 4rem; display: block; }
-  .vocab-card .word { font-size: 1.5rem; font-weight: 900; color: var(--text); margin-top: 10px; }
-
-  /* QUIZ */
-  .quiz-img { font-size: 6rem; text-align: center; margin-bottom: 20px; }
-  .quiz-options { display: grid; gap: 10px; }
-  .opt-btn {
-    padding: 15px; border-radius: 15px; border: 3px solid #DDD;
-    background: white; font-size: 1.2rem; font-weight: 800; cursor: pointer;
+  .task-card strong { color: var(--orange); }
+  .vocab-section-label {
+    font-size: 13px; font-weight: 800; letter-spacing: 1px;
+    margin: 16px 0 8px; color: #555; text-transform: uppercase;
   }
-  .opt-btn.correct { background: var(--green); color: white; border-color: #2E7D32; }
-  .opt-btn.wrong { background: var(--pink); color: white; border-color: #C2185B; animation: shake 0.3s; }
-
-  @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
-
-  /* NAV BUTTONS */
-  .nav-bar {
+  .vocab-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 10px; margin-bottom: 6px;
+  }
+  .vocab-card { height: 95px; perspective: 600px; cursor: pointer; }
+  .vocab-inner {
+    width: 100%; height: 100%;
+    transform-style: preserve-3d; transition: transform .45s ease;
+    border-radius: var(--radius); position: relative;
+  }
+  .vocab-card.flipped .vocab-inner { transform: rotateY(180deg); }
+  .vocab-front, .vocab-back {
+    position: absolute; width: 100%; height: 100%;
+    border-radius: var(--radius);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    backface-visibility: hidden; -webkit-backface-visibility: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,.1);
+  }
+  .vocab-front { background: white; border: 3px solid #FFD180; }
+  .vocab-front.ext { border-color: #B2DFDB; }
+  .vocab-front .en { font-size: 1.2rem; font-weight: 800; color: var(--orange); }
+  .vocab-front.ext .en { color: #00897B; }
+  .vocab-front .tap { font-size: 11px; color: var(--muted); margin-top: 3px; }
+  .vocab-back { background: linear-gradient(135deg, var(--orange), var(--yellow)); color: white; transform: rotateY(180deg); }
+  .vocab-back.ext { background: linear-gradient(135deg, #00897B, #4DB6AC); }
+  .vocab-back .zh { font-size: 1.1rem; font-weight: 700; }
+  .vocab-back .en2 { font-size: 12px; opacity: .85; margin-top: 2px; }
+  .flip-all-btn {
+    display: block; margin: 8px auto 16px;
+    background: var(--orange); color: white;
+    border: none; border-radius: 24px;
+    padding: 7px 20px; font-size: 13px; font-weight: 700; cursor: pointer;
+  }
+  .ext-note { font-size: 12px; color: #00897B; margin-bottom: 14px; }
+  .speak-btn {
+    background: none; border: none; cursor: pointer;
+    font-size: 1rem; padding: 3px 5px; border-radius: 8px;
+    transition: background .15s; line-height: 1; flex-shrink: 0;
+  }
+  .speak-btn:hover { background: rgba(0,0,0,.08); }
+  .speak-btn.speaking { animation: spk-pulse .5s infinite alternate; }
+  @keyframes spk-pulse { from{opacity:1} to{opacity:.3} }
+  .vocab-front .speak-btn { margin-top: 4px; }
+  .sentence-speak { float: right; margin-top: -2px; }
+  .qa-speak { margin-left: 4px; vertical-align: middle; }
+  .game-label { font-weight: 800; font-size: .95rem; margin-bottom: 8px; color: #555; }
+  .game-score { text-align: center; font-weight: 800; font-size: .95rem; color: var(--green); margin-bottom: 8px; min-height: 22px; }
+  .match-board { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px; }
+  .match-col { display: flex; flex-direction: column; gap: 7px; }
+  .match-item {
+    background: white; border: 3px solid #FFD180; border-radius: 12px;
+    padding: 9px 12px; text-align: center; cursor: pointer;
+    font-weight: 700; font-size: 14px; transition: all .2s; user-select: none;
+  }
+  .match-item:hover { border-color: var(--orange); background: #FFF3E0; }
+  .match-item.selected { border-color: var(--orange); background: var(--orange); color: white; }
+  .match-item.correct { border-color: var(--green); background: #E8F5E9; color: #2E7D32; pointer-events: none; }
+  .match-item.wrong { border-color: #f44336; background: #FFEBEE; animation: shake .3s; }
+  @keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-5px)} 75%{transform:translateX(5px)} }
+  .reset-btn {
+    display: block; margin: 0 auto;
+    background: #eee; color: #555; border: none; border-radius: 24px;
+    padding: 6px 18px; font-size: 13px; font-weight: 700; cursor: pointer;
+  }
+  .sentence-box {
+    background: white; border-radius: var(--radius);
+    padding: 16px 20px; margin-bottom: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.07);
+    border-left: 6px solid var(--orange);
+  }
+  .sentence-box .slabel { font-size: 11px; color: var(--muted); letter-spacing: 1px; margin-bottom: 5px; text-transform: uppercase; }
+  .sentence-box .pattern { font-size: 1.15rem; font-weight: 700; }
+  .sentence-box .blank {
+    display: inline-block; min-width: 75px;
+    border-bottom: 3px solid var(--orange); color: var(--orange);
+    text-align: center; margin: 0 3px; font-weight: 700;
+  }
+  .sentence-box .example { margin-top: 7px; font-size: 13px; color: var(--muted); }
+  .quiz-progress { text-align: center; font-size: 13px; color: var(--muted); margin-bottom: 10px; }
+  .quiz-question {
+    background: white; border-radius: var(--radius);
+    padding: 18px; text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,.07); margin-bottom: 12px;
+  }
+  .quiz-q { font-size: .95rem; color: var(--muted); margin-bottom: 6px; }
+  .quiz-en { font-size: 1.9rem; font-weight: 900; color: var(--orange); }
+  .quiz-choices { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; margin-bottom: 10px; }
+  .quiz-btn {
+    background: white; border: 3px solid #FFD180; border-radius: 12px;
+    padding: 11px; font-size: 1rem; font-weight: 700; cursor: pointer; transition: all .2s;
+  }
+  .quiz-btn:hover { border-color: var(--orange); background: #FFF3E0; }
+  .quiz-btn.correct { border-color: var(--green); background: #E8F5E9; color: #2E7D32; }
+  .quiz-btn.wrong   { border-color: #f44336; background: #FFEBEE; }
+  .quiz-status { text-align: center; font-weight: 800; font-size: .95rem; min-height: 26px; margin-bottom: 8px; }
+  .next-quiz-btn {
+    display: none; margin: 0 auto;
+    background: var(--orange); color: white;
+    border: none; border-radius: 24px;
+    padding: 8px 22px; font-size: 14px; font-weight: 700; cursor: pointer;
+  }
+  .qa-item {
+    background: white; border-radius: var(--radius);
+    padding: 13px 16px; margin-bottom: 9px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.07);
+    display: grid; grid-template-columns: 34px 1fr; gap: 10px; align-items: start;
+  }
+  .qa-num {
+    background: var(--orange); color: white; width: 34px; height: 34px;
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 14px; flex-shrink: 0;
+  }
+  .qa-q { font-weight: 700; font-size: 15px; }
+  .qa-a { color: var(--orange); margin-top: 3px; font-size: 14px; }
+  .tip-box {
+    background: #FFF3E0; border-left: 4px solid var(--orange);
+    border-radius: 10px; padding: 11px 14px;
+    font-size: 14px; color: #E65100; margin-top: 8px;
+  }
+  .intro-box {
+    background: white; border-radius: var(--radius);
+    padding: 22px; box-shadow: 0 2px 8px rgba(0,0,0,.07);
+    font-size: 1.1rem; line-height: 2.6; margin-bottom: 14px;
+  }
+  .intro-box .fill {
+    display: inline-block; min-width: 85px;
+    border-bottom: 2.5px solid var(--orange); color: var(--orange);
+    font-weight: 700; text-align: center;
+  }
+  .star-tip { text-align: center; font-size: 13px; color: var(--muted); margin-bottom: 18px; }
+  .complete-area { text-align: center; margin-top: 24px; }
+  .complete-btn {
+    background: linear-gradient(135deg, var(--green), #66BB6A);
+    color: white; border: none; border-radius: var(--radius);
+    padding: 16px 36px; font-size: 1.15rem; font-weight: 900;
+    cursor: pointer; box-shadow: 0 4px 14px rgba(76,175,80,.35);
+    transition: transform .15s;
+  }
+  .complete-btn:hover { transform: translateY(-2px); }
+  .complete-done {
+    display: none; text-align: center; padding: 20px;
+    background: white; border-radius: var(--radius);
+    box-shadow: 0 2px 8px rgba(0,0,0,.07);
+  }
+  .complete-done .big { font-size: 3rem; }
+  .complete-done h3 { font-size: 1.3rem; font-weight: 900; color: var(--green); margin: 8px 0 4px; }
+  .complete-done p { font-size: 14px; color: var(--muted); margin-bottom: 16px; }
+  .home-link-btn {
+    display: inline-block; background: var(--orange); color: white;
+    border: none; border-radius: 24px;
+    padding: 10px 28px; font-size: 15px; font-weight: 800;
+    cursor: pointer; text-decoration: none;
+  }
+  .bottom-nav-outer {
     position: fixed; bottom: 0; left: 0; right: 0;
-    padding: 15px; background: white; border-top: 2px solid #EEE;
-    display: flex; justify-content: space-between; gap: 10px;
+    background: white; border-top: 2px solid #FFE0A0; z-index: 100;
+  }
+  .bottom-nav {
+    display: flex; align-items: center;
+    padding: 9px 14px; gap: 9px;
+    max-width: 700px; margin: 0 auto;
   }
   .nav-btn {
-    flex: 1; padding: 15px; border-radius: 15px; border: none;
-    font-size: 1.1rem; font-weight: 900; cursor: pointer;
+    flex: 1; padding: 11px; border: none; border-radius: 12px;
+    font-size: 14px; font-weight: 800; cursor: pointer; transition: all .2s;
   }
-  .btn-next { background: var(--blue); color: white; }
-  .btn-prev { background: #EEE; color: var(--muted); }
+  .nav-prev { background: #F5F5F5; color: #555; }
+  .nav-next { background: var(--orange); color: white; }
+  .nav-btn:disabled { opacity: .3; pointer-events: none; }
+  .nav-step-info { text-align: center; font-size: 13px; color: var(--muted); min-width: 50px; }
 
-  /* FINISH */
-  .finish-icon { font-size: 8rem; animation: star-pop 0.6s infinite alternate; text-align: center; }
-  @keyframes star-pop { from { transform: scale(1); } to { transform: scale(1.2); } }
 </style>
 </head>
-<body onload="init()">
+<body>
 
-<header class="unit-header">
+<header style="position:relative">
   <a href="index.html" class="home-btn">🏠 首頁</a>
-  <h1>第三單元</h1>
-  <p>我的學校</p>
+  <div class="unit-label">UNIT 3 OF 12 &nbsp;·&nbsp; GRADE 2</div>
+  <h1>🎒 In My Bag</h1>
 </header>
 
-<nav class="step-nav">
-  <button class="step-btn active" onclick="showPage(0)">1. 觀看影片</button>
-  <button class="step-btn" onclick="showPage(1)">2. 學習單字</button>
-  <button class="step-btn" onclick="showPage(2)">3. 小小測驗</button>
-  <button class="step-btn" onclick="showPage(3)">4. 開口練習</button>
-  <button class="step-btn" onclick="showPage(4)">5. 完成！</button>
-</nav>
+<div class="step-nav" id="stepNav"></div>
 
-<!-- PAGE 1: WATCH -->
-<div class="page active" id="page0">
-  <h2 class="page-title">大家一起學！</h2>
-  <div style="text-align:center; margin-bottom:20px;">
-    <p style="font-size:1.1rem; font-weight:600;">跟著影片一起認識學校用品吧！</p>
-  </div>
-  
-  <div style="text-align:center;">
-    <a href="https://www.youtube.com/watch?v=hjFaqDNUVFo" class="video-btn">
-      📺 按這裡播放影片
+<!-- PAGE 1: WARM UP -->
+<div class="page active" id="page-0">
+  <div class="page-title"><span>🎵</span> 暖身</div>
+  <div class="page-sub">5 分鐘 · 認識文具</div>
+  <div class="video-btn-wrap">
+    <a class="video-btn" href="https://www.youtube.com/watch?v=UOo3fuH4PoA" target="_blank" rel="noopener">
+      <span class="yt-icon">▶️</span> 開啟 School Song 影片
     </a>
   </div>
-
-  <div style="background:#FFF9C4; padding:20px; border-radius:20px; border:2px dashed #FBC02D; margin-top:20px;">
-    <strong>任務：</strong> 仔細聽影片中的單字。
+  <div class="task-card">
+    <strong>一起做：</strong><br>
+    1. 唱唱文具歌 🎤<br>
+    2. 拍拍書包說 Book<br>
+    3. 從書包拿出筆說 Pencil 😄
   </div>
 </div>
 
-<!-- PAGE 2: WORDS -->
-<div class="page" id="page1">
-  <h2 class="page-title">學校用品</h2>
-  <div class="vocab-grid">
-    <div class="vocab-card" onclick="speak('Pencil')"><span class="icon">✏️</span><span class="word">Pencil</span></div>
-    <div class="vocab-card" onclick="speak('Eraser')"><span class="icon">🧽</span><span class="word">Eraser</span></div>
-    <div class="vocab-card" onclick="speak('Book')"><span class="icon">📖</span><span class="word">Book</span></div>
-    <div class="vocab-card" onclick="speak('Ruler')"><span class="icon">📏</span><span class="word">Ruler</span></div>
-    <div class="vocab-card" onclick="speak('Bag')"><span class="icon">🎒</span><span class="word">Bag</span></div>
-    <div class="vocab-card" onclick="speak('Desk')"><span class="icon">🪑</span><span class="word">Desk</span></div>
+<!-- PAGE 2: VOCABULARY -->
+<div class="page" id="page-1">
+  <div class="page-title"><span>🃏</span> 本期單字</div>
+  <div class="page-sub">10 分鐘 · 翻牌記單字 + 配對遊戲</div>
+
+  <div class="vocab-section-label">⭐ 核心單字（要記住！）</div>
+  <div class="vocab-grid" id="coreGrid"></div>
+
+  <div class="vocab-section-label" style="color:#00897B">🌱 延伸單字（有印象就好）</div>
+  <div class="ext-note">點卡片翻面看中文，認識就好，不列入測驗</div>
+  <div class="vocab-grid" id="extGrid"></div>
+
+  <button class="flip-all-btn" onclick="flipAll()">全部翻面 / 全部收起</button>
+
+  <div class="game-label">🎮 配對遊戲：點左邊英文，再點右邊中文</div>
+  <div class="game-score" id="matchScore"></div>
+  <div class="match-board">
+    <div class="match-col" id="matchEn"></div>
+    <div class="match-col" id="matchZh"></div>
+  </div>
+  <button class="reset-btn" onclick="initMatch()">🔄 重新開始</button>
+</div>
+
+<!-- PAGE 3: SENTENCES + QUIZ -->
+<div class="page" id="page-2">
+  <div class="page-title"><span>✏️</span> 核心句型</div>
+  <div class="page-sub">換成你自己的資料試試看！</div>
+
+  <div id="sentenceList"></div>
+
+  <div class="game-label" style="margin-top:22px">🧠 單字小測驗：看中文選英文</div>
+  <div class="quiz-progress" id="quizProgress"></div>
+  <div class="quiz-question">
+    <div class="quiz-q">這個中文是哪個英文單字？</div>
+    <div class="quiz-en" id="quizWord"></div>
+  </div>
+  <div class="quiz-status" id="quizStatus"></div>
+  <div class="quiz-choices" id="quizChoices"></div>
+  <button class="next-quiz-btn" id="nextQuizBtn" onclick="nextQuiz()">下一題 →</button>
+</div>
+
+<!-- PAGE 4: QA PRACTICE -->
+<div class="page" id="page-3">
+  <div class="page-title"><span>🎯</span> 問答接力</div>
+  <div class="page-sub">10 分鐘 · 輪流問答，練習說英文</div>
+  <div id="qaList"></div>
+  <div class="tip-box">💡 家長小技巧：幫孩子的文具貼上簡單的英文標籤。</div>
+</div>
+
+<!-- PAGE 5: WRAP UP -->
+<div class="page" id="page-4">
+  <div class="page-title"><span>🎤</span> 書包尋寶</div>
+  <div class="page-sub">5 分鐘 · 蒙眼摸文具挑戰</div>
+  <div class="intro-box">
+    This is my <span class="fill">Bag</span>.<br>
+    I have a <span class="fill">Book</span>.<br>
+    I have a <span class="fill">Pencil</span>.<br>
+    I have a <span class="fill">Ruler</span>.<br>
+    Look at <span class="fill">me</span>!<br>
+  </div>
+  <div class="star-tip">⭐ 目標：能正確說出常見文具的英文名稱！</div>
+  <div class="task-card" style="margin-bottom:0">
+    <strong>最後挑戰：</strong><br>
+    1. 摸摸看這是什麼？用英文回答 🗣️<br>
+    2. 說對就給小貼紙！ 🌟
+  </div>
+
+  <div class="complete-area">
+    <button class="complete-btn" onclick="markDone()">✅ 完成本課！</button>
+  </div>
+  <div class="complete-done" id="completeDone">
+    <div class="big">🎉</div>
+    <h3>Unit 3 完成！</h3>
+    <p>你真棒！下次繼續 Unit 4：My Body</p>
+    <a href="index.html" class="home-link-btn">回首頁 🏠</a>
   </div>
 </div>
 
-<!-- PAGE 3: QUIZ -->
-<div class="page" id="page2">
-  <h2 class="page-title">測驗時間</h2>
-  <div id="quiz-container">
-    <!-- Quiz content will be injected by JS -->
+<!-- BOTTOM NAV -->
+<div class="bottom-nav-outer">
+  <div class="bottom-nav">
+    <button class="nav-btn nav-prev" id="prevBtn" onclick="changePage(-1)">← 上一步</button>
+    <div class="nav-step-info" id="stepInfo"></div>
+    <button class="nav-btn nav-next" id="nextBtn" onclick="changePage(1)">下一步 →</button>
   </div>
-</div>
-
-<!-- PAGE 4: SPEAK -->
-<div class="page" id="page3">
-  <h2 class="page-title">跟著說說看</h2>
-  <div id="speak-container">
-    <!-- Sentence content will be injected by JS -->
-  </div>
-</div>
-
-<!-- PAGE 5: FINISH -->
-<div class="page" id="page4">
-  <h2 class="page-title">太棒了！</h2>
-  <div class="finish-icon">🎒</div>
-  <div style="text-align:center; margin-top:30px;">
-    <p style="font-size:1.3rem; font-weight:800;">恭喜完成第三課！</p>
-    <button onclick="finishUnit()" style="margin-top:20px; width:100%; padding:20px; border-radius:20px; border:none; background:var(--green); color:white; font-size:1.5rem; font-weight:900; cursor:pointer;">
-      ✅ 結束並領取獎勵
-    </button>
-  </div>
-</div>
-
-<div class="nav-bar">
-  <button class="nav-btn btn-prev" id="prevBtn" onclick="prevPage()">上一步</button>
-  <button class="nav-btn btn-next" id="nextBtn" onclick="nextPage()">下一步</button>
 </div>
 
 <script>
-let currentPage = 0;
-const totalPages = 5;
+const UNIT_KEY = 'unit3';
 const PROGRESS_KEY = 'progress_g2';
-
-// Quiz Data
-const vocab = [
-  { word: 'Pencil', icon: '✏️' },
-  { word: 'Eraser', icon: '🧽' },
-  { word: 'Book', icon: '📖' },
-  { word: 'Ruler', icon: '📏' },
-  { word: 'Bag', icon: '🎒' },
-  { word: 'Desk', icon: '🪑' }
+const steps = [
+  { label: '暖身', icon: '🎵' },
+  { label: '單字', icon: '🃏' },
+  { label: '句型', icon: '✏️' },
+  { label: '練習', icon: '🎯' },
+  { label: '收尾', icon: '🎤' },
 ];
-let currentQuizIndex = 0;
-let quizQuestions = [];
-
-// Speak Data
-const sentences = [
-  "This is my pencil.",
-  "I have a book."
+const coreVocab = [
+  {en:"Book",zh:"書"},
+  {en:"Pencil",zh:"鉛筆"},
+  {en:"Eraser",zh:"橡皮擦"},
+  {en:"Ruler",zh:"尺"},
+  {en:"Bag",zh:"書包"},
+  {en:"Pen",zh:"原子筆"}
 ];
-let currentSpeakIndex = 0;
+const extVocab = [
+  {en:"Desk",zh:"桌子"},
+  {en:"Chair",zh:"椅子"}
+];
+const sentenceData = [{"label": "句型 1", "pattern": "This is a <blank>Book</blank>.", "example": "This is a book.", "speak_text": "This is a book."}, {"label": "句型 2", "pattern": "I have a <blank>Pencil</blank>.", "example": "I have a pencil.", "speak_text": "I have a pencil."}];
+const qaData = [{"q": "What is in your bag?", "a": "A book and a pencil."}, {"q": "Is this your eraser?", "a": "Yes, it is."}];
 
-function init() {
-  const progress = JSON.parse(localStorage.getItem(PROGRESS_KEY) || '{}');
-  if (progress['unit3'] !== 'done') {
-    progress['unit3'] = 'in_progress';
-    localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress));
-  }
-  
-  // Prepare 3 quiz questions (half of vocab)
-  quizQuestions = [...vocab].sort(() => 0.5 - Math.random()).slice(0, 3);
-  
+(function() {
+  const p = JSON.parse(localStorage.getItem(PROGRESS_KEY) || '{}');
+  if (p[UNIT_KEY] !== 'done') { p[UNIT_KEY] = 'in_progress'; localStorage.setItem(PROGRESS_KEY, JSON.stringify(p)); }
+  else { document.getElementById('completeDone').style.display = 'block'; document.querySelector('.complete-btn').style.display = 'none'; }
+})();
+
+// 渲染句型
+function renderSentences() {
+  const container = document.getElementById('sentenceList');
+  if(!container) return;
+  sentenceData.forEach(s => {
+    const div = document.createElement('div');
+    div.className = 'sentence-box';
+    div.innerHTML = `
+      <div class="slabel">${s.label}</div>
+      <div class="pattern">${s.pattern.replace(/<blank>/g, '<span class="blank">').replace(/<\/blank>/g, '</span>')}</div>
+      <div class="example">→ ${s.example} <button class="speak-btn sentence-speak">🔊</button></div>
+    `;
+    const btn = div.querySelector('.speak-btn');
+    btn.onclick = () => speak(s.speak_text, btn);
+    container.appendChild(div);
+  });
+}
+
+// 渲染 Q&A
+function renderQA() {
+  const container = document.getElementById('qaList');
+  if(!container) return;
+  qaData.forEach((item, i) => {
+    const div = document.createElement('div');
+    div.className = 'qa-item';
+    div.innerHTML = `
+      <div class="qa-num">${i + 1}</div>
+      <div>
+        <div class="qa-q">Q: ${item.q} <button class="speak-btn qa-speak">🔊</button></div>
+        <div class="qa-a">A: ${item.a}</div>
+      </div>
+    `;
+    const btn = div.querySelector('.speak-btn');
+    btn.onclick = () => speak(item.q, btn);
+    container.appendChild(div);
+  });
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  renderSentences();
+  renderQA();
+});
+
+let currentPage = 0;
+const stepNav = document.getElementById('stepNav');
+steps.forEach((s, i) => {
+  const btn = document.createElement('button');
+  btn.className = 'step-btn' + (i === 0 ? ' active' : '');
+  btn.id = `step-${i}`;
+  btn.innerHTML = `<span class="si">${s.icon}</span>${s.label}`;
+  btn.onclick = () => goTo(i);
+  stepNav.appendChild(btn);
+});
+
+function goTo(i) {
+  document.getElementById(`page-${currentPage}`).classList.remove('active');
+  document.getElementById(`step-${currentPage}`).classList.remove('active');
+  currentPage = i;
+  document.getElementById(`page-${i}`).classList.add('active');
+  document.getElementById(`step-${i}`).classList.add('active');
   updateNav();
+  window.scrollTo(0, 0);
 }
-
-function showPage(idx) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.step-btn').forEach(b => b.classList.remove('active'));
-  
-  document.getElementById('page' + idx).classList.add('active');
-  document.querySelectorAll('.step-btn')[idx].classList.add('active');
-  currentPage = idx;
-
-  if (idx === 2) {
-    currentQuizIndex = 0;
-    renderQuiz();
-  }
-
-  if (idx === 3) {
-    currentSpeakIndex = 0;
-    renderSpeak();
-  }
-
-  updateNav();
-  window.scrollTo(0,0);
-}
-
-function renderQuiz() {
-  const container = document.getElementById('quiz-container');
-  const q = quizQuestions[currentQuizIndex];
-  
-  // Pick 2 wrong options
-  const others = vocab.filter(v => v.word !== q.word).sort(() => 0.5 - Math.random()).slice(0, 2);
-  const options = [...others, q].sort(() => 0.5 - Math.random());
-
-  container.innerHTML = `
-    <div style="text-align:right; font-weight:bold; color:var(--muted); margin-bottom:10px;">
-      題次: ${currentQuizIndex + 1} / ${quizQuestions.length}
-    </div>
-    <div class="quiz-img">${q.icon}</div>
-    <div class="quiz-options">
-      ${options.map(opt => `
-        <button class="opt-btn" onclick="checkAnswer(this, ${opt.word === q.word})">${opt.word}</button>
-      `).join('')}
-    </div>
-  `;
-}
-
-function renderSpeak() {
-  const container = document.getElementById('speak-container');
-  const s = sentences[currentSpeakIndex];
-  
-  container.innerHTML = `
-    <div style="text-align:right; font-weight:bold; color:var(--muted); margin-bottom:10px;">
-      練習: ${currentSpeakIndex + 1} / ${sentences.length}
-    </div>
-    <div style="text-align:center; padding:20px;">
-      <div style="font-size:4rem; margin-bottom:20px;">🗣️</div>
-      <p style="font-size:1.8rem; font-weight:900; color:var(--blue); margin-bottom:30px;">${s}</p>
-      <button onclick="speak('${s}')" style="padding:15px 40px; border-radius:30px; border:none; background:var(--orange); color:white; font-size:1.3rem; font-weight:800; cursor:pointer; box-shadow: 0 4px 10px rgba(255,152,0,0.3);">
-        🔊 聽聽看並跟讀
-      </button>
-      ${currentSpeakIndex < sentences.length - 1 
-        ? `<button onclick="nextSpeak()" style="display:block; margin: 30px auto 0; background:none; border:none; color:var(--blue); font-weight:800; cursor:pointer; font-size:1.1rem;">下一個句型 ➔</button>`
-        : `<p style="margin-top:30px; color:var(--green); font-weight:800;">✨ 太棒了！準備好領獎勵了嗎？</p>`
-      }
-    </div>
-  `;
-}
-
-function nextSpeak() {
-  if (currentSpeakIndex < sentences.length - 1) {
-    currentSpeakIndex++;
-    renderSpeak();
-  }
-}
-
-function nextPage() { if (currentPage < totalPages - 1) showPage(currentPage + 1); }
-function prevPage() { if (currentPage > 0) showPage(currentPage - 1); }
-
+function changePage(d) { goTo(currentPage + d); }
 function updateNav() {
-  document.getElementById('prevBtn').style.visibility = currentPage === 0 ? 'hidden' : 'visible';
-  document.getElementById('nextBtn').style.display = currentPage === totalPages - 1 ? 'none' : 'block';
+  document.getElementById('prevBtn').disabled = currentPage === 0;
+  const nb = document.getElementById('nextBtn');
+  nb.disabled = currentPage === steps.length - 1;
+  nb.textContent = '下一步 →';
+  document.getElementById('stepInfo').textContent = `${currentPage + 1} / ${steps.length}`;
+}
+updateNav();
+
+function makeCards(arr, gridId, isExt) {
+  const grid = document.getElementById(gridId);
+  arr.forEach(v => {
+    const card = document.createElement('div');
+    card.className = 'vocab-card';
+    card.innerHTML = `<div class="vocab-inner">
+      <div class="vocab-front${isExt?' ext':''}">
+        <div class="en">${v.en}</div>
+        <button class="speak-btn" onclick="event.stopPropagation();speak(\`${v.en}\`,this)">🔊</button>
+      </div>
+      <div class="vocab-back${isExt?' ext':''}"><div class="zh">${v.zh}</div><div class="en2">${v.en}</div></div>
+    </div>`;
+    card.addEventListener('click', () => card.classList.toggle('flipped'));
+    grid.appendChild(card);
+  });
+}
+makeCards(coreVocab, 'coreGrid', false);
+makeCards(extVocab, 'extGrid', true);
+
+let allFlipped = false;
+function flipAll() {
+  allFlipped = !allFlipped;
+  document.querySelectorAll('.vocab-card').forEach(c => c.classList.toggle('flipped', allFlipped));
 }
 
-function speak(text) {
-  const msg = new SpeechSynthesisUtterance();
-  msg.text = text;
-  msg.lang = 'en-US';
-  msg.rate = 0.8;
-  window.speechSynthesis.speak(msg);
+let matchSel = null, matchCorrect = 0;
+function shuffle(a) { return [...a].sort(() => Math.random() - .5); }
+function initMatch() {
+  matchSel = null; matchCorrect = 0;
+  document.getElementById('matchScore').textContent = '';
+  const sub = shuffle(coreVocab).slice(0, 5);
+  document.getElementById('matchEn').innerHTML = '';
+  document.getElementById('matchZh').innerHTML = '';
+  shuffle(sub).forEach(v => document.getElementById('matchEn').appendChild(makeMatchEl(v.en, 'en', v.en)));
+  shuffle(sub).forEach(v => document.getElementById('matchZh').appendChild(makeMatchEl(v.zh, 'zh', v.en)));
 }
-
-function checkAnswer(btn, isCorrect) {
-  if (isCorrect) {
-    btn.classList.add('correct');
-    speak('Correct! Good job!');
-    
-    setTimeout(() => {
-      if (currentQuizIndex < quizQuestions.length - 1) {
-        currentQuizIndex++;
-        renderQuiz();
-      } else {
-        nextPage();
-      }
-    }, 1000);
+function makeMatchEl(text, side, key) {
+  const el = document.createElement('div');
+  el.className = 'match-item'; el.textContent = text;
+  el.dataset.key = key; el.dataset.side = side;
+  el.addEventListener('click', () => onMatch(el));
+  return el;
+}
+function onMatch(el) {
+  if (el.classList.contains('correct')) return;
+  if (!matchSel) { document.querySelectorAll('.match-item.selected').forEach(e=>e.classList.remove('selected')); el.classList.add('selected'); matchSel = el; return; }
+  if (matchSel === el) { el.classList.remove('selected'); matchSel = null; return; }
+  if (matchSel.dataset.side === el.dataset.side) { matchSel.classList.remove('selected'); matchSel = el; el.classList.add('selected'); return; }
+  if (matchSel.dataset.key === el.dataset.key) {
+    [matchSel, el].forEach(e => { e.classList.remove('selected'); e.classList.add('correct'); });
+    matchCorrect++;
+    document.getElementById('matchScore').textContent = matchCorrect === 5 ? '🎉 全對！太厲害了！' : `✅ 答對 ${matchCorrect} 組`;
   } else {
-    btn.classList.add('wrong');
-    speak('Try again!');
-    setTimeout(() => btn.classList.remove('wrong'), 500);
+    [matchSel, el].forEach(e => { e.classList.add('wrong'); setTimeout(()=>e.classList.remove('wrong','selected'),500); });
   }
+  matchSel = null;
 }
+initMatch();
 
-function finishUnit() {
-  const progress = JSON.parse(localStorage.getItem(PROGRESS_KEY) || '{}');
-  progress['unit3'] = 'done';
-  localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress));
-  window.location.href = 'index.html';
+let quizQueue = [], quizIdx = 0, quizAnswered = false;
+function buildQuiz() { quizQueue = shuffle(coreVocab); quizIdx = 0; nextQuiz(); }
+function nextQuiz() {
+  if (quizIdx >= quizQueue.length) {
+    document.getElementById('quizWord').textContent = '🎉 全部完成！';
+    document.getElementById('quizChoices').innerHTML = '';
+    document.getElementById('quizStatus').textContent = '';
+    document.getElementById('nextQuizBtn').style.display = 'none';
+    document.getElementById('quizProgress').textContent = '';
+    return;
+  }
+  quizAnswered = false;
+  const cur = quizQueue[quizIdx];
+  document.getElementById('quizWord').textContent = cur.zh;
+  document.getElementById('quizStatus').textContent = '';
+  document.getElementById('nextQuizBtn').style.display = 'none';
+  document.getElementById('quizProgress').textContent = `第 ${quizIdx+1} / ${quizQueue.length} 題`;
+  const wrongs = shuffle(coreVocab.filter(v => v.en !== cur.en)).slice(0, 3);
+  const choices = shuffle([cur, ...wrongs]);
+  const cont = document.getElementById('quizChoices');
+  cont.innerHTML = '';
+  choices.forEach(c => {
+    const btn = document.createElement('button');
+    btn.className = 'quiz-btn'; btn.textContent = c.en;
+    btn.onclick = () => {
+      if (quizAnswered) return; quizAnswered = true;
+      if (c.en === cur.en) { btn.classList.add('correct'); document.getElementById('quizStatus').textContent = '✅ 答對了！'; document.getElementById('quizStatus').style.color = '#4CAF50'; }
+      else { btn.classList.add('wrong'); cont.querySelectorAll('.quiz-btn').forEach(b=>{if(b.textContent===cur.en)b.classList.add('correct');}); document.getElementById('quizStatus').textContent = `❌ 答錯了，是 "${cur.en}"`; document.getElementById('quizStatus').style.color = '#f44336'; }
+      quizIdx++; document.getElementById('nextQuizBtn').style.display = 'block';
+    };
+    cont.appendChild(btn);
+  });
+}
+buildQuiz();
+
+
+function markDone() {
+  const p = JSON.parse(localStorage.getItem(PROGRESS_KEY) || '{}');
+  p[UNIT_KEY] = 'done';
+  localStorage.setItem(PROGRESS_KEY, JSON.stringify(p));
+  document.querySelector('.complete-btn').style.display = 'none';
+  document.getElementById('completeDone').style.display = 'block';
 }
 </script>
 </body>

@@ -846,21 +846,23 @@ def build_unit(u):
     # QA items HTML
     qa_html = ""
     for i, (q, a) in enumerate(u["qa"]):
+        safe_q = q.replace("`", "\\`").replace("'", "\\'")
         qa_html += f'''  <div class="qa-item">
-    <div class="qa-num">{i+1}</div>
+    <div class="qa-num">{{i+1}}</div>
     <div>
-      <div class="qa-q">Q: {q} <button class="speak-btn qa-speak" onclick="speak('{safe_js_str(q)}',this)">🔊</button></div>
-      <div class="qa-a">A: {a}</div>
+      <div class="qa-q">Q: {{q}} <button class="speak-btn qa-speak" onclick="speak(\`{safe_q}\`,this)">🔊</button></div>
+      <div class="qa-a">A: {{a}}</div>
     </div>
   </div>\n'''
 
     # Sentences HTML
     sent_html = ""
     for label, pattern, example, speak_text in u["sentences"]:
+        safe_st = speak_text.replace("`", "\\`").replace("'", "\\'")
         sent_html += f'''  <div class="sentence-box">
-    <div class="slabel">{label}</div>
-    <div class="pattern">{render_pattern(pattern)}</div>
-    <div class="example">→ {example} <button class="speak-btn sentence-speak" onclick="speak('{safe_js_str(speak_text)}',this)">🔊</button></div>
+    <div class="slabel">{{label}}</div>
+    <div class="pattern">{{render_pattern(pattern)}}</div>
+    <div class="example">→ {{example}} <button class="speak-btn sentence-speak" onclick="speak(\`{safe_st}\`,this)">🔊</button></div>
   </div>\n'''
 
     # Wrapup lines
@@ -888,6 +890,7 @@ def build_unit(u):
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Unit {num} – {title}</title>
+<script src="../js-common.js"></script>
 <style>
 {CSS}
 </style>
@@ -999,34 +1002,8 @@ def build_unit(u):
 </div>
 
 <script>
-let ttsVoice = null;
-function loadVoice() {{
-  const voices = speechSynthesis.getVoices();
-  ttsVoice = voices.find(v => v.lang === 'en-US' && v.localService)
-          || voices.find(v => v.lang.startsWith('en-') && v.localService)
-          || voices.find(v => v.lang.startsWith('en'))
-          || null;
-}}
-if (window.speechSynthesis) {{
-  loadVoice();
-  speechSynthesis.onvoiceschanged = loadVoice;
-}}
-function speak(text, btn) {{
-  if (!window.speechSynthesis) return;
-  speechSynthesis.cancel();
-  const utt = new SpeechSynthesisUtterance(text);
-  utt.lang = 'en-US';
-  utt.rate = 0.85;
-  utt.pitch = 1.05;
-  if (ttsVoice) utt.voice = ttsVoice;
-  if (btn) {{
-    btn.classList.add('speaking');
-    utt.onend = () => btn.classList.remove('speaking');
-  }}
-  speechSynthesis.speak(utt);
-}}
-
 const UNIT_KEY = '{uid}';
+const PROGRESS_KEY = 'progress_g4';
 const steps = [
   {{ label: '暖身', icon: '🎵' }},
   {{ label: '單字', icon: '🃏' }},
@@ -1042,8 +1019,8 @@ const extVocab = [
 ];
 
 (function() {{
-  const p = JSON.parse(localStorage.getItem('progress') || '{{}}');
-  if (p[UNIT_KEY] !== 'done') {{ p[UNIT_KEY] = 'in_progress'; localStorage.setItem('progress', JSON.stringify(p)); }}
+  const p = JSON.parse(localStorage.getItem(PROGRESS_KEY) || '{{}}');
+  if (p[UNIT_KEY] !== 'done') {{ p[UNIT_KEY] = 'in_progress'; localStorage.setItem(PROGRESS_KEY, JSON.stringify(p)); }}
   else {{ document.getElementById('completeDone').style.display = 'block'; document.querySelector('.complete-btn').style.display = 'none'; }}
 }})();
 
@@ -1085,7 +1062,7 @@ function makeCards(arr, gridId, isExt) {{
     card.innerHTML = `<div class="vocab-inner">
       <div class="vocab-front${{isExt?' ext':''}}">
         <div class="en">${{v.en}}</div>
-        <button class="speak-btn" onclick="event.stopPropagation();speak('${{v.en}}',this)">🔊</button>
+        <button class="speak-btn" onclick="event.stopPropagation();speak(\`${{v.en}}\`,this)">🔊</button>
       </div>
       <div class="vocab-back${{isExt?' ext':''}}"><div class="zh">${{v.zh}}</div><div class="en2">${{v.en}}</div></div>
     </div>`;
@@ -1173,9 +1150,9 @@ buildQuiz();
 
 
 function markDone() {{
-  const p = JSON.parse(localStorage.getItem('progress') || '{{}}');
+  const p = JSON.parse(localStorage.getItem(PROGRESS_KEY) || '{{}}');
   p[UNIT_KEY] = 'done';
-  localStorage.setItem('progress', JSON.stringify(p));
+  localStorage.setItem(PROGRESS_KEY, JSON.stringify(p));
   document.querySelector('.complete-btn').style.display = 'none';
   document.getElementById('completeDone').style.display = 'block';
 }}
