@@ -216,6 +216,7 @@ function checkMatch() {
   const [c1, c2] = flipped;
   if (c1.data.pairId === c2.data.pairId) {
     // Match
+    playSound('success');
     setTimeout(() => {
       c1.el.classList.add('matched');
       c2.el.classList.add('matched');
@@ -226,6 +227,7 @@ function checkMatch() {
     }, 400);
   } else {
     // No match
+    playSound('error');
     setTimeout(() => {
       c1.el.classList.remove('flipped');
       c2.el.classList.remove('flipped');

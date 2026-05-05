@@ -210,6 +210,7 @@ function showOptions() {
 
 function checkAnswer(choice, btn) {
   if (choice.word === targetItem.word) {
+    playSound('success');
     speakText("Correct! " + choice.word);
     score++;
     document.getElementById('score').textContent = score;
@@ -224,6 +225,7 @@ function checkAnswer(choice, btn) {
       }, 1000);
     }
   } else {
+    playSound('error');
     speakText("Try again!");
     btn.classList.add('wrong');
   }

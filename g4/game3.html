@@ -471,10 +471,12 @@ function checkAnswer() {
 
   if (isCorrect) {
     gotCorrect = true;
+    playSound('success');
     score += 10;
     document.getElementById('scoreVal').textContent = score;
     showFeedback('✅ 答對了！太棒了！', true);
   } else {
+    playSound('error');
     showFeedback('❌ 不太對，可以清除後再試！', false);
     document.getElementById('revealText').textContent = correctStr;
     document.getElementById('answerReveal').classList.add('show');

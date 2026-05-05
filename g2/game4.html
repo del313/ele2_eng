@@ -177,6 +177,7 @@ function startChallenge() {
 
 function checkAnswer(ans, correct) {
   if (ans === correct) {
+    playSound('success');
     speak("Correct! " + correct);
     document.getElementById('quiz-overlay').style.display = 'none';
     currentStep++;
@@ -188,6 +189,7 @@ function checkAnswer(ans, correct) {
       }, 1000);
     }
   } else {
+    playSound('error');
     speak("Try again!");
   }
 }

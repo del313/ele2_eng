@@ -5,255 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Unit 8 – Animals Everywhere</title>
 <script src="../js-common.js"></script>
-<style>
-  :root {
-    --orange: #FF8C00;
-    --yellow: #FFD700;
-    --light:  #FFF8EC;
-    --text:   #333;
-    --muted:  #888;
-    --green:  #4CAF50;
-    --radius: 18px;
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    font-family: 'Segoe UI', Arial, sans-serif;
-    background: var(--light);
-    color: var(--text);
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-  }
-  header {
-    background: linear-gradient(135deg, var(--orange), var(--yellow));
-    color: white;
-    padding: 16px 24px 14px;
-    text-align: center;
-  }
-  header .unit-label { font-size: 12px; letter-spacing: 2px; opacity: .8; }
-  header h1 { font-size: 1.7rem; font-weight: 900; margin-top: 4px; }
-  .home-btn {
-    position: absolute; top: 14px; left: 14px;
-    background: rgba(255,255,255,.25);
-    border: none; border-radius: 10px;
-    color: white; font-size: 13px; font-weight: 700;
-    padding: 6px 12px; cursor: pointer; text-decoration: none;
-    display: inline-block;
-  }
-  .step-nav {
-    display: flex; background: white;
-    border-bottom: 3px solid #FFE0A0;
-    overflow-x: auto; scrollbar-width: none;
-  }
-  .step-nav::-webkit-scrollbar { display: none; }
-  .step-btn {
-    flex: 1; min-width: 70px;
-    padding: 10px 6px 8px;
-    border: none; background: none; cursor: pointer;
-    font-size: 12px; font-weight: 700; color: var(--muted);
-    display: flex; flex-direction: column; align-items: center; gap: 3px;
-    border-bottom: 4px solid transparent; transition: all .2s;
-  }
-  .step-btn .si { font-size: 1.3rem; }
-  .step-btn.active { color: var(--orange); border-bottom-color: var(--orange); background: #FFF8EC; }
-  .page { display: none; flex: 1; padding: 18px 16px 90px; max-width: 700px; margin: 0 auto; width: 100%; }
-  .page.active { display: block; }
-  .page-title { font-size: 1.4rem; font-weight: 900; color: var(--orange); margin-bottom: 4px; display: flex; align-items: center; gap: 8px; }
-  .page-sub { font-size: 13px; color: var(--muted); margin-bottom: 18px; }
-  .video-btn-wrap { text-align: center; margin-bottom: 16px; }
-  .video-btn {
-    display: inline-flex; align-items: center; gap: 10px;
-    background: #FF0000; color: white;
-    border: none; border-radius: var(--radius);
-    padding: 16px 28px; font-size: 1.1rem; font-weight: 800;
-    cursor: pointer; text-decoration: none;
-    box-shadow: 0 4px 14px rgba(255,0,0,.3);
-    transition: transform .15s, box-shadow .15s;
-  }
-  .video-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(255,0,0,.35); }
-  .video-btn .yt-icon { font-size: 1.5rem; }
-  .task-card {
-    background: white; border-radius: var(--radius);
-    padding: 16px 20px; box-shadow: 0 2px 8px rgba(0,0,0,.07);
-    border-left: 5px solid var(--orange); font-size: 15px; line-height: 1.8;
-  }
-  .task-card strong { color: var(--orange); }
-  .vocab-section-label {
-    font-size: 13px; font-weight: 800; letter-spacing: 1px;
-    margin: 16px 0 8px; color: #555; text-transform: uppercase;
-  }
-  .vocab-grid {
-    display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-    gap: 10px; margin-bottom: 6px;
-  }
-  .vocab-card { height: 95px; perspective: 600px; cursor: pointer; }
-  .vocab-inner {
-    width: 100%; height: 100%;
-    transform-style: preserve-3d; transition: transform .45s ease;
-    border-radius: var(--radius); position: relative;
-  }
-  .vocab-card.flipped .vocab-inner { transform: rotateY(180deg); }
-  .vocab-front, .vocab-back {
-    position: absolute; width: 100%; height: 100%;
-    border-radius: var(--radius);
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    backface-visibility: hidden; -webkit-backface-visibility: hidden;
-    box-shadow: 0 2px 8px rgba(0,0,0,.1);
-  }
-  .vocab-front { background: white; border: 3px solid #FFD180; }
-  .vocab-front.ext { border-color: #B2DFDB; }
-  .vocab-front .en { font-size: 1.2rem; font-weight: 800; color: var(--orange); }
-  .vocab-front.ext .en { color: #00897B; }
-  .vocab-front .tap { font-size: 11px; color: var(--muted); margin-top: 3px; }
-  .vocab-back { background: linear-gradient(135deg, var(--orange), var(--yellow)); color: white; transform: rotateY(180deg); }
-  .vocab-back.ext { background: linear-gradient(135deg, #00897B, #4DB6AC); }
-  .vocab-back .zh { font-size: 1.1rem; font-weight: 700; }
-  .vocab-back .en2 { font-size: 12px; opacity: .85; margin-top: 2px; }
-  .flip-all-btn {
-    display: block; margin: 8px auto 16px;
-    background: var(--orange); color: white;
-    border: none; border-radius: 24px;
-    padding: 7px 20px; font-size: 13px; font-weight: 700; cursor: pointer;
-  }
-  .ext-note { font-size: 12px; color: #00897B; margin-bottom: 14px; }
-  .speak-btn {
-    background: none; border: none; cursor: pointer;
-    font-size: 1rem; padding: 3px 5px; border-radius: 8px;
-    transition: background .15s; line-height: 1; flex-shrink: 0;
-  }
-  .speak-btn:hover { background: rgba(0,0,0,.08); }
-  .speak-btn.speaking { animation: spk-pulse .5s infinite alternate; }
-  @keyframes spk-pulse { from{opacity:1} to{opacity:.3} }
-  .vocab-front .speak-btn { margin-top: 4px; }
-  .sentence-speak { float: right; margin-top: -2px; }
-  .qa-speak { margin-left: 4px; vertical-align: middle; }
-  .game-label { font-weight: 800; font-size: .95rem; margin-bottom: 8px; color: #555; }
-  .game-score { text-align: center; font-weight: 800; font-size: .95rem; color: var(--green); margin-bottom: 8px; min-height: 22px; }
-  .match-board { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px; }
-  .match-col { display: flex; flex-direction: column; gap: 7px; }
-  .match-item {
-    background: white; border: 3px solid #FFD180; border-radius: 12px;
-    padding: 9px 12px; text-align: center; cursor: pointer;
-    font-weight: 700; font-size: 14px; transition: all .2s; user-select: none;
-  }
-  .match-item:hover { border-color: var(--orange); background: #FFF3E0; }
-  .match-item.selected { border-color: var(--orange); background: var(--orange); color: white; }
-  .match-item.correct { border-color: var(--green); background: #E8F5E9; color: #2E7D32; pointer-events: none; }
-  .match-item.wrong { border-color: #f44336; background: #FFEBEE; animation: shake .3s; }
-  @keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-5px)} 75%{transform:translateX(5px)} }
-  .reset-btn {
-    display: block; margin: 0 auto;
-    background: #eee; color: #555; border: none; border-radius: 24px;
-    padding: 6px 18px; font-size: 13px; font-weight: 700; cursor: pointer;
-  }
-  .sentence-box {
-    background: white; border-radius: var(--radius);
-    padding: 16px 20px; margin-bottom: 10px;
-    box-shadow: 0 2px 8px rgba(0,0,0,.07);
-    border-left: 6px solid var(--orange);
-  }
-  .sentence-box .slabel { font-size: 11px; color: var(--muted); letter-spacing: 1px; margin-bottom: 5px; text-transform: uppercase; }
-  .sentence-box .pattern { font-size: 1.15rem; font-weight: 700; }
-  .sentence-box .blank {
-    display: inline-block; min-width: 75px;
-    border-bottom: 3px solid var(--orange); color: var(--orange);
-    text-align: center; margin: 0 3px; font-weight: 700;
-  }
-  .sentence-box .example { margin-top: 7px; font-size: 13px; color: var(--muted); }
-  .quiz-progress { text-align: center; font-size: 13px; color: var(--muted); margin-bottom: 10px; }
-  .quiz-question {
-    background: white; border-radius: var(--radius);
-    padding: 18px; text-align: center;
-    box-shadow: 0 2px 8px rgba(0,0,0,.07); margin-bottom: 12px;
-  }
-  .quiz-q { font-size: .95rem; color: var(--muted); margin-bottom: 6px; }
-  .quiz-en { font-size: 1.9rem; font-weight: 900; color: var(--orange); }
-  .quiz-choices { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; margin-bottom: 10px; }
-  .quiz-btn {
-    background: white; border: 3px solid #FFD180; border-radius: 12px;
-    padding: 11px; font-size: 1rem; font-weight: 700; cursor: pointer; transition: all .2s;
-  }
-  .quiz-btn:hover { border-color: var(--orange); background: #FFF3E0; }
-  .quiz-btn.correct { border-color: var(--green); background: #E8F5E9; color: #2E7D32; }
-  .quiz-btn.wrong   { border-color: #f44336; background: #FFEBEE; }
-  .quiz-status { text-align: center; font-weight: 800; font-size: .95rem; min-height: 26px; margin-bottom: 8px; }
-  .next-quiz-btn {
-    display: none; margin: 0 auto;
-    background: var(--orange); color: white;
-    border: none; border-radius: 24px;
-    padding: 8px 22px; font-size: 14px; font-weight: 700; cursor: pointer;
-  }
-  .qa-item {
-    background: white; border-radius: var(--radius);
-    padding: 13px 16px; margin-bottom: 9px;
-    box-shadow: 0 2px 8px rgba(0,0,0,.07);
-    display: grid; grid-template-columns: 34px 1fr; gap: 10px; align-items: start;
-  }
-  .qa-num {
-    background: var(--orange); color: white; width: 34px; height: 34px;
-    border-radius: 50%; display: flex; align-items: center; justify-content: center;
-    font-weight: 800; font-size: 14px; flex-shrink: 0;
-  }
-  .qa-q { font-weight: 700; font-size: 15px; }
-  .qa-a { color: var(--orange); margin-top: 3px; font-size: 14px; }
-  .tip-box {
-    background: #FFF3E0; border-left: 4px solid var(--orange);
-    border-radius: 10px; padding: 11px 14px;
-    font-size: 14px; color: #E65100; margin-top: 8px;
-  }
-  .intro-box {
-    background: white; border-radius: var(--radius);
-    padding: 22px; box-shadow: 0 2px 8px rgba(0,0,0,.07);
-    font-size: 1.1rem; line-height: 2.6; margin-bottom: 14px;
-  }
-  .intro-box .fill {
-    display: inline-block; min-width: 85px;
-    border-bottom: 2.5px solid var(--orange); color: var(--orange);
-    font-weight: 700; text-align: center;
-  }
-  .star-tip { text-align: center; font-size: 13px; color: var(--muted); margin-bottom: 18px; }
-  .complete-area { text-align: center; margin-top: 24px; }
-  .complete-btn {
-    background: linear-gradient(135deg, var(--green), #66BB6A);
-    color: white; border: none; border-radius: var(--radius);
-    padding: 16px 36px; font-size: 1.15rem; font-weight: 900;
-    cursor: pointer; box-shadow: 0 4px 14px rgba(76,175,80,.35);
-    transition: transform .15s;
-  }
-  .complete-btn:hover { transform: translateY(-2px); }
-  .complete-done {
-    display: none; text-align: center; padding: 20px;
-    background: white; border-radius: var(--radius);
-    box-shadow: 0 2px 8px rgba(0,0,0,.07);
-  }
-  .complete-done .big { font-size: 3rem; }
-  .complete-done h3 { font-size: 1.3rem; font-weight: 900; color: var(--green); margin: 8px 0 4px; }
-  .complete-done p { font-size: 14px; color: var(--muted); margin-bottom: 16px; }
-  .home-link-btn {
-    display: inline-block; background: var(--orange); color: white;
-    border: none; border-radius: 24px;
-    padding: 10px 28px; font-size: 15px; font-weight: 800;
-    cursor: pointer; text-decoration: none;
-  }
-  .bottom-nav-outer {
-    position: fixed; bottom: 0; left: 0; right: 0;
-    background: white; border-top: 2px solid #FFE0A0; z-index: 100;
-  }
-  .bottom-nav {
-    display: flex; align-items: center;
-    padding: 9px 14px; gap: 9px;
-    max-width: 700px; margin: 0 auto;
-  }
-  .nav-btn {
-    flex: 1; padding: 11px; border: none; border-radius: 12px;
-    font-size: 14px; font-weight: 800; cursor: pointer; transition: all .2s;
-  }
-  .nav-prev { background: #F5F5F5; color: #555; }
-  .nav-next { background: var(--orange); color: white; }
-  .nav-btn:disabled { opacity: .3; pointer-events: none; }
-  .nav-step-info { text-align: center; font-size: 13px; color: var(--muted); min-width: 50px; }
-
-</style>
+<link rel="stylesheet" href="../style-unit.css">
 </head>
 <body>
 
@@ -276,9 +28,7 @@
   </div>
   <div class="task-card">
     <strong>一起做：</strong><br>
-    1. 唱唱動物歌 🎤<br>
-    2. 學貓叫說 Cat<br>
-    3. 像小鳥飛說 Bird 😄
+    <ul><li>1. 唱唱動物歌 🎤</li><li>2. 學貓叫說 Cat</li><li>3. 像小鳥飛說 Bird 😄</li></ul>
   </div>
 </div>
 
@@ -336,17 +86,12 @@
   <div class="page-title"><span>🎤</span> 動物園派對</div>
   <div class="page-sub">5 分鐘 · 模仿動物音</div>
   <div class="intro-box">
-    Meow says the <span class="fill">Cat</span>.<br>
-    Woof says the <span class="fill">Dog</span>.<br>
-    I see a <span class="fill">Bird</span>.<br>
-    The <span class="fill">Monkey</span> is funny.<br>
-    I love <span class="fill">Animals</span>!<br>
+    <p>Meow says the <fill>Cat</fill>.</p><p>Woof says the <fill>Dog</fill>.</p><p>I see a <fill>Bird</fill>.</p><p>The <fill>Monkey</fill> is funny.</p><p>I love <fill>Animals</fill>!</p>
   </div>
   <div class="star-tip">⭐ 目標：能將動物名稱與圖像/聲音結合！</div>
   <div class="task-card" style="margin-bottom:0">
     <strong>最後挑戰：</strong><br>
-    1. 做出動作，讓對方猜動物 🐒<br>
-    2. 猜對用英文大聲說！ 🌟
+    <ul><li>1. 做出動作，讓對方猜動物 🐒</li><li>2. 猜對用英文大聲說！ 🌟</li></ul>
   </div>
 
   <div class="complete-area">
@@ -355,8 +100,8 @@
   <div class="complete-done" id="completeDone">
     <div class="big">🎉</div>
     <h3>Unit 8 完成！</h3>
-    <p>你真棒！下次繼續 Unit 9：Sunny & Rainy</p>
-    <a href="index.html" class="home-link-btn">回首頁 🏠</a>
+    <p>下一課：Unit 9：Sunny & Rainy</p>
+    <a href="index.html" class="home-btn" style="position:static; margin-top:15px; background:var(--orange)">🏠 返回課程列表</a>
   </div>
 </div>
 
@@ -380,18 +125,18 @@ const steps = [
   { label: '收尾', icon: '🎤' },
 ];
 const coreVocab = [
-  {en:"Cat",zh:"貓"},
-  {en:"Dog",zh:"狗"},
-  {en:"Bird",zh:"鳥"},
-  {en:"Fish",zh:"魚"},
-  {en:"Rabbit",zh:"兔子"},
-  {en:"Monkey",zh:"猴子"},
-  {en:"Elephant",zh:"大象"},
-  {en:"Lion",zh:"獅子"}
+  {en:'Cat', zh:'貓'},
+  {en:'Dog', zh:'狗'},
+  {en:'Bird', zh:'鳥'},
+  {en:'Fish', zh:'魚'},
+  {en:'Rabbit', zh:'兔子'},
+  {en:'Monkey', zh:'猴子'},
+  {en:'Elephant', zh:'大象'},
+  {en:'Lion', zh:'獅子'}
 ];
 const extVocab = [
-  {en:"Tiger",zh:"老虎"},
-  {en:"Snake",zh:"蛇"}
+  {en:'Tiger', zh:'老虎'},
+  {en:'Snake', zh:'蛇'}
 ];
 const sentenceData = [{"label": "句型 1", "pattern": "This is a <blank>Cat</blank>.", "example": "This is a cat.", "speak_text": "This is a cat."}, {"label": "句型 2", "pattern": "The <blank>Bird</blank> can fly.", "example": "The bird can fly.", "speak_text": "The bird can fly."}];
 const qaData = [{"q": "What animal do you like?", "a": "I like dogs."}, {"q": "Can a fish swim?", "a": "Yes, it can."}];
@@ -526,8 +271,10 @@ function onMatch(el) {
   if (matchSel.dataset.key === el.dataset.key) {
     [matchSel, el].forEach(e => { e.classList.remove('selected'); e.classList.add('correct'); });
     matchCorrect++;
+    playSound('success');
     document.getElementById('matchScore').textContent = matchCorrect === 5 ? '🎉 全對！太厲害了！' : `✅ 答對 ${matchCorrect} 組`;
   } else {
+    playSound('error');
     [matchSel, el].forEach(e => { e.classList.add('wrong'); setTimeout(()=>e.classList.remove('wrong','selected'),500); });
   }
   matchSel = null;
@@ -560,8 +307,19 @@ function nextQuiz() {
     btn.className = 'quiz-btn'; btn.textContent = c.en;
     btn.onclick = () => {
       if (quizAnswered) return; quizAnswered = true;
-      if (c.en === cur.en) { btn.classList.add('correct'); document.getElementById('quizStatus').textContent = '✅ 答對了！'; document.getElementById('quizStatus').style.color = '#4CAF50'; }
-      else { btn.classList.add('wrong'); cont.querySelectorAll('.quiz-btn').forEach(b=>{if(b.textContent===cur.en)b.classList.add('correct');}); document.getElementById('quizStatus').textContent = `❌ 答錯了，是 "${cur.en}"`; document.getElementById('quizStatus').style.color = '#f44336'; }
+      if (c.en === cur.en) { 
+        btn.classList.add('correct'); 
+        document.getElementById('quizStatus').textContent = '✅ 答對了！'; 
+        document.getElementById('quizStatus').style.color = '#4CAF50';
+        playSound('success');
+      }
+      else { 
+        btn.classList.add('wrong'); 
+        cont.querySelectorAll('.quiz-btn').forEach(b=>{if(b.textContent===cur.en)b.classList.add('correct');}); 
+        document.getElementById('quizStatus').textContent = `❌ 答錯了，是 "${cur.en}"`; 
+        document.getElementById('quizStatus').style.color = '#f44336';
+        playSound('error');
+      }
       quizIdx++; document.getElementById('nextQuizBtn').style.display = 'block';
     };
     cont.appendChild(btn);

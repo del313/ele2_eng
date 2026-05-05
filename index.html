@@ -103,6 +103,32 @@
     background: #eeeeee;
   }
 
+  /* Progress Styles */
+  .progress-container {
+    margin-top: 20px;
+    background: #eee;
+    border-radius: 10px;
+    height: 10px;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+  }
+  .progress-bar {
+    height: 100%;
+    width: 0%;
+    background: var(--primary);
+    transition: width 0.6s ease;
+  }
+  .progress-text {
+    font-size: 0.85rem;
+    font-weight: 700;
+    margin-top: 6px;
+    color: var(--muted);
+  }
+  .portal-card.kinder .progress-bar { background: var(--secondary); }
+  .portal-card.g2 .progress-bar { background: #FF8C00; }
+  .portal-card.g4 .progress-bar { background: var(--accent); }
+
   .locked-badge {
     display: inline-block;
     background: #999;
@@ -140,6 +166,8 @@
     <div class="card-icon">🐣</div>
     <div class="card-title">幼兒園英文</div>
     <div class="card-desc">建立英文好感度<br>聽力與遊戲啟蒙</div>
+    <div class="progress-container"><div id="progress-gk" class="progress-bar"></div></div>
+    <div id="text-gk" class="progress-text">尚未開始</div>
   </a>
 
   <!-- Grade 2 -->
@@ -147,6 +175,8 @@
     <div class="card-icon">🎨</div>
     <div class="card-title">小二英文冒險</div>
     <div class="card-desc">基礎單字與句型練習<br>適合 7-8 歲兒童</div>
+    <div class="progress-container"><div id="progress-g2" class="progress-bar"></div></div>
+    <div id="text-g2" class="progress-text">尚未開始</div>
   </a>
 
   <!-- Grade 4 -->
@@ -154,12 +184,65 @@
     <div class="card-icon">🚀</div>
     <div class="card-title">小四英文課程</div>
     <div class="card-desc">進階溝通與情境對話<br>適合 9-10 歲兒童</div>
+    <div class="progress-container"><div id="progress-g4" class="progress-bar"></div></div>
+    <div id="text-g4" class="progress-text">尚未開始</div>
   </a>
 </div>
 
 <div class="footer">
   &copy; 2026 英文學習樂園. All rights reserved.
 </div>
+
+<script>
+  function updateProgress() {
+    const configs = [
+      { id: 'gk', key: 'progress_kinder', total: 8, label: '幼兒園' },
+      { id: 'g2', key: 'progress_g2', total: 12, label: '小二' },
+      { id: 'g4', key: 'progress_g4', total: 12, label: '小四' }
+    ];
+
+    configs.forEach(conf => {
+      try {
+        const progressData = JSON.parse(localStorage.getItem(conf.key) || '[]');
+        const completedCount = Array.isArray(progressData) ? progressData.length : 0;
+        const percent = Math.min(100, Math.round((completedCount / conf.total) * 100));
+        
+        const bar = document.getElementById(`progress-${conf.id}`);
+        const text = document.getElementById(`text-${conf.id}`);
+        
+        if (bar) bar.style.width = percent + '%';
+        if (text) {
+          if (percent === 100) {
+            text.innerHTML = '✨ 已全部完成！';
+            text.style.color = '#4CAF50';
+          } else if (percent > 0) {
+            text.innerHTML = `已完成 ${percent}% (${completedCount}/${conf.total})`;
+          } else {
+            text.innerHTML = '尚未開始';
+          }
+        }
+      } catch (e) {
+        console.error('Progress calculation error:', e);
+      }
+    });
+  }
+
+  // 頁面載入時執行
+  window.addEventListener('load', updateProgress);
+  // 如果是從子分頁返回，也要重新整理進度
+  window.addEventListener('pageshow', updateProgress);
+
+  // 註冊 Service Worker (PWA)
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('./sw.js').then(reg => {
+        console.log('SW registered:', reg);
+      }).catch(err => {
+        console.log('SW registration failed:', err);
+      });
+    });
+  }
+</script>
 
 </body>
 </html>

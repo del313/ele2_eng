@@ -137,6 +137,7 @@ function handleUserInput(word) {
   const expected = sequence[userSequence.length - 1];
   
   if (word === expected) {
+    playSound('success');
     speakText(word);
     if (userSequence.length === sequence.length) {
       // 過關
@@ -152,6 +153,7 @@ function handleUserInput(word) {
     }
   } else {
     // 答錯
+    playSound('error');
     speakText("Oh no, try again!");
     document.getElementById('status').textContent = "記錯了，再聽一次吧！";
     userSequence = [];

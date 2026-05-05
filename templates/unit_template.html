@@ -5,9 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Unit {{num}} – {{title}}</title>
 <script src="../js-common.js"></script>
-<style>
-{{CSS}}
-</style>
+<link rel="stylesheet" href="../style-unit.css">
 </head>
 <body>
 
@@ -265,8 +263,10 @@ function onMatch(el) {
   if (matchSel.dataset.key === el.dataset.key) {
     [matchSel, el].forEach(e => { e.classList.remove('selected'); e.classList.add('correct'); });
     matchCorrect++;
+    playSound('success');
     document.getElementById('matchScore').textContent = matchCorrect === 5 ? '🎉 全對！太厲害了！' : `✅ 答對 ${matchCorrect} 組`;
   } else {
+    playSound('error');
     [matchSel, el].forEach(e => { e.classList.add('wrong'); setTimeout(()=>e.classList.remove('wrong','selected'),500); });
   }
   matchSel = null;
@@ -299,8 +299,19 @@ function nextQuiz() {
     btn.className = 'quiz-btn'; btn.textContent = c.en;
     btn.onclick = () => {
       if (quizAnswered) return; quizAnswered = true;
-      if (c.en === cur.en) { btn.classList.add('correct'); document.getElementById('quizStatus').textContent = '✅ 答對了！'; document.getElementById('quizStatus').style.color = '#4CAF50'; }
-      else { btn.classList.add('wrong'); cont.querySelectorAll('.quiz-btn').forEach(b=>{if(b.textContent===cur.en)b.classList.add('correct');}); document.getElementById('quizStatus').textContent = `❌ 答錯了，是 "${cur.en}"`; document.getElementById('quizStatus').style.color = '#f44336'; }
+      if (c.en === cur.en) { 
+        btn.classList.add('correct'); 
+        document.getElementById('quizStatus').textContent = '✅ 答對了！'; 
+        document.getElementById('quizStatus').style.color = '#4CAF50';
+        playSound('success');
+      }
+      else { 
+        btn.classList.add('wrong'); 
+        cont.querySelectorAll('.quiz-btn').forEach(b=>{if(b.textContent===cur.en)b.classList.add('correct');}); 
+        document.getElementById('quizStatus').textContent = `❌ 答錯了，是 "${cur.en}"`; 
+        document.getElementById('quizStatus').style.color = '#f44336';
+        playSound('error');
+      }
       quizIdx++; document.getElementById('nextQuizBtn').style.display = 'block';
     };
     cont.appendChild(btn);

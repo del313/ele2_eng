@@ -173,6 +173,7 @@ function spawnLetter() {
 
 function checkLetter(char) {
   if (char === currentLetters[letterIndex]) {
+    playSound('success');
     letterIndex++;
     speakText(char);
     updateDisplay();
@@ -182,6 +183,7 @@ function checkLetter(char) {
       setTimeout(nextWord, 1000);
     }
   } else {
+    playSound('error');
     // 震動籃子
     const b = document.getElementById('basket');
     b.style.transform = 'translateX(-50%) rotate(10deg)';

@@ -107,6 +107,7 @@ function createBubble() {
   bubble.onclick = () => {
     if (item.text === targetItem.text) {
       score++;
+      playSound('success');
       bubble.style.transform = 'scale(2)';
       bubble.style.opacity = '0';
       setTimeout(() => bubble.remove(), 200);
@@ -117,6 +118,7 @@ function createBubble() {
         nextRound();
       }
     } else {
+      playSound('error');
       bubble.style.background = 'rgba(255, 0, 0, 0.3)';
       setTimeout(() => { bubble.style.background = 'rgba(255, 255, 255, 0.4)'; }, 300);
       speak("No, " + targetItem.text);

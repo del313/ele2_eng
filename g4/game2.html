@@ -361,6 +361,7 @@ function handleAnswer(chosen, correct, btn) {
     }
     setTimeout(clearChoices, 200);
   } else {
+    playSound('error');
     combo = 1;
     showFeedback('❌ 是「' + correct + '」', false);
   }
@@ -399,4 +400,7 @@ function updateHUD() {
 })();
 </script>
 </body>
+</html>
+>
+body>
 </html>

@@ -137,11 +137,13 @@ function nextRound() {
 
 function check(ans, el) {
   if (ans === current.a) {
+    playSound('success');
     score++;
     el.style.transform = 'scale(0)';
     speak("Yes! " + ans);
     setTimeout(nextRound, 600);
   } else {
+    playSound('error');
     speak("No, try again");
     el.style.opacity = '0.5';
   }

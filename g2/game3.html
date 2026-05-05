@@ -123,6 +123,7 @@ function renderFood() {
 function feed(item) {
   if (item.name === targetFood.name) {
     feeds++;
+    playSound('success');
     const m = document.getElementById('monster');
     m.classList.add('eating');
     m.textContent = '🤤';
@@ -138,6 +139,7 @@ function feed(item) {
       }
     }, 600);
   } else {
+    playSound('error');
     speak("No, I want " + targetFood.name);
     document.getElementById('monster').textContent = '🤢';
     setTimeout(() => { document.getElementById('monster').textContent = '👾'; }, 500);

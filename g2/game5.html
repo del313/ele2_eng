@@ -128,10 +128,12 @@ function addLetter(l, el) {
 
   if (userAns.length === word.w.length) {
     if (userAns === word.w) {
+      playSound('success');
       speak("Great! " + word.w);
       currentIdx++;
       setTimeout(nextRound, 1000);
     } else {
+      playSound('error');
       speak("Try again!");
       setTimeout(clearAnswer, 500);
     }

@@ -4,32 +4,23 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script src="../js-common.js"></script>
-<title>Game 6 – Flash Match</title>
+<title>Game 6 – Speed Race</title>
 <link rel="stylesheet" href="../style-common.css">
 <style>
   body { background: #E8EAF6; }
   .game-container { max-width: 600px; margin: 0 auto; padding: 20px; text-align: center; }
   
-  .flash-card {
-    background: white; border: 4px solid var(--blue); border-radius: 20px;
-    padding: 30px; font-size: 6rem; margin-bottom: 30px;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.1); animation: zoomIn 0.3s;
-  }
-  @keyframes zoomIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+  .timer-bar { width: 100%; height: 20px; background: #DDD; border-radius: 10px; margin: 20px 0; overflow: hidden; }
+  .timer-fill { width: 100%; height: 100%; background: var(--blue); transition: width 0.1s linear; }
 
-  .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+  .q-img { font-size: 6rem; margin: 30px 0; }
+  
+  .opt-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
   .opt-btn {
-    padding: 20px; background: white; border: 3px solid #DDD;
-    border-radius: 15px; font-size: 1.5rem; font-weight: 800; cursor: pointer;
-    transition: 0.2s;
+    background: white; border: 3px solid var(--blue); border-radius: 20px;
+    padding: 20px; font-size: 1.5rem; font-weight: 800; cursor: pointer; transition: 0.2s;
   }
-  .opt-btn:hover { border-color: var(--blue); transform: translateY(-3px); }
-
-  #timer-bar {
-    width: 100%; height: 10px; background: #DDD; border-radius: 5px;
-    margin-bottom: 20px; overflow: hidden;
-  }
-  #timer-fill { width: 100%; height: 100%; background: var(--blue); transition: width 0.1s linear; }
+  .opt-btn:hover { background: var(--blue); color: white; }
 
   #finish-screen {
     display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
@@ -42,41 +33,44 @@
 
 <header style="padding:20px; text-align:center; background:var(--blue); color:white;">
   <a href="index.html" style="position:absolute; left:20px; color:white; text-decoration:none; font-weight:800;">🏠 Home</a>
-  <h1>Flash Match</h1>
-  <p>快速配對挑戰</p>
+  <h1>Speed Race</h1>
+  <p>單字賽車手</p>
 </header>
 
 <div class="game-container">
-  <div id="timer-bar"><div id="timer-fill"></div></div>
-  <div class="flash-card" id="flash-card">❓</div>
-  <div class="options-grid" id="options-grid"></div>
-  <div style="margin-top:20px; font-weight:800;">Score: <span id="score">0</span> / 10</div>
+  <div style="font-size:1.2rem; font-weight:800; color:var(--blue);">得分: <span id="score">0</span> / 10</div>
+  <div class="timer-bar"><div id="timer-fill" class="timer-fill"></div></div>
+  
+  <div class="q-img" id="q-img">🚗</div>
+  
+  <div class="opt-grid" id="opt-grid"></div>
 </div>
 
 <div id="finish-screen">
-  <div style="font-size:6rem;">⚡</div>
-  <h2 style="font-size:2rem; color:var(--blue);">Fast & Accurate!</h2>
-  <p style="font-size:1.2rem; margin:10px 0;">你反應真快！</p>
+  <div style="font-size:6rem;">🏁</div>
+  <h2 style="font-size:2rem; color:var(--blue);">You are Fast!</h2>
+  <p style="font-size:1.2rem; margin:10px 0;">你是一個厲害的賽車手！</p>
   <button onclick="finishGame()" style="padding:15px 40px; border-radius:30px; border:none; background:var(--green); color:white; font-size:1.5rem; font-weight:900; cursor:pointer; margin-top:20px;">
     完成並回首頁
   </button>
 </div>
 
 <script>
-const items = [
-  { w: 'Pizza', i: '🍕' }, { w: 'Milk', i: '🥛' }, { w: 'House', i: '🏠' },
-  { w: 'Park', i: '🌳' }, { w: 'Sun', i: '☀️' }, { w: 'Rain', i: '🌧️' },
-  { w: 'Eyes', i: '👁️' }, { w: 'Ears', i: '👂' }, { w: 'Mom', i: '👩' }
+const words = [
+  { w: 'Car', i: '🚗' }, { w: 'Bike', i: '🚲' }, { w: 'Bus', i: '🚌' },
+  { w: 'Train', i: '🚆' }, { w: 'Ship', i: '🚢' }, { w: 'Plane', i: '✈️' },
+  { w: 'Apple', i: '🍎' }, { w: 'Banana', i: '🍌' }, { w: 'Grape', i: '🍇' }
 ];
 
 let score = 0;
 let currentItem = null;
-let lastTargets = [];
+let timerInterval;
 let timerWidth = 100;
-let timerInterval = null;
 const PROGRESS_KEY = 'progress_g2';
 
-
+function init() {
+  nextRound();
+}
 
 function nextRound() {
   if (score >= 10) {
@@ -85,25 +79,18 @@ function nextRound() {
     return;
   }
 
-  let idx;
-  do {
-    idx = Math.floor(Math.random() * items.length);
-  } while (lastTargets.includes(idx));
+  currentItem = words[Math.floor(Math.random() * words.length)];
+  document.getElementById('q-img').textContent = currentItem.i;
+  speak(currentItem.w);
 
-  lastTargets.push(idx);
-  if (lastTargets.length > 2) lastTargets.shift();
-
-  currentItem = items[idx];
-  document.getElementById('flash-card').textContent = currentItem.i;
-  
   const opts = [currentItem.w];
   while(opts.length < 4) {
-    const r = items[Math.floor(Math.random() * items.length)].w;
+    const r = words[Math.floor(Math.random() * words.length)].w;
     if(!opts.includes(r)) opts.push(r);
   }
   opts.sort(() => Math.random() - 0.5);
 
-  const grid = document.getElementById('options-grid');
+  const grid = document.getElementById('opt-grid');
   grid.innerHTML = '';
   opts.forEach(o => {
     const btn = document.createElement('button');
@@ -119,10 +106,12 @@ function nextRound() {
 function check(ans) {
   if (ans === currentItem.w) {
     score++;
+    playSound('success');
     document.getElementById('score').textContent = score;
     speak(ans);
     nextRound();
   } else {
+    playSound('error');
     speak("No");
     timerWidth -= 20; // Penalty
   }
@@ -147,7 +136,7 @@ function finishGame() {
   window.location.href = 'index.html';
 }
 
-nextRound();
+init();
 </script>
 </body>
 </html>

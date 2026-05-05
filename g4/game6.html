@@ -238,6 +238,7 @@ function handleLetterClick(letter, btn) {
       success();
     }
   } else {
+    playSound('error');
     btn.classList.add('wrong');
     document.getElementById('feedback').textContent = '❌ 再試一次！';
     document.getElementById('feedback').className = 'feedback no';
@@ -246,6 +247,7 @@ function handleLetterClick(letter, btn) {
 }
 
 function success() {
+  playSound('success');
   score += 10;
   document.getElementById('scoreVal').textContent = score;
   document.getElementById('feedback').textContent = '✅ 太棒了！';

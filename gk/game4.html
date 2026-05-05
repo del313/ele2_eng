@@ -119,6 +119,7 @@ function handleDrop(targetZone) {
   if (!draggedElement) return;
   
   if (draggedElement.dataset.word === targetZone.dataset.word) {
+    playSound('success');
     targetZone.classList.add('filled');
     draggedElement.style.visibility = 'hidden';
     speakText(targetZone.dataset.word);
@@ -126,6 +127,7 @@ function handleDrop(targetZone) {
     draggedElement = null;
     if (matches === 6) win();
   } else {
+    playSound('error');
     speakText("Try another one!");
     draggedElement = null;
   }

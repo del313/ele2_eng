@@ -450,6 +450,7 @@ function showQuestion() {
       const isCorrect = c.en === correct.en;
       answeredCorrect = isCorrect;
       btn.classList.add(isCorrect ? 'correct' : 'wrong');
+      if (isCorrect) playSound('success'); else playSound('error');
       if (!isCorrect) cont.querySelectorAll('.m-btn').forEach(b => { if (b.textContent === correct.en) b.classList.add('correct'); });
       const res = document.getElementById('mResult');
       res.textContent = isCorrect ? '✅ 答對了！留在原位 🎉' : `❌ 答錯了！是「${correct.en}」，退後1格`;

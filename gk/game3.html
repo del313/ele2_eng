@@ -128,6 +128,7 @@ function nextMole() {
 }
 
 function hit(el) {
+  playSound('success');
   el.classList.add('hit');
   speakText("Zap!");
   score++;

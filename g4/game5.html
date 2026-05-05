@@ -283,18 +283,21 @@ function popBalloon(b, correct, x, y) {
   setTimeout(() => b.remove(), 100);
 
   if (correct) {
+    playSound('success');
     score += 10;
     speedMult = 1.0 + (score / 400);
     showFeedback('✅ +10', 'green', x, y);
     nextTarget();
     updateHUD();
   } else {
+    playSound('error');
     showFeedback('❌ 扣命!', 'red', x, y);
     takeDamage();
   }
 }
 
 function miss() {
+  playSound('error');
   showFeedback('💨 漏掉了!', 'orange', window.innerWidth/2, 150);
   takeDamage();
 }

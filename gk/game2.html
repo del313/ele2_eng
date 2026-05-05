@@ -102,6 +102,7 @@ function flipCard(card) {
 function checkMatch() {
   const [c1, c2] = flipped;
   if (c1.dataset.word === c2.dataset.word) {
+    playSound('success');
     matches++;
     speakText(c1.dataset.word);
     setTimeout(() => {
@@ -111,6 +112,7 @@ function checkMatch() {
       if (matches === 6) win();
     }, 600);
   } else {
+    playSound('error');
     setTimeout(() => {
       c1.classList.remove('flipped');
       c2.classList.remove('flipped');

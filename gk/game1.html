@@ -140,8 +140,10 @@ function spawnBalloon() {
 
   balloon.onclick = () => {
     if (item.word === vocab[targetIndex].word) {
+      playSound('success');
       popBalloon(balloon, true);
     } else {
+      playSound('error');
       // 點錯了，氣球晃動
       balloon.style.transform = 'translateX(10px)';
       setTimeout(() => balloon.style.transform = 'translateX(-10px)', 50);

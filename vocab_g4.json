@@ -16,98 +16,32 @@
       "3. 換孩子出題，家長來找 😄"
     ],
     "core_vocab": [
-      [
-        "name",
-        "名字"
-      ],
-      [
-        "old",
-        "歲數的"
-      ],
-      [
-        "years old",
-        "…歲"
-      ],
-      [
-        "grade",
-        "年級"
-      ],
-      [
-        "favorite",
-        "最喜歡的"
-      ],
-      [
-        "color",
-        "顏色"
-      ],
-      [
-        "food",
-        "食物"
-      ],
-      [
-        "friend",
-        "朋友"
-      ]
+      ["name", "名字"],
+      ["old", "歲數的"],
+      ["years old", "…歲"],
+      ["grade", "年級"],
+      ["favorite", "最喜歡的"],
+      ["color", "顏色"],
+      ["food", "食物"],
+      ["friend", "朋友"]
     ],
     "ext_vocab": [
-      [
-        "hello",
-        "你好"
-      ],
-      [
-        "hi",
-        "嗨"
-      ],
-      [
-        "nice",
-        "棒的"
-      ],
-      [
-        "meet",
-        "認識/見面"
-      ]
+      ["hello", "你好"],
+      ["hi", "嗨"],
+      ["nice", "棒的"],
+      ["meet", "認識/見面"]
     ],
     "sentences": [
-      [
-        "句型 1",
-        "Hi! My name is <blank>___</blank>.",
-        "Hi! My name is Amy.",
-        "Hi! My name is Amy."
-      ],
-      [
-        "句型 2",
-        "I am <blank>___</blank> years old. I am in Grade <blank>___</blank>.",
-        "I am 10 years old. I am in Grade 4.",
-        "I am 10 years old. I am in Grade 4."
-      ],
-      [
-        "句型 3（延伸）",
-        "My favorite <blank>___</blank> is <blank>___</blank>.",
-        "My favorite color is blue.",
-        "My favorite color is blue."
-      ]
+      ["句型 1", "Hi! My name is <blank>___</blank>.", "Hi! My name is Amy.", "Hi! My name is Amy."],
+      ["句型 2", "I am <blank>___</blank> years old. I am in Grade <blank>___</blank>.", "I am 10 years old. I am in Grade 4.", "I am 10 years old. I am in Grade 4."],
+      ["句型 3（延伸）", "My favorite <blank>___</blank> is <blank>___</blank>.", "My favorite color is blue.", "My favorite color is blue."]
     ],
     "qa": [
-      [
-        "What's your name?",
-        "My name is ___."
-      ],
-      [
-        "How old are you?",
-        "I am ___ years old."
-      ],
-      [
-        "What grade are you in?",
-        "I am in Grade 4."
-      ],
-      [
-        "What's your favorite color?",
-        "My favorite color is ___."
-      ],
-      [
-        "What's your favorite food?",
-        "My favorite food is ___."
-      ]
+      ["What's your name?", "My name is ___."],
+      ["How old are you?", "I am ___ years old."],
+      ["What grade are you in?", "I am in Grade 4."],
+      ["What's your favorite color?", "My favorite color is ___."],
+      ["What's your favorite food?", "My favorite food is ___."]
     ],
     "wrapup_title": "收尾挑戰",
     "wrapup_sub": "5 分鐘 · 不看提示，完整說出自我介紹！",
@@ -135,7 +69,7 @@
     "zh_title": "家庭成員",
     "icon": "👨‍👩‍👧",
     "grade_label": "UNIT 2 OF 12",
-    "video_url": "https://www.youtube.com/watch?v=GiRUF7hvWuM",
+    "video_url": "https://www.youtube.com/watch?v=xw_EFI5gMNo",
     "video_label": "開啟 Family Song 影片",
     "warmup_sub": "5 分鐘 · 唱歌 + 認識家人",
     "warmup_tasks": [
@@ -144,98 +78,32 @@
       "3. 家長問：「Who is this?」孩子練習回答 😄"
     ],
     "core_vocab": [
-      [
-        "father",
-        "爸爸"
-      ],
-      [
-        "mother",
-        "媽媽"
-      ],
-      [
-        "brother",
-        "哥哥/弟弟"
-      ],
-      [
-        "sister",
-        "姊姊/妹妹"
-      ],
-      [
-        "grandfather",
-        "爺爺/外公"
-      ],
-      [
-        "grandmother",
-        "奶奶/外婆"
-      ],
-      [
-        "family",
-        "家庭"
-      ],
-      [
-        "baby",
-        "寶寶"
-      ]
+      ["father", "爸爸"],
+      ["mother", "媽媽"],
+      ["brother", "哥哥/弟弟"],
+      ["sister", "姊姊/妹妹"],
+      ["grandfather", "爺爺/外公"],
+      ["grandmother", "奶奶/外婆"],
+      ["family", "家庭"],
+      ["baby", "寶寶"]
     ],
     "ext_vocab": [
-      [
-        "uncle",
-        "叔叔/伯伯"
-      ],
-      [
-        "aunt",
-        "阿姨/姑姑"
-      ],
-      [
-        "cousin",
-        "表/堂兄弟姊妹"
-      ],
-      [
-        "pet",
-        "寵物"
-      ]
+      ["uncle", "叔叔/伯伯"],
+      ["aunt", "阿姨/姑姑"],
+      ["cousin", "表/堂兄弟姊妹"],
+      ["pet", "寵物"]
     ],
     "sentences": [
-      [
-        "句型 1",
-        "This is my <blank>___</blank>.",
-        "This is my mother.",
-        "This is my mother."
-      ],
-      [
-        "句型 2",
-        "I have a <blank>___</blank> and a <blank>___</blank>.",
-        "I have a brother and a sister.",
-        "I have a brother and a sister."
-      ],
-      [
-        "句型 3（延伸）",
-        "My family has <blank>___</blank> people.",
-        "My family has four people.",
-        "My family has four people."
-      ]
+      ["句型 1", "This is my <blank>___</blank>.", "This is my mother.", "This is my mother."],
+      ["句型 2", "I have a <blank>___</blank> and a <blank>___</blank>.", "I have a brother and a sister.", "I have a brother and a sister."],
+      ["句型 3（延伸）", "My family has <blank>___</blank> people.", "My family has four people.", "My family has four people."]
     ],
     "qa": [
-      [
-        "How many people are in your family?",
-        "My family has ___ people."
-      ],
-      [
-        "Do you have a brother?",
-        "Yes, I do. / No, I don't."
-      ],
-      [
-        "Who is this?",
-        "This is my ___."
-      ],
-      [
-        "Do you have a pet?",
-        "Yes, I have a ___. / No, I don't."
-      ],
-      [
-        "What is your mother's name?",
-        "My mother's name is ___."
-      ]
+      ["How many people are in your family?", "My family has ___ people."],
+      ["Do you have a brother?", "Yes, I do. / No, I don't."],
+      ["Who is this?", "This is my ___."],
+      ["Do you have a pet?", "Yes, I have a ___. / No, I don't."],
+      ["What is your mother's name?", "My mother's name is ___."]
     ],
     "wrapup_title": "家庭介紹挑戰",
     "wrapup_sub": "5 分鐘 · 介紹你的家人！",
@@ -263,7 +131,7 @@
     "zh_title": "學校文具",
     "icon": "🎒",
     "grade_label": "UNIT 3 OF 12",
-    "video_url": "https://www.youtube.com/watch?v=UOo3fuH4PoA",
+    "video_url": "https://www.youtube.com/watch?v=BwBTozQisb4",
     "video_label": "開啟 School Supplies Song 影片",
     "warmup_sub": "5 分鐘 · 唱歌 + 認識文具",
     "warmup_tasks": [
@@ -272,98 +140,32 @@
       "3. 家長說英文，孩子快速從桌上找到那個文具 😄"
     ],
     "core_vocab": [
-      [
-        "pencil",
-        "鉛筆"
-      ],
-      [
-        "eraser",
-        "橡皮擦"
-      ],
-      [
-        "ruler",
-        "尺"
-      ],
-      [
-        "book",
-        "書"
-      ],
-      [
-        "bag",
-        "書包"
-      ],
-      [
-        "desk",
-        "桌子"
-      ],
-      [
-        "chair",
-        "椅子"
-      ],
-      [
-        "classroom",
-        "教室"
-      ]
+      ["pencil", "鉛筆"],
+      ["eraser", "橡皮擦"],
+      ["ruler", "尺"],
+      ["book", "書"],
+      ["bag", "書包"],
+      ["desk", "桌子"],
+      ["chair", "椅子"],
+      ["classroom", "教室"]
     ],
     "ext_vocab": [
-      [
-        "pen",
-        "原子筆"
-      ],
-      [
-        "notebook",
-        "筆記本"
-      ],
-      [
-        "scissors",
-        "剪刀"
-      ],
-      [
-        "crayon",
-        "蠟筆"
-      ]
+      ["pen", "原子筆"],
+      ["notebook", "筆記本"],
+      ["scissors", "剪刀"],
+      ["crayon", "蠟筆"]
     ],
     "sentences": [
-      [
-        "句型 1",
-        "This is a <blank>___</blank>.",
-        "This is a pencil.",
-        "This is a pencil."
-      ],
-      [
-        "句型 2",
-        "I have a <blank>___</blank> in my bag.",
-        "I have a ruler in my bag.",
-        "I have a ruler in my bag."
-      ],
-      [
-        "句型 3（延伸）",
-        "How many <blank>___</blank> do you have?",
-        "How many pencils do you have?",
-        "How many pencils do you have?"
-      ]
+      ["句型 1", "This is a <blank>___</blank>.", "This is a pencil.", "This is a pencil."],
+      ["句型 2", "I have a <blank>___</blank> in my bag.", "I have a ruler in my bag.", "I have a ruler in my bag."],
+      ["句型 3（延伸）", "How many <blank>___</blank> do you have?", "How many pencils do you have?", "How many pencils do you have?"]
     ],
     "qa": [
-      [
-        "What's this?",
-        "This is a ___."
-      ],
-      [
-        "Is this your eraser?",
-        "Yes, it is. / No, it isn't."
-      ],
-      [
-        "How many books do you have?",
-        "I have ___ books."
-      ],
-      [
-        "Where is your bag?",
-        "My bag is on the chair."
-      ],
-      [
-        "What color is your pencil?",
-        "My pencil is ___."
-      ]
+      ["What's this?", "This is a ___."],
+      ["Is this your eraser?", "Yes, it is. / No, it isn't."],
+      ["How many books do you have?", "I have ___ books."],
+      ["Where is your bag?", "My bag is on the chair."],
+      ["What color is your pencil?", "My pencil is ___."]
     ],
     "wrapup_title": "書包大搜查",
     "wrapup_sub": "5 分鐘 · 打開書包，一一說出文具！",
@@ -391,7 +193,7 @@
     "zh_title": "食物飲料",
     "icon": "🍎",
     "grade_label": "UNIT 4 OF 12",
-    "video_url": "https://www.youtube.com/watch?v=frN3nvhIHUk",
+    "video_url": "https://www.youtube.com/watch?v=GOCroTBFlFw",
     "video_label": "開啟 Food Song 影片",
     "warmup_sub": "5 分鐘 · 唱歌 + 認識食物",
     "warmup_tasks": [
@@ -400,98 +202,32 @@
       "3. 家長說中文，孩子說英文，比賽誰說得快 😄"
     ],
     "core_vocab": [
-      [
-        "rice",
-        "飯"
-      ],
-      [
-        "noodle",
-        "麵"
-      ],
-      [
-        "bread",
-        "麵包"
-      ],
-      [
-        "apple",
-        "蘋果"
-      ],
-      [
-        "milk",
-        "牛奶"
-      ],
-      [
-        "water",
-        "水"
-      ],
-      [
-        "egg",
-        "雞蛋"
-      ],
-      [
-        "chicken",
-        "雞肉"
-      ]
+      ["rice", "飯"],
+      ["noodle", "麵"],
+      ["bread", "麵包"],
+      ["apple", "蘋果"],
+      ["milk", "牛奶"],
+      ["water", "水"],
+      ["egg", "雞蛋"],
+      ["chicken", "雞肉"]
     ],
     "ext_vocab": [
-      [
-        "pizza",
-        "披薩"
-      ],
-      [
-        "juice",
-        "果汁"
-      ],
-      [
-        "cake",
-        "蛋糕"
-      ],
-      [
-        "cookie",
-        "餅乾"
-      ]
+      ["pizza", "披薩"],
+      ["juice", "果汁"],
+      ["cake", "蛋糕"],
+      ["cookie", "餅乾"]
     ],
     "sentences": [
-      [
-        "句型 1",
-        "I like <blank>___</blank>.",
-        "I like rice.",
-        "I like rice."
-      ],
-      [
-        "句型 2",
-        "I don't like <blank>___</blank>.",
-        "I don't like noodles.",
-        "I don't like noodles."
-      ],
-      [
-        "句型 3（延伸）",
-        "I want some <blank>___</blank>, please.",
-        "I want some milk, please.",
-        "I want some milk, please."
-      ]
+      ["句型 1", "I like <blank>___</blank>.", "I like rice.", "I like rice."],
+      ["句型 2", "I don't like <blank>___</blank>.", "I don't like noodles.", "I don't like noodles."],
+      ["句型 3（延伸）", "I want some <blank>___</blank>, please.", "I want some milk, please.", "I want some milk, please."]
     ],
     "qa": [
-      [
-        "Do you like apples?",
-        "Yes, I do. / No, I don't."
-      ],
-      [
-        "What do you want for lunch?",
-        "I want ___."
-      ],
-      [
-        "Do you drink milk every day?",
-        "Yes, I do. / No, I don't."
-      ],
-      [
-        "What's your favorite food?",
-        "My favorite food is ___."
-      ],
-      [
-        "Do you like bread or rice?",
-        "I like ___."
-      ]
+      ["Do you like apples?", "Yes, I do. / No, I don't."],
+      ["What do you want for lunch?", "I want ___."],
+      ["Do you drink milk every day?", "Yes, I do. / No, I don't."],
+      ["What's your favorite food?", "My favorite food is ___."],
+      ["Do you like bread or rice?", "I like ___."]
     ],
     "wrapup_title": "點餐挑戰",
     "wrapup_sub": "5 分鐘 · 假裝在餐廳點餐！",
@@ -519,7 +255,7 @@
     "zh_title": "動物",
     "icon": "🐶",
     "grade_label": "UNIT 5 OF 12",
-    "video_url": "https://www.youtube.com/watch?v=zXEq-QO3xTg",
+    "video_url": "https://www.youtube.com/watch?v=pM84ceTI4rE",
     "video_label": "開啟 Animals Song 影片",
     "warmup_sub": "5 分鐘 · 唱歌 + 模仿動物",
     "warmup_tasks": [
@@ -528,98 +264,32 @@
       "3. 換孩子模仿，家長猜 😄"
     ],
     "core_vocab": [
-      [
-        "dog",
-        "狗"
-      ],
-      [
-        "cat",
-        "貓"
-      ],
-      [
-        "bird",
-        "鳥"
-      ],
-      [
-        "fish",
-        "魚"
-      ],
-      [
-        "rabbit",
-        "兔子"
-      ],
-      [
-        "tiger",
-        "老虎"
-      ],
-      [
-        "elephant",
-        "大象"
-      ],
-      [
-        "monkey",
-        "猴子"
-      ]
+      ["dog", "狗"],
+      ["cat", "貓"],
+      ["bird", "鳥"],
+      ["fish", "魚"],
+      ["rabbit", "兔子"],
+      ["tiger", "老虎"],
+      ["elephant", "大象"],
+      ["monkey", "猴子"]
     ],
     "ext_vocab": [
-      [
-        "bear",
-        "熊"
-      ],
-      [
-        "lion",
-        "獅子"
-      ],
-      [
-        "panda",
-        "熊貓"
-      ],
-      [
-        "giraffe",
-        "長頸鹿"
-      ]
+      ["bear", "熊"],
+      ["lion", "獅子"],
+      ["panda", "熊貓"],
+      ["giraffe", "長頸鹿"]
     ],
     "sentences": [
-      [
-        "句型 1",
-        "I have a <blank>___</blank>.",
-        "I have a dog.",
-        "I have a dog."
-      ],
-      [
-        "句型 2",
-        "The <blank>___</blank> can <blank>___</blank>.",
-        "The bird can fly.",
-        "The bird can fly."
-      ],
-      [
-        "句型 3（延伸）",
-        "My favorite animal is the <blank>___</blank>.",
-        "My favorite animal is the elephant.",
-        "My favorite animal is the elephant."
-      ]
+      ["句型 1", "I have a <blank>___</blank>.", "I have a dog.", "I have a dog."],
+      ["句型 2", "The <blank>___</blank> can <blank>___</blank>.", "The bird can fly.", "The bird can fly."],
+      ["句型 3（延伸）", "My favorite animal is the <blank>___</blank>.", "My favorite animal is the elephant.", "My favorite animal is the elephant."]
     ],
     "qa": [
-      [
-        "Do you have a pet?",
-        "Yes, I have a ___. / No, I don't."
-      ],
-      [
-        "What animal do you like?",
-        "I like ___."
-      ],
-      [
-        "Can a fish fly?",
-        "No, it can't. It can swim."
-      ],
-      [
-        "Is a tiger big or small?",
-        "A tiger is big."
-      ],
-      [
-        "What sound does a dog make?",
-        "A dog says Woof!"
-      ]
+      ["Do you have a pet?", "Yes, I have a ___. / No, I don't."],
+      ["What animal do you like?", "I like ___."],
+      ["Can a fish fly?", "No, it can't. It can swim."],
+      ["Is a tiger big or small?", "A tiger is big."],
+      ["What sound does a dog make?", "A dog says Woof!"]
     ],
     "wrapup_title": "動物達人挑戰",
     "wrapup_sub": "5 分鐘 · 介紹你最喜歡的動物！",
@@ -656,98 +326,32 @@
       "3. 一起比比看，誰的生活作息最規律 😄"
     ],
     "core_vocab": [
-      [
-        "morning",
-        "早上"
-      ],
-      [
-        "noon",
-        "中午"
-      ],
-      [
-        "afternoon",
-        "下午"
-      ],
-      [
-        "night",
-        "晚上"
-      ],
-      [
-        "eat",
-        "吃"
-      ],
-      [
-        "sleep",
-        "睡覺"
-      ],
-      [
-        "study",
-        "讀書"
-      ],
-      [
-        "play",
-        "玩"
-      ]
+      ["morning", "早上"],
+      ["noon", "中午"],
+      ["afternoon", "下午"],
+      ["night", "晚上"],
+      ["eat", "吃"],
+      ["sleep", "睡覺"],
+      ["study", "讀書"],
+      ["play", "玩"]
     ],
     "ext_vocab": [
-      [
-        "exercise",
-        "運動"
-      ],
-      [
-        "shower",
-        "淋浴"
-      ],
-      [
-        "read",
-        "閱讀"
-      ],
-      [
-        "watch",
-        "看（電視）"
-      ]
+      ["exercise", "運動"],
+      ["shower", "淋浴"],
+      ["read", "閱讀"],
+      ["watch", "看（電視）"]
     ],
     "sentences": [
-      [
-        "句型 1",
-        "In the morning, I <blank>___</blank>.",
-        "In the morning, I eat breakfast.",
-        "In the morning, I eat breakfast."
-      ],
-      [
-        "句型 2",
-        "I <blank>___</blank> at <blank>___</blank> o'clock.",
-        "I sleep at nine o'clock.",
-        "I sleep at nine o'clock."
-      ],
-      [
-        "句型 3（延伸）",
-        "Every day, I <blank>___</blank> and <blank>___</blank>.",
-        "Every day, I study and play.",
-        "Every day, I study and play."
-      ]
+      ["句型 1", "In the morning, I <blank>___</blank>.", "In the morning, I eat breakfast.", "In the morning, I eat breakfast."],
+      ["句型 2", "I <blank>___</blank> at <blank>___</blank> o'clock.", "I sleep at nine o'clock.", "I sleep at nine o'clock."],
+      ["句型 3（延伸）", "Every day, I <blank>___</blank> and <blank>___</blank>.", "Every day, I study and play.", "Every day, I study and play."]
     ],
     "qa": [
-      [
-        "What do you do in the morning?",
-        "In the morning, I ___."
-      ],
-      [
-        "When do you go to sleep?",
-        "I sleep at ___ o'clock."
-      ],
-      [
-        "Do you study every day?",
-        "Yes, I do. / No, I don't."
-      ],
-      [
-        "What do you do after school?",
-        "I ___ after school."
-      ],
-      [
-        "Do you play in the afternoon?",
-        "Yes, I do!"
-      ]
+      ["What do you do in the morning?", "In the morning, I ___."],
+      ["When do you go to sleep?", "I sleep at ___ o'clock."],
+      ["Do you study every day?", "Yes, I do. / No, I don't."],
+      ["What do you do after school?", "I ___ after school."],
+      ["Do you play in the afternoon?", "Yes, I do!"]
     ],
     "wrapup_title": "我的一天",
     "wrapup_sub": "5 分鐘 · 說出你今天的作息！",
@@ -784,98 +388,32 @@
       "3. 換孩子出題 😄"
     ],
     "core_vocab": [
-      [
-        "red",
-        "紅色"
-      ],
-      [
-        "blue",
-        "藍色"
-      ],
-      [
-        "green",
-        "綠色"
-      ],
-      [
-        "yellow",
-        "黃色"
-      ],
-      [
-        "shirt",
-        "上衣"
-      ],
-      [
-        "pants",
-        "褲子"
-      ],
-      [
-        "shoes",
-        "鞋子"
-      ],
-      [
-        "hat",
-        "帽子"
-      ]
+      ["red", "紅色"],
+      ["blue", "藍色"],
+      ["green", "綠色"],
+      ["yellow", "黃色"],
+      ["shirt", "上衣"],
+      ["pants", "褲子"],
+      ["shoes", "鞋子"],
+      ["hat", "帽子"]
     ],
     "ext_vocab": [
-      [
-        "white",
-        "白色"
-      ],
-      [
-        "black",
-        "黑色"
-      ],
-      [
-        "dress",
-        "洋裝"
-      ],
-      [
-        "jacket",
-        "外套"
-      ]
+      ["white", "白色"],
+      ["black", "黑色"],
+      ["dress", "洋裝"],
+      ["jacket", "外套"]
     ],
     "sentences": [
-      [
-        "句型 1",
-        "My <blank>___</blank> is <blank>___</blank>.",
-        "My shirt is blue.",
-        "My shirt is blue."
-      ],
-      [
-        "句型 2",
-        "I am wearing a <blank>___</blank> <blank>___</blank>.",
-        "I am wearing a red hat.",
-        "I am wearing a red hat."
-      ],
-      [
-        "句型 3（延伸）",
-        "I like the <blank>___</blank> <blank>___</blank>.",
-        "I like the green shoes.",
-        "I like the green shoes."
-      ]
+      ["句型 1", "My <blank>___</blank> is <blank>___</blank>.", "My shirt is blue.", "My shirt is blue."],
+      ["句型 2", "I am wearing a <blank>___</blank> <blank>___</blank>.", "I am wearing a red hat.", "I am wearing a red hat."],
+      ["句型 3（延伸）", "I like the <blank>___</blank> <blank>___</blank>.", "I like the green shoes.", "I like the green shoes."]
     ],
     "qa": [
-      [
-        "What color is your shirt?",
-        "My shirt is ___."
-      ],
-      [
-        "What are you wearing today?",
-        "I am wearing a ___."
-      ],
-      [
-        "Do you like the color blue?",
-        "Yes, I do! / No, I don't."
-      ],
-      [
-        "What color are your shoes?",
-        "My shoes are ___."
-      ],
-      [
-        "Is your hat red or yellow?",
-        "My hat is ___."
-      ]
+      ["What color is your shirt?", "My shirt is ___."],
+      ["What are you wearing today?", "I am wearing a ___."],
+      ["Do you like the color blue?", "Yes, I do! / No, I don't."],
+      ["What color are your shoes?", "My shoes are ___."],
+      ["Is your hat red or yellow?", "My hat is ___."]
     ],
     "wrapup_title": "今日穿搭介紹",
     "wrapup_sub": "5 分鐘 · 說出你今天穿什麼！",
@@ -903,7 +441,7 @@
     "zh_title": "天氣季節",
     "icon": "🌤",
     "grade_label": "UNIT 8 OF 12",
-    "video_url": "https://www.youtube.com/watch?v=I8GeA3anPdo",
+    "video_url": "https://www.youtube.com/watch?v=8ZjpI6fgYSY",
     "video_label": "開啟 Weather Song 影片",
     "warmup_sub": "5 分鐘 · 唱歌 + 看天氣",
     "warmup_tasks": [
@@ -912,98 +450,32 @@
       "3. 猜猜明天天氣如何，用英文說出來 😄"
     ],
     "core_vocab": [
-      [
-        "sunny",
-        "晴天"
-      ],
-      [
-        "cloudy",
-        "多雲"
-      ],
-      [
-        "rainy",
-        "下雨"
-      ],
-      [
-        "windy",
-        "刮風"
-      ],
-      [
-        "hot",
-        "熱"
-      ],
-      [
-        "cold",
-        "冷"
-      ],
-      [
-        "spring",
-        "春天"
-      ],
-      [
-        "winter",
-        "冬天"
-      ]
+      ["sunny", "晴天"],
+      ["cloudy", "多雲"],
+      ["rainy", "下雨"],
+      ["windy", "刮風"],
+      ["hot", "熱"],
+      ["cold", "冷"],
+      ["spring", "春天"],
+      ["winter", "冬天"]
     ],
     "ext_vocab": [
-      [
-        "snowy",
-        "下雪"
-      ],
-      [
-        "foggy",
-        "起霧"
-      ],
-      [
-        "summer",
-        "夏天"
-      ],
-      [
-        "autumn",
-        "秋天"
-      ]
+      ["snowy", "下雪"],
+      ["foggy", "起霧"],
+      ["summer", "夏天"],
+      ["autumn", "秋天"]
     ],
     "sentences": [
-      [
-        "句型 1",
-        "It is <blank>___</blank> today.",
-        "It is sunny today.",
-        "It is sunny today."
-      ],
-      [
-        "句型 2",
-        "The weather is <blank>___</blank> and <blank>___</blank>.",
-        "The weather is hot and sunny.",
-        "The weather is hot and sunny."
-      ],
-      [
-        "句型 3（延伸）",
-        "In <blank>___</blank>, it is <blank>___</blank>.",
-        "In winter, it is cold.",
-        "In winter, it is cold."
-      ]
+      ["句型 1", "It is <blank>___</blank> today.", "It is sunny today.", "It is sunny today."],
+      ["句型 2", "The weather is <blank>___</blank> and <blank>___</blank>.", "The weather is hot and sunny.", "The weather is hot and sunny."],
+      ["句型 3（延伸）", "In <blank>___</blank>, it is <blank>___</blank>.", "In winter, it is cold.", "In winter, it is cold."]
     ],
     "qa": [
-      [
-        "How's the weather today?",
-        "It is ___ today."
-      ],
-      [
-        "Is it hot or cold?",
-        "It is ___."
-      ],
-      [
-        "What's your favorite season?",
-        "My favorite season is ___."
-      ],
-      [
-        "Do you like rainy days?",
-        "Yes, I do. / No, I don't."
-      ],
-      [
-        "What do you wear when it's cold?",
-        "I wear a jacket."
-      ]
+      ["How's the weather today?", "It is ___ today."],
+      ["Is it hot or cold?", "It is ___."],
+      ["What's your favorite season?", "My favorite season is ___."],
+      ["Do you like rainy days?", "Yes, I do. / No, I don't."],
+      ["What do you wear when it's cold?", "I wear a jacket."]
     ],
     "wrapup_title": "天氣播報員",
     "wrapup_sub": "5 分鐘 · 假裝你是天氣播報員！",
@@ -1018,7 +490,7 @@
     "wrapup_challenge": [
       "1. 假裝攝影機，孩子對著家長播報天氣 📺",
       "2. 家長問：「What should I wear today?」孩子建議穿著",
-      "3. 加碼：說說最喜歡的季節和原因 🌟"
+      "3. 加碼：說說最喜歡的季節 and 原因 🌟"
     ],
     "complete_next": "Unit 9：I Can Do It!",
     "tip_box": "💡 家長小技巧：每天早上讓孩子看天氣，用英文說天氣狀況！"
@@ -1040,98 +512,32 @@
       "3. 用英文說「I can ___!」 😄"
     ],
     "core_vocab": [
-      [
-        "run",
-        "跑步"
-      ],
-      [
-        "swim",
-        "游泳"
-      ],
-      [
-        "sing",
-        "唱歌"
-      ],
-      [
-        "dance",
-        "跳舞"
-      ],
-      [
-        "draw",
-        "畫畫"
-      ],
-      [
-        "read",
-        "閱讀"
-      ],
-      [
-        "cook",
-        "做飯"
-      ],
-      [
-        "ride",
-        "騎"
-      ]
+      ["run", "跑步"],
+      ["swim", "游泳"],
+      ["sing", "唱歌"],
+      ["dance", "跳舞"],
+      ["draw", "畫畫"],
+      ["read", "閱讀"],
+      ["cook", "做飯"],
+      ["ride", "騎"]
     ],
     "ext_vocab": [
-      [
-        "jump",
-        "跳"
-      ],
-      [
-        "climb",
-        "爬"
-      ],
-      [
-        "paint",
-        "繪畫"
-      ],
-      [
-        "play piano",
-        "彈鋼琴"
-      ]
+      ["jump", "跳"],
+      ["climb", "爬"],
+      ["paint", "繪畫"],
+      ["play piano", "彈鋼琴"]
     ],
     "sentences": [
-      [
-        "句型 1",
-        "I can <blank>___</blank>.",
-        "I can swim.",
-        "I can swim."
-      ],
-      [
-        "句型 2",
-        "I can't <blank>___</blank>.",
-        "I can't cook.",
-        "I can't cook."
-      ],
-      [
-        "句型 3（延伸）",
-        "Can you <blank>___</blank>? Yes, I can. / No, I can't.",
-        "Can you dance? Yes, I can!",
-        "Can you dance? Yes, I can!"
-      ]
+      ["句型 1", "I can <blank>___</blank>.", "I can swim.", "I can swim."],
+      ["句型 2", "I can't <blank>___</blank>.", "I can't cook.", "I can't cook."],
+      ["句型 3（延伸）", "Can you <blank>___</blank>? Yes, I can. / No, I can't.", "Can you dance? Yes, I can!", "Can you dance? Yes, I can!"]
     ],
     "qa": [
-      [
-        "Can you swim?",
-        "Yes, I can! / No, I can't."
-      ],
-      [
-        "What can you do?",
-        "I can ___ and ___."
-      ],
-      [
-        "Can you cook?",
-        "Yes, I can. / No, I can't."
-      ],
-      [
-        "Can your mother sing?",
-        "Yes, she can. / No, she can't."
-      ],
-      [
-        "What do you like to do?",
-        "I like to ___."
-      ]
+      ["Can you swim?", "Yes, I can! / No, I can't."],
+      ["What can you do?", "I can ___ and ___."],
+      ["Can you cook?", "Yes, I can. / No, I can't."],
+      ["Can your mother sing?", "Yes, she can. / No, she can't."],
+      ["What do you like to do?", "I like to ___."]
     ],
     "wrapup_title": "才藝秀",
     "wrapup_sub": "5 分鐘 · 展示你的才能！",
@@ -1168,98 +574,32 @@
       "3. 比賽：誰能說出最多城市地點的英文 😄"
     ],
     "core_vocab": [
-      [
-        "school",
-        "學校"
-      ],
-      [
-        "park",
-        "公園"
-      ],
-      [
-        "hospital",
-        "醫院"
-      ],
-      [
-        "store",
-        "商店"
-      ],
-      [
-        "library",
-        "圖書館"
-      ],
-      [
-        "bus",
-        "公車"
-      ],
-      [
-        "car",
-        "汽車"
-      ],
-      [
-        "road",
-        "路"
-      ]
+      ["school", "學校"],
+      ["park", "公園"],
+      ["hospital", "醫院"],
+      ["store", "商店"],
+      ["library", "圖書館"],
+      ["bus", "公車"],
+      ["car", "汽車"],
+      ["road", "路"]
     ],
     "ext_vocab": [
-      [
-        "bank",
-        "銀行"
-      ],
-      [
-        "restaurant",
-        "餐廳"
-      ],
-      [
-        "museum",
-        "博物館"
-      ],
-      [
-        "subway",
-        "地鐵"
-      ]
+      ["bank", "銀行"],
+      ["restaurant", "餐廳"],
+      ["museum", "博物館"],
+      ["subway", "地鐵"]
     ],
     "sentences": [
-      [
-        "句型 1",
-        "I go to the <blank>___</blank>.",
-        "I go to the park.",
-        "I go to the park."
-      ],
-      [
-        "句型 2",
-        "Let's go to the <blank>___</blank>!",
-        "Let's go to the library!",
-        "Let's go to the library!"
-      ],
-      [
-        "句型 3（延伸）",
-        "The <blank>___</blank> is near here.",
-        "The store is near here.",
-        "The store is near here."
-      ]
+      ["句型 1", "I go to the <blank>___</blank>.", "I go to the park.", "I go to the park."],
+      ["句型 2", "Let's go to the <blank>___</blank>!", "Let's go to the library!", "Let's go to the library!"],
+      ["句型 3（延伸）", "The <blank>___</blank> is near here.", "The store is near here.", "The store is near here."]
     ],
     "qa": [
-      [
-        "Where do you go on weekends?",
-        "I go to the ___."
-      ],
-      [
-        "Is there a park near your home?",
-        "Yes, there is. / No, there isn't."
-      ],
-      [
-        "How do you go to school?",
-        "I go by bus / car."
-      ],
-      [
-        "What do you do at the library?",
-        "I read books there."
-      ],
-      [
-        "Let's go to the park! Do you want to go?",
-        "Yes! / No, let's go to the ___."
-      ]
+      ["Where do you go on weekends?", "I go to the ___."],
+      ["Is there a park near your home?", "Yes, there is. / No, there isn't."],
+      ["How do you go to school?", "I go by bus / car."],
+      ["What do you do at the library?", "I read books there."],
+      ["Let's go to the park! Do you want to go?", "Yes! / No, let's go to the ___."]
     ],
     "wrapup_title": "城市導遊",
     "wrapup_sub": "5 分鐘 · 介紹你家附近的地方！",
@@ -1296,98 +636,32 @@
       "3. 越唱越快，看能不能跟上 😄"
     ],
     "core_vocab": [
-      [
-        "head",
-        "頭"
-      ],
-      [
-        "eyes",
-        "眼睛"
-      ],
-      [
-        "ears",
-        "耳朵"
-      ],
-      [
-        "nose",
-        "鼻子"
-      ],
-      [
-        "mouth",
-        "嘴巴"
-      ],
-      [
-        "hands",
-        "手"
-      ],
-      [
-        "legs",
-        "腿"
-      ],
-      [
-        "feet",
-        "腳"
-      ]
+      ["head", "頭"],
+      ["eyes", "眼睛"],
+      ["ears", "耳朵"],
+      ["nose", "鼻子"],
+      ["mouth", "嘴巴"],
+      ["hands", "手"],
+      ["legs", "腿"],
+      ["feet", "腳"]
     ],
     "ext_vocab": [
-      [
-        "neck",
-        "脖子"
-      ],
-      [
-        "shoulders",
-        "肩膀"
-      ],
-      [
-        "fingers",
-        "手指"
-      ],
-      [
-        "stomach",
-        "肚子"
-      ]
+      ["neck", "脖子"],
+      ["shoulders", "肩膀"],
+      ["fingers", "手指"],
+      ["stomach", "肚子"]
     ],
     "sentences": [
-      [
-        "句型 1",
-        "I have two <blank>___</blank>.",
-        "I have two eyes.",
-        "I have two eyes."
-      ],
-      [
-        "句型 2",
-        "Touch your <blank>___</blank>!",
-        "Touch your nose!",
-        "Touch your nose!"
-      ],
-      [
-        "句型 3（延伸）",
-        "My <blank>___</blank> hurts.",
-        "My head hurts.",
-        "My head hurts."
-      ]
+      ["句型 1", "I have two <blank>___</blank>.", "I have two eyes.", "I have two eyes."],
+      ["句型 2", "Touch your <blank>___</blank>!", "Touch your nose!", "Touch your nose!"],
+      ["句型 3（延伸）", "My <blank>___</blank> hurts.", "My head hurts.", "My head hurts."]
     ],
     "qa": [
-      [
-        "How many eyes do you have?",
-        "I have two eyes."
-      ],
-      [
-        "Point to your nose!",
-        "Here it is! (點鼻子)"
-      ],
-      [
-        "Does your head hurt?",
-        "Yes, it does. / No, it doesn't."
-      ],
-      [
-        "What do you use your hands for?",
-        "I use my hands to ___."
-      ],
-      [
-        "How many fingers do you have?",
-        "I have ten fingers."
-      ]
+      ["How many eyes do you have?", "I have two eyes."],
+      ["Point to your nose!", "Here it is! (點鼻子)"],
+      ["Does your head hurt?", "Yes, it does. / No, it doesn't."],
+      ["What do you use your hands for?", "I use my hands to ___."],
+      ["How many fingers do you have?", "I have ten fingers."]
     ],
     "wrapup_title": "Simon Says 挑戰",
     "wrapup_sub": "5 分鐘 · 玩 Simon Says 遊戲！",
@@ -1415,7 +689,7 @@
     "zh_title": "綜合發表",
     "icon": "🎤",
     "grade_label": "UNIT 12 OF 12",
-    "video_url": "https://www.youtube.com/watch?v=l4WNrvVjiTw",
+    "video_url": "https://www.youtube.com/watch?v=uos7eDRUokE",
     "video_label": "開啟 Feelings Song 影片",
     "warmup_sub": "5 分鐘 · 唱歌 + 說心情",
     "warmup_tasks": [
@@ -1424,98 +698,32 @@
       "3. 互相用英文問：「How do you feel today?」 😄"
     ],
     "core_vocab": [
-      [
-        "happy",
-        "快樂"
-      ],
-      [
-        "sad",
-        "難過"
-      ],
-      [
-        "big",
-        "大"
-      ],
-      [
-        "small",
-        "小"
-      ],
-      [
-        "fast",
-        "快"
-      ],
-      [
-        "slow",
-        "慢"
-      ],
-      [
-        "pretty",
-        "漂亮"
-      ],
-      [
-        "strong",
-        "強壯"
-      ]
+      ["happy", "快樂"],
+      ["sad", "難過"],
+      ["big", "大"],
+      ["small", "小"],
+      ["fast", "快"],
+      ["slow", "慢"],
+      ["pretty", "漂亮"],
+      ["strong", "強壯"]
     ],
     "ext_vocab": [
-      [
-        "scared",
-        "害怕"
-      ],
-      [
-        "angry",
-        "生氣"
-      ],
-      [
-        "quiet",
-        "安靜"
-      ],
-      [
-        "loud",
-        "吵鬧"
-      ]
+      ["scared", "害怕"],
+      ["angry", "生氣"],
+      ["quiet", "安靜"],
+      ["loud", "吵鬧"]
     ],
     "sentences": [
-      [
-        "句型 1",
-        "I feel <blank>___</blank> today.",
-        "I feel happy today.",
-        "I feel happy today."
-      ],
-      [
-        "句型 2",
-        "It is <blank>___</blank> and <blank>___</blank>.",
-        "It is big and strong.",
-        "It is big and strong."
-      ],
-      [
-        "句型 3（延伸）",
-        "This is my <blank>___</blank> because <blank>___</blank>.",
-        "This is my favorite book because it is funny.",
-        "This is my favorite book because it is funny."
-      ]
+      ["句型 1", "I feel <blank>___</blank> today.", "I feel happy today.", "I feel happy today."],
+      ["句型 2", "It is <blank>___</blank> and <blank>___</blank>.", "It is big and strong.", "It is big and strong."],
+      ["句型 3（延伸）", "This is my <blank>___</blank> because <blank>___</blank>.", "This is my favorite book because it is funny.", "This is my favorite book because it is funny."]
     ],
     "qa": [
-      [
-        "How do you feel today?",
-        "I feel ___ today."
-      ],
-      [
-        "Are you happy or sad?",
-        "I am ___."
-      ],
-      [
-        "Tell me about your favorite thing.",
-        "My favorite ___ is ___."
-      ],
-      [
-        "Is a elephant fast or slow?",
-        "An elephant is slow."
-      ],
-      [
-        "What makes you happy?",
-        "___ makes me happy."
-      ]
+      ["How do you feel today?", "I feel ___ today."],
+      ["Are you happy or sad?", "I am ___."],
+      ["Tell me about your favorite thing.", "My favorite ___ is ___."],
+      ["Is a elephant fast or slow?", "An elephant is slow."],
+      ["What makes you happy?", "___ makes me happy."]
     ],
     "wrapup_title": "Show & Tell 大挑戰！",
     "wrapup_sub": "10 分鐘 · 完整發表你的最愛！",

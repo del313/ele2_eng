@@ -149,6 +149,7 @@ function startRound() {
 function handleDrop(slot) {
   if (!draggedPiece) return;
   if (slot.dataset.idx === draggedPiece.dataset.idx) {
+    playSound('success');
     slot.appendChild(draggedPiece);
     draggedPiece.draggable = false;
     draggedPiece.style.cursor = 'default';
@@ -156,6 +157,7 @@ function handleDrop(slot) {
     matches++;
     if (matches === 9) winRound();
   } else {
+    playSound('error');
     speakText("Wrong spot!");
   }
   draggedPiece = null;
