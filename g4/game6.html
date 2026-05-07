@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Game 6 – 聽音拼字大挑戰</title>
+<script src="../js-common.js"></script>
 <style>
   :root {
     --blue: #1565C0; --lblue: #42A5F5; --light: #E3F2FD;
@@ -272,12 +273,7 @@ function resetWord() {
 }
 
 function playCurrentWord() {
-  if (!window.speechSynthesis) return;
-  speechSynthesis.cancel();
-  const utt = new SpeechSynthesisUtterance(currentWord);
-  utt.lang = 'en-US';
-  utt.rate = 0.8;
-  speechSynthesis.speak(utt);
+  speak(currentWord);
 }
 
 function win() {

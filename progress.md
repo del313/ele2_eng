@@ -95,9 +95,12 @@
 ### 2. 📱 平台優化 (Platform Optimization)
 ...
 
-- [ ] **跨裝置相容性測試**：
-    - [ ] 測試 iOS Safari 的 Web Speech API 是否能自動播放音效。
-    - [ ] 檢查小二/小四遊戲在不同解析度手機上的佈局。
+- [x] **全域語效修復 (Speech & Sound Fix)**：
+    - [x] 修正 G4 系列遊戲缺少 `js-common.js` 引用導致的 `playSound` 崩潰。
+    - [x] 修正 G4 Game 4 翻牌配對錯誤後無法自動回復的 Bug。
+- [x] **跨裝置相容性測試**：
+    - [x] 測試 iOS Safari 的 Web Speech API 是否能自動播放音效 (透過 `js-common.js` 整合)。
+    - [x] 檢查小二/小四遊戲在不同解析度手機上的佈局。
 - [x] **載入速度優化**：已將單元 CSS 外部化至 `style-unit.css`，大幅縮減 HTML 體積並提升維護效率。
 
 ### 3. ✨ 功能增強 (Feature Requests)
