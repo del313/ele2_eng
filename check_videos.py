@@ -10,7 +10,7 @@ def check_youtube_video(video_id):
     try:
         headers = {'User-Agent': 'Mozilla/5.0'}
         req = urllib.request.Request(url, headers=headers)
-        with urllib.request.urlopen(req) as response:
+        with urllib.request.urlopen(req, timeout=10) as response:
             data = json.loads(response.read().decode('utf-8'))
             # 如果能拿到 title，代表影片存在且公開
             return True, f"OK ({data.get('title', 'No Title')})"
@@ -20,6 +20,8 @@ def check_youtube_video(video_id):
         if e.code == 401:
             return False, "❌ 影片不開放嵌入或私人影片 (401)"
         return False, f"❌ HTTP 錯誤 {e.code}"
+    except urllib.error.URLError as e:
+        return False, f"❌ 網路連線錯誤或逾時: {str(e)}"
     except Exception as e:
         return False, f"❌ 檢查出錯: {str(e)}"
 
