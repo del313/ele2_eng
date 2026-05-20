@@ -203,8 +203,17 @@
 
     configs.forEach(conf => {
       try {
-        const progressData = JSON.parse(localStorage.getItem(conf.key) || '[]');
-        const completedCount = Array.isArray(progressData) ? progressData.length : 0;
+        const progressData = JSON.parse(localStorage.getItem(conf.key) || '{}');
+        let completedCount = 0;
+        
+        if (progressData && typeof progressData === 'object' && !Array.isArray(progressData)) {
+          // 統計物件中標記為 'done' 的單元數量
+          completedCount = Object.values(progressData).filter(v => v === 'done').length;
+        } else if (Array.isArray(progressData)) {
+          // 相容舊有的陣列模式 (如果有的話)
+          completedCount = progressData.length;
+        }
+
         const percent = Math.min(100, Math.round((completedCount / conf.total) * 100));
         
         const bar = document.getElementById(`progress-${conf.id}`);
