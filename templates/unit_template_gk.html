@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Unit 5 – Letters Q-T</title>
+<title>Unit {{num}} – {{title}}</title>
 <script src="../js-common.js"></script>
 <script src="kinder.js"></script>
 <link rel="stylesheet" href="../style-unit.css">
@@ -18,8 +18,8 @@
 
 <header style="position:relative">
   <a href="index.html" class="home-btn">🏠 首頁</a>
-  <div class="unit-label">UNIT 5 OF 8 &nbsp;·&nbsp; GRADE K</div>
-  <h1>👸 Letters Q-T</h1>
+  <div class="unit-label">{{grade_label}} &nbsp;·&nbsp; GRADE {{grade_num}}</div>
+  <h1>{{icon}} {{title}}</h1>
 </header>
 
 <div class="step-nav" id="stepNav"></div>
@@ -27,8 +27,8 @@
 <div class="page active" id="page-0">
   <div class="page-title"><span>🎵</span> 暖身</div>
   <div class="video-btn-wrap">
-    <a class="video-btn" href="https://www.youtube.com/watch?v=vVj_97p3-A0" target="_blank" rel="noopener">
-      <span class="yt-icon">▶️</span> 開啟 ABC Song 影片
+    <a class="video-btn" href="{{video_url}}" target="_blank" rel="noopener">
+      <span class="yt-icon">▶️</span> {{video_label}}
     </a>
   </div>
 </div>
@@ -42,15 +42,15 @@
   <div class="page-title"><span>🎉</span> 完成！</div>
   <button class="complete-btn" id="completeBtn" onclick="markDone()">✅ 完成本課！</button>
   <div class="complete-done" id="completeDone" style="text-align: center; display: none;">
-    <h3>恭喜完成 Unit 5！</h3>
-    <p>下一課：Unit 6：Letters U-X</p>
-    <a href="index.html" class="home-btn" style="position:static; margin-top:15px; background:var(--orange)">🏠 返回課程列表</a>
+    <h3>恭喜完成 Unit {{num}}！</h3>
+    <p>{{complete_next_text}}</p>
+    {{home_btn}}
   </div>
 </div>
 
 <script>
-const UNIT_KEY = 'unit5';
-const items = [{"letter": "Q", "word": "Queen", "icon": "👸"}, {"letter": "R", "word": "Rabbit", "icon": "🐰"}, {"letter": "S", "word": "Sun", "icon": "☀️"}, {"letter": "T", "word": "Tiger", "icon": "🐯"}];
+const UNIT_KEY = '{{uid}}';
+const items = {{items_json}};
 
 const steps = [{label:'暖身', icon:'🎵'}, {label:'字母', icon:'🃏'}, {label:'完成', icon:'🎉'}];
 const stepNav = document.getElementById('stepNav');

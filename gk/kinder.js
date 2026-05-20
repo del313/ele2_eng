@@ -2,16 +2,14 @@ const PROGRESS_KEY = 'progress_kinder';
 
 const unit1Data = {
   id: 'unit1',
-  title: 'ABC & Sounds',
-  vocab: [
-    { word: 'Apple', icon: '🍎' },
-    { word: 'Bear', icon: '🐻' },
-    { word: 'Cat', icon: '🐱' },
-    { word: 'Dog', icon: '🐶' },
-    { word: 'Egg', icon: '🥚' },
-    { word: 'Fish', icon: '🐟' }
-  ],
-  speakLines: ['A is for Apple.', 'B is for Bear.', 'C is for Cat.']
+  title: 'Letters A-D',
+  videoUrl: 'https://www.youtube.com/watch?v=75p-N9YKqNo',
+  items: [
+    { letter: 'A', word: 'Apple', icon: '🍎' },
+    { letter: 'B', word: 'Bear', icon: '🐻' },
+    { letter: 'C', word: 'Cat', icon: '🐱' },
+    { letter: 'D', word: 'Dog', icon: '🐶' }
+  ]
 };
 
 const unit2Data = {

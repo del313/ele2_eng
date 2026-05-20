@@ -3,334 +3,95 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Unit 1 – ABC & Sounds</title>
+<title>Unit 1 – Letters A-D</title>
 <script src="../js-common.js"></script>
+<script src="kinder.js"></script>
 <link rel="stylesheet" href="../style-unit.css">
+<style>
+  .page-center { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+  .page { display: none; }
+  .page.active { display: block; }
+  .page.page-center.active { display: flex; }
+</style>
 </head>
 <body>
 
 <header style="position:relative">
   <a href="index.html" class="home-btn">🏠 首頁</a>
   <div class="unit-label">UNIT 1 OF 8 &nbsp;·&nbsp; GRADE K</div>
-  <h1>🔤 ABC & Sounds</h1>
+  <h1>🔤 Letters A-D</h1>
 </header>
 
 <div class="step-nav" id="stepNav"></div>
 
-<!-- PAGE 1: WARM UP -->
 <div class="page active" id="page-0">
   <div class="page-title"><span>🎵</span> 暖身</div>
-  <div class="page-sub">5 分鐘 · 唱歌 + 字母發音</div>
   <div class="video-btn-wrap">
     <a class="video-btn" href="https://www.youtube.com/watch?v=75p-N9YKqNo" target="_blank" rel="noopener">
       <span class="yt-icon">▶️</span> 開啟 Phonics Song 影片
     </a>
   </div>
-  <div class="task-card">
-    <strong>一起做：</strong><br>
-    <ul><li>1. 點上面按鈕，一起唱 Phonics Song 🎤</li><li>2. 指著螢幕大聲說出字母的發音</li><li>3. 跟著影片一起拍拍手 😄</li></ul>
-  </div>
 </div>
 
-<!-- PAGE 2: VOCABULARY -->
 <div class="page" id="page-1">
-  <div class="page-title"><span>🃏</span> 本期單字</div>
-  <div class="page-sub">10 分鐘 · 翻牌記單字 + 配對遊戲</div>
-
-  <div class="vocab-section-label">⭐ 核心單字（要記住！）</div>
-  <div class="vocab-grid" id="coreGrid"></div>
-
-  <div class="vocab-section-label" style="color:#00897B">🌱 延伸單字（有印象就好）</div>
-  <div class="ext-note">點卡片翻面看中文，認識就好，不列入測驗</div>
-  <div class="vocab-grid" id="extGrid"></div>
-
-  <button class="flip-all-btn" onclick="flipAll()">全部翻面 / 全部收起</button>
-
-  <div class="game-label">🎮 配對遊戲：點左邊英文，再點右邊中文</div>
-  <div class="game-score" id="matchScore"></div>
-  <div class="match-board">
-    <div class="match-col" id="matchEn"></div>
-    <div class="match-col" id="matchZh"></div>
-  </div>
-  <button class="reset-btn" onclick="initMatch()">🔄 重新開始</button>
+  <div class="page-title"><span>🃏</span> 認識字母</div>
+  <div class="vocab-grid" id="letterGrid"></div>
 </div>
 
-<!-- PAGE 3: SENTENCES + QUIZ -->
-<div class="page" id="page-2">
-  <div class="page-title"><span>✏️</span> 核心句型</div>
-  <div class="page-sub">換成你自己的資料試試看！</div>
-
-  <div id="sentenceList"></div>
-
-  <div class="game-label" style="margin-top:22px">🧠 單字小測驗：看中文選英文</div>
-  <div class="quiz-progress" id="quizProgress"></div>
-  <div class="quiz-question">
-    <div class="quiz-q">這個中文是哪個英文單字？</div>
-    <div class="quiz-en" id="quizWord"></div>
-  </div>
-  <div class="quiz-status" id="quizStatus"></div>
-  <div class="quiz-choices" id="quizChoices"></div>
-  <button class="next-quiz-btn" id="nextQuizBtn" onclick="nextQuiz()">下一題 →</button>
-</div>
-
-<!-- PAGE 4: QA PRACTICE -->
-<div class="page" id="page-3">
-  <div class="page-title"><span>🎯</span> 問答接力</div>
-  <div class="page-sub">10 分鐘 · 輪流問答，練習說英文</div>
-  <div id="qaList"></div>
-  <div class="tip-box">💡 家長小技巧：幼兒學習重點在於「聲音連結」，多鼓勵孩子模仿影片中的發音。</div>
-</div>
-
-<!-- PAGE 5: WRAP UP -->
-<div class="page" id="page-4">
-  <div class="page-title"><span>🎤</span> 發音小明星</div>
-  <div class="page-sub">5 分鐘 · 指圖說單字</div>
-  <div class="intro-box">
-    <p>A says <fill>a, a, a</fill>.</p><p>B says <fill>b, b, b</fill>.</p><p>C says <fill>c, c, c</fill>.</p><p>I love <fill>English</fill>!</p><p>High five <fill>me</fill>!</p>
-  </div>
-  <div class="star-tip">⭐ 目標：看到字母能聯想出正確的單字聲音！</div>
-  <div class="task-card" style="margin-bottom:0">
-    <strong>最後挑戰：</strong><br>
-    <ul><li>1. 隨機指一個字母，孩子說出單字 🗣️</li><li>2. 給孩子一個大大的擁抱！ 🌟</li></ul>
-  </div>
-
-  <div class="complete-area">
-    <button class="complete-btn" onclick="markDone()">✅ 完成本課！</button>
-  </div>
-  <div class="complete-done" id="completeDone">
-    <div class="big">🎉</div>
-    <h3>Unit 1 完成！</h3>
-    <p>下一課：Unit 2：Numbers 1-10</p>
+<div class="page page-center" id="page-2">
+  <div class="page-title"><span>🎉</span> 完成！</div>
+  <button class="complete-btn" id="completeBtn" onclick="markDone()">✅ 完成本課！</button>
+  <div class="complete-done" id="completeDone" style="text-align: center; display: none;">
+    <h3>恭喜完成 Unit 1！</h3>
+    <p>下一課：Unit 2：Letters E-H</p>
     <a href="index.html" class="home-btn" style="position:static; margin-top:15px; background:var(--orange)">🏠 返回課程列表</a>
-  </div>
-</div>
-
-<!-- BOTTOM NAV -->
-<div class="bottom-nav-outer">
-  <div class="bottom-nav">
-    <button class="nav-btn nav-prev" id="prevBtn" onclick="changePage(-1)">← 上一步</button>
-    <div class="nav-step-info" id="stepInfo"></div>
-    <button class="nav-btn nav-next" id="nextBtn" onclick="changePage(1)">下一步 →</button>
   </div>
 </div>
 
 <script>
 const UNIT_KEY = 'unit1';
-const PROGRESS_KEY = 'progress_kinder';
-const steps = [
-  { label: '暖身', icon: '🎵' },
-  { label: '單字', icon: '🃏' },
-  { label: '句型', icon: '✏️' },
-  { label: '練習', icon: '🎯' },
-  { label: '收尾', icon: '🎤' },
-];
-const coreVocab = [
-  {en:'Apple', zh:'蘋果'},
-  {en:'Bear', zh:'熊'},
-  {en:'Cat', zh:'貓'},
-  {en:'Dog', zh:'狗'},
-  {en:'Egg', zh:'蛋'},
-  {en:'Fish', zh:'魚'}
-];
-const extVocab = [
-  {en:'Ant', zh:'螞蟻'},
-  {en:'Bird', zh:'鳥'}
-];
-const sentenceData = [{"label": "句型 1", "pattern": "A is for <blank>Apple</blank>.", "example": "A is for Apple.", "speak_text": "A is for Apple."}, {"label": "句型 2", "pattern": "B is for <blank>Bear</blank>.", "example": "B is for Bear.", "speak_text": "B is for Bear."}];
-const qaData = [{"q": "What's this?", "a": "It is an Apple."}, {"q": "Is it a Cat?", "a": "Yes, it is!"}];
+const items = [{"letter": "A", "word": "Apple", "icon": "🍎"}, {"letter": "B", "word": "Bear", "icon": "🐻"}, {"letter": "C", "word": "Cat", "icon": "🐱"}, {"letter": "D", "word": "Dog", "icon": "🐶"}];
 
-(function() {
-  const p = JSON.parse(localStorage.getItem(PROGRESS_KEY) || '{}');
-  if (p[UNIT_KEY] !== 'done') { p[UNIT_KEY] = 'in_progress'; localStorage.setItem(PROGRESS_KEY, JSON.stringify(p)); }
-  else { document.getElementById('completeDone').style.display = 'block'; document.querySelector('.complete-btn').style.display = 'none'; }
-})();
-
-// 渲染句型
-function renderSentences() {
-  const container = document.getElementById('sentenceList');
-  if(!container) return;
-  sentenceData.forEach(s => {
-    const div = document.createElement('div');
-    div.className = 'sentence-box';
-    div.innerHTML = `
-      <div class="slabel">${s.label}</div>
-      <div class="pattern">${s.pattern.replace(/<blank>/g, '<span class="blank">').replace(/<\/blank>/g, '</span>')}</div>
-      <div class="example">→ ${s.example} <button class="speak-btn sentence-speak">🔊</button></div>
-    `;
-    const btn = div.querySelector('.speak-btn');
-    btn.onclick = () => speak(s.speak_text, btn);
-    container.appendChild(div);
-  });
-}
-
-// 渲染 Q&A
-function renderQA() {
-  const container = document.getElementById('qaList');
-  if(!container) return;
-  qaData.forEach((item, i) => {
-    const div = document.createElement('div');
-    div.className = 'qa-item';
-    div.innerHTML = `
-      <div class="qa-num">${i + 1}</div>
-      <div>
-        <div class="qa-q">Q: ${item.q} <button class="speak-btn qa-speak">🔊</button></div>
-        <div class="qa-a">A: ${item.a}</div>
-      </div>
-    `;
-    const btn = div.querySelector('.speak-btn');
-    btn.onclick = () => speak(item.q, btn);
-    container.appendChild(div);
-  });
-}
-
-window.addEventListener('DOMContentLoaded', () => {
-  renderSentences();
-  renderQA();
-});
-
-let currentPage = 0;
+const steps = [{label:'暖身', icon:'🎵'}, {label:'字母', icon:'🃏'}, {label:'完成', icon:'🎉'}];
 const stepNav = document.getElementById('stepNav');
 steps.forEach((s, i) => {
   const btn = document.createElement('button');
   btn.className = 'step-btn' + (i === 0 ? ' active' : '');
-  btn.id = `step-${i}`;
   btn.innerHTML = `<span class="si">${s.icon}</span>${s.label}`;
   btn.onclick = () => goTo(i);
+  btn.id = `step-${i}`;
   stepNav.appendChild(btn);
 });
 
+const grid = document.getElementById('letterGrid');
+items.forEach(item => {
+  const card = document.createElement('div');
+  card.className = 'vocab-card';
+  card.innerHTML = `
+    <div class="en" style="font-size:2em">${item.letter}</div>
+    <div style="font-size:3em">${item.icon}</div>
+    <div class="en">${item.word}</div>
+    <button class="speak-btn" onclick="speak('${item.letter} is for ${item.word}')">🔊</button>
+  `;
+  grid.appendChild(card);
+});
+
+let currentPage = 0;
+const pages = document.querySelectorAll('.page');
 function goTo(i) {
-  document.getElementById(`page-${currentPage}`).classList.remove('active');
+  pages[currentPage].classList.remove('active');
   document.getElementById(`step-${currentPage}`).classList.remove('active');
-  currentPage = i;
-  document.getElementById(`page-${i}`).classList.add('active');
-  document.getElementById(`step-${i}`).classList.add('active');
-  updateNav();
-  window.scrollTo(0, 0);
+  currentPage = Math.max(0, Math.min(pages.length - 1, i));
+  pages[currentPage].classList.add('active');
+  document.getElementById(`step-${currentPage}`).classList.add('active');
+  window.scrollTo(0,0);
 }
-function changePage(d) { goTo(currentPage + d); }
-function updateNav() {
-  document.getElementById('prevBtn').disabled = currentPage === 0;
-  const nb = document.getElementById('nextBtn');
-  nb.disabled = currentPage === steps.length - 1;
-  nb.textContent = '下一步 →';
-  document.getElementById('stepInfo').textContent = `${currentPage + 1} / ${steps.length}`;
-}
-updateNav();
-
-function makeCards(arr, gridId, isExt) {
-  const grid = document.getElementById(gridId);
-  arr.forEach(v => {
-    const card = document.createElement('div');
-    card.className = 'vocab-card';
-    card.innerHTML = `<div class="vocab-inner">
-      <div class="vocab-front${isExt?' ext':''}">
-        <div class="en">${v.en}</div>
-        <button class="speak-btn" onclick="event.stopPropagation();speak(\`${v.en}\`,this)">🔊</button>
-      </div>
-      <div class="vocab-back${isExt?' ext':''}"><div class="zh">${v.zh}</div><div class="en2">${v.en}</div></div>
-    </div>`;
-    card.addEventListener('click', () => card.classList.toggle('flipped'));
-    grid.appendChild(card);
-  });
-}
-makeCards(coreVocab, 'coreGrid', false);
-makeCards(extVocab, 'extGrid', true);
-
-let allFlipped = false;
-function flipAll() {
-  allFlipped = !allFlipped;
-  document.querySelectorAll('.vocab-card').forEach(c => c.classList.toggle('flipped', allFlipped));
-}
-
-let matchSel = null, matchCorrect = 0;
-function shuffle(a) { return [...a].sort(() => Math.random() - .5); }
-function initMatch() {
-  matchSel = null; matchCorrect = 0;
-  document.getElementById('matchScore').textContent = '';
-  const sub = shuffle(coreVocab).slice(0, 5);
-  document.getElementById('matchEn').innerHTML = '';
-  document.getElementById('matchZh').innerHTML = '';
-  shuffle(sub).forEach(v => document.getElementById('matchEn').appendChild(makeMatchEl(v.en, 'en', v.en)));
-  shuffle(sub).forEach(v => document.getElementById('matchZh').appendChild(makeMatchEl(v.zh, 'zh', v.en)));
-}
-function makeMatchEl(text, side, key) {
-  const el = document.createElement('div');
-  el.className = 'match-item'; el.textContent = text;
-  el.dataset.key = key; el.dataset.side = side;
-  el.addEventListener('click', () => onMatch(el));
-  return el;
-}
-function onMatch(el) {
-  if (el.classList.contains('correct')) return;
-  if (!matchSel) { document.querySelectorAll('.match-item.selected').forEach(e=>e.classList.remove('selected')); el.classList.add('selected'); matchSel = el; return; }
-  if (matchSel === el) { el.classList.remove('selected'); matchSel = null; return; }
-  if (matchSel.dataset.side === el.dataset.side) { matchSel.classList.remove('selected'); matchSel = el; el.classList.add('selected'); return; }
-  if (matchSel.dataset.key === el.dataset.key) {
-    [matchSel, el].forEach(e => { e.classList.remove('selected'); e.classList.add('correct'); });
-    matchCorrect++;
-    playSound('success');
-    document.getElementById('matchScore').textContent = matchCorrect === 5 ? '🎉 全對！太厲害了！' : `✅ 答對 ${matchCorrect} 組`;
-  } else {
-    playSound('error');
-    [matchSel, el].forEach(e => { e.classList.add('wrong'); setTimeout(()=>e.classList.remove('wrong','selected'),500); });
-  }
-  matchSel = null;
-}
-initMatch();
-
-let quizQueue = [], quizIdx = 0, quizAnswered = false;
-function buildQuiz() { quizQueue = shuffle(coreVocab); quizIdx = 0; nextQuiz(); }
-function nextQuiz() {
-  if (quizIdx >= quizQueue.length) {
-    document.getElementById('quizWord').textContent = '🎉 全部完成！';
-    document.getElementById('quizChoices').innerHTML = '';
-    document.getElementById('quizStatus').textContent = '';
-    document.getElementById('nextQuizBtn').style.display = 'none';
-    document.getElementById('quizProgress').textContent = '';
-    return;
-  }
-  quizAnswered = false;
-  const cur = quizQueue[quizIdx];
-  document.getElementById('quizWord').textContent = cur.zh;
-  document.getElementById('quizStatus').textContent = '';
-  document.getElementById('nextQuizBtn').style.display = 'none';
-  document.getElementById('quizProgress').textContent = `第 ${quizIdx+1} / ${quizQueue.length} 題`;
-  const wrongs = shuffle(coreVocab.filter(v => v.en !== cur.en)).slice(0, 3);
-  const choices = shuffle([cur, ...wrongs]);
-  const cont = document.getElementById('quizChoices');
-  cont.innerHTML = '';
-  choices.forEach(c => {
-    const btn = document.createElement('button');
-    btn.className = 'quiz-btn'; btn.textContent = c.en;
-    btn.onclick = () => {
-      if (quizAnswered) return; quizAnswered = true;
-      if (c.en === cur.en) { 
-        btn.classList.add('correct'); 
-        document.getElementById('quizStatus').textContent = '✅ 答對了！'; 
-        document.getElementById('quizStatus').style.color = '#4CAF50';
-        playSound('success');
-      }
-      else { 
-        btn.classList.add('wrong'); 
-        cont.querySelectorAll('.quiz-btn').forEach(b=>{if(b.textContent===cur.en)b.classList.add('correct');}); 
-        document.getElementById('quizStatus').textContent = `❌ 答錯了，是 "${cur.en}"`; 
-        document.getElementById('quizStatus').style.color = '#f44336';
-        playSound('error');
-      }
-      quizIdx++; document.getElementById('nextQuizBtn').style.display = 'block';
-    };
-    cont.appendChild(btn);
-  });
-}
-buildQuiz();
-
 
 function markDone() {
   const p = JSON.parse(localStorage.getItem(PROGRESS_KEY) || '{}');
   p[UNIT_KEY] = 'done';
   localStorage.setItem(PROGRESS_KEY, JSON.stringify(p));
-  document.querySelector('.complete-btn').style.display = 'none';
+  document.getElementById('completeBtn').style.display = 'none';
   document.getElementById('completeDone').style.display = 'block';
 }
 </script>

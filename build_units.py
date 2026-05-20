@@ -3,34 +3,6 @@ import os
 import sys
 
 def generate_unit(u, grade_info, template):
-    # 準備單字資料
-    core_js = ",\n  ".join([f"{{en:'{v[0]}', zh:'{v[1]}'}}" for v in u['core_vocab']])
-    ext_js  = ",\n  ".join([f"{{en:'{v[0]}', zh:'{v[1]}'}}" for v in u['ext_vocab']])
-    
-    # 準備 Warmup 任務 HTML
-    warmup_html = "".join([f"<li>{t}</li>" for t in u['warmup_tasks']])
-    
-    # 準備 Wrapup 挑戰 HTML
-    wrapup_html = "".join([f"<li>{t}</li>" for t in u['wrapup_challenge']])
-    
-    # 準備 Wrapup 句子 HTML
-    wrapup_lines_html = "".join([f"<p>{l}</p>" for l in u['wrapup_lines']])
-
-    # 準備句型資料 (JSON)
-    sentences_list = []
-    for s in u['sentences']:
-        sentences_list.append({
-            "label": s[0],
-            "pattern": s[1],
-            "example": s[2],
-            "speak_text": s[3]
-        })
-    
-    # 準備問答資料 (JSON)
-    qa_list = []
-    for item in u['qa']:
-        qa_list.append({"q": item[0], "a": item[1]})
-
     # 替換模板標籤
     html = template
     html = html.replace("{{num}}", str(u['num']))
@@ -42,21 +14,34 @@ def generate_unit(u, grade_info, template):
     html = html.replace("{{progress_key}}", grade_info['key'])
     html = html.replace("{{video_url}}", u['video_url'])
     html = html.replace("{{video_label}}", u['video_label'])
-    html = html.replace("{{warmup_sub}}", u['warmup_sub'])
-    html = html.replace("{{warmup_tasks_html}}", f"<ul>{warmup_html}</ul>")
-    html = html.replace("{{core_js}}", core_js)
-    html = html.replace("{{ext_js}}", ext_js)
-    html = html.replace("{{sentences_json}}", json.dumps(sentences_list, ensure_ascii=False))
-    html = html.replace("{{qa_json}}", json.dumps(qa_list, ensure_ascii=False))
-    html = html.replace("{{tip_box}}", u.get('tip_box', ''))
-    html = html.replace("{{wrapup_title}}", u['wrapup_title'])
-    html = html.replace("{{wrapup_sub}}", u['wrapup_sub'])
-    html = html.replace("{{wrapup_lines_html}}", wrapup_lines_html)
-    html = html.replace("{{wrapup_tip}}", u['wrapup_tip'])
-    html = html.replace("{{wrapup_challenge_html}}", f"<ul>{wrapup_html}</ul>")
     
+    # 處理 GK 特有的 items 欄位
+    if 'items' in u:
+        html = html.replace("{{items_json}}", json.dumps(u['items'], ensure_ascii=False))
+    
+    # 處理 G2/G4 特有的 vocab 欄位
+    if 'core_vocab' in u:
+        core_js = ",\n  ".join([f"{{en:'{v[0]}', zh:'{v[1]}'}}" for v in u['core_vocab']])
+        html = html.replace("{{core_js}}", core_js)
+    if 'ext_vocab' in u:
+        ext_js  = ",\n  ".join([f"{{en:'{v[0]}', zh:'{v[1]}'}}" for v in u['ext_vocab']])
+        html = html.replace("{{ext_js}}", ext_js)
+    
+    # ... (其餘原有的欄位替換，加入防呆判斷)
+    if 'warmup_tasks' in u:
+        warmup_html = "".join([f"<li>{t}</li>" for t in u['warmup_tasks']])
+        html = html.replace("{{warmup_tasks_html}}", f"<ul>{warmup_html}</ul>")
+    
+    if 'sentences' in u:
+        sentences_list = [{"label": s[0], "pattern": s[1], "example": s[2], "speak_text": s[3]} for s in u['sentences']]
+        html = html.replace("{{sentences_json}}", json.dumps(sentences_list, ensure_ascii=False))
+    
+    if 'qa' in u:
+        qa_list = [{"q": item[0], "a": item[1]} for item in u['qa']]
+        html = html.replace("{{qa_json}}", json.dumps(qa_list, ensure_ascii=False))
+
     # 處理下一個單元按鈕
-    next_text = f"下一課：{u['complete_next']}" if u['complete_next'] else "恭喜完成本年級所有課程！"
+    next_text = f"下一課：{u['complete_next']}" if u.get('complete_next') else "恭喜完成本年級所有課程！"
     html = html.replace("{{complete_next_text}}", next_text)
     
     home_btn = '<a href="index.html" class="home-btn" style="position:static; margin-top:15px; background:var(--orange)">🏠 返回課程列表</a>'
@@ -73,9 +58,9 @@ def main():
     
     # 設定對應的 JSON 與資料夾
     config = {
-        "g2": {"json": "vocab_g2.json", "dir": "g2", "num": 2, "key": "progress_g2"},
-        "g4": {"json": "vocab_g4.json", "dir": "g4", "num": 4, "key": "progress_g4"},
-        "gk": {"json": "vocab_gk.json", "dir": "gk", "num": "K", "key": "progress_kinder"}
+        "g2": {"json": "vocab_g2.json", "dir": "g2", "num": 2, "key": "progress_g2", "tpl": "templates/unit_template.html"},
+        "g4": {"json": "vocab_g4.json", "dir": "g4", "num": 4, "key": "progress_g4", "tpl": "templates/unit_template.html"},
+        "gk": {"json": "vocab_gk.json", "dir": "gk", "num": "K", "key": "progress_kinder", "tpl": "templates/unit_template_gk.html"}
     }
 
     if grade not in config:
@@ -89,7 +74,7 @@ def main():
         units = json.load(f)
 
     # 載入模板
-    with open("templates/unit_template.html", "r", encoding="utf-8") as f:
+    with open(info["tpl"], "r", encoding="utf-8") as f:
         template = f.read()
 
     # 確保輸出目錄存在
@@ -104,6 +89,7 @@ def main():
         with open(path, "w", encoding="utf-8") as f:
             f.write(html)
         print(f"Generated: {path}")
+
 
 if __name__ == "__main__":
     main()

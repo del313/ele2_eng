@@ -1,130 +1,88 @@
 [
   {
-    "num": 1, "id": "unit1", "title": "ABC & Sounds", "zh_title": "字母與發音", "icon": "🔤", "grade_label": "UNIT 1 OF 8",
+    "num": 1, "id": "unit1", "title": "Letters A-D", "icon": "🔤", "grade_label": "UNIT 1 OF 8",
     "video_url": "https://www.youtube.com/watch?v=75p-N9YKqNo", "video_label": "開啟 Phonics Song 影片",
-    "warmup_sub": "5 分鐘 · 唱歌 + 字母發音",
-    "warmup_tasks": ["1. 點上面按鈕，一起唱 Phonics Song 🎤", "2. 指著螢幕大聲說出字母的發音", "3. 跟著影片一起拍拍手 😄"],
-    "core_vocab": [["Apple", "蘋果"], ["Bear", "熊"], ["Cat", "貓"], ["Dog", "狗"], ["Egg", "蛋"], ["Fish", "魚"]],
-    "ext_vocab": [["Ant", "螞蟻"], ["Bird", "鳥"]],
-    "sentences": [["句型 1", "A is for <blank>Apple</blank>.", "A is for Apple.", "A is for Apple."], ["句型 2", "B is for <blank>Bear</blank>.", "B is for Bear.", "B is for Bear."]],
-    "qa": [["What's this?", "It is an Apple."], ["Is it a Cat?", "Yes, it is!"]],
-    "tip_box": "💡 家長小技巧：幼兒學習重點在於「聲音連結」，多鼓勵孩子模仿影片中的發音。",
-    "wrapup_title": "發音小明星", "wrapup_sub": "5 分鐘 · 指圖說單字",
-    "wrapup_lines": ["A says <fill>a, a, a</fill>.", "B says <fill>b, b, b</fill>.", "C says <fill>c, c, c</fill>.", "I love <fill>English</fill>!", "High five <fill>me</fill>!"],
-    "wrapup_tip": "⭐ 目標：看到字母能聯想出正確的單字聲音！",
-    "wrapup_challenge": ["1. 隨機指一個字母，孩子說出單字 🗣️", "2. 給孩子一個大大的擁抱！ 🌟"],
-    "complete_next": "Unit 2：Numbers 1-10"
+    "items": [
+      {"letter": "A", "word": "Apple", "icon": "🍎"},
+      {"letter": "B", "word": "Bear", "icon": "🐻"},
+      {"letter": "C", "word": "Cat", "icon": "🐱"},
+      {"letter": "D", "word": "Dog", "icon": "🐶"}
+    ],
+    "complete_next": "Unit 2：Letters E-H"
   },
   {
-    "num": 2, "id": "unit2", "title": "Numbers 1-10", "zh_title": "數字 1-10", "icon": "🔢", "grade_label": "UNIT 2 OF 8",
+    "num": 2, "id": "unit2", "title": "Letters E-H", "icon": "🥚", "grade_label": "UNIT 2 OF 8",
+    "video_url": "https://www.youtube.com/watch?v=vVj_97p3-A0", "video_label": "開啟 ABC Song 影片",
+    "items": [
+      {"letter": "E", "word": "Egg", "icon": "🥚"},
+      {"letter": "F", "word": "Fish", "icon": "🐟"},
+      {"letter": "G", "word": "Goat", "icon": "🐐"},
+      {"letter": "H", "word": "Hat", "icon": "🎩"}
+    ],
+    "complete_next": "Unit 3：Letters I-L"
+  },
+  {
+    "num": 3, "id": "unit3", "title": "Letters I-L", "icon": "🪁", "grade_label": "UNIT 3 OF 8",
+    "video_url": "https://www.youtube.com/watch?v=vVj_97p3-A0", "video_label": "開啟 ABC Song 影片",
+    "items": [
+      {"letter": "I", "word": "Igloo", "icon": "🧊"},
+      {"letter": "J", "word": "Jam", "icon": "🍯"},
+      {"letter": "K", "word": "Kite", "icon": "🪁"},
+      {"letter": "L", "word": "Lion", "icon": "🦁"}
+    ],
+    "complete_next": "Unit 4：Letters M-P"
+  },
+  {
+    "num": 4, "id": "unit4", "title": "Letters M-P", "icon": "🐒", "grade_label": "UNIT 4 OF 8",
+    "video_url": "https://www.youtube.com/watch?v=vVj_97p3-A0", "video_label": "開啟 ABC Song 影片",
+    "items": [
+      {"letter": "M", "word": "Monkey", "icon": "🐒"},
+      {"letter": "N", "word": "Nose", "icon": "👃"},
+      {"letter": "O", "word": "Octopus", "icon": "🐙"},
+      {"letter": "P", "word": "Pig", "icon": "🐷"}
+    ],
+    "complete_next": "Unit 5：Letters Q-T"
+  },
+  {
+    "num": 5, "id": "unit5", "title": "Letters Q-T", "icon": "👸", "grade_label": "UNIT 5 OF 8",
+    "video_url": "https://www.youtube.com/watch?v=vVj_97p3-A0", "video_label": "開啟 ABC Song 影片",
+    "items": [
+      {"letter": "Q", "word": "Queen", "icon": "👸"},
+      {"letter": "R", "word": "Rabbit", "icon": "🐰"},
+      {"letter": "S", "word": "Sun", "icon": "☀️"},
+      {"letter": "T", "word": "Tiger", "icon": "🐯"}
+    ],
+    "complete_next": "Unit 6：Letters U-X"
+  },
+  {
+    "num": 6, "id": "unit6", "title": "Letters U-X", "icon": "☂️", "grade_label": "UNIT 6 OF 8",
+    "video_url": "https://www.youtube.com/watch?v=vVj_97p3-A0", "video_label": "開啟 ABC Song 影片",
+    "items": [
+      {"letter": "U", "word": "Umbrella", "icon": "☂️"},
+      {"letter": "V", "word": "Van", "icon": "🚐"},
+      {"letter": "W", "word": "Whale", "icon": "🐋"},
+      {"letter": "X", "word": "Xylophone", "icon": "🎹"}
+    ],
+    "complete_next": "Unit 7：Letters Y-Z"
+  },
+  {
+    "num": 7, "id": "unit7", "title": "Letters Y-Z", "icon": "🦓", "grade_label": "UNIT 7 OF 8",
+    "video_url": "https://www.youtube.com/watch?v=vVj_97p3-A0", "video_label": "開啟 ABC Song 影片",
+    "items": [
+      {"letter": "Y", "word": "Yo-yo", "icon": "🪀"},
+      {"letter": "Z", "word": "Zebra", "icon": "🦓"},
+      {"letter": "A-Z", "word": "Review", "icon": "✨"}
+    ],
+    "complete_next": "Unit 8：Numbers 1-10"
+  },
+  {
+    "num": 8, "id": "unit8", "title": "Numbers 1-10", "icon": "🔢", "grade_label": "UNIT 8 OF 8",
     "video_url": "https://www.youtube.com/watch?v=kz_EQSfFx0g", "video_label": "開啟 Counting Song 影片",
-    "warmup_sub": "5 分鐘 · 數數練習",
-    "warmup_tasks": ["1. 跟著影片邊唱邊數 🎤", "2. 用手指頭比出 1 到 10", "3. 跳一跳，數數跳了幾次 😄"],
-    "core_vocab": [["One", "1"], ["Two", "2"], ["Three", "3"], ["Four", "4"], ["Five", "5"], ["Six", "6"]],
-    "ext_vocab": [["Seven", "7"], ["Eight", "8"], ["Nine", "9"], ["Ten", "10"]],
-    "sentences": [["句型 1", "One, <blank>Two</blank>, Three.", "One, two, three.", "One, two, three."], ["句型 2", "I can <blank>Count</blank>.", "I can count.", "I can count."]],
-    "qa": [["How many?", "One, two!"], ["Show me three!", "(伸出三隻手指)"]],
-    "tip_box": "💡 家長小技巧：在生活中隨處都可以數數，例如數數看碗筷有幾個。",
-    "wrapup_title": "數數小達人", "wrapup_sub": "5 分鐘 · 數一數身體部位",
-    "wrapup_lines": ["I have <fill>One</fill> nose.", "I have <fill>Two</fill> eyes.", "I have <fill>Five</fill> fingers.", "Ten <fill>Little</fill> fingers.", "Count with <fill>me</fill>!"],
-    "wrapup_tip": "⭐ 目標：能正確對應 1 到 5 的數量與名稱！",
-    "wrapup_challenge": ["1. 家長拍手，孩子數拍了幾下 👏", "2. 數對了就轉圈圈獎勵！ 🌟"],
-    "complete_next": "Unit 3：Colors"
-  },
-  {
-    "num": 3, "id": "unit3", "title": "Colors", "zh_title": "漂亮的顏色", "icon": "🎨", "grade_label": "UNIT 3 OF 8",
-    "video_url": "https://www.youtube.com/watch?v=jYAWf8Y91hA", "video_label": "開啟 Color Song 影片",
-    "warmup_sub": "5 分鐘 · 顏色辨識",
-    "warmup_tasks": ["1. 唱唱顏色歌 🎤", "2. 指著衣服上的顏色說英文", "3. 找找看藍色的東西在哪裡 😄"],
-    "core_vocab": [["Red", "紅色"], ["Blue", "藍色"], ["Yellow", "黃色"], ["Green", "綠色"], ["Pink", "粉紅色"], ["Black", "黑色"]],
-    "ext_vocab": [["White", "白色"], ["Purple", "紫色"]],
-    "sentences": [["句型 1", "I like <blank>Red</blank>.", "I like red.", "I like red."], ["句型 2", "Blue is <blank>Pretty</blank>.", "Blue is pretty.", "Blue is pretty."]],
-    "qa": [["What color?", "It is blue."], ["Do you like pink?", "Yes!"]],
-    "tip_box": "💡 家長小技巧：畫畫時，多引導孩子說出彩色筆的顏色名稱。",
-    "wrapup_title": "顏色找找看", "wrapup_sub": "5 分鐘 · 顏色指令遊戲",
-    "wrapup_lines": ["Red, <fill>Red</fill>, touch Red.", "Blue, <fill>Blue</fill>, touch Blue.", "I see <fill>Yellow</fill>.", "Colors are <fill>Fun</fill>.", "I am a <fill>Painter</fill>!"],
-    "wrapup_tip": "⭐ 目標：能準確辨識紅、藍、黃、綠四種基礎顏色！",
-    "wrapup_challenge": ["1. 家長說：Touch something BLUE! 🔵", "2. 孩子快速去拍那個東西！ 🌟"],
-    "complete_next": "Unit 4：Animals"
-  },
-  {
-    "num": 4, "id": "unit4", "title": "Animals", "zh_title": "動物朋友", "icon": "🐾", "grade_label": "UNIT 4 OF 8",
-    "video_url": "https://www.youtube.com/watch?v=OwRmivbNgQk", "video_label": "開啟 Animal Song 影片",
-    "warmup_sub": "5 分鐘 · 模仿動物動作",
-    "warmup_tasks": ["1. 唱唱動物歌 🎤", "2. 像小貓一樣走走路", "3. 像小鳥一樣拍拍翅膀 😄"],
-    "core_vocab": [["Cat", "貓"], ["Dog", "狗"], ["Bird", "鳥"], ["Fish", "魚"], ["Duck", "鴨子"], ["Rabbit", "兔子"]],
-    "ext_vocab": [["Monkey", "猴子"], ["Lion", "獅子"]],
-    "sentences": [["句型 1", "This is a <blank>Cat</blank>.", "This is a cat.", "This is a cat."], ["句型 2", "That is a <blank>Dog</blank>.", "That is a dog.", "That is a dog."]],
-    "qa": [["What animal?", "It is a duck."], ["Can a fish swim?", "Yes!"]],
-    "tip_box": "💡 家長小技巧：模仿動物叫聲（Meow, Woof, Quack）來加強孩子對單字的印象。",
-    "wrapup_title": "動物模仿大賽", "wrapup_sub": "5 分鐘 · 演戲猜單字",
-    "wrapup_lines": ["The <fill>Cat</fill> says Meow.", "The <fill>Dog</fill> says Woof.", "The <fill>Duck</fill> says Quack.", "I love <fill>Animals</fill>.", "We are <fill>Friends</fill>!"],
-    "wrapup_tip": "⭐ 目標：能將動物名稱與聲音/動作連結！",
-    "wrapup_challenge": ["1. 做出動作讓孩子猜單字 🗣️", "2. 答對了就學動物跳一下！ 🌟"],
-    "complete_next": "Unit 5：Family"
-  },
-  {
-    "num": 5, "id": "unit5", "title": "Family", "zh_title": "我的家人", "icon": "👨‍👩‍👧", "grade_label": "UNIT 5 OF 8",
-    "video_url": "https://www.youtube.com/watch?v=XqZsoesa55w", "video_label": "開啟 Baby Shark 影片",
-    "warmup_sub": "5 分鐘 · 認識家人稱呼",
-    "warmup_tasks": ["1. 唱唱 Baby Shark 🎤", "2. 指著爸爸說 Daddy", "3. 抱抱媽媽說 Mommy 😄"],
-    "core_vocab": [["Dad", "爸爸"], ["Mom", "媽媽"], ["Brother", "哥哥/弟弟"], ["Sister", "姊姊/妹妹"], ["Grandpa", "爺爺/外公"], ["Grandma", "奶奶/外婆"]],
-    "ext_vocab": [["Baby", "寶寶"], ["Family", "家庭"]],
-    "sentences": [["句型 1", "This is my <blank>Dad</blank>.", "This is my dad.", "This is my dad."], ["句型 2", "This is my <blank>Mom</blank>.", "This is my mom.", "This is my mom."]],
-    "qa": [["Who is this?", "My mommy!"], ["Do you love daddy?", "Yes, I do!"]],
-    "tip_box": "💡 家長小技巧：看家人照片時，多練習用英文稱呼長輩。",
-    "wrapup_title": "我愛我的家", "wrapup_sub": "5 分鐘 · 指照片介紹家人",
-    "wrapup_lines": ["I love my <fill>Mom</fill>.", "I love my <fill>Dad</fill>.", "I love my <fill>Brother</fill>.", "I love my <fill>Sister</fill>.", "I love my <fill>Family</fill>!"],
-    "wrapup_tip": "⭐ 目標：能正確認出並稱呼家中的核心成員！",
-    "wrapup_challenge": ["1. 拿出全家福照片，孩子介紹一遍 📸", "2. 給全家人一個大擁抱！ 🌟"],
-    "complete_next": "Unit 2：Numbers 1-10"
-  },
-  {
-    "num": 6, "id": "unit6", "title": "Food", "zh_title": "好吃的食物", "icon": "🍎", "grade_label": "UNIT 6 OF 8",
-    "video_url": "https://www.youtube.com/watch?v=r5WLXZspD1M", "video_label": "開啟 Food Song 影片",
-    "warmup_sub": "5 分鐘 · 認識食物名稱",
-    "warmup_tasks": ["1. 唱唱食物歌 🎤", "2. 假裝吃蘋果說 Apple", "3. 假裝喝牛奶說 Milk 😄"],
-    "core_vocab": [["Apple", "蘋果"], ["Banana", "香蕉"], ["Bread", "麵包"], ["Rice", "米飯"], ["Milk", "牛奶"], ["Egg", "蛋"]],
-    "ext_vocab": [["Yummy", "好吃的"], ["Hungry", "肚子餓"]],
-    "sentences": [["句型 1", "I like <blank>Apples</blank>.", "I like apples.", "I like apples."], ["句型 2", "I drink <blank>Milk</blank>.", "I drink milk.", "I drink milk."]],
-    "qa": [["Are you hungry?", "Yes!"], ["Do you like bananas?", "Yummy, yummy!"]],
-    "tip_box": "💡 家長小技巧：吃飯前可以問孩子：What do you want to eat? 引導他用單字回答。",
-    "wrapup_title": "美味小食客", "wrapup_sub": "5 分鐘 · 角色扮演點餐",
-    "wrapup_lines": ["I like <fill>Apples</fill>.", "I like <fill>Bread</fill>.", "I like <fill>Rice</fill>.", "<fill>Yummy</fill> in my tummy.", "Food is <fill>Good</fill>!"],
-    "wrapup_tip": "⭐ 目標：能表達對特定食物的喜好！",
-    "wrapup_challenge": ["1. 準備兩種水果，讓孩子挑選並說出英文 🍎", "2. 一起吃掉它！ 🌟"],
-    "complete_next": "Unit 7：Body Parts"
-  },
-  {
-    "num": 7, "id": "unit7", "title": "Body Parts", "zh_title": "我的身體", "icon": "🖐️", "grade_label": "UNIT 7 OF 8",
-    "video_url": "https://www.youtube.com/watch?v=h4eueDYPTIg", "video_label": "開啟 Body Song 影片",
-    "warmup_sub": "5 分鐘 · 聽指令指部位",
-    "warmup_tasks": ["1. 唱唱 Head, Shoulders... 🎤", "2. 摸摸鼻子說 Nose", "3. 拍拍小手說 Hands 😄"],
-    "core_vocab": [["Head", "頭"], ["Eyes", "眼睛"], ["Nose", "鼻子"], ["Mouth", "嘴巴"], ["Hands", "手"], ["Feet", "腳"]],
-    "ext_vocab": [["Ears", "耳朵"], ["Legs", "腿"]],
-    "sentences": [["句型 1", "Touch your <blank>Head</blank>.", "Touch your head.", "Touch your head."], ["句型 2", "Clap your <blank>Hands</blank>.", "Clap your hands.", "Clap your hands."]],
-    "qa": [["Where is your nose?", "Here!"], ["How many hands?", "One, two!"]],
-    "tip_box": "💡 家長小技巧：洗澡時也可以邊洗邊教身體部位的英文。",
-    "wrapup_title": "身體動動操", "wrapup_sub": "5 分鐘 · 聽口令快速動作",
-    "wrapup_lines": ["Touch your <fill>Nose</fill>.", "Clap your <fill>Hands</fill>.", "Stamp your <fill>Feet</fill>.", "Wiggle your <fill>Body</fill>.", "I am <fill>Healthy</fill>!"],
-    "wrapup_tip": "⭐ 目標：能聽懂基礎的身體部位口令並反應！",
-    "wrapup_challenge": ["1. 家長快速下指令，看孩子反應 🎭", "2. 搔搔癢作為獎勵！ 🌟"],
-    "complete_next": "Unit 8：Daily Actions"
-  },
-  {
-    "num": 8, "id": "unit8", "title": "Daily Actions", "zh_title": "我會做的事", "icon": "🏃", "grade_label": "UNIT 8 OF 8",
-    "video_url": "https://www.youtube.com/watch?v=fPMjnlTEZwU", "video_label": "開啟 Walking Song 影片",
-    "warmup_sub": "5 分鐘 · 做動作練動詞",
-    "warmup_tasks": ["1. 唱唱 Walking Walking 🎤", "2. 跑一跑說 Run", "3. 跳一跳說 Jump 😄"],
-    "core_vocab": [["Run", "跑"], ["Jump", "跳"], ["Eat", "吃"], ["Sleep", "睡覺"], ["Read", "讀書"], ["Sing", "唱歌"]],
-    "ext_vocab": [["Dance", "跳舞"], ["Play", "玩"]],
-    "sentences": [["句型 1", "I can <blank>Run</blank>.", "I can run.", "I can run."], ["句型 2", "I can <blank>Jump</blank>.", "I can jump.", "I can jump."]],
-    "qa": [["What can you do?", "I can sing!"], ["Can you jump?", "Yes, look!"]],
-    "tip_box": "💡 家長小技巧：當孩子在做這些動作時，多用英文大聲說出來。",
-    "wrapup_title": "才藝小秀場", "wrapup_sub": "5 分鐘 · 表演我會做的事",
-    "wrapup_lines": ["I can <fill>Run</fill>.", "I can <fill>Jump</fill>.", "I can <fill>Sing</fill>.", "I can <fill>Eat</fill>.", "I can <fill>Do It</fill>!"],
-    "wrapup_tip": "⭐ 目標：能自信地用英文說出我會做的動作！",
-    "wrapup_challenge": ["1. 讓孩子展示一項才藝並說英文 🎭", "2. 全家人一起拍手喝采！ 🏆"],
+    "items": [
+      {"letter": "1-3", "word": "One Two Three", "icon": "🔢"},
+      {"letter": "4-6", "word": "Four Five Six", "icon": "🖐️"},
+      {"letter": "7-10", "word": "Seven to Ten", "icon": "🔟"}
+    ],
     "complete_next": null
   }
 ]
