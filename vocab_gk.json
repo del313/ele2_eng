@@ -1,7 +1,7 @@
 [
   {
     "num": 1, "id": "unit1", "title": "Letters A-D", "icon": "🔤", "grade_label": "UNIT 1 OF 8",
-    "video_url": "https://www.youtube.com/watch?v=75p-N9YKqNo", "video_label": "開啟 Phonics Song 影片",
+    "video_url": "https://www.youtube.com/watch?v=75p-N9YKqNo", "video_label": "開啟 ABC Song 影片",
     "items": [
       {"letter": "A", "word": "Apple", "icon": "🍎"},
       {"letter": "B", "word": "Bear", "icon": "🐻"},
@@ -12,7 +12,7 @@
   },
   {
     "num": 2, "id": "unit2", "title": "Letters E-H", "icon": "🥚", "grade_label": "UNIT 2 OF 8",
-    "video_url": "https://www.youtube.com/watch?v=vVj_97p3-A0", "video_label": "開啟 ABC Song 影片",
+    "video_url": "https://www.youtube.com/watch?v=b0NHrFNZWh0", "video_label": "開啟 ABC Song 影片",
     "items": [
       {"letter": "E", "word": "Egg", "icon": "🥚"},
       {"letter": "F", "word": "Fish", "icon": "🐟"},
@@ -23,7 +23,7 @@
   },
   {
     "num": 3, "id": "unit3", "title": "Letters I-L", "icon": "🪁", "grade_label": "UNIT 3 OF 8",
-    "video_url": "https://www.youtube.com/watch?v=vVj_97p3-A0", "video_label": "開啟 ABC Song 影片",
+    "video_url": "https://www.youtube.com/watch?v=36n93jvjkDs", "video_label": "開啟 Phonics Song 影片",
     "items": [
       {"letter": "I", "word": "Igloo", "icon": "🧊"},
       {"letter": "J", "word": "Jam", "icon": "🍯"},
@@ -34,7 +34,7 @@
   },
   {
     "num": 4, "id": "unit4", "title": "Letters M-P", "icon": "🐒", "grade_label": "UNIT 4 OF 8",
-    "video_url": "https://www.youtube.com/watch?v=vVj_97p3-A0", "video_label": "開啟 ABC Song 影片",
+    "video_url": "https://www.youtube.com/watch?v=a3qY1d1X4cs", "video_label": "開啟 ABC Song 影片",
     "items": [
       {"letter": "M", "word": "Monkey", "icon": "🐒"},
       {"letter": "N", "word": "Nose", "icon": "👃"},
@@ -45,7 +45,7 @@
   },
   {
     "num": 5, "id": "unit5", "title": "Letters Q-T", "icon": "👸", "grade_label": "UNIT 5 OF 8",
-    "video_url": "https://www.youtube.com/watch?v=vVj_97p3-A0", "video_label": "開啟 ABC Song 影片",
+    "video_url": "https://www.youtube.com/watch?v=XqZsoesa55w", "video_label": "開啟 Baby Shark 影片",
     "items": [
       {"letter": "Q", "word": "Queen", "icon": "👸"},
       {"letter": "R", "word": "Rabbit", "icon": "🐰"},
@@ -56,7 +56,7 @@
   },
   {
     "num": 6, "id": "unit6", "title": "Letters U-X", "icon": "☂️", "grade_label": "UNIT 6 OF 8",
-    "video_url": "https://www.youtube.com/watch?v=vVj_97p3-A0", "video_label": "開啟 ABC Song 影片",
+    "video_url": "https://www.youtube.com/watch?v=hq3yfQnllfQ", "video_label": "開啟 Usher ABC Song 影片",
     "items": [
       {"letter": "U", "word": "Umbrella", "icon": "☂️"},
       {"letter": "V", "word": "Van", "icon": "🚐"},
@@ -67,7 +67,7 @@
   },
   {
     "num": 7, "id": "unit7", "title": "Letters Y-Z", "icon": "🦓", "grade_label": "UNIT 7 OF 8",
-    "video_url": "https://www.youtube.com/watch?v=vVj_97p3-A0", "video_label": "開啟 ABC Song 影片",
+    "video_url": "https://www.youtube.com/watch?v=zAlX1V3lK5s", "video_label": "開啟 ABC Workout 影片",
     "items": [
       {"letter": "Y", "word": "Yo-yo", "icon": "🪀"},
       {"letter": "Z", "word": "Zebra", "icon": "🦓"},
