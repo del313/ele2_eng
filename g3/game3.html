@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="../js-common.js"></script>
+<title>G3 Game 3 – Sentence Master</title>
+<link rel="stylesheet" href="../style-common.css">
+<style>
+  body { background: #E1F5FE; }
+  .game-container { max-width: 700px; margin: 0 auto; padding: 20px; text-align: center; }
+  
+  .instruction { font-size: 1.2rem; font-weight: 800; color: #0277BD; margin-bottom: 20px; }
+  
+  .sentence-display {
+    background: white; padding: 30px; border-radius: 25px; box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    margin-bottom: 30px; min-height: 150px; display: flex; flex-direction: column;
+    justify-content: center; align-items: center; border: 4px dashed #0277BD;
+  }
+  
+  .zh-sentence { font-size: 1.8rem; font-weight: 900; color: #01579B; margin-bottom: 20px; }
+  
+  .build-area {
+    display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; min-height: 50px;
+    margin-bottom: 20px; border-bottom: 3px solid #0277BD; padding-bottom: 10px;
+  }
+  
+  .word-tile {
+    background: #0277BD; color: white; padding: 10px 20px; border-radius: 12px;
+    font-size: 1.3rem; font-weight: 800; cursor: pointer; transition: all 0.2s;
+    user-select: none;
+  }
+  .word-tile:hover { transform: scale(1.05); background: #01579B; }
+  .word-tile.used { opacity: 0.3; cursor: default; transform: none; }
+
+  .ans-word {
+    color: #01579B; font-size: 1.5rem; font-weight: 900; border-bottom: 2px solid #0277BD;
+    padding: 0 5px; margin: 0 5px;
+  }
+
+  .controls { margin-top: 20px; }
+  .btn-reset { background: #E0E0E0; border: none; padding: 10px 20px; border-radius: 20px; font-weight: 800; cursor: pointer; }
+
+  #finish-screen {
+    display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(255,255,255,0.98); z-index: 100;
+    flex-direction: column; align-items: center; justify-content: center;
+  }
+</style>
+</head>
+<body>
+
+<header style="padding:20px; text-align:center; background:#0277BD; color:white;">
+  <a href="index.html" style="position:absolute; left:20px; color:white; text-decoration:none; font-weight:800;">🏠 Home</a>
+  <h1>Sentence Master</h1>
+  <p>造句小老師 ✍️</p>
+</header>
+
+<div class="game-container">
+  <div class="instruction">第 <span id="q-num">1</span> / 6 題：請排列出正確的英文句子</div>
+  
+  <div class="sentence-display">
+    <div class="zh-sentence" id="zh-text">載入中...</div>
+    <div class="build-area" id="build-area"></div>
+  </div>
+  
+  <div class="scrambled-words" id="scrambled-words" style="display:flex; flex-wrap:wrap; justify-content:center; gap:12px;"></div>
+  
+  <div class="controls">
+    <button class="btn-reset" onclick="resetRound()">❌ 全部重選</button>
+  </div>
+</div>
+
+<div id="finish-screen">
+  <div style="font-size:6rem;">✍️</div>
+  <h2 style="font-size:2.5rem; color:#0277BD;">Excellent!</h2>
+  <p style="font-size:1.4rem; margin:10px 0;">你是一個造句小高手！</p>
+  <button onclick="finishGame()" style="padding:15px 50px; border-radius:35px; border:none; background:#0277BD; color:white; font-size:1.6rem; font-weight:900; cursor:pointer; margin-top:30px; box-shadow: 0 5px 15px rgba(0,0,0,0.2);">
+    完成並回首頁
+  </button>
+</div>
+
+<script>
+let allSentences = [];
+let queue = [];
+let currentIdx = 0;
+let userWords = [];
+const PROGRESS_KEY = 'progress_g3';
+const GAME_ID = 'game3';
+
+async function loadData() {
+    try {
+        const resp = await fetch('../vocab_g3.json');
+        if (!resp.ok) throw new Error();
+        const units = await resp.json();
+        units.forEach(u => {
+            if (u.sentences) {
+                u.sentences.forEach(s => {
+                    const cleanExample = s[2].replace(/[.,!?;]/g, '');
+                    allSentences.push({
+                        zh: s[0], en: s[2],
+                        words: cleanExample.split(' '),
+                        originalWords: s[2].split(' ')
+                    });
+                });
+            }
+        });
+    } catch (e) {
+        console.warn("Fallback active");
+        allSentences = [
+            { zh: "我有十一顆蘋果", en: "I have eleven apples", originalWords: ["I", "have", "eleven", "apples"] },
+            { zh: "這是我的手臂", en: "This is my arm", originalWords: ["This", "is", "my", "arm"] }
+        ];
+    }
+    initGame();
+}
+
+function shuffle(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+}
+
+function initGame() {
+    queue = shuffle([...allSentences]).slice(0, 6);
+    nextRound();
+}
+
+function nextRound() {
+    if (currentIdx >= queue.length) {
+        document.getElementById('finish-screen').style.display = 'flex';
+        return;
+    }
+    
+    userWords = [];
+    const item = queue[currentIdx];
+    document.getElementById('q-num').textContent = currentIdx + 1;
+    document.getElementById('zh-text').textContent = item.zh;
+    document.getElementById('build-area').innerHTML = '';
+    
+    const scrambled = shuffle([...item.originalWords]);
+    const wordArea = document.getElementById('scrambled-words');
+    wordArea.innerHTML = '';
+    
+    scrambled.forEach((w, i) => {
+        const div = document.createElement('div');
+        div.className = 'word-tile';
+        div.textContent = w;
+        div.onclick = () => addWord(w, div);
+        wordArea.appendChild(div);
+    });
+}
+
+function addWord(word, el) {
+    if (el.classList.contains('used')) return;
+    
+    userWords.push(word);
+    el.classList.add('used');
+    
+    const buildArea = document.getElementById('build-area');
+    const span = document.createElement('span');
+    span.className = 'ans-word';
+    span.textContent = word;
+    buildArea.appendChild(span);
+    
+    const target = queue[currentIdx].originalWords;
+    if (userWords.length === target.length) {
+        if (userWords.join(' ') === target.join(' ')) {
+            playSound('success');
+            speak(queue[currentIdx].en);
+            currentIdx++;
+            setTimeout(nextRound, 1200);
+        } else {
+            playSound('error');
+            setTimeout(resetRound, 500);
+        }
+    }
+}
+
+function resetRound() {
+    userWords = [];
+    document.getElementById('build-area').innerHTML = '';
+    document.querySelectorAll('.word-tile').forEach(t => t.classList.remove('used'));
+}
+
+function finishGame() {
+  const progress = JSON.parse(localStorage.getItem(PROGRESS_KEY) || '{}');
+  progress[GAME_ID] = 'done';
+  localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress));
+  window.location.href = 'index.html';
+}
+
+loadData();
+</script>
+</body>
+</html>

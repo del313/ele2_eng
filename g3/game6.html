@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="../js-common.js"></script>
+<title>G3 Game 6 – Feed Monster</title>
+<link rel="stylesheet" href="../style-common.css">
+<style>
+  body { background: #F3E5F5; overflow: hidden; touch-action: manipulation; }
+  .game-container { max-width: 600px; margin: 0 auto; height: 100vh; position: relative; }
+  
+  .instruction { background: #8E24AA; color: white; padding: 15px; text-align: center; font-weight: 800; }
+  
+  .monster-area { position: absolute; top: 150px; left: 50%; transform: translateX(-50%); text-align: center; }
+  .monster { font-size: 8rem; transition: transform 0.3s; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.2)); }
+  .monster.eating { transform: scale(1.2) rotate(5deg); }
+  .monster-speech {
+    background: white; color: #8E24AA; padding: 10px 20px; border-radius: 20px;
+    font-size: 1.5rem; font-weight: 900; margin-bottom: 20px; border: 3px solid #8E24AA;
+    position: relative;
+  }
+  .monster-speech::after {
+    content: ''; position: absolute; bottom: -15px; left: 50%; transform: translateX(-50%);
+    border-left: 15px solid transparent; border-right: 15px solid transparent; border-top: 15px solid #8E24AA;
+  }
+
+  .food-tray {
+    position: absolute; bottom: 30px; width: 100%; display: flex;
+    justify-content: center; gap: 15px; flex-wrap: wrap; padding: 0 10px;
+  }
+  .food {
+    background: white; border: 3px solid #8E24AA; padding: 10px 20px; border-radius: 15px;
+    font-size: 1.3rem; font-weight: 800; color: #8E24AA; cursor: pointer; box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
+  .food:active { transform: scale(0.9); }
+
+  #finish-screen {
+    display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background: #F3E5F5; z-index: 100; flex-direction: column; align-items: center; justify-content: center;
+  }
+</style>
+</head>
+<body>
+
+<div class="game-container">
+  <div class="instruction">
+    <a href="index.html" style="position:absolute; left:20px; color:white; text-decoration:none;">🏠 Home</a>
+    第 <span id="q-num">1</span> / 10 題：餵食正確的單字
+  </div>
+
+  <div class="monster-area">
+    <div class="monster-speech">I'm hungry! I want <span id="target-word">...</span></div>
+    <div class="monster" id="monster">👾</div>
+  </div>
+
+  <div class="food-tray" id="food-tray"></div>
+</div>
+
+<div id="finish-screen">
+  <div style="font-size:6rem;">😋</div>
+  <h2 style="font-size:2.5rem; color:#8E24AA;">Yummy!</h2>
+  <p style="font-size:1.4rem; margin:10px 0;">小怪獸吃得好飽，謝謝你！</p>
+  <button onclick="finishGame()" style="padding:15px 50px; border-radius:35px; border:none; background:#8E24AA; color:white; font-size:1.6rem; font-weight:900; cursor:pointer; margin-top:30px;">
+    完成並回首頁
+  </button>
+</div>
+
+<script>
+let allWords = [];
+let score = 0;
+let target = null;
+const PROGRESS_KEY = 'progress_g3';
+const GAME_ID = 'game6';
+
+async function loadData() {
+    try {
+        const resp = await fetch('../vocab_g3.json');
+        const units = await resp.json();
+        units.forEach(u => u.core_vocab.forEach(v => allWords.push(v[0])));
+        nextRound();
+    } catch (e) { console.error(e); }
+}
+
+function nextRound() {
+    if (score >= 10) {
+        document.getElementById('finish-screen').style.display = 'flex';
+        return;
+    }
+    
+    document.getElementById('q-num').textContent = score + 1;
+    target = allWords[Math.floor(Math.random() * allWords.length)];
+    document.getElementById('target-word').textContent = target;
+    
+    const tray = document.getElementById('food-tray');
+    tray.innerHTML = '';
+    
+    let choices = [target];
+    while(choices.length < 4) {
+        let r = allWords[Math.floor(Math.random() * allWords.length)];
+        if(!choices.includes(r)) choices.push(r);
+    }
+    choices.sort(() => Math.random() - 0.5);
+    
+    choices.forEach(c => {
+        const div = document.createElement('div');
+        div.className = 'food';
+        div.textContent = c;
+        div.onclick = () => feed(c, div);
+        tray.appendChild(div);
+    });
+    speak(target);
+}
+
+function feed(word, el) {
+    const monster = document.getElementById('monster');
+    if (word === target) {
+        playSound('success');
+        score++;
+        monster.classList.add('eating');
+        monster.textContent = '😋';
+        setTimeout(() => {
+            monster.classList.remove('eating');
+            monster.textContent = '👾';
+            nextRound();
+        }, 800);
+    } else {
+        playSound('error');
+        monster.textContent = '🤢';
+        el.style.background = '#FFCDD2';
+        setTimeout(() => { monster.textContent = '👾'; }, 800);
+        speak("No, " + target);
+    }
+}
+
+function finishGame() {
+  const progress = JSON.parse(localStorage.getItem(PROGRESS_KEY) || '{}');
+  progress[GAME_ID] = 'done';
+  localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress));
+  window.location.href = 'index.html';
+}
+
+loadData();
+</script>
+</body>
+</html>

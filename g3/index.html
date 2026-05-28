@@ -93,15 +93,19 @@
 
   <div class="section-label">第一階段：校園與身體 (Unit 1-3)</div>
   <div class="card-grid" id="group1"></div>
+  <div class="game-grid" id="games-p1"></div>
 
   <div class="section-label" style="margin-top:40px;">第二階段：生活與食物 (Unit 4-6)</div>
   <div class="card-grid" id="group2"></div>
+  <div class="game-grid" id="games-p2"></div>
 
   <div class="section-label" style="margin-top:40px;">第三階段：環境與作息 (Unit 7-9)</div>
   <div class="card-grid" id="group3"></div>
+  <div class="game-grid" id="games-p3"></div>
 
   <div class="section-label" style="margin-top:40px;">第四階段：自然與職業 (Unit 10-12)</div>
   <div class="card-grid" id="group4"></div>
+  <div class="game-grid" id="games-p4"></div>
 
   <div class="legend">
     <div class="legend-item"><div class="legend-dot" style="background:#FFF;border:3px solid #4FC3F7"></div> 準備好</div>
@@ -128,6 +132,17 @@ const units = [
   { id:'unit12', title:'People & Jobs',  sub:'人們與職業', icon:'👮', file:'unit12.html' },
 ];
 
+const games = [
+  { id:'game1', title:'Spelling Bee', sub:'拼字小蜜蜂', icon:'🐝', file:'game1.html', phase: 1 },
+  { id:'game2', title:'Word Sort',   sub:'分類大隊長', icon:'📦', file:'game2.html', phase: 1 },
+  { id:'game3', title:'Sentence Master', sub:'造句小老師', icon:'✍️', file:'game3.html', phase: 2 },
+  { id:'game4', title:'Bubble Pop',   sub:'泡泡射擊手', icon:'🫧', file:'game4.html', phase: 2 },
+  { id:'game5', title:'Memory Match', sub:'單字翻牌大賽', icon:'🃏', file:'game5.html', phase: 3 },
+  { id:'game6', title:'Feed Monster', sub:'餓餓小怪獸', icon:'👾', file:'game6.html', phase: 3 },
+  { id:'game7', title:'Word Catcher', sub:'單字接接樂', icon:'🧺', file:'game7.html', phase: 4 },
+  { id:'game8', title:'Final Challenge', sub:'終極大考驗', icon:'👑', file:'game8.html', phase: 4 },
+];
+
 const unitSequence = units.map(u => u.id);
 const PROGRESS_KEY = 'progress_g3';
 const progress = JSON.parse(localStorage.getItem(PROGRESS_KEY) || '{}');
@@ -144,10 +159,20 @@ function resetProgress() {
 function getState(id) {
   if (progress[id] === 'done') return 'done';
   if (progress[id] === 'in_progress') return 'in-progress';
-  const idx = unitSequence.indexOf(id);
-  if (idx === 0) return 'available';
-  const prev = unitSequence[idx - 1];
-  if (progress[prev] === 'done') return 'available';
+  
+  if (id.startsWith('unit')) {
+    const idx = unitSequence.indexOf(id);
+    if (idx === 0) return 'available';
+    const prev = unitSequence[idx - 1];
+    if (progress[prev] === 'done') return 'available';
+    return 'locked';
+  } else if (id.startsWith('game')) {
+    const game = games.find(g => g.id === id);
+    if (game.phase === 1) return progress['unit3'] === 'done' ? 'available' : 'locked';
+    if (game.phase === 2) return progress['unit6'] === 'done' ? 'available' : 'locked';
+    if (game.phase === 3) return progress['unit9'] === 'done' ? 'available' : 'locked';
+    if (game.phase === 4) return progress['unit12'] === 'done' ? 'available' : 'locked';
+  }
   return 'locked';
 }
 
@@ -168,6 +193,24 @@ function makeUnitCard(u, num) {
   return a;
 }
 
+function makeGameCard(game) {
+  const state = getState(game.id);
+  const a = document.createElement('a');
+  a.className = `game-card ${state}`;
+  a.href = state === 'locked' ? '#' : game.file;
+  if (state === 'locked') a.onclick = e => e.preventDefault();
+  
+  const badge = state === 'done' ? ' 🏆' : state === 'locked' ? ' 🔒' : ' 🎁';
+  a.innerHTML = `
+    <div class="card-icon">${game.icon}</div>
+    <div class="content">
+      <div class="card-title">${game.title}${badge}</div>
+      <div class="card-sub">${game.sub}</div>
+    </div>`;
+  return a;
+}
+
+// 渲染單元
 [units.slice(0,3), units.slice(3,6), units.slice(6,9), units.slice(9,12)].forEach((group, gi) => {
   const grid = document.getElementById(`group${gi+1}`);
   if (grid) {
@@ -175,19 +218,27 @@ function makeUnitCard(u, num) {
   }
 });
 
-const total = unitSequence.length;
-const done = unitSequence.filter(id => progress[id] === 'done').length;
+// 渲染遊戲
+games.forEach((g) => {
+  const area = document.getElementById(`games-p${g.phase}`);
+  if (area) area.appendChild(makeGameCard(g));
+});
+
+const sequence = [...unitSequence, ...games.map(g => g.id)];
+const total = sequence.length;
+const done = sequence.filter(id => progress[id] === 'done').length;
 document.getElementById('progressBar').style.width = `${Math.round(done/total*100)}%`;
 document.getElementById('progressLabel').textContent = `${done} / ${total} 完成`;
 
-const target = unitSequence.find(id => progress[id] !== 'done');
+const targetUnit = unitSequence.find(id => progress[id] !== 'done');
+const target = targetUnit || games.map(g => g.id).find(id => progress[id] !== 'done');
 if (target) {
   const state = getState(target);
   if (state !== 'locked') {
     const banner = document.getElementById('continueBanner');
     banner.classList.remove('hidden');
     banner.style.display = 'flex';
-    const u = units.find(x => x.id === target);
+    const u = units.find(x => x.id === target) || games.find(x => x.id === target);
     if (u) {
       document.getElementById('continueTitle').textContent = u.title;
       document.getElementById('continueLink').href = u.file;

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="../js-common.js"></script>
+<title>G3 Game 2 – Word Sort</title>
+<link rel="stylesheet" href="../style-common.css">
+<style>
+  body { background: #FFF9C4; overflow: hidden; }
+  .game-container { max-width: 800px; margin: 0 auto; height: 100vh; position: relative; }
+  
+  .game-header { padding: 15px; text-align: center; background: #FBC02D; color: #5D4037; }
+  
+  .bin-container {
+    position: absolute; bottom: 40px; width: 100%;
+    display: flex; justify-content: space-around; padding: 0 20px;
+  }
+  .bin {
+    width: 40%; height: 150px; background: white; border: 5px solid #FBC02D;
+    border-radius: 20px; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: all 0.2s; cursor: pointer;
+  }
+  .bin.active { transform: scale(1.05); background: #FFFDE7; border-color: #FFA000; }
+  .bin-title { font-size: 1.5rem; font-weight: 900; color: #5D4037; }
+  .bin-icon { font-size: 3rem; }
+
+  .falling-item {
+    position: absolute; top: -100px; left: 50%; transform: translateX(-50%);
+    background: #5D4037; color: white; padding: 15px 30px; border-radius: 40px;
+    font-size: 2rem; font-weight: 800; cursor: move; box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    user-select: none;
+  }
+
+  .score-board { font-size: 1.2rem; font-weight: 800; margin-top: 10px; }
+
+  #finish-screen {
+    display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(255,255,255,0.98); z-index: 100;
+    flex-direction: column; align-items: center; justify-content: center; text-align: center;
+  }
+</style>
+</head>
+<body>
+
+<div class="game-container">
+  <div class="game-header">
+    <a href="index.html" style="position:absolute; left:20px; color:#5D4037; text-decoration:none; font-weight:800;">🏠 Home</a>
+    <h1>Word Sort</h1>
+    <p>分類大隊長 📦</p>
+    <div class="score-board">分數: <span id="score">0</span> | 第 <span id="round">1</span> / 10 題</div>
+  </div>
+
+  <div id="item-area"></div>
+
+  <div class="bin-container">
+    <div class="bin" id="bin-left" onclick="checkSort('left')">
+        <div class="bin-icon" id="icon-left">🍎</div>
+        <div class="bin-title" id="title-left">Fruits</div>
+    </div>
+    <div class="bin" id="bin-right" onclick="checkSort('right')">
+        <div class="bin-icon" id="icon-right">🥦</div>
+        <div class="bin-title" id="title-right">Veggies</div>
+    </div>
+  </div>
+</div>
+
+<div id="finish-screen">
+  <div style="font-size:6rem;">📦</div>
+  <h2 style="font-size:2.5rem; color:#FBC02D;">Great Sorting!</h2>
+  <p style="font-size:1.4rem; margin:10px 0;">你對單字的分類非常清楚！</p>
+  <button onclick="finishGame()" style="padding:15px 50px; border-radius:35px; border:none; background:#FBC02D; color:#5D4037; font-size:1.6rem; font-weight:900; cursor:pointer; margin-top:30px; box-shadow: 0 5px 15px rgba(0,0,0,0.2);">
+    完成並回首頁
+  </button>
+</div>
+
+<script>
+let categories = [];
+let currentItem = null;
+let currentRound = 1;
+let score = 0;
+const TOTAL_ROUNDS = 10;
+const PROGRESS_KEY = 'progress_g3';
+const GAME_ID = 'game2';
+
+async function loadData() {
+    try {
+        const resp = await fetch('../vocab_g3.json');
+        if (!resp.ok) throw new Error();
+        const units = await resp.json();
+        units.forEach(u => {
+            if (u.core_vocab.length > 0) {
+                categories.push({
+                    title: u.title.split(':')[0],
+                    icon: u.icon,
+                    words: u.core_vocab.map(v => v[0].toUpperCase())
+                });
+            }
+        });
+    } catch (e) {
+        console.warn("Fallback data active");
+        categories = [
+            { title: "Numbers", icon: "🔢", words: ["ELEVEN", "TWELVE", "THIRTEEN"] },
+            { title: "Body", icon: "💪", words: ["ARM", "LEG", "KNEE"] },
+            { title: "Clothes", icon: "👕", words: ["SHIRT", "DRESS", "HAT"] }
+        ];
+    }
+    initGame();
+}
+
+let leftCat, rightCat;
+let queue = [];
+
+function initGame() {
+    // 隨機選兩個分類
+    let shuffledCats = [...categories].sort(() => Math.random() - 0.5);
+    leftCat = shuffledCats[0];
+    rightCat = shuffledCats[1];
+    
+    document.getElementById('title-left').textContent = leftCat.title;
+    document.getElementById('icon-left').textContent = leftCat.icon;
+    document.getElementById('title-right').textContent = rightCat.title;
+    document.getElementById('icon-right').textContent = rightCat.icon;
+
+    // 建立 10 題隊伍
+    for (let i = 0; i < TOTAL_ROUNDS; i++) {
+        let isLeft = Math.random() > 0.5;
+        let cat = isLeft ? leftCat : rightCat;
+        let word = cat.words[Math.floor(Math.random() * cat.words.length)];
+        queue.push({ word, side: isLeft ? 'left' : 'right' });
+    }
+    
+    nextRound();
+}
+
+function nextRound() {
+    if (currentRound > TOTAL_ROUNDS) {
+        document.getElementById('finish-screen').style.display = 'flex';
+        return;
+    }
+    
+    document.getElementById('round').textContent = currentRound;
+    const data = queue[currentRound - 1];
+    spawnItem(data.word);
+}
+
+function spawnItem(word) {
+    const area = document.getElementById('item-area');
+    area.innerHTML = '';
+    const div = document.createElement('div');
+    div.className = 'falling-item';
+    div.textContent = word;
+    div.style.top = '150px'; // 靜止在中央
+    area.appendChild(div);
+    currentItem = div;
+    speak(word);
+}
+
+function checkSort(side) {
+    if (!currentItem) return;
+    
+    const correctSide = queue[currentRound - 1].side;
+    if (side === correctSide) {
+        playSound('success');
+        score += 10;
+        document.getElementById('score').textContent = score;
+        currentItem.style.transition = 'all 0.4s';
+        currentItem.style.transform = `translate(${side === 'left' ? '-200px' : '200px'}, 400px) scale(0)`;
+    } else {
+        playSound('error');
+        currentItem.style.animation = 'shake 0.3s';
+        setTimeout(() => currentItem.style.animation = '', 300);
+        return; // 答錯不進入下一題
+    }
+    
+    currentItem = null;
+    currentRound++;
+    setTimeout(nextRound, 600);
+}
+
+function finishGame() {
+  const progress = JSON.parse(localStorage.getItem(PROGRESS_KEY) || '{}');
+  progress[GAME_ID] = 'done';
+  localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress));
+  window.location.href = 'index.html';
+}
+
+loadData();
+</script>
+
+<style>
+@keyframes shake {
+  0% { transform: translateX(-50%) rotate(0deg); }
+  25% { transform: translateX(-60%) rotate(-5deg); }
+  75% { transform: translateX(-40%) rotate(5deg); }
+  100% { transform: translateX(-50%) rotate(0deg); }
+}
+</style>
+</body>
+</html>

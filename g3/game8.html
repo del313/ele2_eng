@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="../js-common.js"></script>
+<title>G3 Final Challenge – 終極考驗</title>
+<link rel="stylesheet" href="../style-common.css">
+<style>
+  body { background: #311B92; color: white; }
+  .game-container { max-width: 600px; margin: 0 auto; padding: 20px; text-align: center; }
+  
+  .level-indicator { font-size: 1.5rem; font-weight: 900; color: #B39DDB; margin-bottom: 20px; }
+  .challenge-card {
+    background: white; color: #311B92; padding: 30px; border-radius: 30px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5); min-height: 250px;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    position: relative; overflow: hidden;
+  }
+  
+  /* Quiz Styles */
+  .choices-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; width: 100%; margin-top: 20px; }
+  .choice-btn {
+    background: #EDE7F6; border: 3px solid #311B92; padding: 15px; border-radius: 15px;
+    font-size: 1.2rem; font-weight: 800; cursor: pointer; transition: all 0.2s;
+  }
+  .choice-btn:hover { background: #D1C4E9; }
+
+  /* Spelling Styles */
+  .scrambled-area { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 20px; }
+  .letter-tile {
+    width: 45px; height: 45px; background: #311B92; color: white;
+    border-radius: 10px; display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem; font-weight: 800; cursor: pointer;
+  }
+  .ans-display { font-size: 2rem; font-weight: 900; margin-bottom: 15px; border-bottom: 3px solid #311B92; min-width: 150px; }
+
+  /* Sentence Styles */
+  .word-bin { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 20px; }
+  .word-tag { background: #311B92; color: white; padding: 8px 15px; border-radius: 20px; cursor: pointer; }
+
+  #finish-screen {
+    display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background: #311B92; z-index: 100; flex-direction: column; align-items: center; justify-content: center;
+  }
+  
+  .progress-dots { display: flex; justify-content: center; gap: 10px; margin-top: 20px; }
+  .dot { width: 15px; height: 15px; border-radius: 50%; background: rgba(255,255,255,0.3); }
+  .dot.active { background: #00E676; transform: scale(1.2); }
+</style>
+</head>
+<body>
+
+<header style="padding:15px; text-align:center; background:rgba(0,0,0,0.2);">
+  <a href="index.html" style="position:absolute; left:20px; color:white; text-decoration:none; font-weight:800;">🏠 Home</a>
+  <h1>G3 Final Challenge</h1>
+</header>
+
+<div class="game-container">
+  <div class="level-indicator" id="level-title">正在準備考驗...</div>
+  
+  <div class="challenge-card" id="card">
+    <div id="content-area">載入資料中...</div>
+  </div>
+
+  <div class="progress-dots" id="dots"></div>
+</div>
+
+<div id="finish-screen">
+  <div style="font-size:6rem;">🏆</div>
+  <h2 style="font-size:2.5rem; color:#00E676;">G3 MASTER!</h2>
+  <p style="font-size:1.4rem; margin:10px 0;">你成功通過了小三英文的所有挑戰！</p>
+  <button onclick="finishGame()" style="padding:15px 50px; border-radius:35px; border:none; background:#00E676; color:#1A237E; font-size:1.6rem; font-weight:900; cursor:pointer; margin-top:30px; box-shadow: 0 5px 15px rgba(0,0,0,0.3);">
+    領取勳章並回首頁
+  </button>
+</div>
+
+<script>
+let allUnits = [];
+let challenges = [];
+let currentStep = 0;
+const TOTAL_STEPS = 10;
+const PROGRESS_KEY = 'progress_g3';
+const GAME_ID = 'game8';
+
+async function loadData() {
+    try {
+        const resp = await fetch('../vocab_g3.json');
+        allUnits = await resp.json();
+        buildChallenges();
+        renderStep();
+    } catch (e) { console.error(e); }
+}
+
+function shuffle(a) { return [...a].sort(() => Math.random() - 0.5); }
+
+function buildChallenges() {
+    // 1. 混合 4 題聽力選擇 (Quiz)
+    for(let i=0; i<4; i++) {
+        const unit = allUnits[Math.floor(Math.random()*allUnits.length)];
+        const word = unit.core_vocab[Math.floor(Math.random()*unit.core_vocab.length)];
+        const wrongs = [];
+        while(wrongs.length < 3) {
+            const rUnit = allUnits[Math.floor(Math.random()*allUnits.length)];
+            const rWord = rUnit.core_vocab[Math.floor(Math.random()*rUnit.core_vocab.length)];
+            if(rWord[0] !== word[0] && !wrongs.includes(rWord[0])) wrongs.push(rWord[0]);
+        }
+        challenges.push({ type:'quiz', q: word[1], a: word[0], choices: shuffle([word[0], ...wrongs]) });
+    }
+    // 2. 混合 3 題拼字 (Spelling)
+    for(let i=0; i<3; i++) {
+        const unit = allUnits[Math.floor(Math.random()*allUnits.length)];
+        const word = unit.core_vocab[Math.floor(Math.random()*unit.core_vocab.length)];
+        challenges.push({ type:'spelling', q: word[1], a: word[0].toUpperCase() });
+    }
+    // 3. 混合 3 題造句 (Sentence)
+    for(let i=0; i<3; i++) {
+        const unit = allUnits.filter(u => u.sentences && u.sentences.length > 0);
+        const u = unit[Math.floor(Math.random()*unit.length)];
+        const s = u.sentences[Math.floor(Math.random()*u.sentences.length)];
+        challenges.push({ type:'sentence', q: s[0], a: s[2] });
+    }
+    challenges = shuffle(challenges);
+    
+    const dots = document.getElementById('dots');
+    for(let i=0; i<TOTAL_STEPS; i++) {
+        const d = document.createElement('div');
+        d.className = 'dot';
+        dots.appendChild(d);
+    }
+}
+
+function renderStep() {
+    if(currentStep >= TOTAL_STEPS) {
+        document.getElementById('finish-screen').style.display = 'flex';
+        return;
+    }
+
+    const data = challenges[currentStep];
+    const area = document.getElementById('content-area');
+    const title = document.getElementById('level-title');
+    area.innerHTML = '';
+    
+    // 更新點點
+    const dots = document.querySelectorAll('.dot');
+    dots.forEach((d, i) => d.className = i < currentStep ? 'dot active' : 'dot');
+    dots[currentStep].classList.add('active');
+
+    if(data.type === 'quiz') {
+        title.textContent = "聽力與辨識測驗";
+        area.innerHTML = `<div style="font-size:1.5rem; font-weight:800; margin-bottom:10px;">「${data.q}」的英文是？</div>`;
+        const grid = document.createElement('div');
+        grid.className = 'choices-grid';
+        data.choices.forEach(c => {
+            const btn = document.createElement('button');
+            btn.className = 'choice-btn';
+            btn.textContent = c;
+            btn.onclick = () => checkQuiz(c, data.a);
+            grid.appendChild(btn);
+        });
+        area.appendChild(grid);
+        speak(data.a);
+    } else if(data.type === 'spelling') {
+        title.textContent = "進階拼字挑戰";
+        area.innerHTML = `<div style="font-size:1.2rem; margin-bottom:10px;">${data.q}</div><div class="ans-display" id="ans-box"></div>`;
+        const sArea = document.createElement('div');
+        sArea.className = 'scrambled-area';
+        let userStr = "";
+        const target = data.a;
+        document.getElementById('ans-box').textContent = "_ ".repeat(target.length);
+        
+        shuffle(target.split('')).forEach(l => {
+            const t = document.createElement('div');
+            t.className = 'letter-tile';
+            t.textContent = l;
+            t.onclick = () => {
+                userStr += l;
+                t.style.visibility = 'hidden';
+                document.getElementById('ans-box').textContent = userStr + "_ ".repeat(target.length - userStr.length);
+                if(userStr.length === target.length) {
+                    if(userStr === target) { playSound('success'); nextStep(); }
+                    else { playSound('error'); renderStep(); }
+                }
+            };
+            sArea.appendChild(t);
+        });
+        area.appendChild(sArea);
+        speak(data.a);
+    } else if(data.type === 'sentence') {
+        title.textContent = "造句大師挑戰";
+        area.innerHTML = `<div style="font-size:1.5rem; font-weight:900; margin-bottom:15px;">${data.q}</div><div id="built-s" style="font-size:1.2rem; color:#311B92; font-weight:800; min-height:30px; border-bottom:2px solid #311B92; margin-bottom:20px;"></div>`;
+        const bin = document.createElement('div');
+        bin.className = 'word-bin';
+        let userWords = [];
+        const targetArr = data.a.split(' ');
+        shuffle(targetArr).forEach(w => {
+            const tag = document.createElement('div');
+            tag.className = 'word-tag';
+            tag.textContent = w;
+            tag.onclick = () => {
+                userWords.push(w);
+                tag.style.display = 'none';
+                document.getElementById('built-s').textContent = userWords.join(' ');
+                if(userWords.length === targetArr.length) {
+                    if(userWords.join(' ') === data.a) { playSound('success'); speak(data.a); nextStep(); }
+                    else { playSound('error'); renderStep(); }
+                }
+            };
+            bin.appendChild(tag);
+        });
+        area.appendChild(bin);
+    }
+}
+
+function checkQuiz(sel, ans) {
+    if(sel === ans) { playSound('success'); nextStep(); }
+    else { playSound('error'); renderStep(); }
+}
+
+function nextStep() {
+    currentStep++;
+    setTimeout(renderStep, 1000);
+}
+
+function finishGame() {
+  const progress = JSON.parse(localStorage.getItem(PROGRESS_KEY) || '{}');
+  progress[GAME_ID] = 'done';
+  localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress));
+  window.location.href = 'index.html';
+}
+
+loadData();
+</script>
+</body>
+</html>

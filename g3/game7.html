@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="../js-common.js"></script>
+<title>G3 Game 7 – Word Catcher</title>
+<link rel="stylesheet" href="../style-common.css">
+<style>
+  body { background: #E8EAF6; overflow: hidden; touch-action: none; }
+  .game-container { max-width: 600px; margin: 0 auto; height: 100vh; position: relative; }
+  
+  .game-header { background: #3F51B5; color: white; padding: 15px; text-align: center; position: relative; z-index: 10; }
+  
+  .target-box { background: white; color: #3F51B5; padding: 5px 15px; border-radius: 15px; display: inline-block; font-size: 1.5rem; font-weight: 900; margin-top: 5px; }
+
+  #catcher {
+    position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
+    width: 120px; height: 80px; background: #FF9800; border-radius: 0 0 40px 40px;
+    border: 4px solid #E65100; display: flex; align-items: center; justify-content: center;
+    font-size: 3rem; box-shadow: 0 5px 15px rgba(0,0,0,0.2); z-index: 5;
+  }
+
+  .falling-word {
+    position: absolute; background: white; border: 2px solid #3F51B5;
+    padding: 8px 15px; border-radius: 10px; font-weight: 800; color: #3F51B5;
+    white-space: nowrap; pointer-events: none; box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  }
+
+  #score-panel { position: fixed; top: 80px; right: 20px; font-size: 1.2rem; font-weight: 800; color: #3F51B5; }
+
+  #finish-screen {
+    display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background: #E8EAF6; z-index: 100; flex-direction: column; align-items: center; justify-content: center;
+  }
+</style>
+</head>
+<body>
+
+<div class="game-container" id="game-container">
+  <header class="game-header">
+    <a href="index.html" style="position:absolute; left:20px; color:white; text-decoration:none;">🏠 Home</a>
+    <h1>Word Catcher</h1>
+    <div class="target-box">Catch: <span id="target-word">...</span></div>
+  </header>
+
+  <div id="score-panel">Score: <span id="score">0</span> / 10</div>
+  <div id="catcher">🧺</div>
+</div>
+
+<div id="finish-screen">
+  <div style="font-size:6rem;">🧺</div>
+  <h2 style="font-size:2.5rem; color:#3F51B5;">Catcher Pro!</h2>
+  <p style="font-size:1.4rem; margin:10px 0;">你是接單字的高手！</p>
+  <button onclick="finishGame()" style="padding:15px 50px; border-radius:35px; border:none; background:#3F51B5; color:white; font-size:1.6rem; font-weight:900; cursor:pointer; margin-top:30px;">
+    完成並回首頁
+  </button>
+</div>
+
+<script>
+let allWords = [];
+let target = "";
+let score = 0;
+const PROGRESS_KEY = 'progress_g3';
+const GAME_ID = 'game7';
+let gameActive = true;
+
+async function loadData() {
+    try {
+        const resp = await fetch('../vocab_g3.json');
+        const units = await resp.json();
+        units.forEach(u => u.core_vocab.forEach(v => allWords.push(v[0])));
+        nextTarget();
+        gameLoop();
+        spawnLoop();
+    } catch (e) { console.error(e); }
+}
+
+function nextTarget() {
+    target = allWords[Math.floor(Math.random() * allWords.length)];
+    document.getElementById('target-word').textContent = target;
+    speak(target);
+}
+
+const catcher = document.getElementById('catcher');
+let catcherX = window.innerWidth / 2;
+
+document.addEventListener('mousemove', e => { catcherX = e.clientX; updateCatcher(); });
+document.addEventListener('touchmove', e => { catcherX = e.touches[0].clientX; updateCatcher(); });
+
+function updateCatcher() {
+    const min = 60, max = window.innerWidth - 60;
+    catcherX = Math.max(min, Math.min(max, catcherX));
+    catcher.style.left = catcherX + 'px';
+}
+
+function spawnWord() {
+    if (!gameActive) return;
+    const container = document.getElementById('game-container');
+    const el = document.createElement('div');
+    el.className = 'falling-word';
+    const isTarget = Math.random() > 0.6;
+    const word = isTarget ? target : allWords[Math.floor(Math.random() * allWords.length)];
+    el.textContent = word;
+    el.style.left = (Math.random() * (window.innerWidth - 100) + 50) + 'px';
+    el.style.top = '-50px';
+    container.appendChild(el);
+    
+    let top = -50;
+    const speed = Math.random() * 2 + 2;
+    
+    const interval = setInterval(() => {
+        if (!gameActive) { clearInterval(interval); el.remove(); return; }
+        top += speed;
+        el.style.top = top + 'px';
+        
+        // 碰撞檢查
+        const rect = el.getBoundingClientRect();
+        const cRect = catcher.getBoundingClientRect();
+        
+        if (rect.bottom > cRect.top && rect.top < cRect.bottom &&
+            rect.right > cRect.left && rect.left < cRect.right) {
+            if (el.textContent === target) {
+                playSound('success');
+                score++;
+                document.getElementById('score').textContent = score;
+                if (score >= 10) { gameActive = false; document.getElementById('finish-screen').style.display = 'flex'; }
+                else nextTarget();
+            } else {
+                playSound('error');
+                score = Math.max(0, score - 1);
+                document.getElementById('score').textContent = score;
+            }
+            clearInterval(interval);
+            el.remove();
+        }
+
+        if (top > window.innerHeight) { clearInterval(interval); el.remove(); }
+    }, 20);
+}
+
+function spawnLoop() {
+    if (!gameActive) return;
+    spawnWord();
+    setTimeout(spawnLoop, 1500);
+}
+
+function finishGame() {
+  const progress = JSON.parse(localStorage.getItem(PROGRESS_KEY) || '{}');
+  progress[GAME_ID] = 'done';
+  localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress));
+  window.location.href = 'index.html';
+}
+
+loadData();
+</script>
+</body>
+</html>
