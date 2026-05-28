@@ -44,6 +44,19 @@ def generate_unit(u, grade_info, template):
     next_text = f"下一課：{u['complete_next']}" if u.get('complete_next') else "恭喜完成本年級所有課程！"
     html = html.replace("{{complete_next_text}}", next_text)
     
+    # 補上缺少的模板標籤替換
+    html = html.replace("{{warmup_sub}}", u.get('warmup_sub', "10 分鐘 · 唱唱歌，熟悉本課主題"))
+    html = html.replace("{{tip_box}}", u.get('tip_box', "💡 試著用剛學到的單字來回答問題吧！"))
+    html = html.replace("{{wrapup_title}}", u.get('wrapup_title', "學習收尾"))
+    html = html.replace("{{wrapup_sub}}", u.get('wrapup_sub', "5 分鐘 · 複習成果"))
+    html = html.replace("{{wrapup_tip}}", u.get('wrapup_tip', "✨ 記得每天練習，進步會更快喔！"))
+    
+    wrapup_lines = u.get('wrapup_lines', ["今天表現得很好！我們學會了本課的核心單字與句型。"])
+    html = html.replace("{{wrapup_lines_html}}", "".join([f"<p>{line}</p>" for line in wrapup_lines]))
+    
+    wrapup_challenges = u.get('wrapup_challenges', ["嘗試在生活中使用今天學到的單字。"])
+    html = html.replace("{{wrapup_challenge_html}}", "<ul>" + "".join([f"<li>{c}</li>" for c in wrapup_challenges]) + "</ul>")
+
     home_btn = '<a href="index.html" class="home-btn" style="position:static; margin-top:15px; background:var(--orange)">🏠 返回課程列表</a>'
     html = html.replace("{{home_btn}}", home_btn)
 

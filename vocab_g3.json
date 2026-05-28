@@ -19,6 +19,10 @@
       ["How many apples do you have?", "I have twelve apples."],
       ["Is this the first one?", "Yes, it is."]
     ],
+    "wrapup_title": "數字小達人",
+    "wrapup_lines": ["我們學會了 11 到 20 的英文，還知道了什麼是「第一」跟「第二」。", "恭喜你跨越了兩位數的門檻！"],
+    "wrapup_tip": "✨ 走路時試著數台階，從 1 數到 20 吧！",
+    "wrapup_challenges": ["數數看你的書包裡有幾枝筆，用英文說出來。", "找出教室裡第 11 個物品是什麼。"],
     "complete_next": "Unit 2: My Body"
   },
   {
@@ -40,6 +44,10 @@
       ["What is this?", "This is my knee."],
       ["Are your legs long?", "Yes, they are."]
     ],
+    "wrapup_title": "身體小尖兵",
+    "wrapup_lines": ["認識了手臂、腿、膝蓋等部位。現在你可以更精確地描述身體了！", "健康的身體是學習的基礎喔。"],
+    "wrapup_tip": "✨ 洗澡時可以一邊洗一邊複習身體部位的單字喔。",
+    "wrapup_challenges": ["跟家人玩「老師說 (Simon Says)」遊戲，指對身體的部位。", "對著鏡子練習說出五個身體部位。"],
     "complete_next": "Unit 3: My Clothes"
   },
   {
@@ -61,6 +69,10 @@
       ["What are you wearing?", "I am wearing a red dress."],
       ["Are these your socks?", "Yes, they are."]
     ],
+    "wrapup_title": "穿搭小助手",
+    "wrapup_lines": ["我們練習了各種衣物的名稱，現在你可以自己選衣服並說出它們了。", "學會穿搭也是一種生活美學！"],
+    "wrapup_tip": "✨ 每天穿衣服時，大聲說出你穿的是 shirt 還是 pants。",
+    "wrapup_challenges": ["找出家裡顏色最特別的一件衣服，說出它的英文名稱。", "幫娃娃或玩偶搭配一套衣服並介紹。"],
     "complete_next": "Unit 4: Fruits & Taste"
   },
   {
@@ -82,6 +94,10 @@
       ["Is the orange sweet?", "Yes, it is yummy."],
       ["Do you like grapes?", "Yes, I do."]
     ],
+    "wrapup_title": "水果小饕客",
+    "wrapup_lines": ["我們不只學了水果，還學會了描述味道，像是酸酸的檸檬。", "多吃水果對身體很好喔！"],
+    "wrapup_tip": "✨ 吃水果時，想一想它是 sweet 還是 sour。",
+    "wrapup_challenges": ["畫出一種你最喜歡的水果，並標上它的英文名稱。", "閉上眼睛吃一小塊水果，猜猜它是什麼。"],
     "complete_next": "Unit 5: Healthy Veggies"
   },
   {
@@ -103,6 +119,10 @@
       ["Do you like carrots?", "No, I like potatoes."],
       ["Is the tomato red?", "Yes, it is red and healthy."]
     ],
+    "wrapup_title": "蔬菜小博士",
+    "wrapup_lines": ["知道為什麼蔬菜是 healthy 的嗎？因為它們有豐富的維他命！", "挑戰當一個不挑食的好孩子。"],
+    "wrapup_tip": "✨ 看到綠色的蔬菜時，記得練習說 green vegetable。",
+    "wrapup_challenges": ["在晚餐桌上找出三種今天學過的蔬菜。", "說出一個你原本不愛但決定嘗試看看的蔬菜名。"],
     "complete_next": "Unit 6: Wild Animals"
   },
   {
@@ -124,6 +144,10 @@
       ["Is the lion scary?", "Yes, it is very scary."],
       ["What animal do you see?", "I see a zebra."]
     ],
+    "wrapup_title": "叢林探險家",
+    "wrapup_lines": ["走進了叢林，認識了強壯的獅子、老虎，還有長長的蛇。", "大自然裡還有很多神奇的動物等你去發現。"],
+    "wrapup_tip": "✨ 模仿動物的聲音或動作，能幫你更快記住單字喔！",
+    "wrapup_challenges": ["想像你有一隻寵物象，給它取個英文名字並介紹它。", "找出家裡關於動物的童書並說出它的英文。"],
     "complete_next": "Unit 7: In the Classroom"
   },
   {
@@ -145,6 +169,10 @@
       ["Where is the chair?", "It is next to the desk."],
       ["Is the door open?", "No, it is closed."]
     ],
+    "wrapup_title": "教室小主人",
+    "wrapup_lines": ["我們學會了描述教室的環境，還練習了「開門」與「關窗」的指令。", "保持教室整潔是大家的責任喔。"],
+    "wrapup_tip": "✨ 當老師說 \"Close the door\" 時，試著在腦中翻譯成中文。",
+    "wrapup_challenges": ["幫家裡的書桌整理一下，並說出桌子與椅子的英文。", "數數看教室裡有幾個窗戶 (windows)。"],
     "complete_next": "Unit 8: Action Phrases"
   },
   {
@@ -166,6 +194,10 @@
       ["Do you brush your teeth?", "Yes, I do it everyday."],
       ["What do you do in the morning?", "I wash my face."]
     ],
+    "wrapup_title": "作息小幫手",
+    "wrapup_lines": ["建立了良好的生活習慣，從刷牙到睡覺，你都能用英文表達。", "規律的作息讓你更有精神學習！"],
+    "wrapup_tip": "✨ 每天早上起床時，跟自己說一遍 \"Wash my face\"。",
+    "wrapup_challenges": ["紀錄你今天做了哪些動作，嘗試用英文說說看。", "教家人如何用英文說「刷牙」與「洗手」。"],
     "complete_next": "Unit 9: Places in Town"
   },
   {
@@ -187,11 +219,15 @@
       ["Where are you going?", "I am going to the shop."],
       ["Is there a zoo in your town?", "Yes, there is."]
     ],
+    "wrapup_title": "小小導遊",
+    "wrapup_lines": ["我們在地圖上旅行，拜訪了銀行、公園，還有最熱鬧的市場。", "你最想去鎮上的哪個地方呢？"],
+    "wrapup_tip": "✨ 出門時留意路上的招牌，看看能不能找到 Bank 或 Shop。",
+    "wrapup_challenges": ["畫一張家裡附近的簡易地圖，標出學校與公園的位置。", "指出三種在鎮上會看到的場所。"],
     "complete_next": "Unit 10: Nature & Colors"
   },
   {
     "num": 10, "id": "unit10", "title": "Nature & Colors", "icon": "🌈", "grade_label": "UNIT 10 OF 12",
-    "video_url": "https://www.youtube.com/watch?v=tRNy2i75tCc", "video_label": "Rainbow Song",
+    "video_url": "https://www.youtube.com/watch?v=zXEq-QO3nTg", "video_label": "I Love the Mountains",
     "warmup_tasks": ["觀察窗外的自然景色", "練習說出灰色與紫色", "畫出你心中的彩虹"],
     "core_vocab": [
       ["star", "星星"], ["moon", "月亮"], ["flower", "花"], ["grass", "草"],
@@ -208,6 +244,10 @@
       ["What color is the grass?", "It is green."],
       ["Is the moon pretty?", "Yes, it is very pretty."]
     ],
+    "wrapup_title": "大自然觀察家",
+    "wrapup_lines": ["彩虹、月亮與星星，大自然充滿了美麗的顏色。", "保護地球，讓這些美景永遠留下來！"],
+    "wrapup_tip": "✨ 晚上抬頭看天空時，試著對月亮說 \"Pretty moon\"。",
+    "wrapup_challenges": ["去公園找一片漂亮的草地，並觀察花朵的顏色。", "畫一個有星星、月亮跟彩虹的天空圖。"],
     "complete_next": "Unit 11: Weather & Needs"
   },
   {
@@ -229,6 +269,10 @@
       ["How is the weather?", "It is windy."],
       ["Do you need a raincoat?", "Yes, it is rainy."]
     ],
+    "wrapup_title": "小小氣象員",
+    "wrapup_lines": ["學會了觀察天氣，並在下雨天時記得帶上你的雨傘。", "不論天氣好壞，都要保持愉快的心情喔！"],
+    "wrapup_tip": "✨ 每天出門前看看天空，用英文說出今天的天氣。",
+    "wrapup_challenges": ["如果明天會下雨，請準備好你的 raincoat 並說出來。", "猜猜看彩虹通常在什麼天氣之後出現。"],
     "complete_next": "Unit 12: People & Jobs"
   },
   {
@@ -250,6 +294,10 @@
       ["What do you do?", "I am a teacher."],
       ["Is she a nurse?", "Yes, she is."]
     ],
+    "wrapup_title": "夢想追逐者",
+    "wrapup_lines": ["每個人都有夢想，不管是當醫生還是老師，都要努力學習。", "期待看到你實現夢想的那一天！"],
+    "wrapup_tip": "✨ 看到穿制服的人，猜猜看他們的職業是什麼。",
+    "wrapup_challenges": ["訪問一位家人，問問他們的工作英文怎麼說。", "畫一張你長大後想從事的工作圖。"],
     "complete_next": null
   }
 ]
