@@ -86,7 +86,7 @@ const GAME_ID = 'game8';
 async function loadData() {
     try {
         const resp = await fetch('../vocab_g3.json');
-        if (!resp.ok) throw new Error();
+        if (!resp.ok) throw new Error("Fetch Error");
         allUnits = await resp.json();
     } catch (e) {
         console.warn("Fallback active");
@@ -94,50 +94,79 @@ async function loadData() {
             { icon: "🔢", core_vocab: [["eleven", "十一"]], sentences: [["我有十一顆蘋果", "", "I have eleven apples"]] }
         ];
     }
-    buildChallenges();
-    renderStep();
+    
+    if (allUnits && allUnits.length > 0) {
+        buildChallenges();
+        renderStep();
+    } else {
+        document.getElementById('content-area').textContent = "Error: No data loaded.";
+    }
 }
 
 function shuffle(a) { return [...a].sort(() => Math.random() - 0.5); }
 
 function buildChallenges() {
-    // 1. 混合 4 題聽力選擇 (Quiz)
-    for(let i=0; i<4; i++) {
-        const unit = allUnits[Math.floor(Math.random()*allUnits.length)];
-        const word = unit.core_vocab[Math.floor(Math.random()*unit.core_vocab.length)];
-        const wrongs = [];
-        while(wrongs.length < 3) {
-            const rUnit = allUnits[Math.floor(Math.random()*allUnits.length)];
-            const rWord = rUnit.core_vocab[Math.floor(Math.random()*rUnit.core_vocab.length)];
-            if(rWord[0] !== word[0] && !wrongs.includes(rWord[0])) wrongs.push(rWord[0]);
+    try {
+        // 1. 聽力選擇 (Quiz) - 4題
+        for(let i=0; i<4; i++) {
+            const unit = allUnits[Math.floor(Math.random()*allUnits.length)];
+            if (!unit.core_vocab || unit.core_vocab.length === 0) { i--; continue; } // 重選
+            const word = unit.core_vocab[Math.floor(Math.random()*unit.core_vocab.length)];
+            
+            const wrongs = [];
+            let attempts = 0;
+            while(wrongs.length < 3 && attempts < 20) {
+                attempts++;
+                const rUnit = allUnits[Math.floor(Math.random()*allUnits.length)];
+                if (!rUnit.core_vocab || rUnit.core_vocab.length === 0) continue;
+                const rWord = rUnit.core_vocab[Math.floor(Math.random()*rUnit.core_vocab.length)];
+                if(rWord[0] !== word[0] && !wrongs.includes(rWord[0])) wrongs.push(rWord[0]);
+            }
+            challenges.push({ type:'quiz', q: word[1], a: word[0], choices: shuffle([word[0], ...wrongs]) });
         }
-        challenges.push({ type:'quiz', q: word[1], a: word[0], choices: shuffle([word[0], ...wrongs]) });
-    }
-    // 2. 混合 3 題拼字 (Spelling)
-    for(let i=0; i<3; i++) {
-        const unit = allUnits[Math.floor(Math.random()*allUnits.length)];
-        const word = unit.core_vocab[Math.floor(Math.random()*unit.core_vocab.length)];
-        challenges.push({ type:'spelling', q: word[1], a: word[0].toUpperCase() });
-    }
-    // 3. 混合 3 題造句 (Sentence)
-    for(let i=0; i<3; i++) {
-        const unit = allUnits.filter(u => u.sentences && u.sentences.length > 0);
-        const u = unit[Math.floor(Math.random()*unit.length)];
-        const s = u.sentences[Math.floor(Math.random()*u.sentences.length)];
-        challenges.push({ type:'sentence', q: s[0], a: s[2] });
-    }
-    challenges = shuffle(challenges);
-    
-    const dots = document.getElementById('dots');
-    for(let i=0; i<TOTAL_STEPS; i++) {
-        const d = document.createElement('div');
-        d.className = 'dot';
-        dots.appendChild(d);
+
+        // 2. 拼字 (Spelling) - 3題
+        for(let i=0; i<3; i++) {
+            const unit = allUnits[Math.floor(Math.random()*allUnits.length)];
+            if (!unit.core_vocab || unit.core_vocab.length === 0) { i--; continue; }
+            const word = unit.core_vocab[Math.floor(Math.random()*unit.core_vocab.length)];
+            challenges.push({ type:'spelling', q: word[1], a: word[0].toUpperCase() });
+        }
+
+        // 3. 造句 (Sentence) - 3題
+        const sentenceUnits = allUnits.filter(u => u.sentences && u.sentences.length > 0);
+        if (sentenceUnits.length > 0) {
+            for(let i=0; i<3; i++) {
+                const u = sentenceUnits[Math.floor(Math.random()*sentenceUnits.length)];
+                const s = u.sentences[Math.floor(Math.random()*u.sentences.length)];
+                challenges.push({ type:'sentence', q: s[0], a: s[2] });
+            }
+        } else {
+            // 如果沒句子，改用拼字補足
+            for(let i=0; i<3; i++) {
+                const unit = allUnits[0];
+                const word = unit.core_vocab[0];
+                challenges.push({ type:'spelling', q: word[1], a: word[0].toUpperCase() });
+            }
+        }
+
+        challenges = shuffle(challenges);
+        
+        const dots = document.getElementById('dots');
+        dots.innerHTML = '';
+        for(let i=0; i<challenges.length; i++) {
+            const d = document.createElement('div');
+            d.className = 'dot';
+            dots.appendChild(d);
+        }
+    } catch (err) {
+        console.error("Build Challenge Error:", err);
+        document.getElementById('content-area').textContent = "Error building challenges.";
     }
 }
 
 function renderStep() {
-    if(currentStep >= TOTAL_STEPS) {
+    if(currentStep >= challenges.length) {
         document.getElementById('finish-screen').style.display = 'flex';
         return;
     }
@@ -150,7 +179,7 @@ function renderStep() {
     // 更新點點
     const dots = document.querySelectorAll('.dot');
     dots.forEach((d, i) => d.className = i < currentStep ? 'dot active' : 'dot');
-    dots[currentStep].classList.add('active');
+    if (dots[currentStep]) dots[currentStep].classList.add('active');
 
     if(data.type === 'quiz') {
         title.textContent = "聽力與辨識測驗";
@@ -199,7 +228,7 @@ function renderStep() {
         bin.className = 'word-bin';
         let userWords = [];
         const targetArr = data.a.split(' ');
-        shuffle(targetArr).forEach(w => {
+        shuffle([...targetArr]).forEach(w => {
             const tag = document.createElement('div');
             tag.className = 'word-tag';
             tag.textContent = w;
@@ -225,7 +254,7 @@ function checkQuiz(sel, ans) {
 
 function nextStep() {
     currentStep++;
-    setTimeout(renderStep, 1000);
+    setTimeout(renderStep, 800);
 }
 
 function finishGame() {

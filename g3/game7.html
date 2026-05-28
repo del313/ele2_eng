@@ -8,7 +8,15 @@
 <link rel="stylesheet" href="../style-common.css">
 <style>
   body { background: #E8EAF6; overflow: hidden; touch-action: none; }
-  .game-container { max-width: 600px; margin: 0 auto; height: 100vh; position: relative; }
+  .game-container { 
+    max-width: 600px; 
+    margin: 0 auto; 
+    height: 100vh; 
+    position: relative; 
+    overflow: hidden; 
+    background: white; 
+    box-shadow: 0 0 50px rgba(0,0,0,0.1);
+  }
   
   .game-header { background: #3F51B5; color: white; padding: 15px; text-align: center; position: relative; z-index: 10; }
   
@@ -25,9 +33,10 @@
     position: absolute; background: white; border: 2px solid #3F51B5;
     padding: 8px 15px; border-radius: 10px; font-weight: 800; color: #3F51B5;
     white-space: nowrap; pointer-events: none; box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    z-index: 4;
   }
 
-  #score-panel { position: fixed; top: 80px; right: 20px; font-size: 1.2rem; font-weight: 800; color: #3F51B5; }
+  #score-panel { position: fixed; top: 80px; right: 20px; font-size: 1.2rem; font-weight: 800; color: #3F51B5; z-index: 10; }
 
   #finish-screen {
     display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
@@ -39,7 +48,7 @@
 
 <div class="game-container" id="game-container">
   <header class="game-header">
-    <a href="index.html" style="position:absolute; left:20px; color:white; text-decoration:none;">🏠 Home</a>
+    <a href="index.html" style="position:absolute; left:20px; color:white; text-decoration:none; font-weight:800;">🏠 Home</a>
     <h1>Word Catcher</h1>
     <div class="target-box">Catch: <span id="target-word">...</span></div>
   </header>
@@ -90,24 +99,34 @@ function nextTarget() {
 const catcher = document.getElementById('catcher');
 let catcherX = window.innerWidth / 2;
 
+// 監聽整個視窗的移動，但計算時轉換為容器內的座標
 document.addEventListener('mousemove', e => { catcherX = e.clientX; updateCatcher(); });
 document.addEventListener('touchmove', e => { catcherX = e.touches[0].clientX; updateCatcher(); });
 
 function updateCatcher() {
-    const min = 60, max = window.innerWidth - 60;
-    catcherX = Math.max(min, Math.min(max, catcherX));
-    catcher.style.left = catcherX + 'px';
+    const container = document.getElementById('game-container');
+    const rect = container.getBoundingClientRect();
+    const min = 60, max = rect.width - 60;
+    
+    // 將滑鼠 X 座標轉換為相對於 container 的 X 座標
+    let relativeX = catcherX - rect.left;
+    relativeX = Math.max(min, Math.min(max, relativeX));
+    catcher.style.left = relativeX + 'px';
 }
 
 function spawnWord() {
     if (!gameActive) return;
     const container = document.getElementById('game-container');
+    const rect = container.getBoundingClientRect();
     const el = document.createElement('div');
     el.className = 'falling-word';
+    
     const isTarget = Math.random() > 0.6;
     const word = isTarget ? target : allWords[Math.floor(Math.random() * allWords.length)];
     el.textContent = word;
-    el.style.left = (Math.random() * (window.innerWidth - 100) + 50) + 'px';
+    
+    // 隨機在容器寬度內產生
+    el.style.left = (Math.random() * (rect.width - 120) + 60) + 'px';
     el.style.top = '-50px';
     container.appendChild(el);
     
@@ -119,18 +138,22 @@ function spawnWord() {
         top += speed;
         el.style.top = top + 'px';
         
-        // 碰撞檢查
-        const rect = el.getBoundingClientRect();
-        const cRect = catcher.getBoundingClientRect();
+        // 碰撞檢查 (使用 getBoundingClientRect)
+        const itemRect = el.getBoundingClientRect();
+        const catcherRect = catcher.getBoundingClientRect();
         
-        if (rect.bottom > cRect.top && rect.top < cRect.bottom &&
-            rect.right > cRect.left && rect.left < cRect.right) {
+        if (itemRect.bottom > catcherRect.top && itemRect.top < catcherRect.bottom &&
+            itemRect.right > catcherRect.left && itemRect.left < catcherRect.right) {
             if (el.textContent === target) {
                 playSound('success');
                 score++;
                 document.getElementById('score').textContent = score;
-                if (score >= 10) { gameActive = false; document.getElementById('finish-screen').style.display = 'flex'; }
-                else nextTarget();
+                if (score >= 10) { 
+                    gameActive = false; 
+                    document.getElementById('finish-screen').style.display = 'flex'; 
+                } else {
+                    nextTarget();
+                }
             } else {
                 playSound('error');
                 score = Math.max(0, score - 1);
