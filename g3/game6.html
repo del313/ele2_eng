@@ -76,10 +76,14 @@ const GAME_ID = 'game6';
 async function loadData() {
     try {
         const resp = await fetch('../vocab_g3.json');
+        if (!resp.ok) throw new Error();
         const units = await resp.json();
         units.forEach(u => u.core_vocab.forEach(v => allWords.push(v[0])));
-        nextRound();
-    } catch (e) { console.error(e); }
+    } catch (e) {
+        console.warn("Fallback active");
+        allWords = ["APPLE", "BANANA", "ELEVEN", "TWELVE"];
+    }
+    if (allWords.length > 0) nextRound();
 }
 
 function nextRound() {

@@ -60,10 +60,13 @@
   <div class="instruction">第 <span id="q-num">1</span> / 6 題：請排列出正確的英文句子</div>
   
   <div class="sentence-display">
-    <div class="zh-sentence" id="zh-text">載入中...</div>
+    <div style="display:flex; align-items:center; justify-content:center; gap:15px; margin-bottom: 20px;">
+        <div class="zh-sentence" id="zh-text" style="margin-bottom:0">載入中...</div>
+        <button onclick="playTargetSentence()" style="background:#0277BD; color:white; border:none; padding:10px 15px; border-radius:15px; cursor:pointer; font-size:1.2rem;">🔊</button>
+    </div>
     <div class="build-area" id="build-area"></div>
   </div>
-  
+
   <div class="scrambled-words" id="scrambled-words" style="display:flex; flex-wrap:wrap; justify-content:center; gap:12px;"></div>
   
   <div class="controls">
@@ -87,6 +90,12 @@ let currentIdx = 0;
 let userWords = [];
 const PROGRESS_KEY = 'progress_g3';
 const GAME_ID = 'game3';
+
+function playTargetSentence() {
+    if (queue[currentIdx]) {
+        speak(queue[currentIdx].en);
+    }
+}
 
 async function loadData() {
     try {

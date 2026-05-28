@@ -70,21 +70,32 @@ let gameItems = [];
 let score = 0;
 let targetItem = null;
 let lastTargets = [];
+let bubbleCount = 0;
 const PROGRESS_KEY = 'progress_g3';
 const GAME_ID = 'game4';
 
 async function loadData() {
     try {
         const resp = await fetch('../vocab_g3.json');
+        if (!resp.ok) throw new Error();
         const units = await resp.json();
         units.forEach(u => {
             u.core_vocab.forEach(v => {
                 gameItems.push({ text: v[0], icon: u.icon });
             });
         });
+    } catch (e) {
+        console.warn("Fallback active");
+        gameItems = [
+            { text: "ELEVEN", icon: "🔢" }, { text: "TWELVE", icon: "🔢" },
+            { text: "ARM", icon: "💪" }, { text: "LEG", icon: "💪" },
+            { text: "SHIRT", icon: "👕" }, { text: "DRESS", icon: "👕" }
+        ];
+    }
+    if (gameItems.length > 0) {
         nextRound();
         setInterval(createBubble, 1500);
-    } catch (e) { console.error(e); }
+    }
 }
 
 function nextRound() {
@@ -107,7 +118,16 @@ function createBubble() {
   if (gameItems.length === 0) return;
   const area = document.getElementById('bubble-area');
   const bubble = document.createElement('div');
-  const item = gameItems[Math.floor(Math.random() * gameItems.length)];
+  
+  bubbleCount++;
+  let item;
+  if (bubbleCount >= 10) {
+    item = targetItem;
+    bubbleCount = 0;
+  } else {
+    item = gameItems[Math.floor(Math.random() * gameItems.length)];
+    if (item.text === targetItem.text) bubbleCount = 0;
+  }
   
   bubble.className = 'bubble';
   bubble.style.left = Math.random() * 70 + 'vw';
