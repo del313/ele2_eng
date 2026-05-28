@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit 5 – Healthy Veggies</title>
+<script src="../js-common.js"></script>
+<link rel="stylesheet" href="../style-unit.css">
+</head>
+<body>
+
+<header style="position:relative">
+  <a href="index.html" class="home-btn">🏠 首頁</a>
+  <div class="unit-label">UNIT 5 OF 12 &nbsp;·&nbsp; GRADE 3</div>
+  <h1>🥦 Healthy Veggies</h1>
+</header>
+
+<div class="step-nav" id="stepNav"></div>
+
+<!-- PAGE 1: WARM UP -->
+<div class="page active" id="page-0">
+  <div class="page-title"><span>🎵</span> 暖身</div>
+  <div class="page-sub">{{warmup_sub}}</div>
+  <div class="video-btn-wrap">
+    <a class="video-btn" href="https://www.youtube.com/watch?v=frN3nvhIHUk" target="_blank" rel="noopener">
+      <span class="yt-icon">▶️</span> Vegetables Song
+    </a>
+  </div>
+  <div class="task-card">
+    <strong>一起做：</strong><br>
+    <ul><li>認識蔬菜的顏色</li><li>說出你不喜歡的蔬菜 (英文)</li><li>討論為什麼要吃蔬菜</li></ul>
+  </div>
+</div>
+
+<!-- PAGE 2: VOCABULARY -->
+<div class="page" id="page-1">
+  <div class="page-title"><span>🃏</span> 本期單字</div>
+  <div class="page-sub">10 分鐘 · 翻牌記單字 + 配對遊戲</div>
+
+  <div class="vocab-section-label">⭐ 核心單字（要記住！）</div>
+  <div class="vocab-grid" id="coreGrid"></div>
+
+  <div class="vocab-section-label" style="color:#00897B">🌱 延伸單字（有印象就好）</div>
+  <div class="ext-note">點卡片翻面看中文，認識就好，不列入測驗</div>
+  <div class="vocab-grid" id="extGrid"></div>
+
+  <button class="flip-all-btn" onclick="flipAll()">全部翻面 / 全部收起</button>
+
+  <div class="game-label">🎮 配對遊戲：點左邊英文，再點右邊中文</div>
+  <div class="game-score" id="matchScore"></div>
+  <div class="match-board">
+    <div class="match-col" id="matchEn"></div>
+    <div class="match-col" id="matchZh"></div>
+  </div>
+  <button class="reset-btn" onclick="initMatch()">🔄 重新開始</button>
+</div>
+
+<!-- PAGE 3: SENTENCES + QUIZ -->
+<div class="page" id="page-2">
+  <div class="page-title"><span>✏️</span> 核心句型</div>
+  <div class="page-sub">換成你自己的資料試試看！</div>
+
+  <div id="sentenceList"></div>
+
+  <div class="game-label" style="margin-top:22px">🧠 單字小測驗：看中文選英文</div>
+  <div class="quiz-progress" id="quizProgress"></div>
+  <div class="quiz-question">
+    <div class="quiz-q">這個中文是哪個英文單字？</div>
+    <div class="quiz-en" id="quizWord"></div>
+  </div>
+  <div class="quiz-status" id="quizStatus"></div>
+  <div class="quiz-choices" id="quizChoices"></div>
+  <button class="next-quiz-btn" id="nextQuizBtn" onclick="nextQuiz()">下一題 →</button>
+</div>
+
+<!-- PAGE 4: QA PRACTICE -->
+<div class="page" id="page-3">
+  <div class="page-title"><span>🎯</span> 問答接力</div>
+  <div class="page-sub">10 分鐘 · 輪流問答，練習說英文</div>
+  <div id="qaList"></div>
+  <div class="tip-box">{{tip_box}}</div>
+</div>
+
+<!-- PAGE 5: WRAP UP -->
+<div class="page" id="page-4">
+  <div class="page-title"><span>🎤</span> {{wrapup_title}}</div>
+  <div class="page-sub">{{wrapup_sub}}</div>
+  <div class="intro-box">
+    {{wrapup_lines_html}}
+  </div>
+  <div class="star-tip">{{wrapup_tip}}</div>
+  <div class="task-card" style="margin-bottom:0">
+    <strong>最後挑戰：</strong><br>
+    {{wrapup_challenge_html}}
+  </div>
+
+  <div class="complete-area">
+    <button class="complete-btn" onclick="markDone()">✅ 完成本課！</button>
+  </div>
+  <div class="complete-done" id="completeDone">
+    <div class="big">🎉</div>
+    <h3>Unit 5 完成！</h3>
+    <p>下一課：Unit 6: Wild Animals</p>
+    <a href="index.html" class="home-btn" style="position:static; margin-top:15px; background:var(--orange)">🏠 返回課程列表</a>
+  </div>
+</div>
+
+<!-- BOTTOM NAV -->
+<div class="bottom-nav-outer">
+  <div class="bottom-nav">
+    <button class="nav-btn nav-prev" id="prevBtn" onclick="changePage(-1)">← 上一步</button>
+    <div class="nav-step-info" id="stepInfo"></div>
+    <button class="nav-btn nav-next" id="nextBtn" onclick="changePage(1)">下一步 →</button>
+  </div>
+</div>
+
+<script>
+const UNIT_KEY = 'unit5';
+const PROGRESS_KEY = 'progress_g3';
+const steps = [
+  { label: '暖身', icon: '🎵' },
+  { label: '單字', icon: '🃏' },
+  { label: '句型', icon: '✏️' },
+  { label: '練習', icon: '🎯' },
+  { label: '收尾', icon: '🎤' },
+];
+const coreVocab = [
+  {en:'carrot', zh:'胡蘿蔔'},
+  {en:'corn', zh:'玉米'},
+  {en:'onion', zh:'洋蔥'},
+  {en:'potato', zh:'馬鈴薯'},
+  {en:'bean', zh:'豆子'},
+  {en:'tomato', zh:'番茄'},
+  {en:'cabbage', zh:'包心菜'},
+  {en:'lettuce', zh:'萵苣'}
+];
+const extVocab = [
+  {en:'healthy', zh:'健康的'},
+  {en:'vegetable', zh:'蔬菜'},
+  {en:'green', zh:'綠色的'},
+  {en:'eat', zh:'吃'}
+];
+const sentenceData = [{"label": "健康飲食", "pattern": "___ is healthy.", "example": "Corn is healthy.", "speak_text": "Corn is healthy."}, {"label": "色彩練習", "pattern": "The ___ is green.", "example": "The lettuce is green.", "speak_text": "The lettuce is green."}];
+const qaData = [{"q": "Do you like carrots?", "a": "No, I like potatoes."}, {"q": "Is the tomato red?", "a": "Yes, it is red and healthy."}];
+
+(function() {
+  const p = JSON.parse(localStorage.getItem(PROGRESS_KEY) || '{}');
+  if (p[UNIT_KEY] !== 'done') { p[UNIT_KEY] = 'in_progress'; localStorage.setItem(PROGRESS_KEY, JSON.stringify(p)); }
+  else { document.getElementById('completeDone').style.display = 'block'; document.querySelector('.complete-btn').style.display = 'none'; }
+})();
+
+// 渲染句型
+function renderSentences() {
+  const container = document.getElementById('sentenceList');
+  if(!container) return;
+  sentenceData.forEach(s => {
+    const div = document.createElement('div');
+    div.className = 'sentence-box';
+    div.innerHTML = `
+      <div class="slabel">${s.label}</div>
+      <div class="pattern">${s.pattern.replace(/<blank>/g, '<span class="blank">').replace(/<\/blank>/g, '</span>')}</div>
+      <div class="example">→ ${s.example} <button class="speak-btn sentence-speak">🔊</button></div>
+    `;
+    const btn = div.querySelector('.speak-btn');
+    btn.onclick = () => speak(s.speak_text, btn);
+    container.appendChild(div);
+  });
+}
+
+// 渲染 Q&A
+function renderQA() {
+  const container = document.getElementById('qaList');
+  if(!container) return;
+  qaData.forEach((item, i) => {
+    const div = document.createElement('div');
+    div.className = 'qa-item';
+    div.innerHTML = `
+      <div class="qa-num">${i + 1}</div>
+      <div>
+        <div class="qa-q">Q: ${item.q} <button class="speak-btn qa-speak">🔊</button></div>
+        <div class="qa-a">A: ${item.a}</div>
+      </div>
+    `;
+    const btn = div.querySelector('.speak-btn');
+    btn.onclick = () => speak(item.q, btn);
+    container.appendChild(div);
+  });
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  renderSentences();
+  renderQA();
+});
+
+let currentPage = 0;
+const stepNav = document.getElementById('stepNav');
+steps.forEach((s, i) => {
+  const btn = document.createElement('button');
+  btn.className = 'step-btn' + (i === 0 ? ' active' : '');
+  btn.id = `step-${i}`;
+  btn.innerHTML = `<span class="si">${s.icon}</span>${s.label}`;
+  btn.onclick = () => goTo(i);
+  stepNav.appendChild(btn);
+});
+
+function goTo(i) {
+  document.getElementById(`page-${currentPage}`).classList.remove('active');
+  document.getElementById(`step-${currentPage}`).classList.remove('active');
+  currentPage = i;
+  document.getElementById(`page-${i}`).classList.add('active');
+  document.getElementById(`step-${i}`).classList.add('active');
+  updateNav();
+  window.scrollTo(0, 0);
+}
+function changePage(d) { goTo(currentPage + d); }
+function updateNav() {
+  document.getElementById('prevBtn').disabled = currentPage === 0;
+  const nb = document.getElementById('nextBtn');
+  nb.disabled = currentPage === steps.length - 1;
+  nb.textContent = '下一步 →';
+  document.getElementById('stepInfo').textContent = `${currentPage + 1} / ${steps.length}`;
+}
+updateNav();
+
+function makeCards(arr, gridId, isExt) {
+  const grid = document.getElementById(gridId);
+  arr.forEach(v => {
+    const card = document.createElement('div');
+    card.className = 'vocab-card';
+    card.innerHTML = `<div class="vocab-inner">
+      <div class="vocab-front${isExt?' ext':''}">
+        <div class="en">${v.en}</div>
+        <button class="speak-btn" onclick="event.stopPropagation();speak(\`${v.en}\`,this)">🔊</button>
+      </div>
+      <div class="vocab-back${isExt?' ext':''}"><div class="zh">${v.zh}</div><div class="en2">${v.en}</div></div>
+    </div>`;
+    card.addEventListener('click', () => card.classList.toggle('flipped'));
+    grid.appendChild(card);
+  });
+}
+makeCards(coreVocab, 'coreGrid', false);
+makeCards(extVocab, 'extGrid', true);
+
+let allFlipped = false;
+function flipAll() {
+  allFlipped = !allFlipped;
+  document.querySelectorAll('.vocab-card').forEach(c => c.classList.toggle('flipped', allFlipped));
+}
+
+let matchSel = null, matchCorrect = 0;
+function shuffle(a) { return [...a].sort(() => Math.random() - .5); }
+function initMatch() {
+  matchSel = null; matchCorrect = 0;
+  document.getElementById('matchScore').textContent = '';
+  const sub = shuffle(coreVocab).slice(0, 5);
+  document.getElementById('matchEn').innerHTML = '';
+  document.getElementById('matchZh').innerHTML = '';
+  shuffle(sub).forEach(v => document.getElementById('matchEn').appendChild(makeMatchEl(v.en, 'en', v.en)));
+  shuffle(sub).forEach(v => document.getElementById('matchZh').appendChild(makeMatchEl(v.zh, 'zh', v.en)));
+}
+function makeMatchEl(text, side, key) {
+  const el = document.createElement('div');
+  el.className = 'match-item'; el.textContent = text;
+  el.dataset.key = key; el.dataset.side = side;
+  el.addEventListener('click', () => onMatch(el));
+  return el;
+}
+function onMatch(el) {
+  if (el.classList.contains('correct')) return;
+  if (!matchSel) { document.querySelectorAll('.match-item.selected').forEach(e=>e.classList.remove('selected')); el.classList.add('selected'); matchSel = el; return; }
+  if (matchSel === el) { el.classList.remove('selected'); matchSel = null; return; }
+  if (matchSel.dataset.side === el.dataset.side) { matchSel.classList.remove('selected'); matchSel = el; el.classList.add('selected'); return; }
+  if (matchSel.dataset.key === el.dataset.key) {
+    [matchSel, el].forEach(e => { e.classList.remove('selected'); e.classList.add('correct'); });
+    matchCorrect++;
+    playSound('success');
+    document.getElementById('matchScore').textContent = matchCorrect === 5 ? '🎉 全對！太厲害了！' : `✅ 答對 ${matchCorrect} 組`;
+  } else {
+    playSound('error');
+    [matchSel, el].forEach(e => { e.classList.add('wrong'); setTimeout(()=>e.classList.remove('wrong','selected'),500); });
+  }
+  matchSel = null;
+}
+initMatch();
+
+let quizQueue = [], quizIdx = 0, quizAnswered = false;
+function buildQuiz() { quizQueue = shuffle(coreVocab); quizIdx = 0; nextQuiz(); }
+function nextQuiz() {
+  if (quizIdx >= quizQueue.length) {
+    document.getElementById('quizWord').textContent = '🎉 全部完成！';
+    document.getElementById('quizChoices').innerHTML = '';
+    document.getElementById('quizStatus').textContent = '';
+    document.getElementById('nextQuizBtn').style.display = 'none';
+    document.getElementById('quizProgress').textContent = '';
+    return;
+  }
+  quizAnswered = false;
+  const cur = quizQueue[quizIdx];
+  document.getElementById('quizWord').textContent = cur.zh;
+  document.getElementById('quizStatus').textContent = '';
+  document.getElementById('nextQuizBtn').style.display = 'none';
+  document.getElementById('quizProgress').textContent = `第 ${quizIdx+1} / ${quizQueue.length} 題`;
+  const wrongs = shuffle(coreVocab.filter(v => v.en !== cur.en)).slice(0, 3);
+  const choices = shuffle([cur, ...wrongs]);
+  const cont = document.getElementById('quizChoices');
+  cont.innerHTML = '';
+  choices.forEach(c => {
+    const btn = document.createElement('button');
+    btn.className = 'quiz-btn'; btn.textContent = c.en;
+    btn.onclick = () => {
+      if (quizAnswered) return; quizAnswered = true;
+      if (c.en === cur.en) { 
+        btn.classList.add('correct'); 
+        document.getElementById('quizStatus').textContent = '✅ 答對了！'; 
+        document.getElementById('quizStatus').style.color = '#4CAF50';
+        playSound('success');
+      }
+      else { 
+        btn.classList.add('wrong'); 
+        cont.querySelectorAll('.quiz-btn').forEach(b=>{if(b.textContent===cur.en)b.classList.add('correct');}); 
+        document.getElementById('quizStatus').textContent = `❌ 答錯了，是 "${cur.en}"`; 
+        document.getElementById('quizStatus').style.color = '#f44336';
+        playSound('error');
+      }
+      quizIdx++; document.getElementById('nextQuizBtn').style.display = 'block';
+    };
+    cont.appendChild(btn);
+  });
+}
+buildQuiz();
+
+
+function markDone() {
+  const p = JSON.parse(localStorage.getItem(PROGRESS_KEY) || '{}');
+  p[UNIT_KEY] = 'done';
+  localStorage.setItem(PROGRESS_KEY, JSON.stringify(p));
+  document.querySelector('.complete-btn').style.display = 'none';
+  document.getElementById('completeDone').style.display = 'block';
+}
+</script>
+</body>
+</html>

@@ -59,7 +59,10 @@ def main():
     # 設定對應的 JSON 與資料夾
     config = {
         "g2": {"json": "vocab_g2.json", "dir": "g2", "num": 2, "key": "progress_g2", "tpl": "templates/unit_template.html"},
+        "g3": {"json": "vocab_g3.json", "dir": "g3", "num": 3, "key": "progress_g3", "tpl": "templates/unit_template.html"},
         "g4": {"json": "vocab_g4.json", "dir": "g4", "num": 4, "key": "progress_g4", "tpl": "templates/unit_template.html"},
+        "g5": {"json": "vocab_g5.json", "dir": "g5", "num": 5, "key": "progress_g5", "tpl": "templates/unit_template.html"},
+        "g6": {"json": "vocab_g6.json", "dir": "g6", "num": 6, "key": "progress_g6", "tpl": "templates/unit_template.html"},
         "gk": {"json": "vocab_gk.json", "dir": "gk", "num": "K", "key": "progress_kinder", "tpl": "templates/unit_template_gk.html"}
     }
 

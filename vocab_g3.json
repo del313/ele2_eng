@@ -1,0 +1,255 @@
+[
+  {
+    "num": 1, "id": "unit1", "title": "Numbers 11-20", "icon": "🔢", "grade_label": "UNIT 1 OF 12",
+    "video_url": "https://www.youtube.com/watch?v=D0Ajq682yrA", "video_label": "Number Song 10-20",
+    "warmup_tasks": ["跟著影片唱 10 到 20", "練習唸出 eleven, twelve", "數數看教室裡有幾位同學"],
+    "core_vocab": [
+      ["eleven", "十一"], ["twelve", "十二"], ["thirteen", "十三"], ["fourteen", "十四"],
+      ["fifteen", "十五"], ["sixteen", "十六"], ["seventeen", "十七"], ["eighteen", "十八"],
+      ["nineteen", "十九"], ["twenty", "二十"]
+    ],
+    "ext_vocab": [
+      ["first", "第一"], ["second", "第二"], ["number", "數字"], ["total", "總計"]
+    ],
+    "sentences": [
+      ["數字練習", "I have ___.", "I have eleven apples.", "I have eleven apples."],
+      ["順序練習", "It is the ___ one.", "It is the first one.", "It is the first one."]
+    ],
+    "qa": [
+      ["How many apples do you have?", "I have twelve apples."],
+      ["Is this the first one?", "Yes, it is."]
+    ],
+    "complete_next": "Unit 2: My Body"
+  },
+  {
+    "num": 2, "id": "unit2", "title": "My Body", "icon": "💪", "grade_label": "UNIT 2 OF 12",
+    "video_url": "https://www.youtube.com/watch?v=SUt8q0EKbms", "video_label": "My Body Song",
+    "warmup_tasks": ["指著自己的手臂與腿", "大聲說出手指與腳趾的英文", "跟著音樂律動"],
+    "core_vocab": [
+      ["arm", "手臂"], ["leg", "腿"], ["finger", "手指"], ["toe", "腳趾"],
+      ["knee", "膝蓋"], ["shoulder", "肩膀"], ["neck", "脖子"], ["back", "背部"]
+    ],
+    "ext_vocab": [
+      ["bone", "骨頭"], ["skin", "皮膚"], ["body", "身體"], ["strong", "強壯的"]
+    ],
+    "sentences": [
+      ["身體部位", "This is my ___.", "This is my arm.", "This is my arm."],
+      ["複數練習", "I have ten ___.", "I have ten fingers.", "I have ten fingers."]
+    ],
+    "qa": [
+      ["What is this?", "This is my knee."],
+      ["Are your legs long?", "Yes, they are."]
+    ],
+    "complete_next": "Unit 3: My Clothes"
+  },
+  {
+    "num": 3, "id": "unit3", "title": "My Clothes", "icon": "👕", "grade_label": "UNIT 3 OF 12",
+    "video_url": "https://www.youtube.com/watch?v=tRNy2i75tCc", "video_label": "Rainbow Song",
+    "warmup_tasks": ["看看你今天穿什麼顏色的衣服", "練習說出 shirt 與 shoes", "玩裝扮遊戲"],
+    "core_vocab": [
+      ["shirt", "襯衫"], ["dress", "洋裝"], ["coat", "外套"], ["hat", "帽子"],
+      ["shoes", "鞋子"], ["socks", "襪子"], ["pants", "長褲"], ["shorts", "短褲"]
+    ],
+    "ext_vocab": [
+      ["wear", "穿"], ["clean", "乾淨的"], ["new", "新的"], ["old", "舊的"]
+    ],
+    "sentences": [
+      ["穿衣練習", "I wear a ___.", "I wear a blue shirt.", "I wear a blue shirt."],
+      ["狀態描述", "My ___ is new.", "My hat is new.", "My hat is new."]
+    ],
+    "qa": [
+      ["What are you wearing?", "I am wearing a red dress."],
+      ["Are these your socks?", "Yes, they are."]
+    ],
+    "complete_next": "Unit 4: Fruits & Taste"
+  },
+  {
+    "num": 4, "id": "unit4", "title": "Fruits & Taste", "icon": "🍓", "grade_label": "UNIT 4 OF 12",
+    "video_url": "https://www.youtube.com/watch?v=mfReSbQ7jzE", "video_label": "The Fruit Song",
+    "warmup_tasks": ["說出你最喜歡的水果", "練習酸與甜的英文", "閉上眼睛猜水果"],
+    "core_vocab": [
+      ["apple", "蘋果"], ["banana", "香蕉"], ["orange", "柳橙"], ["grape", "葡萄"],
+      ["strawberry", "草莓"], ["lemon", "檸檬"], ["peach", "桃子"], ["pear", "梨子"]
+    ],
+    "ext_vocab": [
+      ["sweet", "甜的"], ["sour", "酸的"], ["yummy", "好吃的"], ["fruit", "水果"]
+    ],
+    "sentences": [
+      ["味道描述", "The ___ is ___.", "The lemon is sour.", "The lemon is sour."],
+      ["愛好表達", "I like ___ apples.", "I like sweet apples.", "I like sweet apples."]
+    ],
+    "qa": [
+      ["Is the orange sweet?", "Yes, it is yummy."],
+      ["Do you like grapes?", "Yes, I do."]
+    ],
+    "complete_next": "Unit 5: Healthy Veggies"
+  },
+  {
+    "num": 5, "id": "unit5", "title": "Healthy Veggies", "icon": "🥦", "grade_label": "UNIT 5 OF 12",
+    "video_url": "https://www.youtube.com/watch?v=frN3nvhIHUk", "video_label": "Vegetables Song",
+    "warmup_tasks": ["認識蔬菜的顏色", "說出你不喜歡的蔬菜 (英文)", "討論為什麼要吃蔬菜"],
+    "core_vocab": [
+      ["carrot", "胡蘿蔔"], ["corn", "玉米"], ["onion", "洋蔥"], ["potato", "馬鈴薯"],
+      ["bean", "豆子"], ["tomato", "番茄"], ["cabbage", "包心菜"], ["lettuce", "萵苣"]
+    ],
+    "ext_vocab": [
+      ["healthy", "健康的"], ["vegetable", "蔬菜"], ["green", "綠色的"], ["eat", "吃"]
+    ],
+    "sentences": [
+      ["健康飲食", "___ is healthy.", "Corn is healthy.", "Corn is healthy."],
+      ["色彩練習", "The ___ is green.", "The lettuce is green.", "The lettuce is green."]
+    ],
+    "qa": [
+      ["Do you like carrots?", "No, I like potatoes."],
+      ["Is the tomato red?", "Yes, it is red and healthy."]
+    ],
+    "complete_next": "Unit 6: Wild Animals"
+  },
+  {
+    "num": 6, "id": "unit6", "title": "Wild Animals", "icon": "🦁", "grade_label": "UNIT 6 OF 12",
+    "video_url": "https://www.youtube.com/watch?v=GoSq-yZcJ-4", "video_label": "Walking In The Jungle",
+    "warmup_tasks": ["模仿獅子的吼叫聲", "練習說出長頸鹿和大象", "想像你在森林裡"],
+    "core_vocab": [
+      ["lion", "獅子"], ["tiger", "老虎"], ["elephant", "大象"], ["zebra", "斑馬"],
+      ["monkey", "猴子"], ["giraffe", "長頸鹿"], ["snake", "蛇"], ["bear", "熊"]
+    ],
+    "ext_vocab": [
+      ["wild", "野生的"], ["jungle", "叢林"], ["animal", "動物"], ["scary", "可怕的"]
+    ],
+    "sentences": [
+      ["動物特性", "The ___ is big.", "The elephant is big.", "The elephant is big."],
+      ["位置描述", "The ___ is in the jungle.", "The monkey is in the jungle.", "The monkey is in the jungle."]
+    ],
+    "qa": [
+      ["Is the lion scary?", "Yes, it is very scary."],
+      ["What animal do you see?", "I see a zebra."]
+    ],
+    "complete_next": "Unit 7: In the Classroom"
+  },
+  {
+    "num": 7, "id": "unit7", "title": "In the Classroom", "icon": "🏫", "grade_label": "UNIT 7 OF 12",
+    "video_url": "https://www.youtube.com/watch?v=41cJ0mqWses", "video_label": "School Song",
+    "warmup_tasks": ["指著教室裡的黑板", "練習說出桌子與椅子的英文", "整理你的書桌"],
+    "core_vocab": [
+      ["desk", "書桌"], ["chair", "椅子"], ["board", "板子/黑板"], ["window", "窗戶"],
+      ["door", "門"], ["floor", "地板"], ["clock", "時鐘"], ["wall", "牆壁"]
+    ],
+    "ext_vocab": [
+      ["class", "班級"], ["room", "房間"], ["open", "打開"], ["close", "關閉"]
+    ],
+    "sentences": [
+      ["教室指令", "Close the ___.", "Close the window.", "Close the window."],
+      ["物品位置", "The ___ is on the wall.", "The clock is on the wall.", "The clock is on the wall."]
+    ],
+    "qa": [
+      ["Where is the chair?", "It is next to the desk."],
+      ["Is the door open?", "No, it is closed."]
+    ],
+    "complete_next": "Unit 8: Action Phrases"
+  },
+  {
+    "num": 8, "id": "unit8", "title": "Action Phrases", "icon": "🏃", "grade_label": "UNIT 8 OF 12",
+    "video_url": "https://www.youtube.com/watch?v=fPMjnlTEZwU", "video_label": "Walking Walking",
+    "warmup_tasks": ["模仿刷牙的動作", "練習說洗手與洗臉", "跟著節奏做律動"],
+    "core_vocab": [
+      ["wash", "洗"], ["brush", "刷"], ["teeth", "牙齒"], ["face", "臉"],
+      ["hands", "手"], ["sleep", "睡覺"], ["work", "工作"], ["play", "玩"]
+    ],
+    "ext_vocab": [
+      ["morning", "早上"], ["night", "晚上"], ["way", "方式"], ["everyday", "每天"]
+    ],
+    "sentences": [
+      ["作息練習", "I ___ my ___.", "I wash my hands.", "I wash my hands."],
+      ["時段練習", "I sleep at ___.", "I sleep at night.", "I sleep at night."]
+    ],
+    "qa": [
+      ["Do you brush your teeth?", "Yes, I do it everyday."],
+      ["What do you do in the morning?", "I wash my face."]
+    ],
+    "complete_next": "Unit 9: Places in Town"
+  },
+  {
+    "num": 9, "id": "unit9", "title": "Places in Town", "icon": "🏙️", "grade_label": "UNIT 9 OF 12",
+    "video_url": "https://www.youtube.com/watch?v=yWirdnSDsV4", "video_label": "Wheels on the Bus",
+    "warmup_tasks": ["說出你家附近有什麼地方", "練習說出公園與學校", "在地圖上找路"],
+    "core_vocab": [
+      ["bank", "銀行"], ["park", "公園"], ["shop", "商店"], ["hospital", "醫院"],
+      ["school", "學校"], ["zoo", "動物園"], ["market", "市場"], ["office", "辦公室"]
+    ],
+    "ext_vocab": [
+      ["place", "地方"], ["town", "城鎮"], ["city", "城市"], ["go to", "去..."]
+    ],
+    "sentences": [
+      ["出發去哪", "I go to the ___.", "I go to the park.", "I go to the park."],
+      ["描述城鎮", "My ___ is beautiful.", "My town is beautiful.", "My town is beautiful."]
+    ],
+    "qa": [
+      ["Where are you going?", "I am going to the shop."],
+      ["Is there a zoo in your town?", "Yes, there is."]
+    ],
+    "complete_next": "Unit 10: Nature & Colors"
+  },
+  {
+    "num": 10, "id": "unit10", "title": "Nature & Colors", "icon": "🌈", "grade_label": "UNIT 10 OF 12",
+    "video_url": "https://www.youtube.com/watch?v=tRNy2i75tCc", "video_label": "Rainbow Song",
+    "warmup_tasks": ["觀察窗外的自然景色", "練習說出灰色與紫色", "畫出你心中的彩虹"],
+    "core_vocab": [
+      ["star", "星星"], ["moon", "月亮"], ["flower", "花"], ["grass", "草"],
+      ["gray", "灰色"], ["purple", "紫色"], ["pink", "粉紅色"], ["brown", "咖啡色"]
+    ],
+    "ext_vocab": [
+      ["nature", "自然"], ["sky", "天空"], ["earth", "地球"], ["pretty", "漂亮的"]
+    ],
+    "sentences": [
+      ["自然顏色", "The ___ is ___.", "The flower is purple.", "The flower is purple."],
+      ["天空景色", "I see the ___.", "I see the moon.", "I see the moon."]
+    ],
+    "qa": [
+      ["What color is the grass?", "It is green."],
+      ["Is the moon pretty?", "Yes, it is very pretty."]
+    ],
+    "complete_next": "Unit 11: Weather & Needs"
+  },
+  {
+    "num": 11, "id": "unit11", "title": "Weather & Needs", "icon": "🌧️", "grade_label": "UNIT 11 OF 12",
+    "video_url": "https://www.youtube.com/watch?v=rD6FRDd9Hew", "video_label": "How's the Weather?",
+    "warmup_tasks": ["看看今天的天氣", "練習下雨天需要的東西", "練習說出 sunny 與 rainy"],
+    "core_vocab": [
+      ["sunny", "晴朗的"], ["rainy", "下雨的"], ["cloudy", "多雲的"], ["snowy", "下雪的"],
+      ["windy", "風大的"], ["umbrella", "雨傘"], ["raincoat", "雨衣"], ["sun", "太陽"]
+    ],
+    "ext_vocab": [
+      ["weather", "天氣"], ["need", "需要"], ["take", "拿/帶"], ["outside", "外面"]
+    ],
+    "sentences": [
+      ["天氣描述", "It is ___ today.", "It is rainy today.", "It is rainy today."],
+      ["需求練習", "I need an ___.", "I need an umbrella.", "I need an umbrella."]
+    ],
+    "qa": [
+      ["How is the weather?", "It is windy."],
+      ["Do you need a raincoat?", "Yes, it is rainy."]
+    ],
+    "complete_next": "Unit 12: People & Jobs"
+  },
+  {
+    "num": 12, "id": "unit12", "title": "People & Jobs", "icon": "👮", "grade_label": "UNIT 12 OF 12",
+    "video_url": "https://www.youtube.com/watch?v=ckKQclquAXU", "video_label": "Jobs Song",
+    "warmup_tasks": ["說出你長大想做什麼", "練習說出老師與醫生的英文", "訪問同學的夢想"],
+    "core_vocab": [
+      ["doctor", "醫生"], ["nurse", "護士"], ["teacher", "老師"], ["driver", "司機"],
+      ["singer", "歌手"], ["actor", "男演員"], ["student", "學生"], ["boss", "老闆"]
+    ],
+    "ext_vocab": [
+      ["job", "工作"], ["people", "人們"], ["work", "工作"], ["dream", "夢想"]
+    ],
+    "sentences": [
+      ["自我介紹", "I am a ___.", "I am a student.", "I am a student."],
+      ["他人職業", "He is a ___.", "He is a driver.", "He is a driver."]
+    ],
+    "qa": [
+      ["What do you do?", "I am a teacher."],
+      ["Is she a nurse?", "Yes, she is."]
+    ],
+    "complete_next": null
+  }
+]
