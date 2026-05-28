@@ -227,7 +227,11 @@ function renderStep() {
         const bin = document.createElement('div');
         bin.className = 'word-bin';
         let userWords = [];
-        const targetArr = data.a.split(' ');
+        
+        // 移除標點符號再切分單字
+        const cleanTarget = data.a.replace(/[.,!?;]/g, '');
+        const targetArr = cleanTarget.split(' ');
+        
         shuffle([...targetArr]).forEach(w => {
             const tag = document.createElement('div');
             tag.className = 'word-tag';
@@ -237,8 +241,15 @@ function renderStep() {
                 tag.style.display = 'none';
                 document.getElementById('built-s').textContent = userWords.join(' ');
                 if(userWords.length === targetArr.length) {
-                    if(userWords.join(' ') === data.a) { playSound('success'); speak(data.a); nextStep(); }
-                    else { playSound('error'); renderStep(); }
+                    if(userWords.join(' ').toLowerCase() === cleanTarget.toLowerCase()) { 
+                        playSound('success'); 
+                        speak(data.a); 
+                        nextStep(); 
+                    }
+                    else { 
+                        playSound('error'); 
+                        renderStep(); 
+                    }
                 }
             };
             bin.appendChild(tag);

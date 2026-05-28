@@ -149,7 +149,8 @@ function nextRound() {
     document.getElementById('zh-text').textContent = item.zh;
     document.getElementById('build-area').innerHTML = '';
     
-    const scrambled = shuffle([...item.originalWords]);
+    // 使用不含標點符號的單字陣列
+    const scrambled = shuffle([...item.words]);
     const wordArea = document.getElementById('scrambled-words');
     wordArea.innerHTML = '';
     
@@ -174,9 +175,9 @@ function addWord(word, el) {
     span.textContent = word;
     buildArea.appendChild(span);
     
-    const target = queue[currentIdx].originalWords;
+    const target = queue[currentIdx].words;
     if (userWords.length === target.length) {
-        if (userWords.join(' ') === target.join(' ')) {
+        if (userWords.join(' ').toLowerCase() === target.join(' ').toLowerCase()) {
             playSound('success');
             speak(queue[currentIdx].en);
             currentIdx++;
