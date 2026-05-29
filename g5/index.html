@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小五英文課程 – Grade 5</title>
+<link rel="stylesheet" href="../style-common.css">
+<style>
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  .game-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+  .game-card {
+    grid-column: auto !important;
+    margin: 0 !important;
+    flex-direction: column !important;
+    padding: 15px !important;
+    text-align: center !important;
+  }
+  .game-card .card-icon { margin-bottom: 5px; }
+  .game-card .content { text-align: center !important; }
+  .game-card .card-title { font-size: 1.1rem !important; }
+
+  @media (max-width: 600px) {
+    .card-grid, .game-grid {
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🎭 小五英文應用</h1>
+  <p>Grade 5 English · 15 Units</p>
+  <div class="progress-wrap">
+    <div class="progress-bar" id="progressBar" style="width:0%"></div>
+  </div>
+  <div class="progress-label" id="progressLabel">0 / 15 完成</div>
+  <div class="header-btns">
+    <button class="reset-progress-btn" onclick="resetProgress()">🔄 重設進度</button>
+    <a href="../index.html" class="back-home-btn">🏠 回首頁</a>
+  </div>
+</header>
+
+<style>
+  .header-btns {
+    display: flex;
+    justify-content: space-between;
+    margin: 15px auto 0 auto;
+    max-width: 800px;
+    padding: 0 20px;
+    gap: 20px;
+  }
+  .back-home-btn, .reset-progress-btn {
+    box-sizing: border-box;
+    background: rgba(255,255,255,0.15);
+    border: 2px solid rgba(255,255,255,0.5);
+    border-radius: 20px;
+    color: white;
+    font-size: 13px;
+    font-weight: 800;
+    padding: 0;
+    height: 40px;
+    width: 130px;
+    text-decoration: none;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    line-height: 1;
+  }
+  .back-home-btn:hover, .reset-progress-btn:hover {
+    background: rgba(255,255,255,0.3);
+    transform: scale(1.05);
+  }
+</style>
+
+<div class="container">
+
+  <div class="continue-banner hidden" id="continueBanner">
+    <div class="cb-text" style="font-size: 1.1rem;">繼續挑戰：<span id="continueTitle" style="color:#7E57C2"></span></div>
+    <a href="#" class="cb-btn" id="continueLink" style="background:#7E57C2; color:white; padding:10px 20px; border-radius:30px; text-decoration:none; font-weight:800; margin-left:15px;">GO! →</a>
+  </div>
+
+  <div class="section-label">第一階段：職業與方向 (Unit 1-3)</div>
+  <div class="card-grid" id="group1"></div>
+  <div class="game-grid" id="games-p1"></div>
+
+  <div class="section-label" style="margin-top:40px;">第二階段：交通與健康 (Unit 4-6)</div>
+  <div class="card-grid" id="group2"></div>
+  <div class="game-grid" id="games-p2"></div>
+
+  <div class="section-label" style="margin-top:40px;">第三階段：嗜好與時間 (Unit 7-9)</div>
+  <div class="card-grid" id="group3"></div>
+  <div class="game-grid" id="games-p3"></div>
+
+  <div class="section-label" style="margin-top:40px;">第四階段：金錢與餐桌 (Unit 10-12)</div>
+  <div class="card-grid" id="group4"></div>
+  <div class="game-grid" id="games-p4"></div>
+
+  <div class="section-label" style="margin-top:40px;">第五階段：世界與社交 (Unit 13-15)</div>
+  <div class="card-grid" id="group5"></div>
+  <div class="game-grid" id="games-p5"></div>
+
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot" style="background:#FFF;border:3px solid #4FC3F7"></div> 準備好</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#FFFDE7;border:3px solid #FFB74D"></div> 進行中</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#F1F8E9;border:3px solid #81C784"></div> 已完成</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#ECEFF1;border:3px solid #D1D9E0"></div> 鎖定中</div>
+  </div>
+
+</div>
+
+<script>
+const units = [
+  { id:'unit1',  title:'Dream Jobs I', sub:'夢想職業 I', icon:'👨‍⚕️', file:'unit1.html'  },
+  { id:'unit2',  title:'Dream Jobs II', sub:'夢想職業 II', icon:'🎨', file:'unit2.html'  },
+  { id:'unit3',  title:'Position & Direction', sub:'位置與方向', icon:'🧭', file:'unit3.html'  },
+  { id:'unit4',  title:'Transportation', sub:'交通工具', icon:'🚢', file:'unit4.html'  },
+  { id:'unit5',  title:'Health Issues', sub:'健康與疾病', icon:'🤒', file:'unit5.html'  },
+  { id:'unit6',  title:'Sports', sub:'各類運動', icon:'⚽', file:'unit6.html'  },
+  { id:'unit7',  title:'Hobbies', sub:'興趣嗜好', icon:'🎮', file:'unit7.html'  },
+  { id:'unit8',  title:'Time: Hours & Week', sub:'小時與星期', icon:'⏰', file:'unit8.html'  },
+  { id:'unit9',  title:'Time: Month & Seasons', sub:'月份與季節', icon:'🍂', file:'unit9.html'  },
+  { id:'unit10', title:'Money & Shopping', sub:'金錢與購物', icon:'💰', file:'unit10.html' },
+  { id:'unit11', title:'Tableware & Habits', sub:'餐具與習慣', icon:'🍴', file:'unit11.html' },
+  { id:'unit12', title:'Appearance & Personality', sub:'外貌與個性', icon:'🌟', file:'unit12.html' },
+  { id:'unit13', title:'Countries & Languages', sub:'國家與語言', icon:'🌍', file:'unit13.html' },
+  { id:'unit14', title:'Daily Routine Verbs', sub:'日常動作', icon:'🛌', file:'unit14.html' },
+  { id:'unit15', title:'Social Communication', sub:'社交溝通', icon:'🗣️', file:'unit15.html' },
+];
+
+const games = [
+  { id:'game1', title:'Word Scramble', sub:'單字大重組', icon:'🌪️', file:'game1.html', phase: 1 },
+  { id:'game2', title:'Mystery Clue',   sub:'英文小偵探', icon:'🔍', file:'game2.html', phase: 2 },
+  { id:'game3', title:'Sentence Pro', sub:'造句大師', icon:'✍️', file:'game3.html', phase: 3 },
+  { id:'game4', title:'Final Challenge', sub:'小五終極考驗', icon:'🏆', file:'game4.html', phase: 5 },
+];
+
+const unitSequence = units.map(u => u.id);
+const PROGRESS_KEY = 'progress_g5';
+const progress = JSON.parse(localStorage.getItem(PROGRESS_KEY) || '{}');
+
+window.addEventListener('pageshow', e => { if (e.persisted) location.reload(); });
+
+function resetProgress() {
+  if (confirm('確定要清除所有進度嗎？')) {
+    localStorage.removeItem(PROGRESS_KEY);
+    location.reload();
+  }
+}
+
+function getState(id) {
+  if (progress[id] === 'done') return 'done';
+  if (progress[id] === 'in_progress') return 'in-progress';
+  
+  if (id.startsWith('unit')) {
+    const idx = unitSequence.indexOf(id);
+    if (idx === 0) return 'available';
+    const prev = unitSequence[idx - 1];
+    if (progress[prev] === 'done') return 'available';
+    return 'locked';
+  } else if (id.startsWith('game')) {
+    const game = games.find(g => g.id === id);
+    if (game.phase === 1) return progress['unit3'] === 'done' ? 'available' : 'locked';
+    if (game.phase === 2) return progress['unit6'] === 'done' ? 'available' : 'locked';
+    if (game.phase === 3) return progress['unit9'] === 'done' ? 'available' : 'locked';
+    if (game.phase === 5) return progress['unit15'] === 'done' ? 'available' : 'locked';
+  }
+  return 'locked';
+}
+
+function makeUnitCard(u, num) {
+  const state = getState(u.id);
+  const a = document.createElement('a');
+  a.className = `unit-card ${state}`;
+  a.href = state === 'locked' ? '#' : u.file;
+  if (state === 'locked') a.onclick = e => e.preventDefault();
+  
+  const badge = state === 'done' ? '⭐' : state === 'in-progress' ? '▶️' : state === 'locked' ? '🔒' : '';
+  a.innerHTML = `
+    ${badge ? `<div class="card-badge">${badge}</div>` : ''}
+    <div class="card-num">UNIT ${num}</div>
+    <div class="card-icon">${u.icon}</div>
+    <div class="card-title">${u.title}</div>
+    <div class="card-sub">${u.sub}</div>`;
+  return a;
+}
+
+function makeGameCard(game) {
+  const state = getState(game.id);
+  const a = document.createElement('a');
+  a.className = `game-card ${state}`;
+  a.href = state === 'locked' ? '#' : game.file;
+  if (state === 'locked') a.onclick = e => e.preventDefault();
+  
+  const badge = state === 'done' ? ' 🏆' : state === 'locked' ? ' 🔒' : ' 🎁';
+  a.innerHTML = `
+    <div class="card-icon">${game.icon}</div>
+    <div class="content">
+      <div class="card-title">${game.title}${badge}</div>
+      <div class="card-sub">${game.sub}</div>
+    </div>`;
+  return a;
+}
+
+// 渲染單元 (3個一組)
+[units.slice(0,3), units.slice(3,6), units.slice(6,9), units.slice(9,12), units.slice(12,15)].forEach((group, gi) => {
+  const grid = document.getElementById(`group${gi+1}`);
+  if (grid) {
+    group.forEach((u, i) => grid.appendChild(makeUnitCard(u, gi*3 + i + 1)));
+  }
+});
+
+// 渲染遊戲
+games.forEach((g) => {
+  const area = document.getElementById(`games-p${g.phase}`);
+  if (area) area.appendChild(makeGameCard(g));
+});
+
+const sequence = [...unitSequence, ...games.map(g => g.id)];
+const total = sequence.length;
+const done = sequence.filter(id => progress[id] === 'done').length;
+document.getElementById('progressBar').style.width = `${Math.round(done/total*100)}%`;
+document.getElementById('progressLabel').textContent = `${done} / ${total} 完成`;
+
+const targetUnit = unitSequence.find(id => progress[id] !== 'done');
+const target = targetUnit || games.map(g => g.id).find(id => progress[id] !== 'done');
+if (target) {
+  const state = getState(target);
+  if (state !== 'locked') {
+    const banner = document.getElementById('continueBanner');
+    banner.classList.remove('hidden');
+    banner.style.display = 'flex';
+    const u = units.find(x => x.id === target) || games.find(x => x.id === target);
+    if (u) {
+      document.getElementById('continueTitle').textContent = u.title;
+      document.getElementById('continueLink').href = u.file;
+    }
+  }
+}
+</script>
+</body>
+</html>

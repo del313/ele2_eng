@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Unit 10 – Nature & Colors</title>
+<title>Unit 8 – Time: Hours & Week</title>
 <script src="../js-common.js"></script>
 <link rel="stylesheet" href="../style-unit.css">
 </head>
@@ -11,8 +11,8 @@
 
 <header style="position:relative">
   <a href="index.html" class="home-btn">🏠 首頁</a>
-  <div class="unit-label">UNIT 10 OF 12 &nbsp;·&nbsp; GRADE 3</div>
-  <h1>🌈 Nature & Colors</h1>
+  <div class="unit-label">UNIT 8 OF 15 &nbsp;·&nbsp; GRADE 5</div>
+  <h1>⏰ Time: Hours & Week</h1>
 </header>
 
 <div class="step-nav" id="stepNav"></div>
@@ -22,13 +22,13 @@
   <div class="page-title"><span>🎵</span> 暖身</div>
   <div class="page-sub">10 分鐘 · 唱唱歌，熟悉本課主題</div>
   <div class="video-btn-wrap">
-    <a class="video-btn" href="https://www.youtube.com/watch?v=tRNy2i75tCc" target="_blank" rel="noopener">
-      <span class="yt-icon">▶️</span> The Rainbow Colors Song
+    <a class="video-btn" href="https://www.youtube.com/watch?v=D60PCX" target="_blank" rel="noopener">
+      <span class="yt-icon">▶️</span> What time is it?
     </a>
   </div>
   <div class="task-card">
     <strong>一起做：</strong><br>
-    <ul><li>觀察窗外的自然景色</li><li>練習說出灰色與紫色</li><li>畫出你心中的彩虹</li></ul>
+    <ul><li>練習看時鐘並說出整點</li><li>依序說出週一到週日</li><li>討論你一天的作息</li></ul>
   </div>
 </div>
 
@@ -83,15 +83,15 @@
 
 <!-- PAGE 5: WRAP UP -->
 <div class="page" id="page-4">
-  <div class="page-title"><span>🎤</span> 大自然觀察家</div>
+  <div class="page-title"><span>🎤</span> 時間小主人</div>
   <div class="page-sub">5 分鐘 · 複習成果</div>
   <div class="intro-box">
-    <p>彩虹、月亮與星星，大自然充滿了美麗的顏色。</p><p>保護地球，讓這些美景永遠留下來！</p>
+    <p>學會管理時間，就是學會管理生活。</p><p>時間像流水，一旦過去就不會再回來喔。</p>
   </div>
-  <div class="star-tip">✨ 晚上抬頭看天空時，試著對月亮說 "Pretty moon"。</div>
+  <div class="star-tip">✨ 每天早上醒來先問問自己：What time is it?。</div>
   <div class="task-card" style="margin-bottom:0">
     <strong>最後挑戰：</strong><br>
-    <ul><li>去公園找一片漂亮的草地，並觀察花朵的顏色。</li><li>畫一個有星星、月亮跟彩虹的天空圖。</li></ul>
+    <ul><li>說出你一週中最喜歡的一天（英文）。</li><li>對著時鐘練習說出整點與半點。</li></ul>
   </div>
 
   <div class="complete-area">
@@ -99,8 +99,8 @@
   </div>
   <div class="complete-done" id="completeDone">
     <div class="big">🎉</div>
-    <h3>Unit 10 完成！</h3>
-    <p>下一課：Unit 11: Weather & Needs</p>
+    <h3>Unit 8 完成！</h3>
+    <p>下一課：Unit 9: Time: Month & Seasons</p>
     <a href="index.html" class="home-btn" style="position:static; margin-top:15px; background:var(--orange)">🏠 返回課程列表</a>
   </div>
 </div>
@@ -115,8 +115,8 @@
 </div>
 
 <script>
-const UNIT_KEY = 'unit10';
-const PROGRESS_KEY = 'progress_g3';
+const UNIT_KEY = 'unit8';
+const PROGRESS_KEY = 'progress_g5';
 const steps = [
   { label: '暖身', icon: '🎵' },
   { label: '單字', icon: '🃏' },
@@ -125,23 +125,23 @@ const steps = [
   { label: '收尾', icon: '🎤' },
 ];
 const coreVocab = [
-  {en:'star', zh:'星星'},
-  {en:'moon', zh:'月亮'},
-  {en:'flower', zh:'花'},
-  {en:'grass', zh:'草'},
-  {en:'gray', zh:'灰色'},
-  {en:'purple', zh:'紫色'},
-  {en:'pink', zh:'粉紅色'},
-  {en:'brown', zh:'咖啡色'}
+  {en:'hour', zh:'小時'},
+  {en:'minute', zh:'分鐘'},
+  {en:'second', zh:'秒'},
+  {en:'time', zh:'時間'},
+  {en:'Monday', zh:'週一'},
+  {en:'Friday', zh:'週五'},
+  {en:'Saturday', zh:'週六'},
+  {en:'Sunday', zh:'週日'}
 ];
 const extVocab = [
-  {en:'nature', zh:'自然'},
-  {en:'sky', zh:'天空'},
-  {en:'earth', zh:'地球'},
-  {en:'pretty', zh:'漂亮的'}
+  {en:'morning', zh:'早上'},
+  {en:'afternoon', zh:'下午'},
+  {en:'night', zh:'晚上'},
+  {en:'noon', zh:'正午'}
 ];
-const sentenceData = [{"label": "自然顏色", "pattern": "The ___ is ___.", "example": "The flower is purple.", "speak_text": "The flower is purple."}, {"label": "天空景色", "pattern": "I see the ___.", "example": "I see the moon.", "speak_text": "I see the moon."}];
-const qaData = [{"q": "What color is the grass?", "a": "It is green."}, {"q": "Is the moon pretty?", "a": "Yes, it is very pretty."}];
+const sentenceData = [{"label": "時間查詢", "pattern": "What ___ is it?", "example": "What time is it now?", "speak_text": "What time is it now?"}, {"label": "日子描述", "pattern": "Today is ___.", "example": "Today is Monday.", "speak_text": "Today is Monday."}];
+const qaData = [{"q": "Is it five o'clock?", "a": "Yes, it is five o'clock."}, {"q": "When is the party?", "a": "It is on Saturday."}];
 
 (function() {
   const p = JSON.parse(localStorage.getItem(PROGRESS_KEY) || '{}');

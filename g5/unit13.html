@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Unit 10 – Nature & Colors</title>
+<title>Unit 13 – Countries & Languages</title>
 <script src="../js-common.js"></script>
 <link rel="stylesheet" href="../style-unit.css">
 </head>
@@ -11,8 +11,8 @@
 
 <header style="position:relative">
   <a href="index.html" class="home-btn">🏠 首頁</a>
-  <div class="unit-label">UNIT 10 OF 12 &nbsp;·&nbsp; GRADE 3</div>
-  <h1>🌈 Nature & Colors</h1>
+  <div class="unit-label">UNIT 13 OF 15 &nbsp;·&nbsp; GRADE 5</div>
+  <h1>🌍 Countries & Languages</h1>
 </header>
 
 <div class="step-nav" id="stepNav"></div>
@@ -22,13 +22,13 @@
   <div class="page-title"><span>🎵</span> 暖身</div>
   <div class="page-sub">10 分鐘 · 唱唱歌，熟悉本課主題</div>
   <div class="video-btn-wrap">
-    <a class="video-btn" href="https://www.youtube.com/watch?v=tRNy2i75tCc" target="_blank" rel="noopener">
-      <span class="yt-icon">▶️</span> The Rainbow Colors Song
+    <a class="video-btn" href="https://www.youtube.com/watch?v=XfFCaTgsW-I" target="_blank" rel="noopener">
+      <span class="yt-icon">▶️</span> Where Are You From?
     </a>
   </div>
   <div class="task-card">
     <strong>一起做：</strong><br>
-    <ul><li>觀察窗外的自然景色</li><li>練習說出灰色與紫色</li><li>畫出你心中的彩虹</li></ul>
+    <ul><li>在地圖上指出各個國家</li><li>說出台灣與美國的英文</li><li>嘗試用各國語言打招呼</li></ul>
   </div>
 </div>
 
@@ -83,15 +83,15 @@
 
 <!-- PAGE 5: WRAP UP -->
 <div class="page" id="page-4">
-  <div class="page-title"><span>🎤</span> 大自然觀察家</div>
+  <div class="page-title"><span>🎤</span> 小小世界通</div>
   <div class="page-sub">5 分鐘 · 複習成果</div>
   <div class="intro-box">
-    <p>彩虹、月亮與星星，大自然充滿了美麗的顏色。</p><p>保護地球，讓這些美景永遠留下來！</p>
+    <p>世界很大，充滿了不同的國家、語言與文化。</p><p>學好英文，是你探索世界的鑰匙。</p>
   </div>
-  <div class="star-tip">✨ 晚上抬頭看天空時，試著對月亮說 "Pretty moon"。</div>
+  <div class="star-tip">✨ 看到外國人時，猜猜看他們可能來自哪個國家。</div>
   <div class="task-card" style="margin-bottom:0">
     <strong>最後挑戰：</strong><br>
-    <ul><li>去公園找一片漂亮的草地，並觀察花朵的顏色。</li><li>畫一個有星星、月亮跟彩虹的天空圖。</li></ul>
+    <ul><li>說出三個你想去旅遊的國家（英文）。</li><li>嘗試學習一個新國家的英文拼音。</li></ul>
   </div>
 
   <div class="complete-area">
@@ -99,8 +99,8 @@
   </div>
   <div class="complete-done" id="completeDone">
     <div class="big">🎉</div>
-    <h3>Unit 10 完成！</h3>
-    <p>下一課：Unit 11: Weather & Needs</p>
+    <h3>Unit 13 完成！</h3>
+    <p>下一課：Unit 14: Daily Routine Verbs</p>
     <a href="index.html" class="home-btn" style="position:static; margin-top:15px; background:var(--orange)">🏠 返回課程列表</a>
   </div>
 </div>
@@ -115,8 +115,8 @@
 </div>
 
 <script>
-const UNIT_KEY = 'unit10';
-const PROGRESS_KEY = 'progress_g3';
+const UNIT_KEY = 'unit13';
+const PROGRESS_KEY = 'progress_g5';
 const steps = [
   { label: '暖身', icon: '🎵' },
   { label: '單字', icon: '🃏' },
@@ -125,23 +125,23 @@ const steps = [
   { label: '收尾', icon: '🎤' },
 ];
 const coreVocab = [
-  {en:'star', zh:'星星'},
-  {en:'moon', zh:'月亮'},
-  {en:'flower', zh:'花'},
-  {en:'grass', zh:'草'},
-  {en:'gray', zh:'灰色'},
-  {en:'purple', zh:'紫色'},
-  {en:'pink', zh:'粉紅色'},
-  {en:'brown', zh:'咖啡色'}
+  {en:'world', zh:'世界'},
+  {en:'China', zh:'中國'},
+  {en:'Taiwan', zh:'台灣'},
+  {en:'USA', zh:'美國'},
+  {en:'America', zh:'美國'},
+  {en:'country', zh:'國家'},
+  {en:'English', zh:'英文'},
+  {en:'Chinese', zh:'中文'}
 ];
 const extVocab = [
-  {en:'nature', zh:'自然'},
-  {en:'sky', zh:'天空'},
-  {en:'earth', zh:'地球'},
-  {en:'pretty', zh:'漂亮的'}
+  {en:'nation', zh:'國家'},
+  {en:'people', zh:'人們'},
+  {en:'language', zh:'語言'},
+  {en:'visit', zh:'拜訪'}
 ];
-const sentenceData = [{"label": "自然顏色", "pattern": "The ___ is ___.", "example": "The flower is purple.", "speak_text": "The flower is purple."}, {"label": "天空景色", "pattern": "I see the ___.", "example": "I see the moon.", "speak_text": "I see the moon."}];
-const qaData = [{"q": "What color is the grass?", "a": "It is green."}, {"q": "Is the moon pretty?", "a": "Yes, it is very pretty."}];
+const sentenceData = [{"label": "國籍詢問", "pattern": "Where are you ___?", "example": "I am from Taiwan.", "speak_text": "I am from Taiwan."}, {"label": "語言練習", "pattern": "I can speak ___.", "example": "I can speak English and Chinese.", "speak_text": "I can speak English and Chinese."}];
+const qaData = [{"q": "Is the world big?", "a": "Yes, the world is very big."}, {"q": "Where is he from?", "a": "He is from the USA."}];
 
 (function() {
   const p = JSON.parse(localStorage.getItem(PROGRESS_KEY) || '{}');

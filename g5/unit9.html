@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Unit 10 – Nature & Colors</title>
+<title>Unit 9 – Time: Month & Seasons</title>
 <script src="../js-common.js"></script>
 <link rel="stylesheet" href="../style-unit.css">
 </head>
@@ -11,8 +11,8 @@
 
 <header style="position:relative">
   <a href="index.html" class="home-btn">🏠 首頁</a>
-  <div class="unit-label">UNIT 10 OF 12 &nbsp;·&nbsp; GRADE 3</div>
-  <h1>🌈 Nature & Colors</h1>
+  <div class="unit-label">UNIT 9 OF 15 &nbsp;·&nbsp; GRADE 5</div>
+  <h1>🍂 Time: Month & Seasons</h1>
 </header>
 
 <div class="step-nav" id="stepNav"></div>
@@ -22,13 +22,13 @@
   <div class="page-title"><span>🎵</span> 暖身</div>
   <div class="page-sub">10 分鐘 · 唱唱歌，熟悉本課主題</div>
   <div class="video-btn-wrap">
-    <a class="video-btn" href="https://www.youtube.com/watch?v=tRNy2i75tCc" target="_blank" rel="noopener">
-      <span class="yt-icon">▶️</span> The Rainbow Colors Song
+    <a class="video-btn" href="https://www.youtube.com/watch?v=ksGiLaIx39c" target="_blank" rel="noopener">
+      <span class="yt-icon">▶️</span> Four Seasons
     </a>
   </div>
   <div class="task-card">
     <strong>一起做：</strong><br>
-    <ul><li>觀察窗外的自然景色</li><li>練習說出灰色與紫色</li><li>畫出你心中的彩虹</li></ul>
+    <ul><li>唱出十二個月分的歌</li><li>練習說出春夏秋冬</li><li>說出你出生的月份</li></ul>
   </div>
 </div>
 
@@ -83,15 +83,15 @@
 
 <!-- PAGE 5: WRAP UP -->
 <div class="page" id="page-4">
-  <div class="page-title"><span>🎤</span> 大自然觀察家</div>
+  <div class="page-title"><span>🎤</span> 季節的輪轉</div>
   <div class="page-sub">5 分鐘 · 複習成果</div>
   <div class="intro-box">
-    <p>彩虹、月亮與星星，大自然充滿了美麗的顏色。</p><p>保護地球，讓這些美景永遠留下來！</p>
+    <p>一年有十二個月份，四季帶著不同的美感來到我們身邊。</p><p>期待下一個季節的到來！</p>
   </div>
-  <div class="star-tip">✨ 晚上抬頭看天空時，試著對月亮說 "Pretty moon"。</div>
+  <div class="star-tip">✨ 每個月月初，記得唸一次當月的英文名稱。</div>
   <div class="task-card" style="margin-bottom:0">
     <strong>最後挑戰：</strong><br>
-    <ul><li>去公園找一片漂亮的草地，並觀察花朵的顏色。</li><li>畫一個有星星、月亮跟彩虹的天空圖。</li></ul>
+    <ul><li>依序背出一年中所有的月份。</li><li>說出一個代表秋天的英文形容詞。</li></ul>
   </div>
 
   <div class="complete-area">
@@ -99,8 +99,8 @@
   </div>
   <div class="complete-done" id="completeDone">
     <div class="big">🎉</div>
-    <h3>Unit 10 完成！</h3>
-    <p>下一課：Unit 11: Weather & Needs</p>
+    <h3>Unit 9 完成！</h3>
+    <p>下一課：Unit 10: Money & Shopping</p>
     <a href="index.html" class="home-btn" style="position:static; margin-top:15px; background:var(--orange)">🏠 返回課程列表</a>
   </div>
 </div>
@@ -115,8 +115,8 @@
 </div>
 
 <script>
-const UNIT_KEY = 'unit10';
-const PROGRESS_KEY = 'progress_g3';
+const UNIT_KEY = 'unit9';
+const PROGRESS_KEY = 'progress_g5';
 const steps = [
   { label: '暖身', icon: '🎵' },
   { label: '單字', icon: '🃏' },
@@ -125,23 +125,23 @@ const steps = [
   { label: '收尾', icon: '🎤' },
 ];
 const coreVocab = [
-  {en:'star', zh:'星星'},
-  {en:'moon', zh:'月亮'},
-  {en:'flower', zh:'花'},
-  {en:'grass', zh:'草'},
-  {en:'gray', zh:'灰色'},
-  {en:'purple', zh:'紫色'},
-  {en:'pink', zh:'粉紅色'},
-  {en:'brown', zh:'咖啡色'}
+  {en:'month', zh:'月份'},
+  {en:'January', zh:'一月'},
+  {en:'July', zh:'七月'},
+  {en:'December', zh:'十二月'},
+  {en:'spring', zh:'春天'},
+  {en:'summer', zh:'夏天'},
+  {en:'autumn', zh:'秋天'},
+  {en:'winter', zh:'冬天'}
 ];
 const extVocab = [
-  {en:'nature', zh:'自然'},
-  {en:'sky', zh:'天空'},
-  {en:'earth', zh:'地球'},
-  {en:'pretty', zh:'漂亮的'}
+  {en:'season', zh:'季節'},
+  {en:'hot', zh:'熱的'},
+  {en:'cold', zh:'冷的'},
+  {en:'cool', zh:'涼爽的'}
 ];
-const sentenceData = [{"label": "自然顏色", "pattern": "The ___ is ___.", "example": "The flower is purple.", "speak_text": "The flower is purple."}, {"label": "天空景色", "pattern": "I see the ___.", "example": "I see the moon.", "speak_text": "I see the moon."}];
-const qaData = [{"q": "What color is the grass?", "a": "It is green."}, {"q": "Is the moon pretty?", "a": "Yes, it is very pretty."}];
+const sentenceData = [{"label": "月份詢問", "pattern": "What ___ is it?", "example": "It is January.", "speak_text": "It is January."}, {"label": "季節特徵", "pattern": "It is ___ in ___.", "example": "It is hot in summer.", "speak_text": "It is hot in summer."}];
+const qaData = [{"q": "Which season do you like?", "a": "I like winter and snow."}, {"q": "When is Christmas?", "a": "It is in December."}];
 
 (function() {
   const p = JSON.parse(localStorage.getItem(PROGRESS_KEY) || '{}');

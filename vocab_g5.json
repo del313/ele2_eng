@@ -1,0 +1,377 @@
+[
+  {
+    "num": 1, "id": "unit1", "title": "Dream Jobs I", "icon": "👨‍⚕️", "grade_label": "UNIT 1 OF 15",
+    "video_url": "https://www.youtube.com/watch?v=UiVoRIrdx8U", "video_label": "Jobs Vocabulary",
+    "warmup_tasks": ["觀察影片中的各項職業", "大聲說出 doctor 與 nurse", "討論你父母的職業"],
+    "core_vocab": [
+      ["doctor", "醫生"], ["nurse", "護士"], ["teacher", "老師"], ["driver", "司機"],
+      ["dentist", "牙醫"], ["policeman", "警察"], ["cook", "廚師"], ["clerk", "店員"]
+    ],
+    "ext_vocab": [
+      ["hospital", "醫院"], ["school", "學校"], ["office", "辦公室"], ["work", "工作"]
+    ],
+    "sentences": [
+      ["職業詢問", "What do you do?", "I am a doctor.", "I am a doctor."],
+      ["夢想表達", "I want to be a ___.", "I want to be a teacher.", "I want to be a teacher."]
+    ],
+    "qa": [
+      ["What does he do?", "He is a policeman."],
+      ["Do you want to be a cook?", "Yes, I do."]
+    ],
+    "wrapup_title": "職業初步認識",
+    "wrapup_lines": ["我們認識了醫院與校園中的常見職業。", "每個職業都有它重要的地方！"],
+    "wrapup_tip": "✨ 看到穿制服的人，猜猜看他們的英文職業名稱。",
+    "wrapup_challenges": ["用英文說出三種你最感興趣的職業。", "訪問家人他們的職業名稱。"],
+    "complete_next": "Unit 2: Dream Jobs II"
+  },
+  {
+    "num": 2, "id": "unit2", "title": "Dream Jobs II", "icon": "🎨", "grade_label": "UNIT 2 OF 15",
+    "video_url": "https://www.youtube.com/watch?v=RI77VmzSlfY", "video_label": "More Jobs Vocabulary",
+    "warmup_tasks": ["觀看更多有趣的職業", "練習說出 artist 與 singer", "想像你穿上軍裝的樣子"],
+    "core_vocab": [
+      ["artist", "藝術家"], ["singer", "歌手"], ["soldier", "軍人"], ["waiter", "男服務生"],
+      ["actor", "男演員"], ["actress", "女演員"], ["lawyer", "律師"], ["writer", "作家"]
+    ],
+    "ext_vocab": [
+      ["dream", "夢想"], ["famous", "有名的"], ["skill", "技巧"], ["talent", "才華"]
+    ],
+    "sentences": [
+      ["職業特性", "She is a good ___.", "She is a good singer.", "She is a good singer."],
+      ["動作連結", "I like to ___.", "I like to draw and be an artist.", "I like to draw and be an artist."]
+    ],
+    "qa": [
+      ["Is he a famous writer?", "Yes, he is very famous."],
+      ["What is your dream?", "I want to be a soldier."]
+    ],
+    "wrapup_title": "藝術與專業職業",
+    "wrapup_lines": ["我們探索了更有創意與專業性的職業領域。", "興趣可以變成未來的夢想喔！"],
+    "wrapup_tip": "✨ 思考一下你喜歡做的事，對應到什麼職業？",
+    "wrapup_challenges": ["畫出一張你未來的名片。", "大聲說出：I will be a talented artist."],
+    "complete_next": "Unit 3: Position & Direction"
+  },
+  {
+    "num": 3, "id": "unit3", "title": "Position & Direction", "icon": "🧭", "grade_label": "UNIT 3 OF 15",
+    "video_url": "https://www.youtube.com/watch?v=_Ir0Mc6Qilo", "video_label": "Yes, I Can!",
+    "warmup_tasks": ["跟著影片練習左轉與右轉", "在地圖上指出「這裡」與「那裡」", "玩「向左向右看」遊戲"],
+    "core_vocab": [
+      ["here", "這裡"], ["there", "那裡"], ["left", "左邊"], ["right", "右邊"],
+      ["middle", "中間"], ["straight", "直地"], ["backward", "往後"], ["forward", "往前"]
+    ],
+    "ext_vocab": [
+      ["turn", "轉"], ["position", "位置"], ["east", "東方"], ["west", "西方"]
+    ],
+    "sentences": [
+      ["方向指引", "Go ___.", "Go straight and turn left.", "Go straight and turn left."],
+      ["位置確認", "It is ___.", "It is right here.", "It is right here."]
+    ],
+    "qa": [
+      ["Where is the library?", "Go straight, it is on the left."],
+      ["Is it here?", "No, it is over there."]
+    ],
+    "wrapup_title": "我是小導航",
+    "wrapup_lines": ["學會了基本的方位與指路方式，再也不怕迷路了！", "清楚的指令是溝通的關鍵。"],
+    "wrapup_tip": "✨ 走路時試著用英文告訴自己要 Go straight 還是 Turn right。",
+    "wrapup_challenges": ["在家中客廳引導同學走到門口。", "說出東南西北的英文名稱。"],
+    "complete_next": "Unit 4: Transportation"
+  },
+  {
+    "num": 4, "id": "unit4", "title": "Transportation", "icon": "🚢", "grade_label": "UNIT 4 OF 15",
+    "video_url": "https://www.youtube.com/watch?v=1YGEzlj4HCM", "video_label": "Transportation Vocabulary",
+    "warmup_tasks": ["數數影片中出現幾種交通工具", "模仿火車與飛機的聲音", "討論你上學的方式"],
+    "core_vocab": [
+      ["bus", "公車"], ["car", "汽車"], ["train", "火車"], ["plane", "飛機"],
+      ["ship", "船"], ["taxi", "計程車"], ["truck", "貨車"], ["bicycle", "腳踏車"]
+    ],
+    "ext_vocab": [
+      ["airport", "機場"], ["station", "車站"], ["fast", "快的"], ["slow", "慢的"]
+    ],
+    "sentences": [
+      ["搭乘方式", "I go by ___.", "I go to school by bus.", "I go to school by bus."],
+      ["速度比較", "The ___ is ___.", "The plane is very fast.", "The plane is very fast."]
+    ],
+    "qa": [
+      ["How do you go home?", "I go home by car."],
+      ["Is the truck slow?", "No, it is fast."]
+    ],
+    "wrapup_title": "海陸空大集合",
+    "wrapup_lines": ["從腳踏車到大飛機，各種交通工具讓世界更便利。", "注意交通安全是最重要的喔！"],
+    "wrapup_tip": "✨ 出門時觀察街上的車子，說出它們的英文。",
+    "wrapup_challenges": ["說出三種你搭過的交通工具。", "模仿飛機起飛的樣子並說 Take a plane。"],
+    "complete_next": "Unit 5: Health Issues"
+  },
+  {
+    "num": 5, "id": "unit5", "title": "Health Issues", "icon": "🤒", "grade_label": "UNIT 5 OF 15",
+    "video_url": "https://www.youtube.com/watch?v=Zm1KKcgQ7DM", "video_label": "Health Problems Song",
+    "warmup_tasks": ["練習模仿生病的樣子", "大聲說出 fever 與 cough", "討論健康的重要性"],
+    "core_vocab": [
+      ["fever", "發燒"], ["cough", "咳嗽"], ["headache", "頭痛"], ["cold", "感冒"],
+      ["toothache", "牙痛"], ["sick", "生病的"], ["painful", "痛苦的"], ["weak", "虛弱的"]
+    ],
+    "ext_vocab": [
+      ["health", "健康"], ["medicine", "藥物"], ["rest", "休息"], ["well", "安好的"]
+    ],
+    "sentences": [
+      ["不適表達", "I have a ___.", "I have a bad headache.", "I have a bad headache."],
+      ["關心問候", "Are you ___?", "Are you feeling okay?", "Are you feeling okay?"]
+    ],
+    "qa": [
+      ["What's the matter?", "I have a fever."],
+      ["Do you need medicine?", "Yes, I do."]
+    ],
+    "wrapup_title": "小小醫學家",
+    "wrapup_lines": ["學會如何表達身體不適，能讓醫生跟家人更好地幫助你。", "多喝水、多休息是康復的秘訣。"],
+    "wrapup_tip": "✨ 生病時練習用英文告訴家人哪裡不舒服。",
+    "wrapup_challenges": ["說出四種常見的身體不適單字。", "示範如何正確洗手並預防感冒。"],
+    "complete_next": "Unit 6: Sports"
+  },
+  {
+    "num": 6, "id": "unit6", "title": "Sports", "icon": "⚽", "grade_label": "UNIT 6 OF 15",
+    "video_url": "https://www.youtube.com/watch?v=WCYTlVF-djw", "video_label": "Sports Song",
+    "warmup_tasks": ["模仿踢足球與打網球的動作", "練習說出 soccer 與 tennis", "說出你最喜歡的體育課"],
+    "core_vocab": [
+      ["sports", "運動"], ["soccer", "足球"], ["tennis", "網球"], ["swim", "游泳"],
+      ["baseball", "棒球"], ["basketball", "籃球"], ["race", "賽跑"], ["exercise", "運動/練習"]
+    ],
+    "ext_vocab": [
+      ["win", "贏"], ["lose", "輸"], ["team", "團隊"], ["strong", "強壯的"]
+    ],
+    "sentences": [
+      ["能力表達", "I can ___.", "I can play soccer well.", "I can play soccer well."],
+      ["喜好練習", "I like ___.", "I like basketball very much.", "I like basketball very much."]
+    ],
+    "qa": [
+      ["Can you swim?", "Yes, I can swim fast."],
+      ["Who is the winner?", "Team A is the winner!"]
+    ],
+    "wrapup_title": "運動小健將",
+    "wrapup_lines": ["運動不只能讓身體強壯，還能學會團隊合作。", "勝不驕，敗不餒是運動家精神！"],
+    "wrapup_tip": "✨ 練習某種運動時，試著喊出它的英文名稱。",
+    "wrapup_challenges": ["向同學介紹你最擅長的一項運動。", "說出三種需要用到「球 (ball)」的運動。"],
+    "complete_next": "Unit 7: Hobbies"
+  },
+  {
+    "num": 7, "id": "unit7", "title": "Hobbies", "icon": "🎮", "grade_label": "UNIT 7 OF 15",
+    "video_url": "https://www.youtube.com/watch?v=328ejIC", "video_label": "Action Verbs Vocabulary",
+    "warmup_tasks": ["練習詢問對方的興趣", "說出你假日常做的事", "討論玩電玩與看電影"],
+    "core_vocab": [
+      ["hobby", "嗜好"], ["music", "音樂"], ["game", "遊戲/電玩"], ["movie", "電影"],
+      ["dance", "跳舞"], ["draw", "畫畫"], ["sing", "唱歌"], ["travel", "旅行"]
+    ],
+    "ext_vocab": [
+      ["card", "卡片"], ["comic", "漫畫"], ["drum", "鼓"], ["flute", "笛子"]
+    ],
+    "sentences": [
+      ["興趣詢問", "What is your ___?", "What is your hobby?", "What is your hobby?"],
+      ["喜好描述", "My hobby is ___.", "My hobby is drawing pictures.", "My hobby is drawing pictures."]
+    ],
+    "qa": [
+      ["Do you like music?", "Yes, I like pop music."],
+      ["What game is this?", "It is a fun computer game."]
+    ],
+    "wrapup_title": "豐富的課後生活",
+    "wrapup_lines": ["除了讀書，擁有各種興趣讓生活更有趣。", "每個人的嗜好都是獨一無二的！"],
+    "wrapup_tip": "✨ 跟朋友聊天時，試著問問他們的 Hobbies。",
+    "wrapup_challenges": ["列出三種你最想嘗試的新嗜好。", "向大家表演一項你的小才藝（如唱歌或模仿）。"],
+    "complete_next": "Unit 8: Time: Hours & Week"
+  },
+  {
+    "num": 8, "id": "unit8", "title": "Time: Hours & Week", "icon": "⏰", "grade_label": "UNIT 8 OF 15",
+    "video_url": "https://www.youtube.com/watch?v=D60PCX", "video_label": "What time is it?",
+    "warmup_tasks": ["練習看時鐘並說出整點", "依序說出週一到週日", "討論你一天的作息"],
+    "core_vocab": [
+      ["hour", "小時"], ["minute", "分鐘"], ["second", "秒"], ["time", "時間"],
+      ["Monday", "週一"], ["Friday", "週五"], ["Saturday", "週六"], ["Sunday", "週日"]
+    ],
+    "ext_vocab": [
+      ["morning", "早上"], ["afternoon", "下午"], ["night", "晚上"], ["noon", "正午"]
+    ],
+    "sentences": [
+      ["時間查詢", "What ___ is it?", "What time is it now?", "What time is it now?"],
+      ["日子描述", "Today is ___.", "Today is Monday.", "Today is Monday."]
+    ],
+    "qa": [
+      ["Is it five o'clock?", "Yes, it is five o'clock."],
+      ["When is the party?", "It is on Saturday."]
+    ],
+    "wrapup_title": "時間小主人",
+    "wrapup_lines": ["學會管理時間，就是學會管理生活。", "時間像流水，一旦過去就不會再回來喔。"],
+    "wrapup_tip": "✨ 每天早上醒來先問問自己：What time is it?。",
+    "wrapup_challenges": ["說出你一週中最喜歡的一天（英文）。", "對著時鐘練習說出整點與半點。"],
+    "complete_next": "Unit 9: Time: Month & Seasons"
+  },
+  {
+    "num": 9, "id": "unit9", "title": "Time: Month & Seasons", "icon": "🍂", "grade_label": "UNIT 9 OF 15",
+    "video_url": "https://www.youtube.com/watch?v=ksGiLaIx39c", "video_label": "Four Seasons",
+    "warmup_tasks": ["唱出十二個月分的歌", "練習說出春夏秋冬", "說出你出生的月份"],
+    "core_vocab": [
+      ["month", "月份"], ["January", "一月"], ["July", "七月"], ["December", "十二月"],
+      ["spring", "春天"], ["summer", "夏天"], ["autumn", "秋天"], ["winter", "冬天"]
+    ],
+    "ext_vocab": [
+      ["season", "季節"], ["hot", "熱的"], ["cold", "冷的"], ["cool", "涼爽的"]
+    ],
+    "sentences": [
+      ["月份詢問", "What ___ is it?", "It is January.", "It is January."],
+      ["季節特徵", "It is ___ in ___.", "It is hot in summer.", "It is hot in summer."]
+    ],
+    "qa": [
+      ["Which season do you like?", "I like winter and snow."],
+      ["When is Christmas?", "It is in December."]
+    ],
+    "wrapup_title": "季節的輪轉",
+    "wrapup_lines": ["一年有十二個月份，四季帶著不同的美感來到我們身邊。", "期待下一個季節的到來！"],
+    "wrapup_tip": "✨ 每個月月初，記得唸一次當月的英文名稱。",
+    "wrapup_challenges": ["依序背出一年中所有的月份。", "說出一個代表秋天的英文形容詞。"],
+    "complete_next": "Unit 10: Money & Shopping"
+  },
+  {
+    "num": 10, "id": "unit10", "title": "Money & Shopping", "icon": "💰", "grade_label": "UNIT 10 OF 15",
+    "video_url": "https://www.youtube.com/watch?v=72aFV73aaMI", "video_label": "At the Supermarket Song",
+    "warmup_tasks": ["練習詢問價格", "區分「貴」與「便宜」", "模擬在超市買東西"],
+    "core_vocab": [
+      ["money", "錢"], ["price", "價格"], ["buy", "買"], ["cheap", "便宜的"],
+      ["expensive", "昂貴的"], ["cash", "現金"], ["coin", "硬幣"], ["bill", "帳單"]
+    ],
+    "ext_vocab": [
+      ["dollar", "元"], ["spend", "花費"], ["save", "存錢"], ["pay", "付錢"]
+    ],
+    "sentences": [
+      ["價格詢問", "How much is it?", "It is ten dollars.", "It is ten dollars."],
+      ["購物決定", "I want to ___ it.", "It is cheap, I want to buy it.", "It is cheap, I want to buy it."]
+    ],
+    "qa": [
+      ["Is this hat expensive?", "Yes, it is very expensive."],
+      ["Do you have any coins?", "No, I have only a bill."]
+    ],
+    "wrapup_title": "精明小買家",
+    "wrapup_lines": ["理解金錢與購物的基本概念，學會聰明消費。", "記得要儲蓄，不要亂花錢喔！"],
+    "wrapup_tip": "✨ 去文具店時，練習問老闆：How much is this pen?。",
+    "wrapup_challenges": ["用英文說出五個有關購物的主題單字。", "計算一下你今天花了多少錢。"],
+    "complete_next": "Unit 11: Tableware & Habits"
+  },
+  {
+    "num": 11, "id": "unit11", "title": "Tableware & Habits", "icon": "🍴", "grade_label": "UNIT 11 OF 15",
+    "video_url": "https://www.youtube.com/watch?v=LCacqSgC9tI", "video_label": "Tableware Vocabulary",
+    "warmup_tasks": ["指著晚餐桌上的餐具", "練習說出 fork 與 spoon", "討論正確的飲食習慣"],
+    "core_vocab": [
+      ["bowl", "碗"], ["fork", "叉子"], ["knife", "刀子"], ["spoon", "湯匙"],
+      ["plate", "淺盤"], ["cup", "杯子"], ["glass", "玻璃杯"], ["straw", "吸管"]
+    ],
+    "ext_vocab": [
+      ["delicious", "美味的"], ["hungry", "飢餓的"], ["thirsty", "口渴的"], ["full", "飽的"]
+    ],
+    "sentences": [
+      ["餐具需求", "I need a ___.", "I need a spoon for the soup.", "I need a spoon for the soup."],
+      ["感受表達", "The food is ___.", "The rice is delicious.", "The rice is delicious."]
+    ],
+    "qa": [
+      ["Are you hungry?", "Yes, I am very hungry."],
+      ["Where is my fork?", "It is next to the plate."]
+    ],
+    "wrapup_title": "餐桌禮儀師",
+    "wrapup_lines": ["正確使用餐具是文明的表現，也是享受美食的開始。", "吃完記得幫忙收盤子喔。"],
+    "wrapup_tip": "✨ 每餐開動前，先練習說出桌上餐具的名稱。",
+    "wrapup_challenges": ["向家人示範西餐餐具的正確擺放位置。", "說出三種你吃東西時會用到的工具。"],
+    "complete_next": "Unit 12: Appearance & Personality"
+  },
+  {
+    "num": 12, "id": "unit12", "title": "Appearance & Personality", "icon": "🌟", "grade_label": "UNIT 12 OF 15",
+    "video_url": "https://www.youtube.com/watch?v=X_6Ai8NdkkY", "video_label": "Describe People",
+    "warmup_tasks": ["描述你最好的朋友", "練習說出 beautiful 與 smart", "討論什麼是「內在美」"],
+    "core_vocab": [
+      ["beautiful", "漂亮的"], ["cute", "可愛的"], ["smart", "聰明的"], ["kind", "親切的"],
+      ["tall", "高的"], ["short", "矮的/短的"], ["thin", "瘦的"], ["young", "年輕的"]
+    ],
+    "ext_vocab": [
+      ["honest", "誠實的"], ["brave", "勇敢的"], ["happy", "快樂的"], ["friendly", "友善的"]
+    ],
+    "sentences": [
+      ["外貌描述", "He is very ___.", "He is very tall and thin.", "He is very tall and thin."],
+      ["內在評價", "She is a ___ girl.", "She is a kind and smart girl.", "She is a kind and smart girl."]
+    ],
+    "qa": [
+      ["What is she like?", "She is cute and friendly."],
+      ["Is your brother brave?", "Yes, he is very brave."]
+    ],
+    "wrapup_title": "認識自己與他人",
+    "wrapup_lines": ["每個人都有自己的外型特徵與個性優點。", "學會欣賞別人的優點，也要自信地愛自己！"],
+    "wrapup_tip": "✨ 每天對鏡子說：I am kind and smart.。",
+    "wrapup_challenges": ["用三個形容詞描述你自己。", "找出一位你最崇拜的英雄，並描述他的個性。"],
+    "complete_next": "Unit 13: Countries & Languages"
+  },
+  {
+    "num": 13, "id": "unit13", "title": "Countries & Languages", "icon": "🌍", "grade_label": "UNIT 13 OF 15",
+    "video_url": "https://www.youtube.com/watch?v=XfFCaTgsW-I", "video_label": "Where Are You From?",
+    "warmup_tasks": ["在地圖上指出各個國家", "說出台灣與美國的英文", "嘗試用各國語言打招呼"],
+    "core_vocab": [
+      ["world", "世界"], ["China", "中國"], ["Taiwan", "台灣"], ["USA", "美國"],
+      ["America", "美國"], ["country", "國家"], ["English", "英文"], ["Chinese", "中文"]
+    ],
+    "ext_vocab": [
+      ["nation", "國家"], ["people", "人們"], ["language", "語言"], ["visit", "拜訪"]
+    ],
+    "sentences": [
+      ["國籍詢問", "Where are you ___?", "I am from Taiwan.", "I am from Taiwan."],
+      ["語言練習", "I can speak ___.", "I can speak English and Chinese.", "I can speak English and Chinese."]
+    ],
+    "qa": [
+      ["Is the world big?", "Yes, the world is very big."],
+      ["Where is he from?", "He is from the USA."]
+    ],
+    "wrapup_title": "小小世界通",
+    "wrapup_lines": ["世界很大，充滿了不同的國家、語言與文化。", "學好英文，是你探索世界的鑰匙。"],
+    "wrapup_tip": "✨ 看到外國人時，猜猜看他們可能來自哪個國家。",
+    "wrapup_challenges": ["說出三個你想去旅遊的國家（英文）。", "嘗試學習一個新國家的英文拼音。"],
+    "complete_next": "Unit 14: Daily Routine Verbs"
+  },
+  {
+    "num": 14, "id": "unit14", "title": "Daily Routine Verbs", "icon": "🛌", "grade_label": "UNIT 14 OF 15",
+    "video_url": "https://www.youtube.com/watch?v=qD1pnquN_DM", "video_label": "My Day Routine",
+    "warmup_tasks": ["練習模仿煮飯與洗澡", "大聲說出 sleep 與 study", "安排一個理想的週末計畫"],
+    "core_vocab": [
+      ["wash", "洗"], ["cook", "煮"], ["sleep", "睡覺"], ["work", "工作"],
+      ["study", "研讀"], ["clean", "打掃"], ["brush", "刷"], ["eat", "吃"]
+    ],
+    "ext_vocab": [
+      ["everyday", "每天"], ["busy", "忙碌的"], ["early", "早的"], ["late", "遲的/晚的"]
+    ],
+    "sentences": [
+      ["日常活動", "I ___ everyday.", "I brush my teeth everyday.", "I brush my teeth everyday."],
+      ["頻率表達", "He is very ___.", "He is busy with work.", "He is very busy with work."]
+    ],
+    "qa": [
+      ["Do you study hard?", "Yes, I study English every night."],
+      ["Can you cook?", "No, but I can wash the dishes."]
+    ],
+    "wrapup_title": "充實的每一天",
+    "wrapup_lines": ["我們練習了日常生活中最常用的動詞，學會描述你的作息。", "良好的習慣要從每一天的小事做起喔。"],
+    "wrapup_tip": "✨ 正在做某件事時，試著在腦中說出它的英文動詞。",
+    "wrapup_challenges": ["用英文說出你今天做過的三件事。", "設計一個「全英文」的早起作息表。"],
+    "complete_next": "Unit 15: Social Communication"
+  },
+  {
+    "num": 15, "id": "unit15", "title": "Social Communication", "icon": "🗣️", "grade_label": "UNIT 15 OF 15",
+    "video_url": "https://www.youtube.com/watch?v=4c6FyuetSVo", "video_label": "Communication Verbs",
+    "warmup_tasks": ["練習打電話與尋求幫助", "練習「聽」與「說」的差異", "討論誠實與友誼"],
+    "core_vocab": [
+      ["call", "叫/打電話"], ["help", "幫助"], ["talk", "講話"], ["write", "寫"],
+      ["listen", "聽"], ["say", "說"], ["ask", "問"], ["answer", "回答"]
+    ],
+    "ext_vocab": [
+      ["friend", "朋友"], ["letter", "信"], ["story", "故事"], ["understand", "了解"]
+    ],
+    "sentences": [
+      ["互動指令", "___ to me.", "Listen to me and answer the question.", "Listen to me and answer the question."],
+      ["行為描述", "I like to ___.", "I like to talk with my friends.", "I like to talk with my friends."]
+    ],
+    "qa": [
+      ["Can you help me?", "Yes, I can help you."],
+      ["What are you writing?", "I am writing a letter to Mr. Smith."]
+    ],
+    "wrapup_title": "社交小高手",
+    "wrapup_lines": ["溝通不只是說話，還包含傾聽、詢問與分享。", "善用這些動詞，讓你的人際關係更美好！"],
+    "wrapup_tip": "✨ 當你需要幫助時，記得勇敢地說：Can you help me?。",
+    "wrapup_challenges": ["用英文向同學提出一個問題。", "試著聽一段英文小故事並告訴大家大意。"],
+    "complete_next": null
+  }
+]
