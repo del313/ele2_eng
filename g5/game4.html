@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<script src="../js-common.js"></script>
+<title>G5 Game 4 – Bubble Pop 2.0</title>
+<link rel="stylesheet" href="../style-common.css">
+<style>
+  body { background: #E1F5FE; overflow: hidden; touch-action: none; }
+  #game-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
+  
+  .ui-layer { position: relative; z-index: 10; pointer-events: none; padding: 20px; text-align: center; }
+  .target-box {
+    display: inline-block; background: white; border: 5px solid #0288D1;
+    border-radius: 20px; padding: 15px 30px; font-size: 2.2rem; font-weight: 900;
+    color: #01579B; box-shadow: 0 4px 10px rgba(0,0,0,0.2); pointer-events: auto;
+  }
+  
+  .score-box { font-size: 1.5rem; color: #0288D1; font-weight: 800; margin-top: 10px; }
+
+  #finish-screen {
+    display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(255,255,255,0.95); z-index: 100;
+    flex-direction: column; align-items: center; justify-content: center;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+
+<div class="ui-layer">
+  <div class="target-box" id="target-zh">載入中...</div>
+  <div class="score-box">已收集: <span id="score">0</span> / 15</div>
+</div>
+
+<canvas id="game-canvas"></canvas>
+
+<div id="finish-screen">
+  <div style="font-size:6rem;">🫧</div>
+  <h2 style="font-size:2.5rem; color:#0288D1;">Bubble Master!</h2>
+  <p style="font-size:1.4rem; margin:10px 0;">你成功捕捉了所有正確的泡泡！</p>
+  <button onclick="finishGame()" style="padding:15px 50px; border-radius:35px; border:none; background:#0288D1; color:white; font-size:1.6rem; font-weight:900; cursor:pointer; margin-top:30px;">
+    完成並回首頁
+  </button>
+</div>
+
+<script>
+const canvas = document.getElementById('game-canvas');
+const ctx = canvas.getContext('2d');
+let allWords = [];
+let target = null;
+let score = 0;
+let bubbles = [];
+let animationId;
+const PROGRESS_KEY = 'progress_g5';
+const GAME_ID = 'game4';
+
+async function loadData() {
+    try {
+        const resp = await fetch('../vocab_g5.json');
+        const units = await resp.json();
+        units.forEach(u => u.core_vocab.forEach(v => allWords.push({ en: v[0], zh: v[1] })));
+    } catch (e) {
+        allWords = [{en:"doctor", zh:"醫生"}, {en:"nurse", zh:"護士"}, {en:"car", zh:"汽車"}];
+    }
+    resize();
+    newTarget();
+    gameLoop();
+}
+
+function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+}
+window.onresize = resize;
+
+class Bubble {
+    constructor(word, isCorrect) {
+        this.word = word;
+        this.isCorrect = isCorrect;
+        this.r = 50 + Math.random() * 20;
+        this.x = Math.random() * (canvas.width - this.r * 2) + this.r;
+        this.y = canvas.height + this.r;
+        this.speed = 2 + Math.random() * 3 + (score * 0.2); // 隨進度加快
+        this.color = isCorrect ? 'rgba(3, 169, 244, 0.6)' : 'rgba(128, 128, 128, 0.4)';
+        if (Math.random() < 0.1 && !isCorrect) { // 炸彈泡泡 (10% 機率)
+            this.word = "💥";
+            this.color = 'rgba(244, 67, 54, 0.7)';
+            this.isBomb = true;
+        }
+    }
+    update() {
+        this.y -= this.speed;
+    }
+    draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+        ctx.fillStyle = this.color;
+        ctx.fill();
+        ctx.strokeStyle = 'white';
+        ctx.lineWidth = 3;
+        ctx.stroke();
+        
+        ctx.fillStyle = 'white';
+        ctx.font = 'bold 1.2rem Arial';
+        ctx.textAlign = 'center';
+        ctx.fillText(this.word, this.x, this.y + 7);
+    }
+}
+
+function newTarget() {
+    target = allWords[Math.floor(Math.random() * allWords.length)];
+    document.getElementById('target-zh').textContent = target.zh;
+}
+
+function gameLoop() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
+    // 生成泡泡
+    if (Math.random() < 0.03) {
+        const isCorrect = Math.random() < 0.3; // 30% 機率出正確答案
+        const wordObj = isCorrect ? target : allWords[Math.floor(Math.random() * allWords.length)];
+        bubbles.push(new Bubble(wordObj.en, isCorrect && wordObj.en === target.en));
+    }
+    
+    bubbles.forEach((b, i) => {
+        b.update();
+        b.draw();
+        if (b.y < -b.r) bubbles.splice(i, 1);
+    });
+    
+    animationId = requestAnimationFrame(gameLoop);
+}
+
+canvas.onclick = (e) => {
+    const rect = canvas.getBoundingClientRect();
+    const mx = e.clientX - rect.left;
+    const my = e.clientY - rect.top;
+    
+    for (let i = bubbles.length - 1; i >= 0; i--) {
+        const b = bubbles[i];
+        const dist = Math.sqrt((mx - b.x)**2 + (my - b.y)**2);
+        if (dist < b.r) {
+            if (b.isBomb) {
+                playSound('error');
+                bubbles.splice(i, 1);
+                // 視覺震動特效
+                document.body.style.transform = "translateX(10px)";
+                setTimeout(() => document.body.style.transform = "none", 100);
+            } else if (b.isCorrect) {
+                playSound('success');
+                score++;
+                document.getElementById('score').textContent = score;
+                bubbles.splice(i, 1);
+                if (score >= 15) {
+                    cancelAnimationFrame(animationId);
+                    document.getElementById('finish-screen').style.display = 'flex';
+                } else {
+                    newTarget();
+                }
+            } else {
+                playSound('error');
+                bubbles.splice(i, 1);
+            }
+            break;
+        }
+    }
+};
+
+function finishGame() {
+  const progress = JSON.parse(localStorage.getItem(PROGRESS_KEY) || '{}');
+  progress[GAME_ID] = 'done';
+  localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress));
+  window.location.href = 'index.html';
+}
+
+loadData();
+</script>
+</body>
+</html>

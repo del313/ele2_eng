@@ -142,8 +142,9 @@ const units = [
 const games = [
   { id:'game1', title:'Word Scramble', sub:'單字大重組', icon:'🌪️', file:'game1.html', phase: 1 },
   { id:'game2', title:'Mystery Clue',   sub:'英文小偵探', icon:'🔍', file:'game2.html', phase: 2 },
-  { id:'game3', title:'Sentence Pro', sub:'造句大師', icon:'✍️', file:'game3.html', phase: 3 },
-  { id:'game4', title:'Final Challenge', sub:'小五終極考驗', icon:'🏆', file:'game4.html', phase: 5 },
+  { id:'game4', title:'Bubble Pop 2.0', sub:'泡泡大作戰', icon:'🫧', file:'game4.html', phase: 3 },
+  { id:'game3', title:'Sentence Pro', sub:'造句大師', icon:'✍️', file:'game3.html', phase: 4 },
+  { id:'game5', title:'Final Challenge', sub:'小五終極考驗', icon:'🏆', file:'game5.html', phase: 5 },
 ];
 
 const unitSequence = units.map(u => u.id);
@@ -174,6 +175,7 @@ function getState(id) {
     if (game.phase === 1) return progress['unit3'] === 'done' ? 'available' : 'locked';
     if (game.phase === 2) return progress['unit6'] === 'done' ? 'available' : 'locked';
     if (game.phase === 3) return progress['unit9'] === 'done' ? 'available' : 'locked';
+    if (game.phase === 4) return progress['unit12'] === 'done' ? 'available' : 'locked';
     if (game.phase === 5) return progress['unit15'] === 'done' ? 'available' : 'locked';
   }
   return 'locked';

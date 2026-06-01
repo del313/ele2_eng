@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="../js-common.js"></script>
+<title>G5 Game 2 – Mystery Clue</title>
+<link rel="stylesheet" href="../style-common.css">
+<style>
+  body { background: #E0F2F1; }
+  .game-container { max-width: 600px; margin: 0 auto; padding: 20px; text-align: center; }
+  
+  .clue-box {
+    background: white; border: 4px solid #00897B; border-radius: 20px;
+    padding: 20px; margin-bottom: 25px; box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+    min-height: 180px; display: flex; flex-direction: column; justify-content: center;
+  }
+  .clue-item { font-size: 1.4rem; color: #004D40; font-weight: 800; margin: 10px 0; opacity: 0; transform: translateX(-20px); transition: all 0.5s; }
+  .clue-item.show { opacity: 1; transform: translateX(0); }
+  
+  .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
+  .option-btn {
+    background: white; border: 3px solid #4DB6AC; border-radius: 15px;
+    padding: 15px; font-size: 1.2rem; font-weight: 800; color: #00796B;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .option-btn:hover { background: #B2DFDB; transform: scale(1.03); }
+  .option-btn.correct { background: #81C784; border-color: #2E7D32; color: white; }
+  .option-btn.wrong { background: #E57373; border-color: #C62828; color: white; opacity: 0.6; }
+
+  #finish-screen {
+    display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(255,255,255,0.98); z-index: 100;
+    flex-direction: column; align-items: center; justify-content: center;
+  }
+  
+  .detective-icon { font-size: 5rem; margin-bottom: 10px; }
+</style>
+</head>
+<body>
+
+<header style="padding:20px; text-align:center; background:#00897B; color:white;">
+  <a href="index.html" style="position:absolute; left:20px; color:white; text-decoration:none; font-weight:800;">🏠 Home</a>
+  <h1>Mystery Clue</h1>
+  <p>英文小偵探 🔍</p>
+</header>
+
+<div class="game-container">
+  <div style="font-size:1.2rem; color:#00796B; font-weight:800; margin-bottom:10px;">Case #<span id="q-num">1</span> / 10</div>
+  
+  <div class="clue-box">
+    <div id="clue-1" class="clue-item"></div>
+    <div id="clue-2" class="clue-item"></div>
+    <div id="clue-3" class="clue-item"></div>
+  </div>
+  
+  <div style="color:#004D40; font-weight:800; margin-bottom:10px;">Who or What am I?</div>
+  <div class="options-grid" id="options-grid"></div>
+</div>
+
+<div id="finish-screen">
+  <div class="detective-icon">🕵️‍♂️</div>
+  <h2 style="font-size:2.5rem; color:#00897B;">Case Solved!</h2>
+  <p style="font-size:1.4rem; margin:10px 0;">你是一個出色的英文偵探！</p>
+  <button onclick="finishGame()" style="padding:15px 50px; border-radius:35px; border:none; background:#00897B; color:white; font-size:1.6rem; font-weight:900; cursor:pointer; margin-top:30px;">
+    完成並回首頁
+  </button>
+</div>
+
+<script>
+// 預設一些 G5 單字的線索 (Jobs, Transportation, Health, etc.)
+const mysteryData = [
+    { target: "doctor", clues: ["I work in a hospital.", "I help sick people.", "I wear a white coat."] },
+    { target: "teacher", clues: ["I work in a school.", "I use a chalkboard or tablet.", "I help students learn."] },
+    { target: "plane", clues: ["I have two big wings.", "I can fly very high.", "You can see me at the airport."] },
+    { target: "bus", clues: ["I am big and long.", "Many students take me to school.", "I stop at the station."] },
+    { target: "fever", clues: ["Your forehead is very hot.", "You need to take medicine.", "You stay in bed to rest."] },
+    { target: "soccer", clues: ["You play me with your feet.", "You try to kick a ball into a goal.", "It's a very popular sport."] },
+    { target: "monday", clues: ["I am a day of the week.", "I come after Sunday.", "It's the first day of school."] },
+    { target: "spoon", clues: ["I am a piece of tableware.", "You use me to drink soup.", "I am next to the fork."] },
+    { target: "taiwan", clues: ["It's a beautiful island.", "The food here is delicious.", "I am from here!"] },
+    { target: "english", clues: ["It's a world language.", "We are learning it now.", "People speak it in the USA."] }
+];
+
+let allWords = [];
+let queue = [];
+let currentIdx = 0;
+const PROGRESS_KEY = 'progress_g5';
+const GAME_ID = 'game2';
+
+async function loadData() {
+    // 從 JSON 抓一些備用單字作為干擾項
+    try {
+        const resp = await fetch('../vocab_g5.json');
+        const units = await resp.json();
+        units.forEach(u => u.core_vocab.forEach(v => allWords.push(v[0].toLowerCase())));
+    } catch (e) {
+        allWords = ["nurse", "cook", "ship", "car", "cold", "tennis", "friday", "fork", "china", "chinese"];
+    }
+    init();
+}
+
+function shuffle(a) { return [...a].sort(() => Math.random() - 0.5); }
+
+function init() {
+    queue = shuffle(mysteryData).slice(0, 10);
+    nextRound();
+}
+
+function nextRound() {
+    if (currentIdx >= queue.length) {
+        document.getElementById('finish-screen').style.display = 'flex';
+        return;
+    }
+    
+    const item = queue[currentIdx];
+    document.getElementById('q-num').textContent = currentIdx + 1;
+    
+    // 清除線索顯示
+    for(let i=1; i<=3; i++) {
+        const el = document.getElementById(`clue-${i}`);
+        el.textContent = `${i}. ${item.clues[i-1]}`;
+        el.classList.remove('show');
+    }
+    
+    // 依序顯示線索
+    setTimeout(() => document.getElementById('clue-1').classList.add('show'), 300);
+    setTimeout(() => document.getElementById('clue-2').classList.add('show'), 1500);
+    setTimeout(() => document.getElementById('clue-3').classList.add('show'), 2700);
+    
+    // 產生選項
+    const others = shuffle(allWords.filter(w => w !== item.target)).slice(0, 3);
+    const options = shuffle([item.target, ...others]);
+    
+    const grid = document.getElementById('options-grid');
+    grid.innerHTML = '';
+    options.forEach(opt => {
+        const btn = document.createElement('button');
+        btn.className = 'option-btn';
+        btn.textContent = opt.charAt(0).toUpperCase() + opt.slice(1);
+        btn.onclick = () => checkAns(btn, opt, item.target);
+        grid.appendChild(btn);
+    });
+}
+
+function checkAns(btn, selected, target) {
+    if (selected === target) {
+        btn.classList.add('correct');
+        playSound('success');
+        speak(target);
+        currentIdx++;
+        setTimeout(nextRound, 1200);
+    } else {
+        btn.classList.add('wrong');
+        playSound('error');
+    }
+}
+
+function finishGame() {
+  const progress = JSON.parse(localStorage.getItem(PROGRESS_KEY) || '{}');
+  progress[GAME_ID] = 'done';
+  localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress));
+  window.location.href = 'index.html';
+}
+
+loadData();
+</script>
+</body>
+</html>

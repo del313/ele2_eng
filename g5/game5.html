@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="../js-common.js"></script>
+<title>G5 Game 5 – Final Challenge</title>
+<link rel="stylesheet" href="../style-common.css">
+<style>
+  body { background: #FFF3E0; }
+  .game-container { max-width: 600px; margin: 0 auto; padding: 20px; text-align: center; }
+  
+  .status-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; font-weight: 800; color: #E65100; }
+  
+  .question-box {
+    background: white; border: 4px solid #FF9800; border-radius: 20px;
+    padding: 30px; margin-bottom: 25px; box-shadow: 0 6px 0 #F57C00;
+  }
+  
+  .q-text { font-size: 1.8rem; font-weight: 900; color: #BF360C; margin-bottom: 15px; }
+  
+  .options-list { display: flex; flex-direction: column; gap: 12px; }
+  .opt-btn {
+    background: white; border: 3px solid #FFB74D; border-radius: 15px;
+    padding: 15px; font-size: 1.2rem; font-weight: 800; color: #E65100;
+    cursor: pointer; transition: all 0.2s; text-align: left;
+  }
+  .opt-btn:hover { background: #FFF3E0; transform: translateX(5px); }
+  .opt-btn.correct { background: #81C784; border-color: #2E7D32; color: white; }
+  .opt-btn.wrong { background: #E57373; border-color: #C62828; color: white; }
+
+  #finish-screen {
+    display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(255,255,255,0.98); z-index: 100;
+    flex-direction: column; align-items: center; justify-content: center;
+  }
+</style>
+</head>
+<body>
+
+<header style="padding:20px; text-align:center; background:#EF6C00; color:white;">
+  <a href="index.html" style="position:absolute; left:20px; color:white; text-decoration:none; font-weight:800;">🏠 Home</a>
+  <h1>Final Challenge</h1>
+  <p>小五終極考驗 🏆</p>
+</header>
+
+<div class="game-container">
+  <div class="status-bar">
+    <div>Question: <span id="q-num">1</span> / 15</div>
+    <div>HP: <span id="hp">❤️❤️❤️</span></div>
+  </div>
+  
+  <div class="question-box">
+    <div id="q-type" style="font-size:0.9rem; color:#F57C00; margin-bottom:5px;">[對話複習]</div>
+    <div class="q-text" id="q-text">載入中...</div>
+    <button id="listen-btn" onclick="playCurrentQ()" style="display:none; background:#FF9800; color:white; border:none; border-radius:50%; width:50px; height:50px; cursor:pointer; font-size:1.5rem;">🔊</button>
+  </div>
+  
+  <div class="options-list" id="options-list"></div>
+</div>
+
+<div id="finish-screen">
+  <div style="font-size:6rem;">🏅</div>
+  <h2 style="font-size:2.5rem; color:#E65100;">Congratulations!</h2>
+  <p style="font-size:1.4rem; margin:10px 0;">你成功通過了小五的所有測試！</p>
+  <button onclick="finishGame()" style="padding:15px 50px; border-radius:35px; border:none; background:#E65100; color:white; font-size:1.6rem; font-weight:900; cursor:pointer; margin-top:30px;">
+    完成並回首頁
+  </button>
+</div>
+
+<script>
+let questions = [];
+let currentIdx = 0;
+let hp = 3;
+const PROGRESS_KEY = 'progress_g5';
+const GAME_ID = 'game5';
+
+async function loadData() {
+    try {
+        const resp = await fetch('../vocab_g5.json');
+        const units = await resp.json();
+        
+        // 混合各類題型
+        units.forEach(u => {
+            // 題型 1: 單字翻譯
+            const v = u.core_vocab[0];
+            questions.push({ type: "Vocabulary", q: `「${v[1]}」的英文是什麼？`, ans: v[0], opts: [v[0], u.core_vocab[1][0], u.ext_vocab[0][0]] });
+            
+            // 題型 2: 問答配對
+            const qa = u.qa[0];
+            questions.push({ type: "Q&A", q: `Q: ${qa[0]} \nA: _______`, ans: qa[1], opts: [qa[1], u.qa[1][1], "I don't know."] });
+        });
+    } catch (e) {
+        questions = [{ type: "Test", q: "Test Question?", ans: "Yes", opts: ["Yes", "No", "Maybe"] }];
+    }
+    init();
+}
+
+function shuffle(a) { return [...a].sort(() => Math.random() - 0.5); }
+
+function init() {
+    questions = shuffle(questions).slice(0, 15);
+    nextRound();
+}
+
+function nextRound() {
+    if (currentIdx >= questions.length || hp <= 0) {
+        if (hp > 0) {
+            document.getElementById('finish-screen').style.display = 'flex';
+        } else {
+            alert('Game Over! 再試一次吧！');
+            location.reload();
+        }
+        return;
+    }
+    
+    const item = questions[currentIdx];
+    document.getElementById('q-num').textContent = currentIdx + 1;
+    document.getElementById('q-type').textContent = `[${item.type}]`;
+    document.getElementById('q-text').textContent = item.q;
+    
+    const list = document.getElementById('options-list');
+    list.innerHTML = '';
+    shuffle(item.opts).forEach(opt => {
+        const btn = document.createElement('button');
+        btn.className = 'opt-btn';
+        btn.textContent = opt;
+        btn.onclick = () => checkAns(btn, opt, item.ans);
+        list.appendChild(btn);
+    });
+}
+
+function checkAns(btn, selected, target) {
+    if (selected === target) {
+        btn.classList.add('correct');
+        playSound('success');
+        currentIdx++;
+        setTimeout(nextRound, 1000);
+    } else {
+        btn.classList.add('wrong');
+        playSound('error');
+        hp--;
+        document.getElementById('hp').textContent = '❤️'.repeat(hp);
+        if (hp <= 0) setTimeout(nextRound, 1000);
+    }
+}
+
+function finishGame() {
+  const progress = JSON.parse(localStorage.getItem(PROGRESS_KEY) || '{}');
+  progress[GAME_ID] = 'done';
+  localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress));
+  window.location.href = 'index.html';
+}
+
+loadData();
+</script>
+</body>
+</html>
