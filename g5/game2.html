@@ -35,6 +35,14 @@
   }
   
   .detective-icon { font-size: 5rem; margin-bottom: 10px; }
+  .game-header { display: flex; align-items: center; justify-content: center; gap: 15px; margin-bottom: 10px; }
+  .speak-btn {
+    background: #00897B; color: white; border: none; border-radius: 50%;
+    width: 45px; height: 45px; cursor: pointer; font-size: 1.3rem;
+    display: flex; align-items: center; justify-content: center;
+    transition: transform 0.2s; pointer-events: auto;
+  }
+  .speak-btn:hover { transform: scale(1.1); }
 </style>
 </head>
 <body>
@@ -46,7 +54,10 @@
 </header>
 
 <div class="game-container">
-  <div style="font-size:1.2rem; color:#00796B; font-weight:800; margin-bottom:10px;">Case #<span id="q-num">1</span> / 10</div>
+  <div class="game-header">
+    <div style="font-size:1.2rem; color:#00796B; font-weight:800;">Case #<span id="q-num">1</span> / 10</div>
+    <button class="speak-btn" onclick="playClues()">🔊</button>
+  </div>
   
   <div class="clue-box">
     <div id="clue-1" class="clue-item"></div>
@@ -154,6 +165,11 @@ function checkAns(btn, selected, target) {
         btn.classList.add('wrong');
         playSound('error');
     }
+}
+
+function playClues() {
+    const item = queue[currentIdx];
+    if (item) speak(item.clues.join(". "));
 }
 
 function finishGame() {

@@ -78,20 +78,27 @@ const GAME_ID = 'game5';
 async function loadData() {
     try {
         const resp = await fetch('../vocab_g5.json');
+        if (!resp.ok) throw new Error();
         const units = await resp.json();
         
         // 混合各類題型
         units.forEach(u => {
             // 題型 1: 單字翻譯
             const v = u.core_vocab[0];
-            questions.push({ type: "Vocabulary", q: `「${v[1]}」的英文是什麼？`, ans: v[0], opts: [v[0], u.core_vocab[1][0], u.ext_vocab[0][0]] });
+            questions.push({ type: "Vocabulary", q: `「${v[1]}」的英文是什麼？`, ans: v[0], opts: [v[0], u.core_vocab[1][0], u.ext_vocab[0][0]], audio: v[0] });
             
             // 題型 2: 問答配對
             const qa = u.qa[0];
-            questions.push({ type: "Q&A", q: `Q: ${qa[0]} \nA: _______`, ans: qa[1], opts: [qa[1], u.qa[1][1], "I don't know."] });
+            questions.push({ type: "Q&A", q: `Q: ${qa[0]} \nA: _______`, ans: qa[1], opts: [qa[1], u.qa[1][1], "I don't know."], audio: qa[0] });
         });
     } catch (e) {
-        questions = [{ type: "Test", q: "Test Question?", ans: "Yes", opts: ["Yes", "No", "Maybe"] }];
+        questions = [
+            { type: "Vocabulary", q: "「醫生」的英文是什麼？", ans: "doctor", opts: ["doctor", "nurse", "teacher"], audio: "doctor" },
+            { type: "Q&A", q: "Q: What do you do? \nA: _______", ans: "I am a doctor.", opts: ["I am a doctor.", "I like pizza.", "No, it is fast."], audio: "What do you do?" },
+            { type: "Vocabulary", q: "「公車」的英文是什麼？", ans: "bus", opts: ["bus", "car", "plane"], audio: "bus" },
+            { type: "Vocabulary", q: "「發燒」的英文是什麼？", ans: "fever", opts: ["fever", "cough", "cold"], audio: "fever" },
+            { type: "Q&A", q: "Q: How much is it? \nA: _______", ans: "It is ten dollars.", opts: ["It is ten dollars.", "I have a headache.", "Turn left."], audio: "How much is it?" }
+        ];
     }
     init();
 }
@@ -119,6 +126,13 @@ function nextRound() {
     document.getElementById('q-type').textContent = `[${item.type}]`;
     document.getElementById('q-text').textContent = item.q;
     
+    const listenBtn = document.getElementById('listen-btn');
+    if (item.audio) {
+        listenBtn.style.display = 'inline-block';
+    } else {
+        listenBtn.style.display = 'none';
+    }
+    
     const list = document.getElementById('options-list');
     list.innerHTML = '';
     shuffle(item.opts).forEach(opt => {
@@ -128,6 +142,11 @@ function nextRound() {
         btn.onclick = () => checkAns(btn, opt, item.ans);
         list.appendChild(btn);
     });
+}
+
+function playCurrentQ() {
+    const item = questions[currentIdx];
+    if (item && item.audio) speak(item.audio);
 }
 
 function checkAns(btn, selected, target) {
