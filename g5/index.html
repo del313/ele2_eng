@@ -14,19 +14,22 @@
   }
   .game-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr; /* 寬度為 100%，即 Unit 1-3 的總寬度 */
     gap: 16px;
   }
   .game-card {
     grid-column: auto !important;
     margin: 0 !important;
-    flex-direction: column !important;
-    padding: 15px !important;
-    text-align: center !important;
+    flex-direction: row !important; /* 改為水平排列 */
+    padding: 20px !important;
+    text-align: left !important;
+    display: flex;
+    align-items: center;
   }
-  .game-card .card-icon { margin-bottom: 5px; }
-  .game-card .content { text-align: center !important; }
-  .game-card .card-title { font-size: 1.1rem !important; }
+  .game-card .card-icon { margin-bottom: 0; margin-right: 20px; font-size: 3rem; }
+  .game-card .content { text-align: left !important; }
+  .game-card .card-title { font-size: 1.4rem !important; }
+  .game-card .card-sub { font-size: 1.1rem !important; }
 
   @media (max-width: 600px) {
     .card-grid, .game-grid {
