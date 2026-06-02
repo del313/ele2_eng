@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Verb Dojo - 動詞三態武道館</title>
+<script src="../js-common.js"></script>
+<link rel="stylesheet" href="../style-common.css">
+<style>
+  body {
+    margin: 0;
+    overflow: hidden;
+    background: #2c3e50;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    touch-action: none;
+  }
+  #game-container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    background: radial-gradient(circle, #3e5871 0%, #2c3e50 100%);
+    cursor: crosshair;
+  }
+  canvas {
+    display: block;
+  }
+  #ui-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .hud-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  .score-box {
+    color: #f1c40f;
+    font-size: 2rem;
+    font-weight: 900;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+  }
+  .target-box {
+    background: rgba(255,255,255,0.1);
+    border: 2px solid #fff;
+    border-radius: 15px;
+    padding: 15px 25px;
+    color: #fff;
+    text-align: center;
+    backdrop-filter: blur(5px);
+  }
+  .target-label { font-size: 0.9rem; opacity: 0.8; margin-bottom: 5px; }
+  .target-word { font-size: 1.8rem; font-weight: 800; color: #50E3C2; }
+  
+  .combo-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #e74c3c;
+    font-size: 5rem;
+    font-weight: 900;
+    font-style: italic;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  #start-screen, #end-screen {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.8);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    color: #fff;
+    text-align: center;
+    pointer-events: auto;
+  }
+  .btn {
+    background: #27ae60;
+    border: none;
+    color: white;
+    padding: 15px 40px;
+    font-size: 1.5rem;
+    border-radius: 30px;
+    cursor: pointer;
+    margin-top: 20px;
+    font-weight: 800;
+    transition: transform 0.2s;
+  }
+  .btn:hover { transform: scale(1.1); }
+  
+  .home-btn {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    pointer-events: auto;
+    background: rgba(255,255,255,0.2);
+    color: white;
+    text-decoration: none;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+  }
+</style>
+</head>
+<body>
+
+<div id="game-container">
+  <canvas id="gameCanvas"></canvas>
+  <div id="ui-layer">
+    <div class="hud-top">
+      <div class="score-box">SCORE: <span id="score">0</span></div>
+      <div class="target-box">
+        <div class="target-label" id="targetLabel">請切開正確的動詞形態</div>
+        <div class="target-word" id="targetWord">Loading...</div>
+      </div>
+      <div style="width:120px"></div> <!-- Spacer for balance -->
+    </div>
+    <div class="combo-box" id="comboText">COMBO!</div>
+  </div>
+  
+  <a href="index.html" class="home-btn">🏠 返回</a>
+
+  <div id="start-screen">
+    <h1>⚔️ Verb Dojo</h1>
+    <p style="max-width:400px; margin: 20px 0;">聽指令，切開正確的動詞變化！<br>連續切對可獲得 Combo 加分。<br>小心別切錯喔！</p>
+    <button class="btn" onclick="startGame()">開始修行</button>
+  </div>
+
+  <div id="end-screen" style="display:none">
+    <h1 id="endTitle">修行結束</h1>
+    <div style="font-size: 3rem; color: #f1c40f; margin: 20px 0;" id="finalScore">0</div>
+    <p id="endMsg"></p>
+    <button class="btn" onclick="location.reload()">再次修行</button>
+    <a href="index.html" style="color: #aaa; margin-top: 20px; text-decoration: none;">返回首頁</a>
+  </div>
+</div>
+
+<script>
+const canvas = document.getElementById('gameCanvas');
+const ctx = canvas.getContext('2d');
+const PROGRESS_KEY = 'progress_g6';
+const GAME_ID = 'game1';
+
+let score = 0;
+let gameActive = false;
+let verbs = [];
+let targets = []; // 遊戲中隨機出現的詞
+let currentTarget = null;
+let trail = []; // 劍氣軌跡
+let particles = [];
+let lastSpawn = 0;
+let spawnRate = 1800; // 稍微變慢一點
+let gravity = 0.12; // 重力減小，拋射更平緩
+
+// 初始化畫布大小
+function resize() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+window.addEventListener('resize', resize);
+resize();
+
+// 載入單字資料
+async function loadData() {
+  try {
+    const res = await fetch('../vocab_g6.json');
+    const data = await res.json();
+    // 只取前 6 個單元的動詞
+    verbs = data.slice(0, 6).flatMap(u => u.core_vocab);
+    document.getElementById('targetWord').textContent = "READY?";
+  } catch (e) {
+    console.error("Failed to load verbs:", e);
+    // Fallback
+    verbs = [
+      {en: "eat", past: "ate", pp: "eaten", zh: "吃"},
+      {en: "go", past: "went", pp: "gone", zh: "去"},
+      {en: "see", past: "saw", pp: "seen", zh: "看見"}
+    ];
+  }
+}
+loadData();
+
+class VerbObject {
+  constructor(text, isCorrect, type) {
+    this.text = text;
+    this.isCorrect = isCorrect;
+    this.type = type; // 'base', 'past', 'pp'
+    this.radius = 60;
+    this.x = Math.random() * (canvas.width - 200) + 100;
+    this.y = canvas.height + 50;
+    this.vx = (Math.random() - 0.5) * 6; // 水平速度減慢
+    this.vy = -(Math.random() * 4 + 8); // 垂直起跳速度減慢
+    this.angle = 0;
+    this.rotationSpeed = (Math.random() - 0.5) * 0.1;
+    this.sliced = false;
+    this.color = this.getRandomColor();
+  }
+
+  getRandomColor() {
+    const colors = ['#3498db', '#9b59b6', '#f1c40f', '#e67e22', '#1abc9c'];
+    return colors[Math.floor(Math.random() * colors.length)];
+  }
+
+  update() {
+    this.x += this.vx;
+    this.y += this.vy;
+    this.vy += gravity;
+    this.angle += this.rotationSpeed;
+    
+    if (this.y > canvas.height + 100 && !this.sliced && this.isCorrect) {
+      // 漏掉正確單字，不扣分但中斷節奏
+    }
+  }
+
+  draw() {
+    ctx.save();
+    ctx.translate(this.x, this.y);
+    ctx.rotate(this.angle);
+    
+    // 繪製圓形背景 (水果)
+    ctx.beginPath();
+    ctx.arc(0, 0, this.radius, 0, Math.PI * 2);
+    ctx.fillStyle = this.color;
+    ctx.shadowBlur = 15;
+    ctx.shadowColor = 'rgba(0,0,0,0.3)';
+    ctx.fill();
+    
+    // 繪製文字
+    ctx.fillStyle = '#fff';
+    ctx.font = 'bold 24px Arial';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.shadowBlur = 0;
+    ctx.fillText(this.text, 0, 0);
+    
+    ctx.restore();
+  }
+}
+
+class Particle {
+  constructor(x, y, color) {
+    this.x = x;
+    this.y = y;
+    this.color = color;
+    this.vx = (Math.random() - 0.5) * 10;
+    this.vy = (Math.random() - 0.5) * 10;
+    this.life = 1.0;
+  }
+  update() {
+    this.x += this.vx;
+    this.y += this.vy;
+    this.life -= 0.02;
+  }
+  draw() {
+    ctx.globalAlpha = this.life;
+    ctx.fillStyle = this.color;
+    ctx.fillRect(this.x, this.y, 4, 4);
+    ctx.globalAlpha = 1.0;
+  }
+}
+
+function nextTarget() {
+  const v = verbs[Math.floor(Math.random() * verbs.length)];
+  const types = ['en', 'past', 'pp'];
+  const typeLabels = { 'en': '現在式', 'past': '過去式', 'pp': '過去分詞(PP)' };
+  const targetType = types[Math.floor(Math.random() * types.length)];
+  
+  currentTarget = {
+    verb: v,
+    type: targetType,
+    text: v[targetType],
+    zh: v.zh
+  };
+  
+  document.getElementById('targetLabel').textContent = `請切開 ${v.zh} 的「${typeLabels[targetType]}」`;
+  document.getElementById('targetWord').textContent = v.en.toUpperCase();
+  speak(v.en);
+}
+
+function spawnObjects() {
+  if (!currentTarget) return;
+  
+  // 必定生成一個正確的，和兩個錯誤的
+  const correct = new VerbObject(currentTarget.text, true, currentTarget.type);
+  targets.push(correct);
+  
+  // 錯誤選項：從同一個動詞的其他時態或隨機動詞選
+  const wrong1Text = currentTarget.type === 'past' ? currentTarget.verb.en : currentTarget.verb.past;
+  const wrong1 = new VerbObject(wrong1Text, false);
+  targets.push(wrong1);
+  
+  const randomVerb = verbs[Math.floor(Math.random() * verbs.length)];
+  const wrong2 = new VerbObject(randomVerb.pp, false);
+  targets.push(wrong2);
+}
+
+function startGame() {
+  document.getElementById('start-screen').style.display = 'none';
+  gameActive = true;
+  score = 0;
+  targets = [];
+  nextTarget();
+  gameLoop();
+  
+  // 定時生成
+  setInterval(() => {
+    if (gameActive) spawnObjects();
+  }, spawnRate);
+}
+
+function gameLoop(time) {
+  if (!gameActive) return;
+  
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  
+  // 更新與繪製物體
+  for (let i = targets.length - 1; i >= 0; i--) {
+    const obj = targets[i];
+    obj.update();
+    obj.draw();
+    
+    // 移除螢幕外的
+    if (obj.y > canvas.height + 150) {
+      targets.splice(i, 1);
+    }
+  }
+  
+  // 更新與繪製粒子
+  for (let i = particles.length - 1; i >= 0; i--) {
+    const p = particles[i];
+    p.update();
+    p.draw();
+    if (p.life <= 0) particles.splice(i, 1);
+  }
+  
+  // 繪製劍氣軌跡
+  drawTrail();
+  
+  requestAnimationFrame(gameLoop);
+}
+
+function drawTrail() {
+  if (trail.length < 2) return;
+  ctx.beginPath();
+  ctx.moveTo(trail[0].x, trail[0].y);
+  for (let i = 1; i < trail.length; i++) {
+    ctx.lineTo(trail[i].x, trail[i].y);
+  }
+  ctx.strokeStyle = 'rgba(255, 255, 255, 0.8)';
+  ctx.lineWidth = 5;
+  ctx.lineCap = 'round';
+  ctx.stroke();
+  
+  // 軌跡淡出
+  if (trail.length > 10) trail.shift();
+}
+
+function handleInput(x, y) {
+  trail.push({x, y});
+  
+  // 檢查碰撞
+  for (let i = targets.length - 1; i >= 0; i--) {
+    const obj = targets[i];
+    if (obj.sliced) continue;
+    
+    const dist = Math.hypot(obj.x - x, obj.y - y);
+    if (dist < obj.radius) {
+      obj.sliced = true;
+      createExplosion(obj.x, obj.y, obj.color);
+      
+      if (obj.isCorrect) {
+        score += 10;
+        playSound('success');
+        document.getElementById('score').textContent = score;
+        showCombo();
+        nextTarget();
+      } else {
+        playSound('error');
+        // 切錯扣分
+        score = Math.max(0, score - 5);
+        document.getElementById('score').textContent = score;
+      }
+      // 切到就消失
+      targets.splice(i, 1);
+    }
+  }
+}
+
+function createExplosion(x, y, color) {
+  for (let i = 0; i < 20; i++) {
+    particles.push(new Particle(x, y, color));
+  }
+}
+
+function showCombo() {
+  const combo = document.getElementById('comboText');
+  combo.style.opacity = 1;
+  setTimeout(() => combo.style.opacity = 0, 500);
+}
+
+canvas.addEventListener('mousemove', e => {
+  if (gameActive) handleInput(e.clientX, e.clientY);
+});
+canvas.addEventListener('touchmove', e => {
+  if (gameActive) {
+    const touch = e.touches[0];
+    handleInput(touch.clientX, touch.clientY);
+  }
+}, {passive: false});
+
+canvas.addEventListener('mouseup', () => trail = []);
+canvas.addEventListener('touchend', () => trail = []);
+
+// 簡單計時：60 秒結束
+setTimeout(() => {
+  if (gameActive) endGame();
+}, 60000);
+
+function endGame() {
+  gameActive = false;
+  document.getElementById('end-screen').style.display = 'flex';
+  document.getElementById('finalScore').textContent = score;
+  
+  let msg = "繼續加油！多練習不規則動詞變化。";
+  if (score > 100) msg = "太強了！你是不規則動詞大師！";
+  else if (score > 50) msg = "表現不錯，已經掌握基本規律了。";
+  document.getElementById('endMsg').textContent = msg;
+  
+  // 儲存進度
+  const p = JSON.parse(localStorage.getItem(PROGRESS_KEY) || '{}');
+  p[GAME_ID] = 'done';
+  localStorage.setItem(PROGRESS_KEY, JSON.stringify(p));
+}
+</script>
+</body>
+</html>
