@@ -19,13 +19,40 @@ def generate_unit(u, grade_info, template):
     if 'items' in u:
         html = html.replace("{{items_json}}", json.dumps(u['items'], ensure_ascii=False))
     
-    # 處理 G2/G4 特有的 vocab 欄位
+    # 處理 G2/G4/G5/G6 的 vocab 欄位 (支援 [en, zh] 或 {en, zh, ...})
     if 'core_vocab' in u:
-        core_js = ",\n  ".join([f"{{en:'{v[0]}', zh:'{v[1]}'}}" for v in u['core_vocab']])
-        html = html.replace("{{core_js}}", core_js)
+        core_list = []
+        for v in u['core_vocab']:
+            if isinstance(v, list): core_list.append(f"{{en:'{v[0]}', zh:'{v[1]}'}}")
+            else: core_list.append(json.dumps(v, ensure_ascii=False))
+        html = html.replace("{{core_js}}", ",\n  ".join(core_list))
+        
     if 'ext_vocab' in u:
-        ext_js  = ",\n  ".join([f"{{en:'{v[0]}', zh:'{v[1]}'}}" for v in u['ext_vocab']])
-        html = html.replace("{{ext_js}}", ext_js)
+        ext_list = []
+        for v in u['ext_vocab']:
+            if isinstance(v, list): ext_list.append(f"{{en:'{v[0]}', zh:'{v[1]}'}}")
+            else: ext_list.append(json.dumps(v, ensure_ascii=False))
+        html = html.replace("{{ext_js}}", ",\n  ".join(ext_list))
+
+    # 處理 G6 特有的 grammar 欄位
+    if 'grammar' in u:
+        g = u['grammar']
+        html = html.replace("{{grammar_title}}", g.get('title', '文法重點'))
+        rules_html = "".join([f"<li>{r}</li>" for r in g.get('rules', [])])
+        html = html.replace("{{grammar_rules_html}}", f"<ul>{rules_html}</ul>")
+        
+        table_html = ""
+        if 'table' in g:
+            for i, row in enumerate(g['table']):
+                tag = 'th' if i == 0 else 'td'
+                row_str = "".join([f"<{tag}>{cell}</{tag}>" for cell in row])
+                table_html += f"<tr>{row_str}</tr>"
+        html = html.replace("{{grammar_table_html}}", table_html)
+    else:
+        # 非 G6 或無文法資料時清空標籤 (避免模板殘留)
+        html = html.replace("{{grammar_title}}", "")
+        html = html.replace("{{grammar_rules_html}}", "")
+        html = html.replace("{{grammar_table_html}}", "")
     
     # ... (其餘原有的欄位替換，加入防呆判斷)
     if 'warmup_tasks' in u:
@@ -75,7 +102,7 @@ def main():
         "g3": {"json": "vocab_g3.json", "dir": "g3", "num": 3, "key": "progress_g3", "tpl": "templates/unit_template.html"},
         "g4": {"json": "vocab_g4.json", "dir": "g4", "num": 4, "key": "progress_g4", "tpl": "templates/unit_template.html"},
         "g5": {"json": "vocab_g5.json", "dir": "g5", "num": 5, "key": "progress_g5", "tpl": "templates/unit_template.html"},
-        "g6": {"json": "vocab_g6.json", "dir": "g6", "num": 6, "key": "progress_g6", "tpl": "templates/unit_template.html"},
+        "g6": {"json": "vocab_g6.json", "dir": "g6", "num": 6, "key": "progress_g6", "tpl": "templates/unit_template_g6.html"},
         "gk": {"json": "vocab_gk.json", "dir": "gk", "num": "K", "key": "progress_kinder", "tpl": "templates/unit_template_gk.html"}
     }
 

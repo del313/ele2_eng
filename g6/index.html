@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小六英文應用 – Grade 6</title>
+<link rel="stylesheet" href="../style-common.css">
+<style>
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  .game-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .game-card {
+    grid-column: auto !important;
+    margin: 0 !important;
+    flex-direction: row !important;
+    padding: 20px !important;
+    text-align: left !important;
+    display: flex;
+    align-items: center;
+  }
+  .game-card .card-icon { margin-bottom: 0; margin-right: 20px; font-size: 3rem; }
+  .game-card .content { text-align: left !important; }
+  .game-card .card-title { font-size: 1.4rem !important; }
+  .game-card .card-sub { font-size: 1.1rem !important; }
+
+  @media (max-width: 600px) {
+    .card-grid, .game-grid {
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>⚔️ 小六英文挑戰</h1>
+  <p>Grade 6 English · 18 Units · Phase 1: Verbs</p>
+  <div class="progress-wrap">
+    <div class="progress-bar" id="progressBar" style="width:0%"></div>
+  </div>
+  <div class="progress-label" id="progressLabel">0 / 22 完成</div>
+  <div class="header-btns">
+    <button class="reset-progress-btn" onclick="resetProgress()">🔄 重設進度</button>
+    <a href="../index.html" class="back-home-btn">🏠 回首頁</a>
+  </div>
+</header>
+
+<style>
+  .header-btns {
+    display: flex;
+    justify-content: space-between;
+    margin: 15px auto 0 auto;
+    max-width: 800px;
+    padding: 0 20px;
+    gap: 20px;
+  }
+  .back-home-btn, .reset-progress-btn {
+    box-sizing: border-box;
+    background: rgba(255,255,255,0.15);
+    border: 2px solid rgba(255,255,255,0.5);
+    border-radius: 20px;
+    color: white;
+    font-size: 13px;
+    font-weight: 800;
+    padding: 0;
+    height: 40px;
+    width: 130px;
+    text-decoration: none;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    line-height: 1;
+  }
+  .back-home-btn:hover, .reset-progress-btn:hover {
+    background: rgba(255,255,255,0.3);
+    transform: scale(1.05);
+  }
+</style>
+
+<div class="container">
+
+  <div class="continue-banner hidden" id="continueBanner">
+    <div class="cb-text" style="font-size: 1.1rem;">繼續挑戰：<span id="continueTitle" style="color:#D32F2F"></span></div>
+    <a href="#" class="cb-btn" id="continueLink" style="background:#D32F2F; color:white; padding:10px 20px; border-radius:30px; text-decoration:none; font-weight:800; margin-left:15px;">GO! →</a>
+  </div>
+
+  <div class="section-label">第一階段：動詞三態 (I)</div>
+  <div class="card-grid" id="group1"></div>
+
+  <div class="section-label" style="margin-top:40px;">第一階段：動詞三態 (II)</div>
+  <div class="card-grid" id="group2"></div>
+  <div class="game-grid" id="games-p1"></div>
+
+  <div class="section-label" style="margin-top:40px; opacity: 0.5;">第二階段：邏輯與連接 (規劃中)</div>
+  <div class="card-grid" id="group3"></div>
+  <div class="card-grid" id="group4"></div>
+  <div class="game-grid" id="games-p2"></div>
+
+  <div class="section-label" style="margin-top:40px; opacity: 0.5;">第三階段：時態與整合 (規劃中)</div>
+  <div class="card-grid" id="group5"></div>
+  <div class="card-grid" id="group6"></div>
+  <div class="game-grid" id="games-p3"></div>
+
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot" style="background:#FFF;border:3px solid #4FC3F7"></div> 準備好</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#FFFDE7;border:3px solid #FFB74D"></div> 進行中</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#F1F8E9;border:3px solid #81C784"></div> 已完成</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#ECEFF1;border:3px solid #D1D9E0"></div> 鎖定中</div>
+  </div>
+
+</div>
+
+<script>
+const units = [
+  { id:'unit1',  title:'Irregular Verbs: ABC', sub:'動詞三態 ABC', icon:'🍎', file:'unit1.html'  },
+  { id:'unit2',  title:'Irregular Verbs: ABB', sub:'動詞三態 ABB', icon:'💰', file:'unit2.html'  },
+  { id:'unit3',  title:'Irregular Verbs: ABA', sub:'動詞三態 ABA', icon:'🏃', file:'unit3.html'  },
+  { id:'unit4',  title:'Irregular Verbs: AAA', sub:'動詞三態 AAA', icon:'✂️', file:'unit4.html'  },
+  { id:'unit5',  title:'Vowel Change Patterns', sub:'母音變化規律', icon:'🎤', file:'unit5.html'  },
+  { id:'unit6',  title:'Phase 1 Review', sub:'第一階段複習', icon:'🎓', file:'unit6.html'  },
+  // 後續單元暫時佔位
+  { id:'unit7',  title:'Logic Connectors I', sub:'邏輯連接詞 I', icon:'🔗', file:'#', locked: true },
+  { id:'unit8',  title:'Logic Connectors II', sub:'邏輯連接詞 II', icon:'🔗', file:'#', locked: true },
+  { id:'unit9',  title:'Sequence of Events', sub:'事件先後順序', icon:'⏳', file:'#', locked: true },
+  { id:'unit10', title:'Reason & Result', sub:'原因與結果', icon:'💡', file:'#', locked: true },
+  { id:'unit11', title:'Contrast & Comparison', sub:'對比與比較', icon:'⚖️', file:'#', locked: true },
+  { id:'unit12', title:'Logic Review', sub:'邏輯綜合複習', icon:'🧠', file:'#', locked: true },
+  { id:'unit13', title:'Future Tense', sub:'未來式應用', icon:'🚀', file:'#', locked: true },
+  { id:'unit14', title:'Perfect Tense', sub:'完成式應用', icon:'✅', file:'#', locked: true },
+  { id:'unit15', title:'Advice & Obligation', sub:'建議與義務', icon:'📋', file:'#', locked: true },
+  { id:'unit16', title:'Passive Voice', sub:'被動語態入門', icon:'📦', file:'#', locked: true },
+  { id:'unit17', title:'Complex Sentences', sub:'長難句型挑戰', icon:'🧩', file:'#', locked: true },
+  { id:'unit18', title:'Final Mastery', sub:'小六大會考', icon:'🏁', file:'#', locked: true },
+];
+
+const games = [
+  { id:'game1', title:'Verb Dojo', sub:'動詞三態武道館', icon:'⚔️', file:'game1.html', phase: 1, comingSoon: true },
+  { id:'game2', title:'Logic Bridge', sub:'邏輯之橋', icon:'🌉', file:'#', phase: 2, locked: true },
+  { id:'game3', title:'Tense Traveler', sub:'時空旅人', icon:'🕰️', file:'#', phase: 3, locked: true },
+  { id:'game4', title:'Grammar Battle RPG', sub:'文法大對決', icon:'🐉', file:'#', phase: 3, locked: true },
+];
+
+const unitSequence = units.map(u => u.id);
+const PROGRESS_KEY = 'progress_g6';
+const progress = JSON.parse(localStorage.getItem(PROGRESS_KEY) || '{}');
+
+window.addEventListener('pageshow', e => { if (e.persisted) location.reload(); });
+
+function resetProgress() {
+  if (confirm('確定要清除所有進度嗎？')) {
+    localStorage.removeItem(PROGRESS_KEY);
+    location.reload();
+  }
+}
+
+function getState(id) {
+  const u = units.find(x => x.id === id) || games.find(x => x.id === id);
+  if (u && u.locked) return 'locked';
+  if (u && u.comingSoon) return 'locked'; // 目前開發中
+
+  if (progress[id] === 'done') return 'done';
+  if (progress[id] === 'in_progress') return 'in-progress';
+  
+  if (id.startsWith('unit')) {
+    const idx = unitSequence.indexOf(id);
+    if (idx === 0) return 'available';
+    const prev = unitSequence[idx - 1];
+    if (progress[prev] === 'done') return 'available';
+    return 'locked';
+  } else if (id.startsWith('game')) {
+    const game = games.find(g => g.id === id);
+    if (game.phase === 1) return progress['unit6'] === 'done' ? 'available' : 'locked';
+  }
+  return 'locked';
+}
+
+function makeUnitCard(u, num) {
+  const state = getState(u.id);
+  const a = document.createElement('a');
+  a.className = `unit-card ${state}`;
+  a.href = state === 'locked' ? '#' : u.file;
+  if (state === 'locked') a.onclick = e => e.preventDefault();
+  
+  const badge = state === 'done' ? '⭐' : state === 'in-progress' ? '▶️' : state === 'locked' ? '🔒' : '';
+  a.innerHTML = `
+    ${badge ? `<div class="card-badge">${badge}</div>` : ''}
+    <div class="card-num">UNIT ${num}</div>
+    <div class="card-icon">${u.icon}</div>
+    <div class="card-title">${u.title}</div>
+    <div class="card-sub">${u.sub}</div>`;
+  return a;
+}
+
+function makeGameCard(game) {
+  const state = getState(game.id);
+  const a = document.createElement('a');
+  a.className = `game-card ${state}`;
+  a.href = state === 'locked' ? '#' : game.file;
+  if (state === 'locked') a.onclick = e => e.preventDefault();
+  
+  const label = game.comingSoon ? ' (製作中)' : state === 'locked' ? ' 🔒' : ' ⚔️';
+  a.innerHTML = `
+    <div class="card-icon">${game.icon}</div>
+    <div class="content">
+      <div class="card-title">${game.title}${label}</div>
+      <div class="card-sub">${game.sub}</div>
+    </div>`;
+  return a;
+}
+
+// 渲染單元 (3個一組)
+for(let i=0; i<6; i++) {
+  const grid = document.getElementById(`group${i+1}`);
+  if (grid) {
+    units.slice(i*3, (i+1)*3).forEach((u, j) => grid.appendChild(makeUnitCard(u, i*3 + j + 1)));
+  }
+}
+
+// 渲染遊戲
+games.forEach((g) => {
+  const area = document.getElementById(`games-p${g.phase}`);
+  if (area) area.appendChild(makeGameCard(g));
+});
+
+const sequence = [...unitSequence, ...games.filter(g=>!g.locked).map(g => g.id)];
+const total = sequence.length;
+const done = sequence.filter(id => progress[id] === 'done').length;
+document.getElementById('progressBar').style.width = `${Math.round(done/total*100)}%`;
+document.getElementById('progressLabel').textContent = `${done} / ${total} 完成`;
+
+const targetUnit = unitSequence.find(id => progress[id] !== 'done' && !units.find(u=>u.id===id).locked);
+if (targetUnit) {
+  const state = getState(targetUnit);
+  if (state !== 'locked') {
+    const banner = document.getElementById('continueBanner');
+    banner.classList.remove('hidden');
+    banner.style.display = 'flex';
+    const u = units.find(x => x.id === targetUnit);
+    if (u) {
+      document.getElementById('continueTitle').textContent = u.title;
+      document.getElementById('continueLink').href = u.file;
+    }
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,272 @@
+[
+  {
+    "num": 1, "id": "unit1", "title": "Irregular Verbs: A-B-C", "icon": "🍎", "grade_label": "UNIT 1 OF 18",
+    "video_url": "https://www.youtube.com/watch?v=MA3NFtLc22k", "video_label": "Irregular Verbs Song",
+    "warmup_tasks": ["觀察影片中的動詞變化", "大聲說出 eat, ate, eaten", "討論你昨天吃了什麼"],
+    "core_vocab": [
+      {"en": "eat", "zh": "吃", "past": "ate", "pp": "eaten"},
+      {"en": "go", "zh": "去", "past": "went", "pp": "gone"},
+      {"en": "see", "zh": "看見", "past": "saw", "pp": "seen"},
+      {"en": "do", "zh": "做", "past": "did", "pp": "done"},
+      {"en": "write", "zh": "寫", "past": "wrote", "pp": "written"},
+      {"en": "speak", "zh": "說話", "past": "spoke", "pp": "spoken"},
+      {"en": "take", "zh": "拿/搭乘", "past": "took", "pp": "taken"},
+      {"en": "drive", "zh": "駕駛", "past": "drove", "pp": "driven"}
+    ],
+    "ext_vocab": [
+      {"en": "past", "zh": "過去"}, {"en": "present", "zh": "現在"}, {"en": "perfect", "zh": "完成"}
+    ],
+    "grammar": {
+      "title": "A-B-C 型不規則動詞",
+      "rules": [
+        "這類動詞的現在式、過去式、過去分詞(PP)三者完全不同。",
+        "這是國中英語最基礎也最重要的部分，一定要熟記！"
+      ],
+      "table": [
+        ["現在式 (Base)", "過去式 (Past)", "過去分詞 (PP)"],
+        ["eat", "ate", "eaten"],
+        ["go", "went", "gone"],
+        ["see", "saw", "seen"],
+        ["do", "did", "done"]
+      ]
+    },
+    "sentences": [
+      ["現在式", "I ___ apple every day.", "I eat an apple every day.", "I eat an apple every day."],
+      ["過去式", "I ___ an apple yesterday.", "I ate an apple yesterday.", "I ate an apple yesterday."],
+      ["現在完成式", "I have ___ an apple.", "I have eaten an apple.", "I have eaten an apple."]
+    ],
+    "qa": [
+      ["Did you go to school?", "Yes, I went to school by bus."],
+      ["Have you seen the movie?", "Yes, I have seen it twice."]
+    ],
+    "wrapup_title": "動詞三態初體驗",
+    "wrapup_lines": ["我們認識了最具挑戰性的 A-B-C 型動詞變化。", "記住這三種形態，是學好時態的第一步！"],
+    "wrapup_tip": "✨ 試著背誦 eat-ate-eaten，像順口溜一樣練習。",
+    "wrapup_challenges": ["背出本課 8 個動詞的三態變化。", "用過去式寫一個關於昨天的句子。"],
+    "complete_next": "Unit 2: Irregular Verbs: A-B-B"
+  },
+  {
+    "num": 2, "id": "unit2", "title": "Irregular Verbs: A-B-B", "icon": "💰", "grade_label": "UNIT 2 OF 18",
+    "video_url": "https://www.youtube.com/watch?v=gZzKe1BC2XU", "video_label": "Verb Patterns",
+    "warmup_tasks": ["找出過去式與 PP 相同的動詞", "練習說出 buy, bought, bought", "討論你買過的文具"],
+    "core_vocab": [
+      {"en": "buy", "zh": "買", "past": "bought", "pp": "bought"},
+      {"en": "send", "zh": "寄送", "past": "sent", "pp": "sent"},
+      {"en": "sleep", "zh": "睡覺", "past": "slept", "pp": "slept"},
+      {"en": "feel", "zh": "感覺", "past": "felt", "pp": "felt"},
+      {"en": "keep", "zh": "保持/存放", "past": "kept", "pp": "kept"},
+      {"en": "leave", "zh": "離開", "past": "left", "pp": "left"},
+      {"en": "bring", "zh": "帶來", "past": "brought", "pp": "brought"},
+      {"en": "teach", "zh": "教導", "past": "taught", "pp": "taught"}
+    ],
+    "ext_vocab": [
+      {"en": "lesson", "zh": "課程"}, {"en": "gift", "zh": "禮物"}, {"en": "store", "zh": "商店"}
+    ],
+    "grammar": {
+      "title": "A-B-B 型不規則動詞",
+      "rules": [
+        "這類動詞的過去式與過去分詞(PP)是一樣的。",
+        "通常結尾會變成 -t 或 -d，拼寫時要特別注意 gh 的組合。"
+      ],
+      "table": [
+        ["現在式 (Base)", "過去式/PP (ABB)", "中文"],
+        ["buy", "bought", "買"],
+        ["send", "sent", "寄"],
+        ["bring", "brought", "帶"],
+        ["teach", "taught", "教"]
+      ]
+    },
+    "sentences": [
+      ["購買經驗", "I ___ a pen.", "I bought a pen yesterday.", "I bought a pen yesterday."],
+      ["寄送行為", "He ___ a letter.", "He sent a letter to his friend.", "He sent a letter to his friend."]
+    ],
+    "qa": [
+      ["How did you feel?", "I felt very happy."],
+      ["Who taught you English?", "Ms. Lin taught me English."]
+    ],
+    "wrapup_title": "穩定的 ABB 變化",
+    "wrapup_lines": ["ABB 型雖然有變化，但過去式與 PP 相同，相對容易記憶。", "注意像 bought 與 taught 的拼法喔！"],
+    "wrapup_tip": "✨ 看到 -ought 或 -aught 結尾，通常就是 ABB 型。",
+    "wrapup_challenges": ["在紙上寫出 buy 與 bring 的三態。", "跟同學分享你昨天帶了什麼來學校。"],
+    "complete_next": "Unit 3: Irregular Verbs: A-B-A"
+  },
+  {
+    "num": 3, "id": "unit3", "title": "Irregular Verbs: A-B-A", "icon": "🏃", "grade_label": "UNIT 3 OF 18",
+    "video_url": "https://www.youtube.com/watch?v=0X47Mh0", "video_label": "Come and Run",
+    "warmup_tasks": ["觀察 come 與 become 的規律", "練習說出 run, ran, run", "討論你每天的跑步練習"],
+    "core_vocab": [
+      {"en": "come", "zh": "來", "past": "came", "pp": "come"},
+      {"en": "become", "zh": "變成", "past": "became", "pp": "become"},
+      {"en": "run", "zh": "跑步", "past": "ran", "pp": "run"},
+      {"en": "read", "zh": "閱讀", "past": "read", "pp": "read"},
+      {"en": "say", "zh": "說", "past": "said", "pp": "said"},
+      {"en": "pay", "zh": "付錢", "past": "paid", "pp": "paid"},
+      {"en": "find", "zh": "尋找", "past": "found", "pp": "found"},
+      {"en": "tell", "zh": "告訴", "past": "told", "pp": "told"}
+    ],
+    "ext_vocab": [
+      {"en": "book", "zh": "書"}, {"en": "news", "zh": "新聞"}, {"en": "story", "zh": "故事"}
+    ],
+    "grammar": {
+      "title": "A-B-A 與特殊變化",
+      "rules": [
+        "A-B-A 型：現在式與過去分詞(PP)相同，但過去式不同。",
+        "特別注意：read 的三態拼寫一樣，但發音會變！(read-read-read /rid/-/rɛd/-/rɛd/)"
+      ],
+      "table": [
+        ["現在式 (Base)", "過去式 (Past)", "過去分詞 (PP)"],
+        ["come", "came", "come"],
+        ["run", "ran", "run"],
+        ["read", "read", "read (唸法不同)"]
+      ]
+    },
+    "sentences": [
+      ["回歸家鄉", "She ___ back.", "She came back to Taiwan.", "She came back to Taiwan."],
+      ["閱讀習慣", "I ___ a book.", "I read a book last night.", "I read a book last night."]
+    ],
+    "qa": [
+      ["Have you run today?", "Yes, I have run 2 kilometers."],
+      ["What did he tell you?", "He told me a secret."]
+    ],
+    "wrapup_title": "相似卻不同的變化",
+    "wrapup_lines": ["ABA 型不多，但很容易在寫完成式時忘記變回現在式形態。", "read 的發音陷阱要特別小心喔！"],
+    "wrapup_tip": "✨ 唸讀 read 時，過去式要唸得像紅色 (red)。",
+    "wrapup_challenges": ["唸出 read 的三態並注意發音。", "寫出 become 的三態變化。"],
+    "complete_next": "Unit 4: Irregular Verbs: A-A-A"
+  },
+  {
+    "num": 4, "id": "unit4", "title": "Irregular Verbs: A-A-A", "icon": "✂️", "grade_label": "UNIT 4 OF 18",
+    "video_url": "https://www.youtube.com/watch?v=LqUuXf", "video_label": "Same Form Verbs",
+    "warmup_tasks": ["找出完全不用變形的動詞", "練習說出 cut, cut, cut", "玩「剪刀石頭布」並說出動詞"],
+    "core_vocab": [
+      {"en": "cut", "zh": "切/剪", "past": "cut", "pp": "cut"},
+      {"en": "put", "zh": "放", "past": "put", "pp": "put"},
+      {"en": "hit", "zh": "打/撞", "past": "hit", "pp": "hit"},
+      {"en": "set", "zh": "設置", "past": "set", "pp": "set"},
+      {"en": "cost", "zh": "花費(值...錢)", "past": "cost", "pp": "cost"},
+      {"en": "let", "zh": "讓", "past": "let", "pp": "let"},
+      {"en": "hurt", "zh": "傷害/痛", "past": "hurt", "pp": "hurt"},
+      {"en": "shut", "zh": "關閉", "past": "shut", "pp": "shut"}
+    ],
+    "ext_vocab": [
+      {"en": "knife", "zh": "刀子"}, {"en": "finger", "zh": "手指"}, {"en": "door", "zh": "門"}
+    ],
+    "grammar": {
+      "title": "A-A-A 型不規則動詞",
+      "rules": [
+        "這類動詞最簡單，因為三態完全一樣！",
+        "雖然長得一樣，但在句子中要靠時間副詞（如 yesterday）來判斷時態。"
+      ],
+      "table": [
+        ["現在/過去/PP (AAA)", "中文"],
+        ["cut", "切"],
+        ["put", "放"],
+        ["hit", "打"],
+        ["hurt", "痛/受傷"]
+      ]
+    },
+    "sentences": [
+      ["切菜動作", "I ___ the cake.", "I cut the cake into pieces.", "I cut the cake into pieces."],
+      ["受傷表達", "It ___ me.", "The accident hurt me.", "The accident hurt me."]
+    ],
+    "qa": [
+      ["Where did you put it?", "I put it on the table."],
+      ["Did it cost much?", "No, it cost only ten dollars."]
+    ],
+    "wrapup_title": "不變應萬變",
+    "wrapup_lines": ["AAA 型是拼寫者的福音，但要記得在第三人稱單數現在式(He/She/It)還是要加 s 哦！", "這類動詞通常是短母音。"],
+    "wrapup_tip": "✨ 雖然拼法一樣，但心裡要清楚它代表的是哪個時態。",
+    "wrapup_challenges": ["列出 5 個 AAA 型動詞。", "用 put 寫出一個過去式的句子。"],
+    "complete_next": "Unit 5: Vowel Change Patterns"
+  },
+  {
+    "num": 5, "id": "unit5", "title": "Vowel Change Patterns", "icon": "🎤", "grade_label": "UNIT 5 OF 18",
+    "video_url": "https://www.youtube.com/watch?v=MA3NFtLc22k", "video_label": "Sing, Sang, Sung",
+    "warmup_tasks": ["練習 i-a-u 的母音變化規律", "練習說出 sing, sang, sung", "模擬在泳池游泳的動作"],
+    "core_vocab": [
+      {"en": "sing", "zh": "唱歌", "past": "sang", "pp": "sung"},
+      {"en": "swim", "zh": "游泳", "past": "swam", "pp": "swum"},
+      {"en": "drink", "zh": "喝", "past": "drank", "pp": "drunk"},
+      {"en": "ring", "zh": "響/按鈴", "past": "rang", "pp": "rung"},
+      {"en": "begin", "zh": "開始", "past": "began", "pp": "begun"},
+      {"en": "sink", "zh": "下沉", "past": "sank", "pp": "sunk"},
+      {"en": "know", "zh": "知道", "past": "knew", "pp": "known"},
+      {"en": "grow", "zh": "成長", "past": "grew", "pp": "grown"}
+    ],
+    "ext_vocab": [
+      {"en": "song", "zh": "歌曲"}, {"en": "water", "zh": "水"}, {"en": "bell", "zh": "鈴聲"}
+    ],
+    "grammar": {
+      "title": "母音規律變化 (i-a-u)",
+      "rules": [
+        "有些動詞雖然是 A-B-C 型，但母音變化有規律：i -> a -> u。",
+        "另外還有 ow -> ew -> own 的規律（如 know, grow）。"
+      ],
+      "table": [
+        ["現在 (i/ow)", "過去 (a/ew)", "過去分詞 (u/own)"],
+        ["sing", "sang", "sung"],
+        ["swim", "swam", "swum"],
+        ["know", "knew", "known"],
+        ["grow", "grew", "grown"]
+      ]
+    },
+    "sentences": [
+      ["唱歌表現", "She ___ beautifully.", "She sang beautifully at the party.", "She sang beautifully at the party."],
+      ["飲水習慣", "I ___ water.", "I drank a lot of water after running.", "I drank a lot of water after running."]
+    ],
+    "qa": [
+      ["Has the movie begun?", "Yes, it has already begun."],
+      ["How did you know?", "I knew it from the news."]
+    ],
+    "wrapup_title": "母音的旋律",
+    "wrapup_lines": ["掌握了 i-a-u 規律，這組動詞就變得很簡單好記。", "規律能幫助我們舉一反三！"],
+    "wrapup_tip": "✨ 練習這組時，可以用節奏感來背：Sing-Sang-Sung!。",
+    "wrapup_challenges": ["找出 4 個符合 i-a-u 規律的動詞。", "說出 grow 的三態。"],
+    "complete_next": "Unit 6: Phase 1 Review"
+  },
+  {
+    "num": 6, "id": "unit6", "title": "Phase 1 Review", "icon": "🎓", "grade_label": "UNIT 6 OF 18",
+    "video_url": "https://www.youtube.com/watch?v=MA3NFtLc22k", "video_label": "Irregular Verb Review",
+    "warmup_tasks": ["快速閃卡複習前五課動詞", "挑戰一口氣說出三態變化", "準備進入動詞武道館遊戲"],
+    "core_vocab": [
+      {"en": "eat", "zh": "吃", "past": "ate", "pp": "eaten"},
+      {"en": "buy", "zh": "買", "past": "bought", "pp": "bought"},
+      {"en": "come", "zh": "來", "past": "came", "pp": "come"},
+      {"en": "cut", "zh": "切", "past": "cut", "pp": "cut"},
+      {"en": "sing", "zh": "唱歌", "past": "sang", "pp": "sung"},
+      {"en": "see", "zh": "看見", "past": "saw", "pp": "seen"},
+      {"en": "bring", "zh": "帶來", "past": "brought", "pp": "brought"},
+      {"en": "run", "zh": "跑步", "past": "ran", "pp": "run"}
+    ],
+    "ext_vocab": [
+      {"en": "review", "zh": "複習"}, {"en": "master", "zh": "精通"}, {"en": "ready", "zh": "準備好了"}
+    ],
+    "grammar": {
+      "title": "不規則動詞總複習",
+      "rules": [
+        "我們學過了 ABC, ABB, ABA, AAA 與 i-a-u 五種常見模式。",
+        "在進入 Game 1 之前，請確保你能快速反應出這些動詞的變化！"
+      ],
+      "table": [
+        ["模式", "範例", "變化"],
+        ["ABC", "eat-ate-eaten", "三者全異"],
+        ["ABB", "buy-bought-bought", "過去=PP"],
+        ["ABA", "come-came-come", "現在=PP"],
+        ["AAA", "cut-cut-cut", "三者全同"]
+      ]
+    },
+    "sentences": [
+      ["綜合練習", "I ___ it yesterday.", "I saw it yesterday.", "I saw it yesterday."],
+      ["完成式複習", "I have ___ it.", "I have done it.", "I have done it."]
+    ],
+    "qa": [
+      ["Are you ready for the game?", "Yes, I am ready to be a master!"],
+      ["Which verb is ABB?", "Buy is an ABB verb."]
+    ],
+    "wrapup_title": "邁向精通之路",
+    "wrapup_lines": ["恭喜你完成了第一階段的不規則動詞學習！", "這些知識將成為你玩 Verb Dojo 的最強武器。"],
+    "wrapup_tip": "✨ 越熟練，你在遊戲中的得分就會越高。",
+    "wrapup_challenges": ["選出 10 個最難記的動詞，再複習一次。", "準備好挑戰 Game 1: Verb Dojo！"],
+    "complete_next": "Game 1: Verb Dojo (Coming Soon)"
+  }
+]
