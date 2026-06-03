@@ -60,9 +60,10 @@
     position: absolute;
     bottom: 35vh;
     left: 50px;
-    font-size: 50px;
+    font-size: 70px; /* 放大圖示 */
     z-index: 10;
     transition: all 0.5s ease-in-out;
+    transform: scaleX(-1); /* 讓小人朝右 */
   }
 
   /* Bridge */
@@ -232,6 +233,7 @@
     <div class="bridge-segment" id="seg2"></div>
     <div class="bridge-segment" id="seg3"></div>
     <div class="bridge-segment" id="seg4"></div>
+    <div class="bridge-segment" id="seg5"></div>
   </div>
   <div class="cliff right"></div>
 
@@ -254,7 +256,7 @@
 const PROGRESS_KEY = 'progress_g6';
 const GAME_ID = 'game2';
 let currentStep = 0;
-let totalSteps = 5;
+let totalSteps = 6;
 let pool = [];
 let currentQuestion = null;
 
@@ -336,16 +338,18 @@ function checkAnswer(selected, correct, btn) {
     blank.textContent = correct;
     blank.style.color = 'var(--correct)';
     playSound('success');
-    speak(currentQuestion[2]); // 朗讀正確全句
     
     // 啟用橋段
     document.getElementById(`seg${currentStep}`).classList.add('active');
     
-    setTimeout(() => {
-      moveCharacter();
-      currentStep++;
-      nextQuestion();
-    }, 1500);
+    // 朗讀正確全句，完成後才換題
+    speak(currentQuestion[2], () => {
+      setTimeout(() => {
+        moveCharacter();
+        currentStep++;
+        nextQuestion();
+      }, 500); // 稍微停頓增加穩定感
+    });
   } else {
     btn.classList.add('wrong');
     document.getElementById(`seg${currentStep}`).classList.add('failed');
