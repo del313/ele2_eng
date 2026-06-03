@@ -101,7 +101,7 @@
   <div class="card-grid" id="group2"></div>
   <div class="game-grid" id="games-p1"></div>
 
-  <div class="section-label" style="margin-top:40px; opacity: 0.5;">第二階段：邏輯與連接 (規劃中)</div>
+  <div class="section-label" style="margin-top:40px;">第二階段：邏輯與連接詞 (Phase 2)</div>
   <div class="card-grid" id="group3"></div>
   <div class="card-grid" id="group4"></div>
   <div class="game-grid" id="games-p2"></div>
@@ -172,13 +172,14 @@ function getState(id) {
   
   if (id.startsWith('unit')) {
     const idx = unitSequence.indexOf(id);
-    if (idx === 0) return 'available';
+    if (idx === 0 || idx === 6 || idx === 12) return 'available'; 
     const prev = unitSequence[idx - 1];
     if (progress[prev] === 'done') return 'available';
     return 'locked';
   } else if (id.startsWith('game')) {
     const game = games.find(g => g.id === id);
     if (game.phase === 1) return progress['unit6'] === 'done' ? 'available' : 'locked';
+    if (game.phase === 2) return progress['unit12'] === 'done' ? 'available' : 'locked';
   }
   return 'locked';
 }
