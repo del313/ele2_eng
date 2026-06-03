@@ -267,6 +267,269 @@
     "wrapup_lines": ["恭喜你完成了第一階段的不規則動詞學習！", "這些知識將成為你玩 Verb Dojo 的最強武器。"],
     "wrapup_tip": "✨ 越熟練，你在遊戲中的得分就會越高。",
     "wrapup_challenges": ["選出 10 個最難記的動詞，再複習一次。", "準備好挑戰 Game 1: Verb Dojo！"],
-    "complete_next": "Game 1: Verb Dojo (Coming Soon)"
+    "complete_next": "Unit 7: Connectors: Because & So"
+  },
+  {
+    "num": 7, "id": "unit7", "title": "Connectors: Because & So", "icon": "🔗", "grade_label": "UNIT 7 OF 18",
+    "video_url": "https://www.youtube.com/watch?v=68fE3E", "video_label": "Cause and Effect",
+    "warmup_tasks": ["思考「原因」與「結果」的關係", "練習說出 because 與 so", "討論你今天為什麼遲到或早到"],
+    "core_vocab": [
+      {"en": "because", "zh": "因為"},
+      {"en": "so", "zh": "所以"},
+      {"en": "hungry", "zh": "飢餓的"},
+      {"en": "thirsty", "zh": "口渴的"},
+      {"en": "tired", "zh": "疲倦的"},
+      {"en": "rainy", "zh": "下雨的"},
+      {"en": "stay", "zh": "待著"},
+      {"en": "rest", "zh": "休息"}
+    ],
+    "ext_vocab": [
+      {"en": "reason", "zh": "原因"}, {"en": "result", "zh": "結果"}
+    ],
+    "grammar": {
+      "title": "因果連接詞：Because vs. So",
+      "rules": [
+        "Because 引導的是「原因」。",
+        "So 引導的是「結果」。",
+        "注意：在英文中 because 和 so 通常不會同時出現在同一個句子裡。"
+      ],
+      "table": [
+        ["連接詞", "用途", "範例"],
+        ["because", "接原因", "I ate because I was hungry."],
+        ["so", "接結果", "I was hungry, so I ate."]
+      ]
+    },
+    "sentences": [
+      ["原因與動作", "I slept early ___ I was tired.", "I slept early because I was tired.", "I slept early because I was tired."],
+      ["結果與動作", "It was raining, ___ I stayed home.", "It was raining, so I stayed home.", "It was raining, so I stayed home."]
+    ],
+    "qa": [
+      ["Why did you drink water?", "Because I was very thirsty."],
+      ["You look tired.", "Yes, so I want to take a rest."]
+    ],
+    "wrapup_title": "邏輯的起點",
+    "wrapup_lines": ["學會 because 與 so，你就能清楚表達事情發生的原因與結果。", "這是邏輯表達的重要關鍵！"],
+    "wrapup_tip": "✨ 記得英文裡「因為...所以」只能選一個連接詞用喔。",
+    "wrapup_challenges": ["用 because 寫一個關於午餐的句子。", "用 so 寫一個關於天氣的句子。"],
+    "complete_next": "Unit 8: Connectors: But & Although"
+  },
+  {
+    "num": 8, "id": "unit8", "title": "Connectors: But & Although", "icon": "⚖️", "grade_label": "UNIT 8 OF 18",
+    "video_url": "https://www.youtube.com/watch?v=5G5UfE", "video_label": "Contrast Words",
+    "warmup_tasks": ["練習表達相反的情況", "練習說出 although 與 but", "分享一個「雖然...但是...」的小故事"],
+    "core_vocab": [
+      {"en": "but", "zh": "但是"},
+      {"en": "although", "zh": "雖然"},
+      {"en": "difficult", "zh": "困難的"},
+      {"en": "easy", "zh": "容易的"},
+      {"en": "smart", "zh": "聰明的"},
+      {"en": "fast", "zh": "快速的"},
+      {"en": "slow", "zh": "緩慢的"},
+      {"en": "try", "zh": "嘗試"}
+    ],
+    "ext_vocab": [
+      {"en": "contrast", "zh": "對比"}, {"en": "however", "zh": "然而"}
+    ],
+    "grammar": {
+      "title": "對比連接詞：But vs. Although",
+      "rules": [
+        "But 置於兩句之間，表示轉折。",
+        "Although 置於句首或句中，表示讓步。",
+        "注意：although 和 but 同樣不能出現在同一個句子中。"
+      ],
+      "table": [
+        ["連接詞", "位置", "範例"],
+        ["but", "句中", "It is hard, but I like it."],
+        ["although", "句首/句中", "Although it is hard, I like it."]
+      ]
+    },
+    "sentences": [
+      ["簡單轉折", "I am small, ___ I am strong.", "I am small, but I am strong.", "I am small, but I am strong."],
+      ["讓步結構", "___ it's late, he is working.", "Although it's late, he is working.", "Although it's late, he is working."]
+    ],
+    "qa": [
+      ["Is the homework hard?", "It is difficult, but I will try."],
+      ["Did you catch the bus?", "No, although I ran fast, I missed it."]
+    ],
+    "wrapup_title": "轉折的藝術",
+    "wrapup_lines": ["轉折連接詞讓你的句子更有層次感。", "雖然學起來有點挑戰，但你一定可以掌握！"],
+    "wrapup_tip": "✨ Although 通常放在句首，用逗號隔開兩部分。",
+    "wrapup_challenges": ["用 but 改寫雖然...但是的句子。", "用 although 造一個關於運動的句子。"],
+    "complete_next": "Unit 9: Time Clauses: When & Before"
+  },
+  {
+    "num": 9, "id": "unit9", "title": "Time Clauses: When & Before", "icon": "⏰", "grade_label": "UNIT 9 OF 18",
+    "video_url": "https://www.youtube.com/watch?v=V9X9e", "video_label": "Time Order",
+    "warmup_tasks": ["排好你早上的作息順序", "練習說出 when 與 before", "討論睡覺前你會做什麼"],
+    "core_vocab": [
+      {"en": "when", "zh": "當...時"},
+      {"en": "before", "zh": "在...之前"},
+      {"en": "breakfast", "zh": "早餐"},
+      {"en": "homework", "zh": "功課"},
+      {"en": "brush", "zh": "刷/刷牙"},
+      {"en": "teeth", "zh": "牙齒"},
+      {"en": "finish", "zh": "完成"},
+      {"en": "arrive", "zh": "到達"}
+    ],
+    "ext_vocab": [
+      {"en": "order", "zh": "順序"}, {"en": "sequence", "zh": "序列"}
+    ],
+    "grammar": {
+      "title": "時間從句：When & Before",
+      "rules": [
+        "When 引導某事發生的「時間點」。",
+        "Before 引導在某事發生的「之前」。",
+        "這類詞通常用來描述動作的前後順序。"
+      ],
+      "table": [
+        ["連接詞", "用途", "範例"],
+        ["when", "特定時刻", "When I grow up, I will be a doctor."],
+        ["before", "先前順序", "Brush your teeth before you sleep."]
+      ]
+    },
+    "sentences": [
+      ["時間點描述", "___ he came, I was eating.", "When he came, I was eating.", "When he came, I was eating."],
+      ["作息順序", "I do homework ___ I play.", "I do homework before I play.", "I do homework before I play."]
+    ],
+    "qa": [
+      ["When do you wake up?", "I wake up when the sun rises."],
+      ["Do you wash hands?", "Yes, I wash hands before I eat."]
+    ],
+    "wrapup_title": "掌握時間軸",
+    "wrapup_lines": ["學會 when 與 before，你能更準確地描述事情發生的時機。", "這對於寫日記非常有幫助！"],
+    "wrapup_tip": "✨ 練習描述自己的作息表來熟悉這些詞。",
+    "wrapup_challenges": ["說出三件你睡覺前會做的事。", "用 when 造一個描述未來的句子。"],
+    "complete_next": "Unit 10: Time Clauses: After & Until"
+  },
+  {
+    "num": 10, "id": "unit10", "title": "Time Clauses: After & Until", "icon": "⏳", "grade_label": "UNIT 10 OF 18",
+    "video_url": "https://www.youtube.com/watch?v=U9X9e", "video_label": "After and Until",
+    "warmup_tasks": ["練習等待的感覺", "練習說出 after 與 until", "討論下課後你會做什麼"],
+    "core_vocab": [
+      {"en": "after", "zh": "在...之後"},
+      {"en": "until", "zh": "直到"},
+      {"en": "dinner", "zh": "晚餐"},
+      {"en": "movie", "zh": "電影"},
+      {"en": "wait", "zh": "等待"},
+      {"en": "dark", "zh": "黑暗的"},
+      {"en": "park", "zh": "公園"},
+      {"en": "play", "zh": "玩耍"}
+    ],
+    "ext_vocab": [
+      {"en": "duration", "zh": "持續時間"}, {"en": "event", "zh": "事件"}
+    ],
+    "grammar": {
+      "title": "時間從句：After & Until",
+      "rules": [
+        "After 引導在某事發生的「之後」。",
+        "Until 表示動作持續「直到」某個時間點才停止。"
+      ],
+      "table": [
+        ["連接詞", "用途", "範例"],
+        ["after", "後續順序", "After school, I go to the park."],
+        ["until", "持續至某時", "I stayed there until 5 o'clock."]
+      ]
+    },
+    "sentences": [
+      ["後續動作", "I took a bath ___ running.", "I took a bath after running.", "I took a bath after running."],
+      ["持續時間", "Wait here ___ I come back.", "Wait here until I come back.", "Wait here until I come back."]
+    ],
+    "qa": [
+      ["What do you do after dinner?", "I usually watch TV with my family."],
+      ["Can we go now?", "No, wait until the rain stops."]
+    ],
+    "wrapup_title": "持續與延續",
+    "wrapup_lines": ["After 和 Until 幫助我們表達動作的延續性與終點。", "你現在能完整地描述一整天的活動了！"],
+    "wrapup_tip": "✨ Until 後面接的是動作結束的時間點。",
+    "wrapup_challenges": ["用 after 描述你放學後的計畫。", "造一個包含 wait 和 until 的句子。"],
+    "complete_next": "Unit 11: Conditions: If & Whether"
+  },
+  {
+    "num": 11, "id": "unit11", "title": "Conditions: If & Whether", "icon": "🎲", "grade_label": "UNIT 11 OF 18",
+    "video_url": "https://www.youtube.com/watch?v=F9X9e", "video_label": "If Clauses",
+    "warmup_tasks": ["想像不同的可能性", "練習說出 if 與 whether", "討論如果明天放假你想做什麼"],
+    "core_vocab": [
+      {"en": "if", "zh": "如果"},
+      {"en": "whether", "zh": "是否"},
+      {"en": "tomorrow", "zh": "明天"},
+      {"en": "sunny", "zh": "晴朗的"},
+      {"en": "picnic", "zh": "野餐"},
+      {"en": "know", "zh": "知道"},
+      {"en": "wonder", "zh": "想知道"},
+      {"en": "choice", "zh": "選擇"}
+    ],
+    "ext_vocab": [
+      {"en": "condition", "zh": "條件"}, {"en": "possibility", "zh": "可能性"}
+    ],
+    "grammar": {
+      "title": "條件與不確定性：If & Whether",
+      "rules": [
+        "If 用來引導「條件」，即如果 A 發生，則 B 就會發生。",
+        "Whether 用來引導「不確定性」或「兩者選一」，常用於 wonder, don't know 等詞後。"
+      ],
+      "table": [
+        ["連接詞", "用途", "範例"],
+        ["if", "假設條件", "If it rains, we will stay home."],
+        ["whether", "是否(不確定)", "I don't know whether he will come."]
+      ]
+    },
+    "sentences": [
+      ["條件假設", "___ it's sunny, we'll go out.", "If it's sunny, we'll go out.", "If it's sunny, we'll go out."],
+      ["不確定選擇", "I wonder ___ he likes it.", "I wonder whether he likes it.", "I wonder whether he likes it."]
+    ],
+    "qa": [
+      ["Will you come if I call?", "Yes, I will come immediately."],
+      ["Do you know whether she is OK?", "I'm not sure, I'll check."]
+    ],
+    "wrapup_title": "未來的無限可能",
+    "wrapup_lines": ["If 讓我們能討論假設與計畫。", "Whether 則幫助我們表達心中的疑問。"],
+    "wrapup_tip": "✨ If 引導的句子如果是在講未來，從句通常用現在式代指未來。",
+    "wrapup_challenges": ["用 If 造一個關於天氣的句子。", "用 I don't know whether... 寫一個句子。"],
+    "complete_next": "Unit 12: Phase 2 Review"
+  },
+  {
+    "num": 12, "id": "unit12", "title": "Phase 2 Review", "icon": "🌉", "grade_label": "UNIT 12 OF 18",
+    "video_url": "https://www.youtube.com/watch?v=F9X9e", "video_label": "Connector Review",
+    "warmup_tasks": ["快速複習所有的邏輯連接詞", "練習辨別原因、結果與轉折", "準備進入邏輯之橋挑戰"],
+    "core_vocab": [
+      {"en": "because", "zh": "因為"},
+      {"en": "so", "zh": "所以"},
+      {"en": "but", "zh": "但是"},
+      {"en": "although", "zh": "雖然"},
+      {"en": "when", "zh": "當...時"},
+      {"en": "before", "zh": "在...之前"},
+      {"en": "after", "zh": "在...之後"},
+      {"en": "if", "zh": "如果"}
+    ],
+    "ext_vocab": [
+      {"en": "logic", "zh": "邏輯"}, {"en": "bridge", "zh": "橋樑"}, {"en": "mastery", "zh": "精通"}
+    ],
+    "grammar": {
+      "title": "邏輯連接詞總複習",
+      "rules": [
+        "連接詞就像橋樑，把孤立的句子連接成完整的思想。",
+        "掌握因果(Because/So)、轉折(But/Although)、時間(When/Before/After)與條件(If)！"
+      ],
+      "table": [
+        ["類別", "常用詞", "重點"],
+        ["因果", "because, so", "因果不兩立"],
+        ["轉折", "but, although", "雖然但是擇一"],
+        ["時間", "when, before, after", "注意動作順序"],
+        ["條件", "if", "現在式代未來"]
+      ]
+    },
+    "sentences": [
+      ["綜合判斷", "He is old ___ he is healthy.", "He is old but he is healthy.", "He is old but he is healthy."],
+      ["條件判斷", "___ you study hard, you'll pass.", "If you study hard, you'll pass.", "If you study hard, you'll pass."]
+    ],
+    "qa": [
+      ["Which word means 'if not'?", "Unless (我們之後會學到)."],
+      ["Can we use 'because' and 'so' together?", "No, never in English."]
+    ],
+    "wrapup_title": "邏輯大師之路",
+    "wrapup_lines": ["恭喜你完成了第二階段的邏輯連接詞學習！", "你已經準備好跨越「邏輯之橋」了。"],
+    "wrapup_tip": "✨ 邏輯清楚，英語表達就會更專業。",
+    "wrapup_challenges": ["選出 5 個連接詞，每個造一個完整的長句。", "準備挑戰 Game 2: Logic Bridge！"],
+    "complete_next": "Game 2: Logic Bridge (Coming Soon)"
   }
 ]
