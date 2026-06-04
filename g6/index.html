@@ -106,7 +106,7 @@
   <div class="card-grid" id="group4"></div>
   <div class="game-grid" id="games-p2"></div>
 
-  <div class="section-label" style="margin-top:40px; opacity: 0.5;">第三階段：時態與整合 (規劃中)</div>
+  <div class="section-label" style="margin-top:40px;">第三階段：時態與整合 (Phase 3)</div>
   <div class="card-grid" id="group5"></div>
   <div class="card-grid" id="group6"></div>
   <div class="game-grid" id="games-p3"></div>
@@ -134,19 +134,19 @@ const units = [
   { id:'unit10', title:'After & Until', sub:'時間從句(二)', icon:'⏳', file:'unit10.html' },
   { id:'unit11', title:'If & Whether', sub:'條件與假設', icon:'🎲', file:'unit11.html' },
   { id:'unit12', title:'Phase 2 Review', sub:'第二階段複習', icon:'🌉', file:'unit12.html' },
-  { id:'unit13', title:'Future Tense', sub:'未來式應用', icon:'🚀', file:'#', locked: true },
-  { id:'unit14', title:'Perfect Tense', sub:'完成式應用', icon:'✅', file:'#', locked: true },
-  { id:'unit15', title:'Advice & Obligation', sub:'建議與義務', icon:'📋', file:'#', locked: true },
-  { id:'unit16', title:'Passive Voice', sub:'被動語態入門', icon:'📦', file:'#', locked: true },
-  { id:'unit17', title:'Complex Sentences', sub:'長難句型挑戰', icon:'🧩', file:'#', locked: true },
-  { id:'unit18', title:'Final Mastery', sub:'小六大會考', icon:'🏁', file:'#', locked: true },
+  { id:'unit13', title:'Future Tense', sub:'未來式應用', icon:'🚀', file:'unit13.html' },
+  { id:'unit14', title:'Perfect Tense', sub:'完成式應用', icon:'✅', file:'unit14.html' },
+  { id:'unit15', title:'Advice & Obligation', sub:'建議與義務', icon:'📋', file:'unit15.html' },
+  { id:'unit16', title:'Passive Voice', sub:'被動語態入門', icon:'📦', file:'unit16.html' },
+  { id:'unit17', title:'Complex Sentences', sub:'長難句型挑戰', icon:'🧩', file:'unit17.html' },
+  { id:'unit18', title:'Final Mastery', sub:'小六大會考', icon:'🏁', file:'unit18.html' },
 ];
 
 const games = [
   { id:'game1', title:'Verb Dojo', sub:'動詞三態武道館', icon:'⚔️', file:'game1.html', phase: 1 },
   { id:'game2', title:'Logic Bridge', sub:'邏輯之橋', icon:'🌉', file:'game2.html', phase: 2 },
-  { id:'game3', title:'Tense Traveler', sub:'時空旅人', icon:'🕰️', file:'#', phase: 3, locked: true },
-  { id:'game4', title:'Grammar Battle RPG', sub:'文法大對決', icon:'🐉', file:'#', phase: 3, locked: true },
+  { id:'game3', title:'Tense Traveler', sub:'時空旅人', icon:'🕰️', file:'game3.html', phase: 3 },
+  { id:'game4', title:'Grammar Battle RPG', sub:'文法大對決', icon:'🐉', file:'game4.html', phase: 3 },
 ];
 
 const unitSequence = units.map(u => u.id);
@@ -180,6 +180,8 @@ function getState(id) {
     const game = games.find(g => g.id === id);
     if (game.phase === 1) return progress['unit6'] === 'done' ? 'available' : 'locked';
     if (game.phase === 2) return progress['unit12'] === 'done' ? 'available' : 'locked';
+    if (game.id === 'game3') return progress['unit15'] === 'done' ? 'available' : 'locked';
+    if (game.id === 'game4') return progress['unit18'] === 'done' ? 'available' : 'locked';
   }
   return 'locked';
 }

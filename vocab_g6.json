@@ -530,6 +530,274 @@
     "wrapup_lines": ["恭喜你完成了第二階段的邏輯連接詞學習！", "你已經準備好跨越「邏輯之橋」了。"],
     "wrapup_tip": "✨ 邏輯清楚，英語表達就會更專業。",
     "wrapup_challenges": ["選出 5 個連接詞，每個造一個完整的長句。", "準備挑戰 Game 2: Logic Bridge！"],
-    "complete_next": "Game 2: Logic Bridge (Coming Soon)"
+    "complete_next": "Unit 13: Future Tense: Will & Be going to"
+  },
+  {
+    "num": 13, "id": "unit13", "title": "Future Tense", "icon": "🚀", "grade_label": "UNIT 13 OF 18",
+    "video_url": "https://www.youtube.com/watch?v=S3j_v", "video_label": "Future Tense",
+    "warmup_tasks": ["想像十年後的自己", "練習說出 will 與 be going to", "討論你這週末的計畫"],
+    "core_vocab": [
+      {"en": "will", "zh": "將會"},
+      {"en": "be going to", "zh": "打算/即將"},
+      {"en": "tomorrow", "zh": "明天"},
+      {"en": "next week", "zh": "下週"},
+      {"en": "soon", "zh": "很快地"},
+      {"en": "maybe", "zh": "也許"},
+      {"en": "travel", "zh": "旅行"},
+      {"en": "become", "zh": "成為"}
+    ],
+    "ext_vocab": [
+      {"en": "plan", "zh": "計畫"}, {"en": "future", "zh": "未來"}
+    ],
+    "grammar": {
+      "title": "未來式：Will vs. Be going to",
+      "rules": [
+        "Will 用於「承諾、臨時決定或預測」。",
+        "Be going to 用於「已有的計畫或明顯的跡象」。",
+        "兩者後面都接「原形動詞」。"
+      ],
+      "table": [
+        ["結構", "用途", "範例"],
+        ["will + V", "預測/承諾", "It will rain tomorrow."],
+        ["be going to + V", "計畫", "I am going to visit my grandma."]
+      ]
+    },
+    "sentences": [
+      ["計畫性未來", "I ___ watch a movie tonight.", "I am going to watch a movie tonight.", "I am going to watch a movie tonight."],
+      ["預測性未來", "The robot ___ help us.", "The robot will help us in the future.", "The robot will help us in the future."]
+    ],
+    "qa": [
+      ["What will you be?", "I will be a pilot."],
+      ["Are you going to study?", "Yes, I am going to study English."]
+    ],
+    "wrapup_title": "航向未來",
+    "wrapup_lines": ["未來式讓我們能描述夢想與計畫。", "記住 be going to 的 be 動詞要隨主詞變化喔！"],
+    "wrapup_tip": "✨ 將 will 想成一種願望，將 going to 想成已經排好的行程。",
+    "wrapup_challenges": ["用 will 說出一個你的願望。", "用 be going to 說出你明天的計畫。"],
+    "complete_next": "Unit 14: Perfect Tense: Have & Has"
+  },
+  {
+    "num": 14, "id": "unit14", "title": "Perfect Tense", "icon": "✅", "grade_label": "UNIT 14 OF 18",
+    "video_url": "https://www.youtube.com/watch?v=g16", "video_label": "Present Perfect",
+    "warmup_tasks": ["回憶你這輩子做過最有成就感的事", "練習說出 have/has + PP", "討論哪些事你「已經」做完了"],
+    "core_vocab": [
+      {"en": "already", "zh": "已經"},
+      {"en": "yet", "zh": "尚未/還沒"},
+      {"en": "just", "zh": "剛剛"},
+      {"en": "since", "zh": "自從"},
+      {"en": "for", "zh": "持續(一段時間)"},
+      {"en": "ever", "zh": "曾經"},
+      {"en": "never", "zh": "從未"},
+      {"en": "experience", "zh": "經驗"}
+    ],
+    "ext_vocab": [
+      {"en": "finished", "zh": "完成了"}, {"en": "completed", "zh": "完成的"}
+    ],
+    "grammar": {
+      "title": "現在完成式：Have/Has + PP",
+      "rules": [
+        "用於表達「經驗」、「持續到現在的狀態」或「剛完成的動作」。",
+        "主詞為 He/She/It 時要用 Has。",
+        "這就是為什麼我們要在 Phase 1 辛苦背誦 PP (過去分詞) 的原因！"
+      ],
+      "table": [
+        ["關鍵字", "用法", "範例"],
+        ["already", "肯定句", "I have already eaten."],
+        ["yet", "否定/疑問", "I haven't done it yet."],
+        ["since", "接時間起點", "I have been here since 8:00."]
+      ]
+    },
+    "sentences": [
+      ["生活經驗", "I ___ been to Japan.", "I have been to Japan twice.", "I have been to Japan twice."],
+      ["完成狀態", "He ___ his homework.", "He has finished his homework just now.", "He has finished his homework just now."]
+    ],
+    "qa": [
+      ["Have you ever seen a whale?", "No, I have never seen one."],
+      ["How long have you lived here?", "I have lived here for ten years."]
+    ],
+    "wrapup_title": "經驗的累積",
+    "wrapup_lines": ["完成式是國小到國中最重要的時態之一。", "它連結了過去與現在，讓你的表達更成熟！"],
+    "wrapup_tip": "✨ 想想「到目前為止」的情況，這就是完成式的時機。",
+    "wrapup_challenges": ["說出一件你已經完成的事。", "問同學：Have you ever...?。"],
+    "complete_next": "Unit 15: Advice & Obligation: Should & Must"
+  },
+  {
+    "num": 15, "id": "unit15", "title": "Advice & Obligation", "icon": "📋", "grade_label": "UNIT 15 OF 18",
+    "video_url": "https://www.youtube.com/watch?v=0j3", "video_label": "Modal Verbs",
+    "warmup_tasks": ["討論班規與家規", "練習說出 should, must, have to", "給你的好朋友一個生活建議"],
+    "core_vocab": [
+      {"en": "should", "zh": "應該"},
+      {"en": "must", "zh": "必須"},
+      {"en": "have to", "zh": "必須/不得不"},
+      {"en": "need to", "zh": "需要"},
+      {"en": "wear", "zh": "穿/戴"},
+      {"en": "mask", "zh": "口罩"},
+      {"en": "early", "zh": "早的"},
+      {"en": "rule", "zh": "規則"}
+    ],
+    "ext_vocab": [
+      {"en": "advice", "zh": "建議"}, {"en": "duty", "zh": "責任"}
+    ],
+    "grammar": {
+      "title": "建議與義務：Should vs. Must",
+      "rules": [
+        "Should 表示「建議」，語氣較委婉。",
+        "Must 表示「命令或強制的義務」，語氣最強。",
+        "Have to 表示「客觀環境下的必須」。"
+      ],
+      "table": [
+        ["助動詞", "強度", "範例"],
+        ["should", "中 (建議)", "You should study hard."],
+        ["must", "強 (命令)", "You must stop at the red light."],
+        ["have to", "強 (客觀)", "I have to go to the doctor."]
+      ]
+    },
+    "sentences": [
+      ["健康建議", "You ___ drink more water.", "You should drink more water.", "You should drink more water."],
+      ["法律義務", "We ___ wear a helmet.", "We must wear a helmet when riding.", "We must wear a helmet when riding."]
+    ],
+    "qa": [
+      ["What should I do?", "You should ask the teacher."],
+      ["Do you have to go?", "Yes, I have to go home now."]
+    ],
+    "wrapup_title": "責任與建議",
+    "wrapup_lines": ["學會這些詞，你就能給予他人建議並理解社會規則。", "注意助動詞後面都要接原形動詞喔！"],
+    "wrapup_tip": "✨ Must 的語氣很重，對長輩說話建議多用 should 或 have to。",
+    "wrapup_challenges": ["寫下三條你覺得學生應該遵守的規則。", "用 should 給感冒的同學一個建議。"],
+    "complete_next": "Unit 16: Passive Voice: Be + PP"
+  },
+  {
+    "num": 16, "id": "unit16", "title": "Passive Voice", "icon": "📦", "grade_label": "UNIT 16 OF 18",
+    "video_url": "https://www.youtube.com/watch?v=F_Y", "video_label": "Passive Voice",
+    "warmup_tasks": ["觀察誰做了動作，或是誰「被」做了動作", "練習說出 be + PP", "討論這間教室是誰打掃的"],
+    "core_vocab": [
+      {"en": "by", "zh": "由.../被..."},
+      {"en": "made in", "zh": "在...製造"},
+      {"en": "clean", "zh": "打掃"},
+      {"en": "build", "zh": "建造"},
+      {"en": "invent", "zh": "發明"},
+      {"en": "discover", "zh": "發現"},
+      {"en": "known as", "zh": "被稱為..."},
+      {"en": "language", "zh": "語言"}
+    ],
+    "ext_vocab": [
+      {"en": "active", "zh": "主動"}, {"en": "passive", "zh": "被動"}
+    ],
+    "grammar": {
+      "title": "被動語態入門：Be + PP",
+      "rules": [
+        "當我們要強調「接受動作的人或物」時，會使用被動語態。",
+        "結構：主詞 + be動詞 + 過去分詞(PP)。",
+        "如果是誰做的，用 by 引導。"
+      ],
+      "table": [
+        ["主動", "被動", "範例"],
+        ["I eat the cake.", "The cake is eaten.", "The cake is eaten by me."],
+        ["Bell invented the phone.", "The phone was invented.", "The phone was invented by Bell."]
+      ]
+    },
+    "sentences": [
+      ["產品產地", "This car ___ Japan.", "This car was made in Japan.", "This car was made in Japan."],
+      ["環境維護", "The room ___ every day.", "The room is cleaned every day.", "The room is cleaned every day."]
+    ],
+    "qa": [
+      ["Is English spoken here?", "Yes, it is spoken in many countries."],
+      ["Who was the book written by?", "It was written by J.K. Rowling."]
+    ],
+    "wrapup_title": "換個角度看世界",
+    "wrapup_lines": ["被動語態讓我們能從受詞的角度來敘述事情。", "記住 be 動詞的時態要根據原本的動作時間來決定。"],
+    "wrapup_tip": "✨ 看標籤上的 Made in... 就是最常見的被動用法。",
+    "wrapup_challenges": ["找出身邊三件東西並說出它們是在哪裡製造的。", "將 'I wrote a letter' 改成被動。"],
+    "complete_next": "Unit 17: Complex Sentences: Relative Clauses"
+  },
+  {
+    "num": 17, "id": "unit17", "title": "Complex Sentences", "icon": "🧩", "grade_label": "UNIT 17 OF 18",
+    "video_url": "https://www.youtube.com/watch?v=X_Z", "video_label": "Relative Pronouns",
+    "warmup_tasks": ["練習描述一個人或一件事", "練習說出 who, which, that", "玩「猜猜我是誰」並使用關係代名詞"],
+    "core_vocab": [
+      {"en": "who", "zh": "那個人(關係詞)"},
+      {"en": "which", "zh": "那個物(關係詞)"},
+      {"en": "that", "zh": "那個人/物"},
+      {"en": "friend", "zh": "朋友"},
+      {"en": "neighbor", "zh": "鄰居"},
+      {"en": "movie", "zh": "電影"},
+      {"en": "pet", "zh": "寵物"},
+      {"en": "important", "zh": "重要的"}
+    ],
+    "ext_vocab": [
+      {"en": "clause", "zh": "從句"}, {"en": "relative", "zh": "關係"}
+    ],
+    "grammar": {
+      "title": "長難句挑戰：關係代名詞",
+      "rules": [
+        "Who, Which, That 可以用來連接兩個句子，讓描述更具體。",
+        "Who 接在「人」後面；Which 接在「物」後面；That 兩者皆可。"
+      ],
+      "table": [
+        ["關係詞", "修飾對象", "範例"],
+        ["who", "人", "The boy who is tall is Tom."],
+        ["which", "物", "The book which I read is good."],
+        ["that", "人/物", "The car that he drives is red."]
+      ]
+    },
+    "sentences": [
+      ["描述人物", "I like the girl ___ sings.", "I like the girl who sings beautifully.", "I like the girl who sings beautifully."],
+      ["描述事物", "This is the dog ___ I saw.", "This is the dog that I saw yesterday.", "This is the dog that I saw yesterday."]
+    ],
+    "qa": [
+      ["Which book do you want?", "I want the book which has pictures."],
+      ["Who is that man?", "He is the person who taught me English."]
+    ],
+    "wrapup_title": "句型的升級",
+    "wrapup_lines": ["學會使用關係代名詞，你的英文句子就能變長、變豐富！", "這是國中進階文法的必備技能。"],
+    "wrapup_tip": "✨ 把 who/which 當成一個箭頭，指向前面那個名詞。",
+    "wrapup_challenges": ["用 who 描述你的一位家人。", "用 which 描述你最喜歡的一樣玩具。"],
+    "complete_next": "Unit 18: Final Mastery: The Big Review"
+  },
+  {
+    "num": 18, "id": "unit18", "title": "Final Mastery", "icon": "🏁", "grade_label": "UNIT 18 OF 18",
+    "video_url": "https://www.youtube.com/watch?v=Final", "video_label": "Final Review",
+    "warmup_tasks": ["快速回顧小六整學年的重點", "練習時態的交叉變換", "挑戰大會考模擬題"],
+    "core_vocab": [
+      {"en": "challenge", "zh": "挑戰"},
+      {"en": "success", "zh": "成功"},
+      {"en": "mastery", "zh": "精通"},
+      {"en": "remember", "zh": "記得"},
+      {"en": "knowledge", "zh": "知識"},
+      {"en": "apply", "zh": "應用"},
+      {"en": "ready", "zh": "準備好了"},
+      {"en": "goal", "zh": "目標"}
+    ],
+    "ext_vocab": [
+      {"en": "summary", "zh": "總結"}, {"en": "graduation", "zh": "畢業"}
+    ],
+    "grammar": {
+      "title": "小六大會考：語法總結",
+      "rules": [
+        "1. 不規則動詞三態：ABC, ABB, ABA, AAA。",
+        "2. 連接詞：因果、轉折、時間、條件。",
+        "3. 時態：未來式 (Will/Going to) 與 現在完成式 (Have/Has + PP)。",
+        "4. 被動語態與長難句型。"
+      ],
+      "table": [
+        ["主題", "重點關鍵字", "檢查點"],
+        ["時態", "Will, Have/Has + PP", "注意 V 形態"],
+        ["邏輯", "Because, Although, If", "注意連接詞位置"],
+        ["語態", "Be + PP", "注意主動或被動"]
+      ]
+    },
+    "sentences": [
+      ["綜合能力", "If I study, I ___ pass.", "If I study hard, I will pass the test.", "If I study hard, I will pass the test."],
+      ["綜合能力", "I ___ finished the task.", "I have already finished the final task.", "I have already finished the final task."]
+    ],
+    "qa": [
+      ["Are you a grammar master?", "I have learned a lot and I'm ready!"],
+      ["What is your next goal?", "I will use English to see the world."]
+    ],
+    "wrapup_title": "榮耀時刻",
+    "wrapup_lines": ["恭喜你完成了小六英語應用的所有課程！", "你現在具備了銜接國中英語的核心實力。"],
+    "wrapup_tip": "✨ 保持好奇心與持續練習，英文會是你一輩子的好朋友。",
+    "wrapup_challenges": ["挑戰 Game 3: Tense Traveler！", "最終挑戰 Game 4: Grammar Battle RPG！"],
+    "complete_next": "Congratulations! You are a Master!"
   }
 ]

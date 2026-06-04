@@ -91,7 +91,7 @@
 - [x] **Grade 5 (小五)**：15單元 (已完成) - 功能性生活應用，含 5 款專屬遊戲 (語音支援、全寬佈局、離線備援)。
 | **Grade 6** | Unit 1 - 6 | 不規則動詞三態 (Phase 1) | Game 1 | ✅ Phase 1 全面完成 |
 | **Grade 6** | Unit 7 - 12 | 邏輯連接詞 (Phase 2) | Game 2 | ✅ Phase 2 全面完成 |
-| **Grade 6** | Unit 13 - 18 | 時態與整合 (Phase 3) | Game 3, 4 | ⏳ 待啟動 |
+| **Grade 6** | Unit 13 - 18 | 時態與整合 (Phase 3) | Game 3, 4 | ✅ Phase 3 全面完成 |
 
 ### 3. 📱 平台優化 (Platform Optimization)
 - [x] **全域進度邏輯修復**：修正 `index.html` 的進度計算 Bug，現在能正確讀取物件格式的進度資料。

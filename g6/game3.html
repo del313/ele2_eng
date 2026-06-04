@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tense Traveler - 時空旅人</title>
+<script src="../js-common.js"></script>
+<link rel="stylesheet" href="../style-common.css">
+<style>
+  body {
+    margin: 0;
+    overflow: hidden;
+    background: #000;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #fff;
+  }
+
+  #game-container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle at center, #1a237e 0%, #000 70%);
+    position: relative;
+  }
+
+  /* Stars Background */
+  .stars {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    z-index: 1;
+  }
+
+  /* Time Machine UI */
+  #machine {
+    width: 600px;
+    height: 400px;
+    background: rgba(40, 40, 60, 0.9);
+    border: 4px solid #4fc3f7;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 0 30px rgba(79, 195, 247, 0.5);
+    z-index: 5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    transition: transform 0.3s;
+  }
+
+  .machine-vibrate {
+    animation: vibrate 0.1s infinite;
+  }
+
+  @keyframes vibrate {
+    0% { transform: translate(0,0); }
+    25% { transform: translate(2px, 2px); }
+    50% { transform: translate(0, -2px); }
+    75% { transform: translate(-2px, 0); }
+    100% { transform: translate(0,0); }
+  }
+
+  #display-panel {
+    width: 100%;
+    height: 150px;
+    background: #000;
+    border: 2px solid #01579b;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+    text-align: center;
+  }
+
+  #time-label {
+    color: #4fc3f7;
+    font-size: 0.9rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+  }
+
+  #sentence {
+    font-size: 1.5rem;
+    font-weight: bold;
+    line-height: 1.4;
+  }
+
+  .blank {
+    color: #ffeb3b;
+    border-bottom: 2px dashed #ffeb3b;
+    padding: 0 10px;
+    min-width: 60px;
+    display: inline-block;
+  }
+
+  #options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    width: 100%;
+  }
+
+  .opt-btn {
+    background: #0d47a1;
+    border: 2px solid #4fc3f7;
+    border-radius: 10px;
+    color: white;
+    padding: 15px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .opt-btn:hover {
+    background: #1565c0;
+    transform: translateY(-3px);
+  }
+
+  .opt-btn.correct { background: #2e7d32 !important; border-color: #81c784; }
+  .opt-btn.wrong { background: #c62828 !important; border-color: #e57373; }
+
+  #progress-hub {
+    margin-top: 30px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .progress-dot {
+    flex: 1;
+    height: 10px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 5px;
+  }
+
+  .progress-dot.active { background: #4fc3f7; box-shadow: 0 0 10px #4fc3f7; }
+
+  /* Screens */
+  #start-screen, #result-screen {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.85);
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .hidden { display: none !important; }
+
+  .big-icon { font-size: 5rem; margin-bottom: 20px; }
+  .btn-start {
+    background: #4fc3f7;
+    color: #000;
+    border: none;
+    padding: 15px 40px;
+    font-size: 1.5rem;
+    font-weight: 800;
+    border-radius: 50px;
+    cursor: pointer;
+    margin-top: 30px;
+  }
+
+  .back-btn {
+    margin-top: 20px;
+    color: #4fc3f7;
+    text-decoration: none;
+    font-weight: bold;
+  }
+
+</style>
+</head>
+<body>
+
+<div id="game-container">
+  <div class="stars" id="stars"></div>
+
+  <div id="machine">
+    <div id="display-panel">
+      <div id="time-label">TARGET TIME: UNKNOWN</div>
+      <div id="sentence">Loading mission...</div>
+    </div>
+    <div id="options"></div>
+    <div id="progress-hub"></div>
+  </div>
+
+  <!-- Start Screen -->
+  <div id="start-screen">
+    <div class="big-icon">🕰️</div>
+    <h1 style="font-size: 2.5rem; color: #4fc3f7;">Tense Traveler</h1>
+    <p style="font-size: 1.2rem; max-width: 500px; line-height: 1.6;">
+      時空機發生了故障！<br>
+      請選擇正確的時態動詞來修復時間軸，<br>
+      帶領我們回到正確的時空。
+    </p>
+    <button class="btn-start" onclick="startGame()">啟動時光機 →</button>
+    <a href="index.html" class="back-btn">🏠 返回課程</a>
+  </div>
+
+  <!-- Result Screen -->
+  <div id="result-screen" class="hidden">
+    <div class="big-icon">✨</div>
+    <h2 style="font-size: 2rem;">任務達成！</h2>
+    <p id="result-text" style="font-size: 1.2rem; margin: 20px 0;">你成功修復了時間軸。</p>
+    <button class="btn-start" onclick="location.reload()">再玩一次</button>
+    <a href="index.html" class="back-btn">🏠 返回課程</a>
+  </div>
+</div>
+
+<script>
+const PROGRESS_KEY = 'progress_g6';
+const GAME_ID = 'game3';
+
+const questions = [
+  // Future
+  { time: "FUTURE (TOMORROW)", q: "I ___ watch a movie tomorrow.", options: ["will", "have", "am"], correct: "will" },
+  { time: "FUTURE (PLAN)", q: "We ___ going to visit Japan next year.", options: ["are", "will", "did"], correct: "are" },
+  { time: "FUTURE (WILL)", q: "It ___ rain tonight, so take an umbrella.", options: ["will", "is", "was"], correct: "will" },
+  // Perfect
+  { time: "PERFECT (EXPERIENCE)", q: "I have ___ to London twice.", options: ["been", "go", "went"], correct: "been" },
+  { time: "PERFECT (COMPLETION)", q: "She has already ___ her breakfast.", options: ["eaten", "ate", "eat"], correct: "eaten" },
+  { time: "PERFECT (SINCE)", q: "He has lived here ___ 2010.", options: ["since", "for", "at"], correct: "since" },
+  { time: "PERFECT (FOR)", q: "They have played soccer ___ two hours.", options: ["for", "since", "until"], correct: "for" },
+  { time: "PERFECT (YET)", q: "Have you done your homework ___?", options: ["yet", "already", "just"], correct: "yet" },
+  // Mixed
+  { time: "FUTURE MISSION", q: "Maybe I ___ become a teacher someday.", options: ["will", "am", "do"], correct: "will" },
+  { time: "PERFECT MISSION", q: "I ___ never seen a whale before.", options: ["have", "has", "am"], correct: "have" }
+];
+
+let currentIdx = 0;
+let score = 0;
+let totalSteps = 8;
+let pool = [];
+
+function startGame() {
+  document.getElementById('start-screen').classList.add('hidden');
+  pool = questions.sort(() => Math.random() - 0.5).slice(0, totalSteps);
+  
+  const hub = document.getElementById('progress-hub');
+  hub.innerHTML = '';
+  for(let i=0; i<totalSteps; i++) {
+    const dot = document.createElement('div');
+    dot.className = 'progress-dot';
+    dot.id = `dot-${i}`;
+    hub.appendChild(dot);
+  }
+  
+  renderQuestion();
+}
+
+function renderQuestion() {
+  if (currentIdx >= totalSteps) {
+    endGame();
+    return;
+  }
+
+  const q = pool[currentIdx];
+  document.getElementById('time-label').textContent = `TARGET TIME: ${q.time}`;
+  document.getElementById('sentence').innerHTML = q.q.replace("___", '<span class="blank">?</span>');
+  
+  const optContainer = document.getElementById('options');
+  optContainer.innerHTML = '';
+  
+  q.options.sort(() => Math.random() - 0.5).forEach(opt => {
+    const btn = document.createElement('button');
+    btn.className = 'opt-btn';
+    btn.textContent = opt;
+    btn.onclick = () => checkAnswer(opt, btn);
+    optContainer.appendChild(btn);
+  });
+}
+
+function checkAnswer(ans, btn) {
+  const q = pool[currentIdx];
+  const allBtns = document.querySelectorAll('.opt-btn');
+  allBtns.forEach(b => b.disabled = true);
+
+  if (ans === q.correct) {
+    btn.classList.add('correct');
+    playSound('success');
+    document.getElementById(`dot-${currentIdx}`).classList.add('active');
+    
+    // Machine Vibrate effect
+    const machine = document.getElementById('machine');
+    machine.classList.add('machine-vibrate');
+    
+    // Voice
+    speak(q.q.replace("___", q.correct), () => {
+      setTimeout(() => {
+        machine.classList.remove('machine-vibrate');
+        currentIdx++;
+        renderQuestion();
+      }, 500);
+    });
+  } else {
+    btn.classList.add('wrong');
+    playSound('error');
+    
+    // Show correct answer
+    allBtns.forEach(b => {
+      if (b.textContent === q.correct) b.classList.add('correct');
+    });
+
+    setTimeout(() => {
+      currentIdx++;
+      renderQuestion();
+    }, 2000);
+  }
+}
+
+function endGame() {
+  document.getElementById('result-screen').classList.remove('hidden');
+  const progress = JSON.parse(localStorage.getItem(PROGRESS_KEY) || '{}');
+  progress[GAME_ID] = 'done';
+  localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress));
+}
+
+// Generate background stars
+function createStars() {
+  const container = document.getElementById('stars');
+  for (let i = 0; i < 100; i++) {
+    const star = document.createElement('div');
+    star.style.position = 'absolute';
+    star.style.left = Math.random() * 100 + '%';
+    star.style.top = Math.random() * 100 + '%';
+    star.style.width = Math.random() * 3 + 'px';
+    star.style.height = star.style.width;
+    star.style.background = '#fff';
+    star.style.borderRadius = '50%';
+    star.style.opacity = Math.random();
+    container.appendChild(star);
+  }
+}
+
+createStars();
+</script>
+</body>
+</html>

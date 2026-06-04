@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grammar Battle RPG - 文法大對決</title>
+<script src="../js-common.js"></script>
+<link rel="stylesheet" href="../style-common.css">
+<style>
+  body {
+    margin: 0;
+    overflow: hidden;
+    background: #2c3e50;
+    font-family: 'Press Start 2P', cursive, Arial, sans-serif; /* 復古風格 */
+    color: #fff;
+  }
+
+  #game-container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: linear-gradient(to bottom, #1a2a6c, #b21f1f, #fdbb2d);
+    position: relative;
+  }
+
+  /* Battle Arena */
+  #arena {
+    width: 100%;
+    height: 50%;
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
+    padding-bottom: 50px;
+    position: relative;
+  }
+
+  .fighter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.2s;
+  }
+
+  .hp-bar-wrap {
+    width: 120px;
+    height: 15px;
+    background: #555;
+    border: 2px solid #fff;
+    margin-bottom: 10px;
+    position: relative;
+  }
+
+  .hp-bar-fill {
+    height: 100%;
+    background: #4caf50;
+    width: 100%;
+    transition: width 0.5s;
+  }
+
+  .sprite {
+    font-size: 80px;
+    filter: drop-shadow(0 10px 10px rgba(0,0,0,0.5));
+  }
+
+  .attack-anim-hero { animation: attack-hero 0.5s; }
+  .attack-anim-monster { animation: attack-monster 0.5s; }
+
+  @keyframes attack-hero {
+    0% { transform: translateX(0); }
+    50% { transform: translateX(100px); }
+    100% { transform: translateX(0); }
+  }
+  @keyframes attack-monster {
+    0% { transform: translateX(0); }
+    50% { transform: translateX(-100px); }
+    100% { transform: translateX(0); }
+  }
+
+  /* UI Panel */
+  #ui-panel {
+    width: 90%;
+    max-width: 800px;
+    height: 40%;
+    background: rgba(0,0,0,0.8);
+    border: 4px solid #fff;
+    border-radius: 10px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  #dialogue {
+    height: 60px;
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #444;
+  }
+
+  #question-box {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  #question-text {
+    font-size: 1.3rem;
+    margin-bottom: 20px;
+    color: #ffeb3b;
+  }
+
+  #options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+  }
+
+  .opt-btn {
+    background: transparent;
+    border: 2px solid #fff;
+    color: #fff;
+    padding: 10px;
+    font-size: 1rem;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.2s;
+  }
+
+  .opt-btn:hover {
+    background: #fff;
+    color: #000;
+  }
+
+  /* Overlay Screens */
+  #start-screen, #result-screen {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.9);
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .hidden { display: none !important; }
+
+  .btn-start {
+    background: #e91e63;
+    color: #fff;
+    border: none;
+    padding: 15px 40px;
+    font-size: 1.5rem;
+    font-weight: 800;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 30px;
+    box-shadow: 0 5px 0 #ad1457;
+  }
+
+  .btn-start:active {
+    transform: translateY(5px);
+    box-shadow: none;
+  }
+
+</style>
+</head>
+<body>
+
+<div id="game-container">
+  
+  <div id="arena">
+    <div class="fighter" id="hero">
+      <div class="hp-bar-wrap"><div class="hp-bar-fill" id="hero-hp"></div></div>
+      <div class="sprite">⚔️</div>
+      <div style="margin-top:10px; font-weight:bold;">HERO</div>
+    </div>
+
+    <div class="fighter" id="monster">
+      <div class="hp-bar-wrap"><div class="hp-bar-fill" id="monster-hp"></div></div>
+      <div class="sprite" id="monster-sprite">🐉</div>
+      <div style="margin-top:10px; font-weight:bold;" id="monster-name">DRAGON</div>
+    </div>
+  </div>
+
+  <div id="ui-panel">
+    <div id="dialogue">勇者遭遇了強大的魔王！請回答問題發動攻擊！</div>
+    <div id="question-box">
+      <div id="question-text"></div>
+      <div id="options"></div>
+    </div>
+  </div>
+
+  <!-- Start Screen -->
+  <div id="start-screen">
+    <h1 style="color:#ffeb3b; font-size:2.5rem;">Grammar Battle RPG</h1>
+    <p style="max-width:600px; line-height:1.6; margin:20px;">
+      這是最後的試煉！<br>
+      運用你在小六學到的所有文法知識，<br>
+      擊敗守護知識之門的魔王。
+    </p>
+    <button class="btn-start" onclick="startGame()">開始戰鬥！</button>
+    <a href="index.html" style="color:#aaa; margin-top:20px; display:block;">暫時撤退</a>
+  </div>
+
+  <!-- Result Screen -->
+  <div id="result-screen" class="hidden">
+    <div style="font-size:5rem;" id="res-icon">🏆</div>
+    <h2 id="res-title" style="font-size:2.5rem;">勝利！</h2>
+    <p id="res-text" style="margin:20px 0;"></p>
+    <button class="btn-start" onclick="location.reload()">重新挑戰</button>
+    <a href="index.html" style="color:#aaa; margin-top:20px; display:block;">回到主選單</a>
+  </div>
+
+</div>
+
+<script>
+const PROGRESS_KEY = 'progress_g6';
+const GAME_ID = 'game4';
+
+const questionPool = [
+  // Irregular Verbs
+  { q: "What is the PP of 'eat'?", options: ["eat", "ate", "eaten", "eating"], correct: "eaten" },
+  { q: "What is the past tense of 'buy'?", options: ["buyed", "bought", "brought", "boat"], correct: "bought" },
+  { q: "Which one is AAA type?", options: ["go", "run", "cut", "sing"], correct: "cut" },
+  // Connectors
+  { q: "I missed the bus ___ I was late.", options: ["because", "so", "but", "although"], correct: "because" },
+  { q: "___ it was raining, he went out.", options: ["Because", "So", "But", "Although"], correct: "Although" },
+  { q: "Wash hands ___ you eat.", options: ["before", "after", "when", "until"], correct: "before" },
+  // Future/Perfect
+  { q: "I ___ going to see a doctor.", options: ["will", "am", "have", "do"], correct: "am" },
+  { q: "He ___ already done his work.", options: ["has", "have", "is", "was"], correct: "has" },
+  { q: "I have lived here ___ five years.", options: ["since", "for", "at", "on"], correct: "for" },
+  // Passive/Relative
+  { q: "The cake was ___ by my mom.", options: ["make", "made", "makes", "making"], correct: "made" },
+  { q: "This is the car ___ my dad drives.", options: ["who", "which", "whose", "where"], correct: "which" },
+  { q: "I know the girl ___ is singing.", options: ["who", "which", "what", "where"], correct: "who" }
+];
+
+let heroHP = 100;
+let monsterHP = 100;
+let currentQ = null;
+let pool = [];
+
+const monsters = [
+  { name: "SLIME", sprite: "💧", hp: 60 },
+  { name: "ORC", sprite: "👹", hp: 80 },
+  { name: "DRAGON", sprite: "🐉", hp: 120 }
+];
+let monsterIdx = 0;
+
+function startGame() {
+  document.getElementById('start-screen').classList.add('hidden');
+  pool = questionPool.sort(() => Math.random() - 0.5);
+  heroHP = 100;
+  updateHP();
+  spawnMonster();
+  nextQuestion();
+}
+
+function spawnMonster() {
+  const m = monsters[monsterIdx];
+  monsterHP = m.hp;
+  document.getElementById('monster-name').textContent = m.name;
+  document.getElementById('monster-sprite').textContent = m.sprite;
+  document.getElementById('monster-hp').style.width = '100%';
+  setDialogue(`野生的 ${m.name} 出現了！`);
+}
+
+function setDialogue(txt) {
+  document.getElementById('dialogue').textContent = txt;
+}
+
+function nextQuestion() {
+  if (pool.length === 0) pool = questionPool.sort(() => Math.random() - 0.5);
+  currentQ = pool.pop();
+  
+  document.getElementById('question-text').textContent = currentQ.q;
+  const optContainer = document.getElementById('options');
+  optContainer.innerHTML = '';
+  
+  currentQ.options.sort(() => Math.random() - 0.5).forEach(opt => {
+    const btn = document.createElement('button');
+    btn.className = 'opt-btn';
+    btn.textContent = opt;
+    btn.onclick = () => checkAnswer(opt);
+    optContainer.appendChild(btn);
+  });
+}
+
+function checkAnswer(ans) {
+  const isCorrect = (ans === currentQ.correct);
+  const btns = document.querySelectorAll('.opt-btn');
+  btns.forEach(b => b.disabled = true);
+
+  if (isCorrect) {
+    heroAttack();
+  } else {
+    monsterAttack();
+  }
+}
+
+function heroAttack() {
+  setDialogue("攻擊成功！對魔王造成傷害！");
+  playSound('success');
+  document.getElementById('hero').classList.add('attack-anim-hero');
+  
+  setTimeout(() => {
+    document.getElementById('hero').classList.remove('attack-anim-hero');
+    monsterHP -= 20;
+    updateHP();
+    
+    if (monsterHP <= 0) {
+      monsterIdx++;
+      if (monsterIdx < monsters.length) {
+        setDialogue("擊敗了對手！下一位挑戰者出現...");
+        setTimeout(spawnMonster, 1000);
+        setTimeout(nextQuestion, 2000);
+      } else {
+        endGame(true);
+      }
+    } else {
+      setTimeout(nextQuestion, 1000);
+    }
+  }, 500);
+}
+
+function monsterAttack() {
+  setDialogue("回答錯誤！遭到魔王反擊！");
+  playSound('error');
+  document.getElementById('monster').classList.add('attack-anim-monster');
+  
+  setTimeout(() => {
+    document.getElementById('monster').classList.remove('attack-anim-monster');
+    heroHP -= 20;
+    updateHP();
+    
+    if (heroHP <= 0) {
+      endGame(false);
+    } else {
+      setTimeout(nextQuestion, 1000);
+    }
+  }, 500);
+}
+
+function updateHP() {
+  document.getElementById('hero-hp').style.width = `${Math.max(0, heroHP)}%`;
+  const mMax = monsters[monsterIdx] ? monsters[monsterIdx].hp : 100;
+  document.getElementById('monster-hp').style.width = `${Math.max(0, (monsterHP / mMax) * 100)}%`;
+}
+
+function endGame(win) {
+  document.getElementById('result-screen').classList.remove('hidden');
+  const resIcon = document.getElementById('res-icon');
+  const resTitle = document.getElementById('res-title');
+  const resText = document.getElementById('res-text');
+  
+  if (win) {
+    resIcon.textContent = "🏆";
+    resTitle.textContent = "傳說等級達成！";
+    resText.textContent = "你已經精通了小六所有的英語文法，你是真正的英文大師！";
+    const progress = JSON.parse(localStorage.getItem(PROGRESS_KEY) || '{}');
+    progress[GAME_ID] = 'done';
+    localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress));
+  } else {
+    resIcon.textContent = "💀";
+    resTitle.textContent = "戰敗...";
+    resText.textContent = "魔王太強大了，再回去複習一下單元重點吧！";
+  }
+}
+</script>
+</body>
+</html>
