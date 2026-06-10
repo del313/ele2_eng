@@ -94,19 +94,19 @@
     <a href="#" class="cb-btn" id="continueLink" style="background:#D32F2F; color:white; padding:10px 20px; border-radius:30px; text-decoration:none; font-weight:800; margin-left:15px;">GO! →</a>
   </div>
 
-  <div class="section-label">第一階段：動詞三態 (I)</div>
+  <div class="section-label" id="p1-1">第一階段：動詞三態 (I)</div>
   <div class="card-grid" id="group1"></div>
 
-  <div class="section-label" style="margin-top:40px;">第一階段：動詞三態 (II)</div>
+  <div class="section-label" id="p1-2" style="margin-top:40px;">第一階段：動詞三態 (II)</div>
   <div class="card-grid" id="group2"></div>
   <div class="game-grid" id="games-p1"></div>
 
-  <div class="section-label" style="margin-top:40px;">第二階段：邏輯與連接詞 (Phase 2)</div>
+  <div class="section-label" id="p2" style="margin-top:40px;">第二階段：邏輯與連接詞 (Phase 2)</div>
   <div class="card-grid" id="group3"></div>
   <div class="card-grid" id="group4"></div>
   <div class="game-grid" id="games-p2"></div>
 
-  <div class="section-label" style="margin-top:40px;">第三階段：時態與整合 (Phase 3)</div>
+  <div class="section-label" id="p3" style="margin-top:40px;">第三階段：時態與整合 (Phase 3)</div>
   <div class="card-grid" id="group5"></div>
   <div class="card-grid" id="group6"></div>
   <div class="game-grid" id="games-p3"></div>
@@ -254,6 +254,20 @@ if (targetUnit) {
     }
   }
 }
+
+// 錨點自動滾動邏輯
+window.addEventListener('load', () => {
+  if (window.location.hash) {
+    const targetId = window.location.hash.substring(1);
+    const el = document.getElementById(targetId);
+    if (el) {
+      // 延遲一點點確保頁面動態內容已渲染完成
+      setTimeout(() => {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 500);
+    }
+  }
+});
 </script>
 </body>
 </html>

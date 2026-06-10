@@ -202,7 +202,7 @@
       擊敗守護知識之門的魔王。
     </p>
     <button class="btn-start" onclick="startGame()">開始戰鬥！</button>
-    <a href="index.html" style="color:#aaa; margin-top:20px; display:block;">暫時撤退</a>
+    <a href="index.html#p3" style="color:#aaa; margin-top:20px; display:block;">暫時撤退</a>
   </div>
 
   <!-- Result Screen -->
@@ -211,7 +211,7 @@
     <h2 id="res-title" style="font-size:2.5rem;">勝利！</h2>
     <p id="res-text" style="margin:20px 0;"></p>
     <button class="btn-start" onclick="location.reload()">重新挑戰</button>
-    <a href="index.html" style="color:#aaa; margin-top:20px; display:block;">回到主選單</a>
+    <a href="index.html#p3" style="color:#aaa; margin-top:20px; display:block;">回到主選單</a>
   </div>
 
 </div>
@@ -225,18 +225,26 @@ const questionPool = [
   { q: "What is the PP of 'eat'?", options: ["eat", "ate", "eaten", "eating"], correct: "eaten" },
   { q: "What is the past tense of 'buy'?", options: ["buyed", "bought", "brought", "boat"], correct: "bought" },
   { q: "Which one is AAA type?", options: ["go", "run", "cut", "sing"], correct: "cut" },
+  { q: "What is the PP of 'see'?", options: ["see", "saw", "seen", "seeing"], correct: "seen" },
+  { q: "Past tense of 'teach'?", options: ["teached", "taught", "thought", "tough"], correct: "taught" },
   // Connectors
   { q: "I missed the bus ___ I was late.", options: ["because", "so", "but", "although"], correct: "because" },
   { q: "___ it was raining, he went out.", options: ["Because", "So", "But", "Although"], correct: "Although" },
   { q: "Wash hands ___ you eat.", options: ["before", "after", "when", "until"], correct: "before" },
+  { q: "He is rich ___ he is not happy.", options: ["and", "but", "so", "because"], correct: "but" },
+  { q: "Study hard, ___ you will pass.", options: ["and", "but", "or", "so"], correct: "and" },
   // Future/Perfect
   { q: "I ___ going to see a doctor.", options: ["will", "am", "have", "do"], correct: "am" },
   { q: "He ___ already done his work.", options: ["has", "have", "is", "was"], correct: "has" },
   { q: "I have lived here ___ five years.", options: ["since", "for", "at", "on"], correct: "for" },
+  { q: "They ___ playing basketball now.", options: ["is", "am", "are", "was"], correct: "are" },
+  { q: "Have you ___ a lion before?", options: ["ever", "never", "yet", "already"], correct: "ever" },
   // Passive/Relative
   { q: "The cake was ___ by my mom.", options: ["make", "made", "makes", "making"], correct: "made" },
   { q: "This is the car ___ my dad drives.", options: ["who", "which", "whose", "where"], correct: "which" },
-  { q: "I know the girl ___ is singing.", options: ["who", "which", "what", "where"], correct: "who" }
+  { q: "I know the girl ___ is singing.", options: ["who", "which", "what", "where"], correct: "who" },
+  { q: "The book ___ I bought is good.", options: ["who", "which", "where", "whose"], correct: "which" },
+  { q: "English is ___ all over the world.", options: ["speak", "spoke", "spoken", "speaking"], correct: "spoken" }
 ];
 
 let heroHP = 100;
@@ -253,8 +261,9 @@ let monsterIdx = 0;
 
 function startGame() {
   document.getElementById('start-screen').classList.add('hidden');
-  pool = questionPool.sort(() => Math.random() - 0.5);
+  pool = [...questionPool].sort(() => Math.random() - 0.5);
   heroHP = 100;
+  monsterIdx = 0;
   updateHP();
   spawnMonster();
   nextQuestion();
@@ -274,14 +283,16 @@ function setDialogue(txt) {
 }
 
 function nextQuestion() {
-  if (pool.length === 0) pool = questionPool.sort(() => Math.random() - 0.5);
+  if (pool.length === 0) pool = [...questionPool].sort(() => Math.random() - 0.5);
   currentQ = pool.pop();
   
+  if (!currentQ) return;
+
   document.getElementById('question-text').textContent = currentQ.q;
   const optContainer = document.getElementById('options');
   optContainer.innerHTML = '';
   
-  currentQ.options.sort(() => Math.random() - 0.5).forEach(opt => {
+  [...currentQ.options].sort(() => Math.random() - 0.5).forEach(opt => {
     const btn = document.createElement('button');
     btn.className = 'opt-btn';
     btn.textContent = opt;

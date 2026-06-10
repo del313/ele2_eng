@@ -84,7 +84,29 @@ def generate_unit(u, grade_info, template):
     wrapup_challenges = u.get('wrapup_challenges', ["嘗試在生活中使用今天學到的單字。"])
     html = html.replace("{{wrapup_challenge_html}}", "<ul>" + "".join([f"<li>{c}</li>" for c in wrapup_challenges]) + "</ul>")
 
-    home_btn = '<a href="index.html" class="home-btn" style="position:static; margin-top:15px; background:var(--orange)">🏠 返回課程列表</a>'
+    # G6 專屬：決定回傳的錨點
+    anchor_id = ""
+    try:
+        # 確保 num 是數字
+        val = u.get('num', 0)
+        unit_num = int(val) if str(val).isdigit() else 0
+    except (ValueError, KeyError, TypeError):
+        unit_num = 0
+
+    if grade_info['num'] == 6:
+        if unit_num > 12: anchor_id = "p3"
+        elif unit_num > 6: anchor_id = "p2"
+        elif unit_num > 3: anchor_id = "p1-2"
+        else: anchor_id = "p1-1"
+    
+    # 替換模板中的 {{anchor_id}}
+    html = html.replace("{{anchor_id}}", anchor_id)
+    
+    # 建立完整的返回連結
+    home_btn_url = f"index.html#{anchor_id}" if anchor_id else "index.html"
+    
+    # 處理底部按鈕 (有些模板可能還沒用 {{home_btn}})
+    home_btn = f'<a href="{home_btn_url}" class="home-btn" style="position:static; margin-top:15px; background:var(--orange)">🏠 返回課程列表</a>'
     html = html.replace("{{home_btn}}", home_btn)
 
     return html

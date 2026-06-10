@@ -205,7 +205,7 @@
       帶領我們回到正確的時空。
     </p>
     <button class="btn-start" onclick="startGame()">啟動時光機 →</button>
-    <a href="index.html" class="back-btn">🏠 返回課程</a>
+    <a href="index.html#p3" class="back-btn">🏠 返回課程</a>
   </div>
 
   <!-- Result Screen -->
@@ -214,7 +214,7 @@
     <h2 style="font-size: 2rem;">任務達成！</h2>
     <p id="result-text" style="font-size: 1.2rem; margin: 20px 0;">你成功修復了時間軸。</p>
     <button class="btn-start" onclick="location.reload()">再玩一次</button>
-    <a href="index.html" class="back-btn">🏠 返回課程</a>
+    <a href="index.html#p3" class="back-btn">🏠 返回課程</a>
   </div>
 </div>
 
@@ -245,7 +245,7 @@ let pool = [];
 
 function startGame() {
   document.getElementById('start-screen').classList.add('hidden');
-  pool = questions.sort(() => Math.random() - 0.5).slice(0, totalSteps);
+  pool = [...questions].sort(() => Math.random() - 0.5).slice(0, totalSteps);
   
   const hub = document.getElementById('progress-hub');
   hub.innerHTML = '';
@@ -289,6 +289,7 @@ function checkAnswer(ans, btn) {
   if (ans === q.correct) {
     btn.classList.add('correct');
     playSound('success');
+    score++;
     document.getElementById(`dot-${currentIdx}`).classList.add('active');
     
     // Machine Vibrate effect
@@ -324,11 +325,22 @@ function endGame() {
   const progress = JSON.parse(localStorage.getItem(PROGRESS_KEY) || '{}');
   progress[GAME_ID] = 'done';
   localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress));
+
+  const resText = document.getElementById('result-text');
+  if (score >= totalSteps) {
+    resText.textContent = "完美！你對未來式與完成式的掌握無懈可擊。";
+  } else if (score >= totalSteps * 0.7) {
+    resText.textContent = "太棒了！你成功修復了大部分的時間軸。";
+  } else {
+    resText.textContent = "任務達成，但時空仍有些許不穩定。建議再多複習喔！";
+  }
 }
 
 // Generate background stars
 function createStars() {
   const container = document.getElementById('stars');
+  if (!container) return;
+  container.innerHTML = '';
   for (let i = 0; i < 100; i++) {
     const star = document.createElement('div');
     star.style.position = 'absolute';
