@@ -37,20 +37,78 @@
 
   /* Time Machine UI */
   #machine {
-    width: 600px;
-    height: 400px;
-    background: rgba(40, 40, 60, 0.9);
-    border: 4px solid #4fc3f7;
-    border-radius: 20px;
-    padding: 30px;
-    box-shadow: 0 0 30px rgba(79, 195, 247, 0.5);
+    width: 650px;
+    height: 480px;
+    background: linear-gradient(135deg, #2c3e50 0%, #000 100%);
+    border: 6px solid #455a64;
+    border-radius: 40px;
+    padding: 40px;
+    box-shadow: 
+      0 0 0 4px #263238,
+      0 0 40px rgba(79, 195, 247, 0.4),
+      inset 0 0 30px rgba(0,0,0,0.8);
     z-index: 5;
     display: flex;
     flex-direction: column;
     align-items: center;
     position: relative;
     transition: transform 0.3s;
+    overflow: visible;
   }
+
+  /* Antennas */
+  .antenna {
+    position: absolute;
+    top: -60px;
+    width: 6px;
+    height: 60px;
+    background: #546e7a;
+    border-radius: 3px;
+  }
+  .antenna-l { left: 80px; transform: rotate(-10deg); }
+  .antenna-r { right: 80px; transform: rotate(10deg); }
+  
+  .antenna::after {
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: -5px;
+    width: 16px;
+    height: 16px;
+    background: #ff5252;
+    border-radius: 50%;
+    box-shadow: 0 0 15px #ff5252;
+    animation: blink 0.8s infinite alternate;
+  }
+
+  @keyframes blink {
+    from { opacity: 0.4; box-shadow: 0 0 5px #ff5252; }
+    to { opacity: 1; box-shadow: 0 0 20px #ff5252; }
+  }
+
+  /* Bolts */
+  .bolt {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: #37474f;
+    border-radius: 50%;
+    box-shadow: inset 2px 2px 5px rgba(255,255,255,0.2), 1px 1px 3px rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .bolt::before {
+    content: "";
+    width: 12px;
+    height: 2px;
+    background: rgba(0,0,0,0.3);
+    transform: rotate(45deg);
+  }
+  .bolt-tl { top: 20px; left: 20px; }
+  .bolt-tr { top: 20px; right: 20px; }
+  .bolt-bl { bottom: 20px; left: 20px; }
+  .bolt-br { bottom: 20px; right: 20px; }
 
   .machine-vibrate {
     animation: vibrate 0.1s infinite;
@@ -66,10 +124,10 @@
 
   #display-panel {
     width: 100%;
-    height: 150px;
-    background: #000;
-    border: 2px solid #01579b;
-    border-radius: 10px;
+    height: 180px;
+    background: #001219;
+    border: 3px solid #005f73;
+    border-radius: 15px;
     margin-bottom: 30px;
     display: flex;
     flex-direction: column;
@@ -77,6 +135,25 @@
     justify-content: center;
     padding: 15px;
     text-align: center;
+    position: relative;
+    overflow: hidden;
+    box-shadow: inset 0 0 20px #000;
+  }
+
+  /* Scanlines effect */
+  #display-panel::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: repeating-linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.1),
+      rgba(0, 0, 0, 0.1) 1px,
+      transparent 1px,
+      transparent 2px
+    );
+    pointer-events: none;
+    z-index: 2;
   }
 
   #time-label {
@@ -85,12 +162,17 @@
     font-weight: 800;
     letter-spacing: 2px;
     margin-bottom: 10px;
+    text-shadow: 0 0 10px rgba(79, 195, 247, 0.8);
+    z-index: 3;
   }
 
   #sentence {
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     font-weight: bold;
     line-height: 1.4;
+    color: #e0f7fa;
+    text-shadow: 0 0 5px rgba(224, 247, 250, 0.5);
+    z-index: 3;
   }
 
   .blank {
@@ -106,26 +188,50 @@
     grid-template-columns: 1fr 1fr;
     gap: 15px;
     width: 100%;
+    z-index: 3;
   }
 
   .opt-btn {
-    background: #0d47a1;
-    border: 2px solid #4fc3f7;
+    background: #263238;
+    border: 3px solid #546e7a;
     border-radius: 10px;
-    color: white;
+    color: #4fc3f7;
     padding: 15px;
     font-size: 1.1rem;
     cursor: pointer;
     transition: all 0.2s;
+    box-shadow: 0 4px 0 #1b262c;
+    font-weight: bold;
   }
 
   .opt-btn:hover {
-    background: #1565c0;
-    transform: translateY(-3px);
+    background: #37474f;
+    border-color: #4fc3f7;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 0 #1b262c;
   }
 
-  .opt-btn.correct { background: #2e7d32 !important; border-color: #81c784; }
-  .opt-btn.wrong { background: #c62828 !important; border-color: #e57373; }
+  .opt-btn:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 #1b262c;
+  }
+
+  .opt-btn.correct { background: #2e7d32 !important; border-color: #81c784; color: white; }
+  .opt-btn.wrong { background: #c62828 !important; border-color: #e57373; color: white; }
+
+  .warning-label {
+    position: absolute;
+    bottom: 15px;
+    background: #ffd600;
+    color: #000;
+    font-size: 0.7rem;
+    font-weight: bold;
+    padding: 2px 15px;
+    border: 1px solid #000;
+    letter-spacing: 2px;
+    pointer-events: none;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+  }
 
   #progress-hub {
     margin-top: 30px;
@@ -187,6 +293,15 @@
   <div class="stars" id="stars"></div>
 
   <div id="machine">
+    <!-- Decorations -->
+    <div class="antenna antenna-l"></div>
+    <div class="antenna antenna-r"></div>
+    <div class="bolt bolt-tl"></div>
+    <div class="bolt bolt-tr"></div>
+    <div class="bolt bolt-bl"></div>
+    <div class="bolt bolt-br"></div>
+    <div class="warning-label">DANGER: TEMPORAL DISPLACEMENT</div>
+
     <div id="display-panel">
       <div id="time-label">TARGET TIME: UNKNOWN</div>
       <div id="sentence">Loading mission...</div>

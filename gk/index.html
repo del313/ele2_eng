@@ -103,10 +103,10 @@
     <a href="#" class="cb-btn" id="continueLink" style="background:#F06292; color:white; padding:10px 20px; border-radius:30px; text-decoration:none; font-weight:800; margin-left:15px;">GO! →</a>
   </div>
 
-  <div class="section-label">第一階段：探索世界 (Unit 1-4)</div>
+  <div class="section-label" id="p1">第一階段：探索世界 (Unit 1-4)</div>
   <div class="pair-grid" id="pairs1"></div>
 
-  <div class="section-label" style="margin-top:40px;">第二階段：日常點滴 (Unit 5-8)</div>
+  <div class="section-label" id="p2" style="margin-top:40px;">第二階段：日常點滴 (Unit 5-8)</div>
   <div class="pair-grid" id="pairs2"></div>
 
   <div class="legend">
@@ -230,21 +230,22 @@
         document.getElementById('continueTitle').textContent = u.title;
         document.getElementById('continueLink').href = u.file;
       }
-      }
-      }
+    }
+  }
+})();
 
-      // 錨點自動滾動邏輯
-      window.addEventListener('load', () => {
-      if (window.location.hash) {
-      const targetId = window.location.hash.substring(1);
-      const el = document.getElementById(targetId);
-      if (el) {
-        setTimeout(() => {
-          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }, 500);
-      }
-      }
-      });
-      </script>
+// 錨點自動滾動邏輯
+window.addEventListener('load', () => {
+  if (window.location.hash) {
+    const targetId = window.location.hash.substring(1);
+    const el = document.getElementById(targetId);
+    if (el) {
+      setTimeout(() => {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 500);
+    }
+  }
+});
+</script>
 </body>
 </html>
