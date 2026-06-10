@@ -84,28 +84,52 @@ def generate_unit(u, grade_info, template):
     wrapup_challenges = u.get('wrapup_challenges', ["嘗試在生活中使用今天學到的單字。"])
     html = html.replace("{{wrapup_challenge_html}}", "<ul>" + "".join([f"<li>{c}</li>" for c in wrapup_challenges]) + "</ul>")
 
-    # G6 專屬：決定回傳的錨點
+    # 決定回傳的錨點 (G6 已有邏輯，現在推廣到全年級)
     anchor_id = ""
     try:
-        # 確保 num 是數字
         val = u.get('num', 0)
         unit_num = int(val) if str(val).isdigit() else 0
     except (ValueError, KeyError, TypeError):
         unit_num = 0
 
-    if grade_info['num'] == 6:
+    gn = grade_info['num']
+    if gn == 'K': # GK
+        if unit_num > 4: anchor_id = "p2"
+        else: anchor_id = "p1"
+    elif gn == 2:
+        if unit_num > 9: anchor_id = "p4"
+        elif unit_num > 6: anchor_id = "p3"
+        elif unit_num > 3: anchor_id = "p2"
+        else: anchor_id = "p1"
+    elif gn == 3:
+        if unit_num > 9: anchor_id = "p4"
+        elif unit_num > 6: anchor_id = "p3"
+        elif unit_num > 3: anchor_id = "p2"
+        else: anchor_id = "p1"
+    elif gn == 4:
+        if unit_num > 8: anchor_id = "p3"
+        elif unit_num > 4: anchor_id = "p2"
+        else: anchor_id = "p1"
+    elif gn == 5:
+        if unit_num > 12: anchor_id = "p5"
+        elif unit_num > 9: anchor_id = "p4"
+        elif unit_num > 6: anchor_id = "p3"
+        elif unit_num > 3: anchor_id = "p2"
+        else: anchor_id = "p1"
+    elif gn == 6:
         if unit_num > 12: anchor_id = "p3"
         elif unit_num > 6: anchor_id = "p2"
         elif unit_num > 3: anchor_id = "p1-2"
         else: anchor_id = "p1-1"
     
-    # 替換模板中的 {{anchor_id}}
     html = html.replace("{{anchor_id}}", anchor_id)
     
     # 建立完整的返回連結
     home_btn_url = f"index.html#{anchor_id}" if anchor_id else "index.html"
     
-    # 處理底部按鈕 (有些模板可能還沒用 {{home_btn}})
+    # 替換 header 中的連結 (如果模板中沒用 {{anchor_id}} 標籤，則取代 href="index.html")
+    html = html.replace('href="index.html"', f'href="{home_btn_url}"')
+
     home_btn = f'<a href="{home_btn_url}" class="home-btn" style="position:static; margin-top:15px; background:var(--orange)">🏠 返回課程列表</a>'
     html = html.replace("{{home_btn}}", home_btn)
 

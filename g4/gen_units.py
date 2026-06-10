@@ -876,10 +876,15 @@ def build_unit(u):
     # Wrapup challenge
     wrapup_challenge_html = "<br>\n    ".join(u["wrapup_challenge"])
 
+    # Calculate anchor_num
+    anchor_num = 1
+    if u["num"] > 8: anchor_num = 3
+    elif u["num"] > 4: anchor_num = 2
+
     # Complete section
     if complete_next:
         complete_next_text = f"你真棒！下次繼續 {complete_next}"
-        home_btn = '<a href="index.html" class="home-link-btn">回首頁 🏠</a>'
+        home_btn = f'<a href="index.html#p{anchor_num}" class="home-link-btn">回首頁 🏠</a>'
     else:
         complete_next_text = "恭喜你完成全部 12 個單元！你真的太棒了！🏆"
         home_btn = '<a href="index.html" class="home-link-btn">回首頁查看成果 🏠</a>'

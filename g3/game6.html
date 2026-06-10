@@ -45,7 +45,7 @@
 
 <div class="game-container">
   <div class="instruction">
-    <a href="index.html" style="position:absolute; left:20px; color:white; text-decoration:none;">🏠 Home</a>
+    <a href="index.html#p3" style="position:absolute; left:20px; color:white; text-decoration:none;">🏠 Home</a>
     第 <span id="q-num">1</span> / 10 題：餵食正確的單字
   </div>
 
@@ -141,7 +141,7 @@ function finishGame() {
   const progress = JSON.parse(localStorage.getItem(PROGRESS_KEY) || '{}');
   progress[GAME_ID] = 'done';
   localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress));
-  window.location.href = 'index.html';
+  window.location.href = "index.html#p3";
 }
 
 loadData();

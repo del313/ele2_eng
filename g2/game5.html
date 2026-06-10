@@ -37,7 +37,7 @@
 <body>
 
 <header style="padding:20px; text-align:center; background:var(--pink); color:white;">
-  <a href="index.html" style="position:absolute; left:20px; color:white; text-decoration:none; font-weight:800;">🏠 Home</a>
+  <a href="index.html#p3" style="position:absolute; left:20px; color:white; text-decoration:none; font-weight:800;">🏠 Home</a>
   <h1>Word Scramble</h1>
   <p>拼字小天才</p>
 </header>
@@ -151,7 +151,7 @@ function finishGame() {
   const progress = JSON.parse(localStorage.getItem(PROGRESS_KEY) || '{}');
   progress['game5'] = 'done';
   localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress));
-  window.location.href = 'index.html';
+  window.location.href = "index.html#p3";
 }
 
 init();

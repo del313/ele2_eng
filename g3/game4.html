@@ -48,7 +48,7 @@
 <body>
 
 <header class="game-header">
-  <a href="index.html" class="home-btn">🏠 Home</a>
+  <a href="index.html#p2" class="home-btn">🏠 Home</a>
   <h1>Bubble Pop</h1>
   <div class="target-display" id="target-word">載入中...</div>
 </header>
@@ -163,7 +163,7 @@ function finishGame() {
   const progress = JSON.parse(localStorage.getItem(PROGRESS_KEY) || '{}');
   progress[GAME_ID] = 'done';
   localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress));
-  window.location.href = 'index.html';
+  window.location.href = "index.html#p2";
 }
 
 loadData();

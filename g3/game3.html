@@ -51,7 +51,7 @@
 <body>
 
 <header style="padding:20px; text-align:center; background:#0277BD; color:white;">
-  <a href="index.html" style="position:absolute; left:20px; color:white; text-decoration:none; font-weight:800;">🏠 Home</a>
+  <a href="index.html#p2" style="position:absolute; left:20px; color:white; text-decoration:none; font-weight:800;">🏠 Home</a>
   <h1>Sentence Master</h1>
   <p>造句小老師 ✍️</p>
 </header>
@@ -199,7 +199,7 @@ function finishGame() {
   const progress = JSON.parse(localStorage.getItem(PROGRESS_KEY) || '{}');
   progress[GAME_ID] = 'done';
   localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress));
-  window.location.href = 'index.html';
+  window.location.href = "index.html#p2";
 }
 
 loadData();

@@ -45,7 +45,7 @@
 <body>
 
 <header class="game-header">
-  <a href="index.html" style="position:absolute; left:20px; top:15px; color:white; text-decoration:none; font-weight:800;">🏠 Home</a>
+  <a href="index.html#p4" style="position:absolute; left:20px; top:15px; color:white; text-decoration:none; font-weight:800;">🏠 Home</a>
   <h1>Word Catcher</h1>
   <div class="target-box" id="target-word">Catch: ???</div>
 </header>
@@ -124,7 +124,7 @@ function finishGame() {
   const progress = JSON.parse(localStorage.getItem(PROGRESS_KEY) || '{}');
   progress['game7'] = 'done';
   localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress));
-  window.location.href = 'index.html';
+  window.location.href = "index.html#p4";
 }
 
 setInterval(createItem, 1500);

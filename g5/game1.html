@@ -46,7 +46,7 @@
 <body>
 
 <header style="padding:20px; text-align:center; background:#7B1FA2; color:white;">
-  <a href="index.html" style="position:absolute; left:20px; color:white; text-decoration:none; font-weight:800;">🏠 Home</a>
+  <a href="index.html#p1" style="position:absolute; left:20px; color:white; text-decoration:none; font-weight:800;">🏠 Home</a>
   <h1>Word Scramble</h1>
   <p>單字大重組 🌪️</p>
 </header>
@@ -165,7 +165,7 @@ function finishGame() {
   const progress = JSON.parse(localStorage.getItem(PROGRESS_KEY) || '{}');
   progress[GAME_ID] = 'done';
   localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress));
-  window.location.href = 'index.html';
+  window.location.href = "index.html#p1";
 }
 
 loadData();

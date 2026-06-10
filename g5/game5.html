@@ -39,7 +39,7 @@
 <body>
 
 <header style="padding:20px; text-align:center; background:#EF6C00; color:white;">
-  <a href="index.html" style="position:absolute; left:20px; color:white; text-decoration:none; font-weight:800;">🏠 Home</a>
+  <a href="index.html#p5" style="position:absolute; left:20px; color:white; text-decoration:none; font-weight:800;">🏠 Home</a>
   <h1>Final Challenge</h1>
   <p>小五終極考驗 🏆</p>
 </header>
@@ -168,7 +168,7 @@ function finishGame() {
   const progress = JSON.parse(localStorage.getItem(PROGRESS_KEY) || '{}');
   progress[GAME_ID] = 'done';
   localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress));
-  window.location.href = 'index.html';
+  window.location.href = "index.html#p5";
 }
 
 loadData();

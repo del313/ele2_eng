@@ -46,7 +46,7 @@
 
 <div class="game-container">
   <div class="game-header">
-    <a href="index.html" style="position:absolute; left:20px; color:#5D4037; text-decoration:none; font-weight:800;">🏠 Home</a>
+    <a href="index.html#p1" style="position:absolute; left:20px; color:#5D4037; text-decoration:none; font-weight:800;">🏠 Home</a>
     <h1>Word Sort</h1>
     <p>分類大隊長 📦</p>
     <div class="score-board">分數: <span id="score">0</span> | 第 <span id="round">1</span> / 10 題</div>
@@ -183,7 +183,7 @@ function finishGame() {
   const progress = JSON.parse(localStorage.getItem(PROGRESS_KEY) || '{}');
   progress[GAME_ID] = 'done';
   localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress));
-  window.location.href = 'index.html';
+  window.location.href = "index.html#p1";
 }
 
 loadData();

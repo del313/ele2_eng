@@ -41,7 +41,7 @@
 <body>
 
 <header style="padding:20px; text-align:center; background:var(--green); color:white;">
-  <a href="index.html" style="position:absolute; left:20px; color:white; text-decoration:none; font-weight:800;">🏠 Home</a>
+  <a href="index.html#p2" style="position:absolute; left:20px; color:white; text-decoration:none; font-weight:800;">🏠 Home</a>
   <h1>Feed the Monster</h1>
   <p>餵食小怪物</p>
 </header>
@@ -150,7 +150,7 @@ function finishGame() {
   const progress = JSON.parse(localStorage.getItem(PROGRESS_KEY) || '{}');
   progress['game3'] = 'done';
   localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress));
-  window.location.href = 'index.html';
+  window.location.href = "index.html#p2";
 }
 
 nextRound();

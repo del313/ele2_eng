@@ -62,7 +62,7 @@
 <body>
 
 <header style="padding:15px; text-align:center; background:var(--blue); color:white; position:relative; z-index:20;">
-  <a href="index.html" style="position:absolute; left:20px; top:50%; transform:translateY(-50%); color:white; text-decoration:none; font-weight:800;">🏠 返回</a>
+  <a href="index.html#p1" style="position:absolute; left:20px; top:50%; transform:translateY(-50%); color:white; text-decoration:none; font-weight:800;">🏠 返回</a>
   <h1 style="font-size:1.5rem;">🎈 氣球快手</h1>
 </header>
 
@@ -204,7 +204,7 @@ function winGame() {
 
 function finishGame() {
   setProgress(GAME_ID, 'done');
-  location.href = 'index.html';
+  location.href = "index.html#p1";
 }
 
 init();
