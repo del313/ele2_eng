@@ -159,3 +159,19 @@ header p {
 }
 .legend-item { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 700; color: var(--muted); }
 .legend-dot { width: 18px; height: 18px; border-radius: 6px; flex-shrink: 0; }
+
+/* Unified button style for finishGame actions */
+.game-btn {
+  padding: 15px 40px;
+  border-radius: 30px;
+  border: none;
+  background: var(--green);
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: 900;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+.game-btn:hover { background: #45a049; }
+.game-btn:active { transform: translateY(2px); }
