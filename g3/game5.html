@@ -18,7 +18,7 @@
     box-shadow: 0 4px 8px rgba(0,0,0,0.1); border-radius: 15px;
   }
   .card.flipped .card-inner { transform: rotateY(180deg); }
-  .card.matched .card-inner { opacity: 0.6; transform: rotateY(180deg); border: 4px solid #4CAF50; }
+  .card.matched .card-inner { opacity: 1; transform: rotateY(180deg); border: 4px solid #4CAF50; }
 
   .card-front, .card-back {
     position: absolute; width: 100%; height: 100%;
@@ -69,15 +69,28 @@ const PROGRESS_KEY = 'progress_g3';
 const GAME_ID = 'game5';
 
 async function loadData() {
-    try {
-        const resp = await fetch('../vocab_g3.json');
-        const units = await resp.json();
-        units.forEach(u => {
-            u.core_vocab.forEach(v => allItems.push({ en: v[0], zh: v[1] }));
-        });
-        document.getElementById('loading').style.display = 'none';
-        init();
-    } catch (e) { console.error(e); }
+  try {
+    const resp = await fetch('../vocab_g3.json');
+    const units = await resp.json();
+    units.forEach(u => {
+      u.core_vocab.forEach(v => allItems.push({ en: v[0], zh: v[1] }));
+    });
+  } catch (e) {
+    console.error(e);
+    // fallback data for offline testing
+    const fallback = [
+      { en: 'Apple', zh: '蘋果' },
+      { en: 'Dog', zh: '狗' },
+      { en: 'Cat', zh: '貓' },
+      { en: 'Sun', zh: '太陽' },
+      { en: 'Moon', zh: '月亮' },
+      { en: 'Star', zh: '星星' }
+    ];
+    fallback.forEach(item => allItems.push(item));
+  } finally {
+    document.getElementById('loading').style.display = 'none';
+    init();
+  }
 }
 
 function init() {
