@@ -105,57 +105,57 @@
 <body>
 
 <header>
-  <a href="index.html#p3" class="home-btn">🏠</a>
+  <a href="index.html#p3" class="home-btn btn-hover">🏠</a>
   <h1>🎧 聽音拼字大挑戰</h1>
 </header>
 
-<div class="hud">
-  <div class="hud-box">
-    <div class="h-val" id="levelVal">1 / 10</div>
-    <div class="h-lbl">關卡</div>
+<div class="hud btn-hover">
+  <div class="hud-box btn-hover">
+    <div class="h-val btn-hover" id="levelVal">1 / 10</div>
+    <div class="h-lbl btn-hover">關卡</div>
   </div>
-  <div class="hud-box">
-    <div class="h-val" id="scoreVal">0</div>
-    <div class="h-lbl">得分</div>
+  <div class="hud-box btn-hover">
+    <div class="h-val btn-hover" id="scoreVal">0</div>
+    <div class="h-lbl btn-hover">得分</div>
   </div>
 </div>
 
-<div class="container">
-  <div class="feedback" id="feedback"></div>
+<div class="container btn-hover">
+  <div class="feedback btn-hover" id="feedback"></div>
 
-  <div class="audio-zone" onclick="playCurrentWord()">
-    <div class="speaker-icon">🔊</div>
+  <div class="audio-zone btn-hover" onclick="playCurrentWord()">
+    <div class="speaker-icon btn-hover">🔊</div>
   </div>
   <p style="color:var(--muted); font-size:12px; margin-bottom:15px;">點擊喇叭聽取發音</p>
 
-  <div class="spell-area" id="spellArea"></div>
+  <div class="spell-area btn-hover" id="spellArea"></div>
 
-  <div class="letter-bank" id="letterBank"></div>
+  <div class="letter-bank btn-hover" id="letterBank"></div>
 
   <div style="display:flex; gap:10px; justify-content:center;">
-    <button id="resetBtn" class="o-btn" style="background:#607D8B; flex:1;" onclick="resetWord()">❌ 清除重拼</button>
-    <button id="nextBtn" class="o-btn" style="background:var(--green); flex:1; display:none;" onclick="nextLevel()">➡️ 下一題</button>
+    <button id="resetBtn" class="o-btn btn-hover" style="background:#607D8B; flex:1;" onclick="resetWord()">❌ 清除重拼</button>
+    <button id="nextBtn" class="o-btn btn-hover" style="background:var(--green); flex:1; display:none;" onclick="nextLevel()">➡️ 下一題</button>
   </div>
 </div>
 
 <!-- START OVERLAY -->
-<div class="overlay show" id="startOverlay">
-  <div class="overlay-box">
-    <div class="o-icon">👂</div>
+<div class="overlay show btn-hover" id="startOverlay">
+  <div class="overlay-box btn-hover">
+    <div class="o-icon btn-hover">👂</div>
     <h2>純聽力拼字！</h2>
     <p>沒有中文提示，挑戰你的耳朵！<br><br>⚠️ <strong>聽取發音後拼出單字。</strong><br>⚠️ <strong>字母庫有干擾字母！</strong></p>
-    <button class="o-btn" onclick="startGame()">開始挑戰！</button>
+    <button class="o-btn btn-hover" onclick="startGame()">開始挑戰！</button>
   </div>
 </div>
 
 <!-- WIN OVERLAY -->
-<div class="overlay" id="winOverlay">
-  <div class="overlay-box">
-    <div class="o-icon">🏆</div>
+<div class="overlay btn-hover" id="winOverlay">
+  <div class="overlay-box btn-hover">
+    <div class="o-icon btn-hover">🏆</div>
     <h2>挑戰成功！</h2>
     <p id="winMsg"></p>
-    <button class="o-btn" onclick="location.reload()">🔄 再玩一次</button>
-    <a class="o-btn" style="background:#eee; color:#555;" href="index.html#p3">🏠 回首頁</a>
+    <button class="o-btn btn-hover" onclick="location.reload()">🔄 再玩一次</button>
+    <a class="o-btn btn-hover" style="background:#eee; color:#555;" href="index.html#p3">🏠 回首頁</a>
   </div>
 </div>
 

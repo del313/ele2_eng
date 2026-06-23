@@ -47,11 +47,11 @@
   <h1>🎬 指令大挑戰</h1>
 </header>
 
-<div class="game-container">
-  <div class="level-badge">關卡: <span id="level">1</span> / 5</div>
-  <div class="sequence-indicator" id="status">聽聽看，老師說了什麼？</div>
+<div class="game-container btn-hover">
+  <div class="level-badge btn-hover">關卡: <span id="level">1</span> / 5</div>
+  <div class="sequence-indicator btn-hover" id="status">聽聽看，老師說了什麼？</div>
   
-  <div class="action-grid" id="grid"></div>
+  <div class="action-grid btn-hover" id="grid"></div>
   
   <button id="start-btn" onclick="playSequence()" style="margin-top:30px; padding:15px 40px; border-radius:30px; border:none; background:var(--green); color:white; font-size:1.5rem; font-weight:900; cursor:pointer; box-shadow:0 8px 0 #66BB6A;">
     開始播放指令 ▶️
@@ -62,7 +62,7 @@
   <div style="font-size:6rem;">👑</div>
   <h2 style="font-size:2.5rem; color:var(--blue);">全能挑戰王！</h2>
   <p style="font-size:1.2rem;">你完成了所有的動作指令！</p>
-  <button onclick="finishGame()" class="game-btn">
+  <button onclick="finishGame()" class="game-btn btn-hover">
     領取終極獎牌 🏆
   </button>
 </div>
@@ -87,8 +87,8 @@ function init() {
     btn.className = 'action-btn';
     btn.id = 'btn-' + item.word;
     btn.innerHTML = `
-      <div class="icon">${item.icon}</div>
-      <div class="word">${item.word}</div>
+      <div class="icon btn-hover">${item.icon}</div>
+      <div class="word btn-hover">${item.word}</div>
     `;
     btn.onclick = () => handleUserInput(item.word);
     grid.appendChild(btn);

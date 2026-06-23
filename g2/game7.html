@@ -44,20 +44,20 @@
 </head>
 <body>
 
-<header class="game-header">
+<header class="game-header btn-hover">
   <a href="index.html#p4" style="position:absolute; left:20px; top:15px; color:white; text-decoration:none; font-weight:800;">🏠 Home</a>
   <h1>Word Catcher</h1>
-  <div class="target-box" id="target-word">Catch: ???</div>
+  <div class="target-box btn-hover" id="target-word">Catch: ???</div>
 </header>
 
-<div class="catch-area" id="catch-area"></div>
+<div class="catch-area btn-hover" id="catch-area"></div>
 <div id="score-panel">第 <span id="q-num">1</span> / 10 題</div>
 
 <div id="finish-screen">
   <div style="font-size:6rem;">🧺</div>
   <h2 style="font-size:2rem; color: #E65100;">Great Harvest!</h2>
   <p style="font-size:1.2rem; margin:10px 0;">你接住了所有正確的單字水果！</p>
-  <button onclick="finishGame()" class="game-btn">
+  <button onclick="finishGame()" class="game-btn btn-hover">
     完成並回首頁
   </button>
 </div>
@@ -98,7 +98,7 @@ function createItem() {
   div.className = 'falling-item';
   div.style.left = Math.random() * 70 + 'vw';
   div.style.animationDuration = (Math.random() * 2 + 3) + 's';
-  div.innerHTML = `<span class="icon">${data.i}</span><span class="word">${data.w}</span><span class="zh">${data.zh}</span>`;
+  div.innerHTML = `<span class="icon btn-hover">${data.i}</span><span class="word btn-hover">${data.w}</span><span class="zh btn-hover">${data.zh}</span>`;
   
   div.onclick = () => {
     if (data.w === target.w) {

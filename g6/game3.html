@@ -290,17 +290,17 @@
 <body>
 
 <div id="game-container">
-  <div class="stars" id="stars"></div>
+  <div class="stars btn-hover" id="stars"></div>
 
   <div id="machine">
     <!-- Decorations -->
-    <div class="antenna antenna-l"></div>
-    <div class="antenna antenna-r"></div>
-    <div class="bolt bolt-tl"></div>
-    <div class="bolt bolt-tr"></div>
-    <div class="bolt bolt-bl"></div>
-    <div class="bolt bolt-br"></div>
-    <div class="warning-label">DANGER: TEMPORAL DISPLACEMENT</div>
+    <div class="antenna antenna-l btn-hover"></div>
+    <div class="antenna antenna-r btn-hover"></div>
+    <div class="bolt bolt-tl btn-hover"></div>
+    <div class="bolt bolt-tr btn-hover"></div>
+    <div class="bolt bolt-bl btn-hover"></div>
+    <div class="bolt bolt-br btn-hover"></div>
+    <div class="warning-label btn-hover">DANGER: TEMPORAL DISPLACEMENT</div>
 
     <div id="display-panel">
       <div id="time-label">TARGET TIME: UNKNOWN</div>
@@ -312,24 +312,24 @@
 
   <!-- Start Screen -->
   <div id="start-screen">
-    <div class="big-icon">🕰️</div>
+    <div class="big-icon btn-hover">🕰️</div>
     <h1 style="font-size: 2.5rem; color: #4fc3f7;">Tense Traveler</h1>
     <p style="font-size: 1.2rem; max-width: 500px; line-height: 1.6;">
       時空機發生了故障！<br>
       請選擇正確的時態動詞來修復時間軸，<br>
       帶領我們回到正確的時空。
     </p>
-    <button class="btn-start" onclick="startGame()">啟動時光機 →</button>
-    <a href="index.html#p3" class="back-btn">🏠 返回課程</a>
+    <button class="btn-start btn-hover" onclick="startGame()">啟動時光機 →</button>
+    <a href="index.html#p3" class="back-btn btn-hover">🏠 返回課程</a>
   </div>
 
   <!-- Result Screen -->
-  <div id="result-screen" class="hidden">
-    <div class="big-icon">✨</div>
+  <div id="result-screen" class="hidden btn-hover">
+    <div class="big-icon btn-hover">✨</div>
     <h2 style="font-size: 2rem;">任務達成！</h2>
     <p id="result-text" style="font-size: 1.2rem; margin: 20px 0;">你成功修復了時間軸。</p>
-    <button class="btn-start" onclick="location.reload()">再玩一次</button>
-    <a href="index.html#p3" class="back-btn">🏠 返回課程</a>
+    <button class="btn-start btn-hover" onclick="location.reload()">再玩一次</button>
+    <a href="index.html#p3" class="back-btn btn-hover">🏠 返回課程</a>
   </div>
 </div>
 
@@ -382,7 +382,7 @@ function renderQuestion() {
 
   const q = pool[currentIdx];
   document.getElementById('time-label').textContent = `TARGET TIME: ${q.time}`;
-  document.getElementById('sentence').innerHTML = q.q.replace("___", '<span class="blank">?</span>');
+  document.getElementById('sentence').innerHTML = q.q.replace("___", '<span class="blank btn-hover">?</span>');
   
   const optContainer = document.getElementById('options');
   optContainer.innerHTML = '';

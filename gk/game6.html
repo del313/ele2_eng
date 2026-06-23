@@ -51,20 +51,20 @@
   <h1>🧺 字母接接樂</h1>
 </header>
 
-<div class="ui">
-  <div class="target-word-display" id="target-display"></div>
+<div class="ui btn-hover">
+  <div class="target-word-display btn-hover" id="target-display"></div>
   <div style="margin-top:10px; font-weight:800;">接住對應的字母！</div>
 </div>
 
 <div id="game-area">
-  <div class="basket" id="basket">🧺</div>
+  <div class="basket btn-hover" id="basket">🧺</div>
 </div>
 
 <div id="finish-screen">
   <div style="font-size:6rem;">🍎</div>
   <h2 style="font-size:2.5rem; color:var(--blue);">接得好！</h2>
   <p style="font-size:1.2rem;">你學會了拼寫這些單字！</p>
-  <button onclick="finishGame()" class="game-btn">
+  <button onclick="finishGame()" class="game-btn btn-hover">
     領取獎牌 🏅
   </button>
 </div>
@@ -112,7 +112,7 @@ function nextWord() {
 function updateDisplay() {
   const display = document.getElementById('target-display');
   display.innerHTML = currentLetters.map((l, i) => 
-    `<span class="${i < letterIndex ? 'filled' : ''}">${l}</span>`
+    `<span class="${i < letterIndex ? 'filled' : ''} btn-hover">${l}</span>`
   ).join('');
 }
 

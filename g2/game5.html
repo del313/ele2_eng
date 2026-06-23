@@ -42,13 +42,13 @@
   <p>拼字小天才</p>
 </header>
 
-<div class="game-container">
+<div class="game-container btn-hover">
   <div id="q-info">第 <span id="q-num">1</span> / 6 題</div>
-  <div class="hint-img" id="hint-img">🍎</div>
+  <div class="hint-img btn-hover" id="hint-img">🍎</div>
   
-  <div class="answer-area" id="answer-area"></div>
+  <div class="answer-area btn-hover" id="answer-area"></div>
   
-  <div class="scrambled-area" id="scrambled-area"></div>
+  <div class="scrambled-area btn-hover" id="scrambled-area"></div>
   
   <button onclick="clearAnswer()" style="padding:10px 20px; border-radius:20px; border:none; background:#EEE; color:#666; font-weight:800; cursor:pointer;">
     清除重選
@@ -59,7 +59,7 @@
   <div style="font-size:6rem;">✨</div>
   <h2 style="font-size:2rem; color:var(--pink);">Excellent!</h2>
   <p style="font-size:1.2rem; margin:10px 0;">你是一個拼字高手！</p>
-  <button onclick="finishGame()" class="game-btn">
+  <button onclick="finishGame()" class="game-btn btn-hover">
     完成並回首頁
   </button>
 </div>
@@ -100,7 +100,7 @@ function nextRound() {
   const word = shuffledWords[currentIdx];
   document.getElementById('q-num').textContent = currentIdx + 1;
   document.getElementById('hint-img').textContent = word.i;
-  document.getElementById('answer-area').innerHTML = word.w.split('').map(() => `<span class="ans-tile">_</span>`).join(' ');
+  document.getElementById('answer-area').innerHTML = word.w.split('').map(() => `<span class="ans-tile btn-hover">_</span>`).join(' ');
   
   const tiles = word.w.split('').sort(() => Math.random() - 0.5);
   const area = document.getElementById('scrambled-area');
@@ -123,8 +123,8 @@ function addLetter(l, el) {
   
   const word = shuffledWords[currentIdx];
   const ansDiv = document.getElementById('answer-area');
-  ansDiv.innerHTML = userAns.split('').map(char => `<span class="ans-tile">${char}</span>`).join(' ') + 
-                    word.w.slice(userAns.length).split('').map(() => `<span class="ans-tile">_</span>`).join(' ');
+  ansDiv.innerHTML = userAns.split('').map(char => `<span class="ans-tile btn-hover">${char}</span>`).join(' ') + 
+                    word.w.slice(userAns.length).split('').map(() => `<span class="ans-tile btn-hover">_</span>`).join(' ');
 
   if (userAns.length === word.w.length) {
     if (userAns === word.w) {
@@ -144,7 +144,7 @@ function clearAnswer() {
   userAns = "";
   document.querySelectorAll('.letter-tile').forEach(t => t.style.visibility = 'visible');
   const word = shuffledWords[currentIdx];
-  document.getElementById('answer-area').innerHTML = word.w.split('').map(() => `<span class="ans-tile">_</span>`).join(' ');
+  document.getElementById('answer-area').innerHTML = word.w.split('').map(() => `<span class="ans-tile btn-hover">_</span>`).join(' ');
 }
 
 function finishGame() {

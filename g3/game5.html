@@ -46,17 +46,17 @@
   <p>單字翻牌大賽 🃏</p>
 </header>
 
-<div class="game-container">
-  <div class="stats">找到的配對: <span id="matches">0</span> / 6</div>
+<div class="game-container btn-hover">
+  <div class="stats btn-hover">找到的配對: <span id="matches">0</span> / 6</div>
   <div id="loading" style="font-size:1.5rem; margin-top:50px;">載入單字中...</div>
-  <div class="grid" id="grid"></div>
+  <div class="grid btn-hover" id="grid"></div>
 </div>
 
 <div id="finish-screen">
   <div style="font-size:6rem;">🏆</div>
   <h2 style="font-size:2.5rem; color:#0288D1;">Great Memory!</h2>
   <p style="font-size:1.4rem; margin:10px 0;">你的記憶力驚人！</p>
-  <button onclick="finishGame()" class="game-btn">
+  <button onclick="finishGame()" class="game-btn btn-hover">
     完成並回首頁
   </button>
 </div>
@@ -110,13 +110,16 @@ function init() {
     card.className = 'card';
     card.dataset.id = data.id;
     card.innerHTML = `
-      <div class="card-inner">
-        <div class="card-front">❓</div>
-        <div class="card-back"><div class="word">${data.text}</div></div>
+      <div class="card-inner btn-hover">
+        <div class="card-front btn-hover">❓</div>
+        <div class="card-back btn-hover"><div class="word btn-hover">${data.text}</div></div>
       </div>
     `;
     card.onclick = () => flipCard(card);
-    grid.appendChild(card);
+      grid.appendChild(card);
+      // Appear animation for each card
+      card.classList.add('appear');
+      setTimeout(() => card.classList.remove('appear'), 600);
   });
 }
 
@@ -130,21 +133,41 @@ function flipCard(card) {
 function checkMatch() {
   const [c1, c2] = flippedCards;
   if (c1.dataset.id === c2.dataset.id) {
-    c1.classList.add('matched');
-    c2.classList.add('matched');
+      c1.classList.add('matched');
+      c2.classList.add('matched');
+      // Bounce animation for success
+      c1.classList.add('bounce');
+      c2.classList.add('bounce');
+      setTimeout(() => {
+        c1.classList.remove('bounce');
+        c2.classList.remove('bounce');
+      }, 600);
     matchCount++;
     playSound('success');
     document.getElementById('matches').textContent = matchCount;
+    // Trigger score pulse animation
+    const scoreEl = document.getElementById('matches');
+    scoreEl.classList.add('pulse');
+    setTimeout(() => scoreEl.classList.remove('pulse'), 600);
     speak(c1.dataset.id);
     flippedCards = [];
-    if (matchCount === 6) setTimeout(() => document.getElementById('finish-screen').style.display = 'flex', 500);
+    if (matchCount === 6) setTimeout(() => {
+      const finishScreen = document.getElementById('finish-screen');
+      finishScreen.classList.add('fade-in');
+      finishScreen.style.display = 'flex';
+    }, 500);
   } else {
     playSound('error');
-    setTimeout(() => {
-      c1.classList.remove('flipped');
-      c2.classList.remove('flipped');
-      flippedCards = [];
-    }, 1000);
+      // Shake animation for failure
+      c1.classList.add('shake');
+      c2.classList.add('shake');
+      setTimeout(() => {
+        c1.classList.remove('shake');
+        c2.classList.remove('shake');
+        c1.classList.remove('flipped');
+        c2.classList.remove('flipped');
+        flippedCards = [];
+      }, 600);
   }
 }
 

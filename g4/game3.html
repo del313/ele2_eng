@@ -178,70 +178,70 @@
 <body>
 
 <header>
-  <a href="index.html#p3" class="home-btn">🏠 首頁</a>
+  <a href="index.html#p3" class="home-btn btn-hover">🏠 首頁</a>
   <h1>🧩 句子拼圖</h1>
   <p>Unit 9–12 複習闖關 · 拼出正確句子！</p>
 </header>
 
-<div class="hud">
-  <div class="hud-box">
-    <div class="h-val" id="levelVal">1 / 10</div>
-    <div class="h-lbl">LEVEL</div>
+<div class="hud btn-hover">
+  <div class="hud-box btn-hover">
+    <div class="h-val btn-hover" id="levelVal">1 / 10</div>
+    <div class="h-lbl btn-hover">LEVEL</div>
   </div>
-  <div class="hud-box">
-    <div class="h-val" id="scoreVal">0</div>
-    <div class="h-lbl">SCORE</div>
+  <div class="hud-box btn-hover">
+    <div class="h-val btn-hover" id="scoreVal">0</div>
+    <div class="h-lbl btn-hover">SCORE</div>
   </div>
 </div>
 
-<div class="container">
+<div class="container btn-hover">
 
-  <div class="dots" id="dots"></div>
+  <div class="dots btn-hover" id="dots"></div>
 
-  <div class="zh-hint">
-    <div class="zh-label">中文提示</div>
-    <div class="zh-text" id="zhHint"></div>
+  <div class="zh-hint btn-hover">
+    <div class="zh-label btn-hover">中文提示</div>
+    <div class="zh-text btn-hover" id="zhHint"></div>
   </div>
 
-  <div class="answer-zone" id="answerZone">
-    <span class="placeholder">把單字拖到這裡排列 →</span>
+  <div class="answer-zone btn-hover" id="answerZone">
+    <span class="placeholder btn-hover">把單字拖到這裡排列 →</span>
   </div>
 
-  <div class="bank-label">單字庫 — 點擊或拖曳單字</div>
-  <div class="word-bank" id="wordBank"></div>
+  <div class="bank-label btn-hover">單字庫 — 點擊或拖曳單字</div>
+  <div class="word-bank btn-hover" id="wordBank"></div>
 
-  <div class="feedback" id="feedback"></div>
-  <div class="answer-reveal" id="answerReveal">
-    <div class="ar-label">正確答案</div>
-    <div class="ar-text" id="revealText"></div>
+  <div class="feedback btn-hover" id="feedback"></div>
+  <div class="answer-reveal btn-hover" id="answerReveal">
+    <div class="ar-label btn-hover">正確答案</div>
+    <div class="ar-text btn-hover" id="revealText"></div>
   </div>
 
-  <div class="btn-row">
-    <button class="clear-btn" onclick="clearAnswer()">清除</button>
-    <button class="check-btn" id="checkBtn" onclick="checkAnswer()">確認答案 ✓</button>
+  <div class="btn-row btn-hover">
+    <button class="clear-btn btn-hover" onclick="clearAnswer()">清除</button>
+    <button class="check-btn btn-hover" id="checkBtn" onclick="checkAnswer()">確認答案 ✓</button>
   </div>
 
-  <button class="next-btn" id="nextBtn" onclick="nextLevel()">下一題 →</button>
+  <button class="next-btn btn-hover" id="nextBtn" onclick="nextLevel()">下一題 →</button>
 </div>
 
 <!-- START OVERLAY -->
-<div class="overlay show" id="startOverlay">
-  <div class="overlay-box">
-    <div class="o-icon">🧩</div>
+<div class="overlay show btn-hover" id="startOverlay">
+  <div class="overlay-box btn-hover">
+    <div class="o-icon btn-hover">🧩</div>
     <h2>句子拼圖！</h2>
     <p>看中文提示<br>把打亂的英文單字拼成正確的句子<br><br>共 <strong>10 關</strong>，答對得 10 分<br>答錯仍可繼續，但不得分</p>
-    <button class="o-btn" onclick="startGame()">開始挑戰！</button>
+    <button class="o-btn btn-hover" onclick="startGame()">開始挑戰！</button>
   </div>
 </div>
 
 <!-- WIN OVERLAY -->
-<div class="overlay" id="winOverlay">
-  <div class="overlay-box">
-    <div class="o-icon" id="winIcon"></div>
+<div class="overlay btn-hover" id="winOverlay">
+  <div class="overlay-box btn-hover">
+    <div class="o-icon btn-hover" id="winIcon"></div>
     <h2 id="winTitle"></h2>
     <p id="winMsg"></p>
-    <button class="o-btn" onclick="restartGame()">🔄 再玩一次</button>
-    <a class="o-btn secondary" href="index.html#p3">🏠 回首頁</a>
+    <button class="o-btn btn-hover" onclick="restartGame()">🔄 再玩一次</button>
+    <a class="o-btn secondary btn-hover" href="index.html#p3">🏠 回首頁</a>
   </div>
 </div>
 
@@ -327,7 +327,7 @@ function renderAnswerZone() {
   const zone = document.getElementById('answerZone');
   zone.innerHTML = '';
   if (answerWords.length === 0) {
-    zone.innerHTML = '<span class="placeholder">把單字拖到這裡排列 →</span>';
+    zone.innerHTML = '<span class="placeholder btn-hover">把單字拖到這裡排列 →</span>';
     return;
   }
   answerWords.forEach((word, idx) => {

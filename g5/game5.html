@@ -44,26 +44,26 @@
   <p>小五終極考驗 🏆</p>
 </header>
 
-<div class="game-container">
-  <div class="status-bar">
+<div class="game-container btn-hover">
+  <div class="status-bar btn-hover">
     <div>Question: <span id="q-num">1</span> / 15</div>
     <div>HP: <span id="hp">❤️❤️❤️</span></div>
   </div>
   
-  <div class="question-box">
+  <div class="question-box btn-hover">
     <div id="q-type" style="font-size:0.9rem; color:#F57C00; margin-bottom:5px;">[對話複習]</div>
-    <div class="q-text" id="q-text">載入中...</div>
+    <div class="q-text btn-hover" id="q-text">載入中...</div>
     <button id="listen-btn" onclick="playCurrentQ()" style="display:none; background:#FF9800; color:white; border:none; border-radius:50%; width:50px; height:50px; cursor:pointer; font-size:1.5rem;">🔊</button>
   </div>
   
-  <div class="options-list" id="options-list"></div>
+  <div class="options-list btn-hover" id="options-list"></div>
 </div>
 
 <div id="finish-screen">
   <div style="font-size:6rem;">🏅</div>
   <h2 style="font-size:2.5rem; color:#E65100;">Congratulations!</h2>
   <p style="font-size:1.4rem; margin:10px 0;">你成功通過了小五的所有測試！</p>
-  <button onclick="finishGame()" class="game-btn">
+  <button onclick="finishGame()" class="game-btn btn-hover">
     完成並回首頁
   </button>
 </div>

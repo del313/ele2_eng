@@ -5,54 +5,20 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>小二英文課程 – Grade 2</title>
 <link rel="stylesheet" href="../style-common.css">
-<style>
-  /* 讓 Unit 與 Game 的 Grid 結構一致且對齊 */
-  .card-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 強制 3 列 */
-    gap: 16px;
-    margin-bottom: 16px;
-  }
-
-  .game-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); /* 強制 2 列 */
-    gap: 16px;
-  }
-
-  /* 覆蓋 style-g2.css 中的 game-card 樣式，使其適合網格顯示 */
-  .game-card {
-    grid-column: auto !important; /* 取消佔據整列 */
-    margin: 0 !important; /* 取消邊距 */
-    flex-direction: column !important; /* 改為垂直排列以節省空間 */
-    padding: 15px !important;
-    text-align: center !important;
-  }
-  
-  .game-card .card-icon { margin-bottom: 5px; }
-  .game-card .content { text-align: center !important; }
-  .game-card .card-title { font-size: 1.1rem !important; }
-
-  /* 行動裝置適應 */
-  @media (max-width: 600px) {
-    .card-grid, .game-grid {
-      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-    }
-  }
-</style>
+<!-- Unified layout styles are imported from style-common.css -->
 </head>
 <body>
 
 <header>
   <h1>🌈 小二英文冒險</h1>
   <p>Grade 2 English · 12 Units + 8 Games</p>
-  <div class="progress-wrap">
-    <div class="progress-bar" id="progressBar" style="width:0%"></div>
+  <div class="progress-wrap btn-hover">
+    <div class="progress-bar btn-hover" id="progressBar" style="width:0%"></div>
   </div>
-  <div class="progress-label" id="progressLabel">0 / 20 完成</div>
-  <div class="header-btns">
-    <button class="reset-progress-btn" onclick="resetProgress()">🔄 重設進度</button>
-    <a href="../index.html" class="back-home-btn">🏠 回首頁</a>
+  <div class="progress-label btn-hover" id="progressLabel">0 / 20 完成</div>
+  <div class="header-btns btn-hover">
+    <button class="reset-progress-btn btn-hover" onclick="resetProgress()">🔄 重設進度</button>
+    <a href="../index.html" class="back-home-btn btn-hover">🏠 回首頁</a>
   </div>
 </header>
 
@@ -92,34 +58,34 @@
   }
 </style>
 
-<div class="container">
+<div class="container btn-hover">
 
-  <div class="continue-banner hidden" id="continueBanner">
-    <div class="cb-text" style="font-size: 1.1rem;">繼續挑戰：<span id="continueTitle" style="color:#F06292"></span></div>
-    <a href="#" class="cb-btn" id="continueLink" style="background:#F06292; color:white; padding:10px 20px; border-radius:30px; text-decoration:none; font-weight:800; margin-left:15px;">GO! →</a>
+  <div class="continue-banner hidden btn-hover" id="continueBanner">
+    <div class="cb-text btn-hover" style="font-size: 1.1rem;">繼續挑戰：<span id="continueTitle" style="color:#F06292"></span></div>
+    <a href="#" class="cb-btn btn-hover" id="continueLink" style="background:#F06292; color:white; padding:10px 20px; border-radius:30px; text-decoration:none; font-weight:800; margin-left:15px;">GO! →</a>
   </div>
 
-  <div class="section-label" id="p1">第一階段：基礎單字 (Unit 1-3)</div>
-  <div class="card-grid" id="group1"></div>
-  <div class="game-grid" id="games-p1"></div>
+  <div class="section-label btn-hover" id="p1">第一階段：基礎單字 (Unit 1-3)</div>
+  <div class="card-grid btn-hover" id="group1"></div>
+  <div class="game-grid btn-hover" id="games-p1"></div>
 
-  <div class="section-label" id="p2" style="margin-top:40px;">第二階段：我與身體 (Unit 4-6)</div>
-  <div class="card-grid" id="group2"></div>
-  <div class="game-grid" id="games-p2"></div>
+  <div class="section-label btn-hover" id="p2" style="margin-top:40px;">第二階段：我與身體 (Unit 4-6)</div>
+  <div class="card-grid btn-hover" id="group2"></div>
+  <div class="game-grid btn-hover" id="games-p2"></div>
 
-  <div class="section-label" id="p3" style="margin-top:40px;">第三階段：色彩自然 (Unit 7-9)</div>
-  <div class="card-grid" id="group3"></div>
-  <div class="game-grid" id="games-p3"></div>
+  <div class="section-label btn-hover" id="p3" style="margin-top:40px;">第三階段：色彩自然 (Unit 7-9)</div>
+  <div class="card-grid btn-hover" id="group3"></div>
+  <div class="game-grid btn-hover" id="games-p3"></div>
 
-  <div class="section-label" id="p4" style="margin-top:40px;">第四階段：美味生活 (Unit 10-12)</div>
-  <div class="card-grid" id="group4"></div>
-  <div class="game-grid" id="games-p4"></div>
+  <div class="section-label btn-hover" id="p4" style="margin-top:40px;">第四階段：美味生活 (Unit 10-12)</div>
+  <div class="card-grid btn-hover" id="group4"></div>
+  <div class="game-grid btn-hover" id="games-p4"></div>
 
-  <div class="legend">
-    <div class="legend-item"><div class="legend-dot" style="background:#FFF;border:3px solid #4FC3F7"></div> 準備好</div>
-    <div class="legend-item"><div class="legend-dot" style="background:#FFFDE7;border:3px solid #FFB74D"></div> 進行中</div>
-    <div class="legend-item"><div class="legend-dot" style="background:#F1F8E9;border:3px solid #81C784"></div> 已完成</div>
-    <div class="legend-item"><div class="legend-dot" style="background:#ECEFF1;border:3px solid #D1D9E0"></div> 鎖定中</div>
+  <div class="legend btn-hover">
+    <div class="legend-item btn-hover"><div class="legend-dot btn-hover" style="background:#FFF;border:3px solid #4FC3F7"></div> 準備好</div>
+    <div class="legend-item btn-hover"><div class="legend-dot btn-hover" style="background:#FFFDE7;border:3px solid #FFB74D"></div> 進行中</div>
+    <div class="legend-item btn-hover"><div class="legend-dot btn-hover" style="background:#F1F8E9;border:3px solid #81C784"></div> 已完成</div>
+    <div class="legend-item btn-hover"><div class="legend-dot btn-hover" style="background:#ECEFF1;border:3px solid #D1D9E0"></div> 鎖定中</div>
   </div>
 
 </div>
@@ -166,7 +132,7 @@ function resetProgress() {
 
 function getState(id) {
   if (progress[id] === 'done') return 'done';
-  if (progress[id] === 'in_progress') return 'in-progress';
+  if (id.startsWith('unit') && progress[id] === 'in_progress') return 'in-progress';
   
   if (id.startsWith('unit')) {
     const idx = unitSequence.indexOf(id);
@@ -193,11 +159,11 @@ function makeUnitCard(u, num) {
   
   const badge = state === 'done' ? '⭐' : state === 'in-progress' ? '▶️' : state === 'locked' ? '🔒' : '';
   a.innerHTML = `
-    ${badge ? `<div class="card-badge">${badge}</div>` : ''}
-    <div class="card-num">UNIT ${num}</div>
-    <div class="card-icon">${u.icon}</div>
-    <div class="card-title">${u.title}</div>
-    <div class="card-sub">${u.sub}</div>`;
+    ${badge ? `<div class="card-badge btn-hover">${badge}</div>` : ''}
+    <div class="card-num btn-hover">UNIT ${num}</div>
+    <div class="card-icon btn-hover">${u.icon}</div>
+    <div class="card-title btn-hover">${u.title}</div>
+    <div class="card-sub btn-hover">${u.sub}</div>`;
   return a;
 }
 
@@ -210,10 +176,10 @@ function makeGameCard(game) {
   
   const badge = state === 'done' ? ' 🏆' : state === 'locked' ? ' 🔒' : ' 🎁';
   a.innerHTML = `
-    <div class="card-icon">${game.icon}</div>
-    <div class="content">
-      <div class="card-title">${game.title}${badge}</div>
-      <div class="card-sub">${game.sub}</div>
+    <div class="card-icon btn-hover">${game.icon}</div>
+    <div class="content btn-hover">
+      <div class="card-title btn-hover">${game.title}${badge}</div>
+      <div class="card-sub btn-hover">${game.sub}</div>
     </div>`;
   return a;
 }
@@ -226,10 +192,17 @@ function makeGameCard(game) {
   }
 });
 
-// 渲染遊戲
-games.forEach((g) => {
-  const area = document.getElementById(`games-p${g.phase}`);
-  if (area) area.appendChild(makeGameCard(g));
+// 渲染遊戲 — 根據個數決定單欄或雙欄
+[1, 2, 3, 4].forEach(phase => {
+  const area = document.getElementById(`games-p${phase}`);
+  if (!area) return;
+  const phaseGames = games.filter(g => g.phase === phase);
+  if (phaseGames.length === 1) {
+    area.classList.add('single');
+  } else {
+    area.classList.remove('single');
+  }
+  phaseGames.forEach(g => area.appendChild(makeGameCard(g)));
 });
 
 // 進度條

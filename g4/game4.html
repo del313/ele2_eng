@@ -114,46 +114,46 @@
 <body>
 
 <header>
-  <a href="index.html#p1" class="home-btn">🏠 首頁</a>
+  <a href="index.html#p1" class="home-btn btn-hover">🏠 首頁</a>
   <h1>🧠 限時翻牌配對</h1>
   <p>Unit 1–4 挑戰 · 速度與記憶的對決！</p>
 </header>
 
-<div class="hud">
-  <div class="hud-box" id="timerBox">
-    <div class="h-val" id="timeVal">90</div>
-    <div class="h-lbl">剩餘時間</div>
+<div class="hud btn-hover">
+  <div class="hud-box btn-hover" id="timerBox">
+    <div class="h-val btn-hover" id="timeVal">90</div>
+    <div class="h-lbl btn-hover">剩餘時間</div>
   </div>
-  <div class="hud-box">
-    <div class="h-val" id="scoreVal">0</div>
-    <div class="h-lbl">配對進度</div>
+  <div class="hud-box btn-hover">
+    <div class="h-val btn-hover" id="scoreVal">0</div>
+    <div class="h-lbl btn-hover">配對進度</div>
   </div>
 </div>
 
-<div class="game-container">
-  <div class="grid" id="grid"></div>
+<div class="game-container btn-hover">
+  <div class="grid btn-hover" id="grid"></div>
 </div>
 
-<div class="penalty-flash" id="penaltyFlash"></div>
+<div class="penalty-flash btn-hover" id="penaltyFlash"></div>
 
 <!-- START OVERLAY -->
-<div class="overlay show" id="startOverlay">
-  <div class="overlay-box">
-    <div class="o-icon">⏳</div>
+<div class="overlay show btn-hover" id="startOverlay">
+  <div class="overlay-box btn-hover">
+    <div class="o-icon btn-hover">⏳</div>
     <h2>準備好了嗎？</h2>
     <p>在 <strong>90 秒</strong> 內配對 10 組單字！</p>
-    <button class="o-btn" onclick="startGame()">開始挑戰！</button>
+    <button class="o-btn btn-hover" onclick="startGame()">開始挑戰！</button>
   </div>
 </div>
 
 <!-- WIN/LOSE OVERLAY -->
-<div class="overlay" id="resultOverlay">
-  <div class="overlay-box">
-    <div class="o-icon" id="resIcon"></div>
+<div class="overlay btn-hover" id="resultOverlay">
+  <div class="overlay-box btn-hover">
+    <div class="o-icon btn-hover" id="resIcon"></div>
     <h2 id="resTitle"></h2>
     <p id="resMsg"></p>
-    <button class="o-btn" onclick="location.reload()">🔄 再試一次</button>
-    <a class="o-btn secondary" href="index.html#p1">🏠 回首頁</a>
+    <button class="o-btn btn-hover" onclick="location.reload()">🔄 再試一次</button>
+    <a class="o-btn secondary btn-hover" href="index.html#p1">🏠 回首頁</a>
   </div>
 </div>
 
@@ -192,9 +192,9 @@ function initCards() {
     card.className = 'card';
     card.dataset.index = index;
     card.innerHTML = `
-      <div class="card-inner">
-        <div class="card-front">?</div>
-        <div class="card-back ${cardData.type}">${cardData.value}</div>
+      <div class="card-inner btn-hover">
+        <div class="card-front btn-hover">?</div>
+        <div class="card-back ${cardData.type} btn-hover">${cardData.value}</div>
       </div>
     `;
     card.onclick = () => onCardClick(card, index);

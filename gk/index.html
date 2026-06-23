@@ -50,13 +50,13 @@
 <header>
   <h1>🐣 幼兒英文樂園</h1>
   <p>Kindergarten English · 8 Units + 8 Games</p>
-  <div class="progress-wrap">
-    <div class="progress-bar" id="progressBar" style="width:0%"></div>
+  <div class="progress-wrap btn-hover">
+    <div class="progress-bar btn-hover" id="progressBar" style="width:0%"></div>
   </div>
-  <div class="progress-label" id="progressLabel">0 / 16 完成</div>
-  <div class="header-btns">
-    <button class="reset-progress-btn" onclick="resetProgress()">🔄 重設進度</button>
-    <a href="../index.html" class="back-home-btn">🏠 回首頁</a>
+  <div class="progress-label btn-hover" id="progressLabel">0 / 16 完成</div>
+  <div class="header-btns btn-hover">
+    <button class="reset-progress-btn btn-hover" onclick="resetProgress()">🔄 重設進度</button>
+    <a href="../index.html" class="back-home-btn btn-hover">🏠 回首頁</a>
   </div>
 </header>
 
@@ -96,24 +96,24 @@
   }
 </style>
 
-<div class="container">
+<div class="container btn-hover">
 
-  <div class="continue-banner hidden" id="continueBanner">
-    <div class="cb-text" style="font-size: 1.1rem;">繼續挑戰：<span id="continueTitle" style="color:#F06292"></span></div>
-    <a href="#" class="cb-btn" id="continueLink" style="background:#F06292; color:white; padding:10px 20px; border-radius:30px; text-decoration:none; font-weight:800; margin-left:15px;">GO! →</a>
+  <div class="continue-banner hidden btn-hover" id="continueBanner">
+    <div class="cb-text btn-hover" style="font-size: 1.1rem;">繼續挑戰：<span id="continueTitle" style="color:#F06292"></span></div>
+    <a href="#" class="cb-btn btn-hover" id="continueLink" style="background:#F06292; color:white; padding:10px 20px; border-radius:30px; text-decoration:none; font-weight:800; margin-left:15px;">GO! →</a>
   </div>
 
-  <div class="section-label" id="p1">第一階段：探索世界 (Unit 1-4)</div>
-  <div class="pair-grid" id="pairs1"></div>
+  <div class="section-label btn-hover" id="p1">第一階段：探索世界 (Unit 1-4)</div>
+  <div class="pair-grid btn-hover" id="pairs1"></div>
 
-  <div class="section-label" id="p2" style="margin-top:40px;">第二階段：日常點滴 (Unit 5-8)</div>
-  <div class="pair-grid" id="pairs2"></div>
+  <div class="section-label btn-hover" id="p2" style="margin-top:40px;">第二階段：日常點滴 (Unit 5-8)</div>
+  <div class="pair-grid btn-hover" id="pairs2"></div>
 
-  <div class="legend">
-    <div class="legend-item"><div class="legend-dot" style="background:#FFF;border:3px solid #4FC3F7"></div> 準備好</div>
-    <div class="legend-item"><div class="legend-dot" style="background:#FFFDE7;border:3px solid #FFB74D"></div> 進行中</div>
-    <div class="legend-item"><div class="legend-dot" style="background:#F1F8E9;border:3px solid #81C784"></div> 已完成</div>
-    <div class="legend-item"><div class="legend-dot" style="background:#ECEFF1;border:3px solid #D1D9E0"></div> 鎖定中</div>
+  <div class="legend btn-hover">
+    <div class="legend-item btn-hover"><div class="legend-dot btn-hover" style="background:#FFF;border:3px solid #4FC3F7"></div> 準備好</div>
+    <div class="legend-item btn-hover"><div class="legend-dot btn-hover" style="background:#FFFDE7;border:3px solid #FFB74D"></div> 進行中</div>
+    <div class="legend-item btn-hover"><div class="legend-dot btn-hover" style="background:#F1F8E9;border:3px solid #81C784"></div> 已完成</div>
+    <div class="legend-item btn-hover"><div class="legend-dot btn-hover" style="background:#ECEFF1;border:3px solid #D1D9E0"></div> 鎖定中</div>
   </div>
 
 </div>
@@ -173,11 +173,11 @@
     
     const badge = state === 'done' ? '⭐' : state === 'in-progress' ? '▶️' : state === 'locked' ? '🔒' : '';
     a.innerHTML = `
-      ${badge ? `<div class="card-badge">${badge}</div>` : ''}
-      <div class="card-num">UNIT ${num}</div>
-      <div class="card-icon">${u.icon}</div>
-      <div class="card-title">${u.title}</div>
-      <div class="card-sub">${u.sub}</div>`;
+      ${badge ? `<div class="card-badge btn-hover">${badge}</div>` : ''}
+      <div class="card-num btn-hover">UNIT ${num}</div>
+      <div class="card-icon btn-hover">${u.icon}</div>
+      <div class="card-title btn-hover">${u.title}</div>
+      <div class="card-sub btn-hover">${u.sub}</div>`;
     return a;
   }
 
@@ -190,10 +190,10 @@
     
     const badge = state === 'done' ? ' 🏆' : state === 'locked' ? ' 🔒' : ' 🎁';
     a.innerHTML = `
-      <div class="card-icon">${game.icon}</div>
-      <div class="content">
-        <div class="card-title">${game.title}${badge}</div>
-        <div class="card-sub">${game.sub}</div>
+      <div class="card-icon btn-hover">${game.icon}</div>
+      <div class="content btn-hover">
+        <div class="card-title btn-hover">${game.title}${badge}</div>
+        <div class="card-sub btn-hover">${game.sub}</div>
       </div>`;
     return a;
   }

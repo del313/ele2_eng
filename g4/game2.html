@@ -141,59 +141,59 @@
 <body>
 
 <header>
-  <a href="index.html#p2" class="home-btn">🏠 首頁</a>
+  <a href="index.html#p2" class="home-btn btn-hover">🏠 首頁</a>
   <h1>🔨 打地鼠</h1>
   <p>Unit 5–8 複習闖關 · 看中文打英文！</p>
 </header>
 
-<div class="hud">
-  <div class="hud-box">
-    <div class="h-val" id="scoreVal">0</div>
-    <div class="h-lbl">SCORE</div>
+<div class="hud btn-hover">
+  <div class="hud-box btn-hover">
+    <div class="h-val btn-hover" id="scoreVal">0</div>
+    <div class="h-lbl btn-hover">SCORE</div>
   </div>
-  <div class="hud-box timer-box">
-    <div class="h-val" id="timerVal">60</div>
-    <div class="h-lbl">SECONDS</div>
+  <div class="hud-box timer-box btn-hover">
+    <div class="h-val btn-hover" id="timerVal">60</div>
+    <div class="h-lbl btn-hover">SECONDS</div>
   </div>
-  <div class="hud-box">
-    <div class="h-val" id="comboVal">x1</div>
-    <div class="h-lbl">COMBO</div>
+  <div class="hud-box btn-hover">
+    <div class="h-val btn-hover" id="comboVal">x1</div>
+    <div class="h-lbl btn-hover">COMBO</div>
   </div>
 </div>
 
-<div class="field" id="field">
-  <div class="hole" id="hole0"><div class="mole" id="mole0"><div class="m-face">🐹</div><div class="m-zh" id="mzh0"></div></div></div>
-  <div class="hole" id="hole1"><div class="mole" id="mole1"><div class="m-face">🐹</div><div class="m-zh" id="mzh1"></div></div></div>
-  <div class="hole" id="hole2"><div class="mole" id="mole2"><div class="m-face">🐹</div><div class="m-zh" id="mzh2"></div></div></div>
-  <div class="hole" id="hole3"><div class="mole" id="mole3"><div class="m-face">🐹</div><div class="m-zh" id="mzh3"></div></div></div>
-  <div class="hole" id="hole4"><div class="mole" id="mole4"><div class="m-face">🐹</div><div class="m-zh" id="mzh4"></div></div></div>
-  <div class="hole" id="hole5"><div class="mole" id="mole5"><div class="m-face">🐹</div><div class="m-zh" id="mzh5"></div></div></div>
+<div class="field btn-hover" id="field">
+  <div class="hole btn-hover" id="hole0"><div class="mole btn-hover" id="mole0"><div class="m-face btn-hover">🐹</div><div class="m-zh btn-hover" id="mzh0"></div></div></div>
+  <div class="hole btn-hover" id="hole1"><div class="mole btn-hover" id="mole1"><div class="m-face btn-hover">🐹</div><div class="m-zh btn-hover" id="mzh1"></div></div></div>
+  <div class="hole btn-hover" id="hole2"><div class="mole btn-hover" id="mole2"><div class="m-face btn-hover">🐹</div><div class="m-zh btn-hover" id="mzh2"></div></div></div>
+  <div class="hole btn-hover" id="hole3"><div class="mole btn-hover" id="mole3"><div class="m-face btn-hover">🐹</div><div class="m-zh btn-hover" id="mzh3"></div></div></div>
+  <div class="hole btn-hover" id="hole4"><div class="mole btn-hover" id="mole4"><div class="m-face btn-hover">🐹</div><div class="m-zh btn-hover" id="mzh4"></div></div></div>
+  <div class="hole btn-hover" id="hole5"><div class="mole btn-hover" id="mole5"><div class="m-face btn-hover">🐹</div><div class="m-zh btn-hover" id="mzh5"></div></div></div>
 </div>
 
-<div class="choices-wrap">
-  <div class="feedback" id="feedback"></div>
-  <div class="choices-label">選出正確的英文單字 ↓</div>
-  <div class="choices" id="choices"></div>
+<div class="choices-wrap btn-hover">
+  <div class="feedback btn-hover" id="feedback"></div>
+  <div class="choices-label btn-hover">選出正確的英文單字 ↓</div>
+  <div class="choices btn-hover" id="choices"></div>
 </div>
 
 <!-- START OVERLAY -->
-<div class="overlay show" id="startOverlay">
-  <div class="overlay-box">
-    <div class="o-icon">🔨</div>
+<div class="overlay show btn-hover" id="startOverlay">
+  <div class="overlay-box btn-hover">
+    <div class="o-icon btn-hover">🔨</div>
     <h2>打地鼠！</h2>
     <p>地鼠會冒出中文提示<br>在下方選出對應的英文單字<br>答對得分、combo 越高分越高！<br><br>共 <strong>60 秒</strong></p>
-    <button class="o-btn" onclick="startGame()">開始遊戲！</button>
+    <button class="o-btn btn-hover" onclick="startGame()">開始遊戲！</button>
   </div>
 </div>
 
 <!-- RESULT OVERLAY -->
-<div class="overlay" id="resultOverlay">
-  <div class="overlay-box">
-    <div class="o-icon" id="resultIcon"></div>
+<div class="overlay btn-hover" id="resultOverlay">
+  <div class="overlay-box btn-hover">
+    <div class="o-icon btn-hover" id="resultIcon"></div>
     <h2 id="resultTitle"></h2>
     <p id="resultMsg"></p>
-    <button class="o-btn" onclick="restartGame()">🔄 再玩一次</button>
-    <a class="o-btn secondary" href="index.html#p2">🏠 回首頁</a>
+    <button class="o-btn btn-hover" onclick="restartGame()">🔄 再玩一次</button>
+    <a class="o-btn secondary btn-hover" href="index.html#p2">🏠 回首頁</a>
   </div>
 </div>
 

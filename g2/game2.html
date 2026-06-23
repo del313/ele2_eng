@@ -47,20 +47,20 @@
 </head>
 <body>
 
-<header class="game-header">
-  <a href="index.html#p1" class="home-btn">🏠 Home</a>
+<header class="game-header btn-hover">
+  <a href="index.html#p1" class="home-btn btn-hover">🏠 Home</a>
   <h1>Bubble Pop</h1>
-  <div class="target-display" id="target-word">Wait...</div>
+  <div class="target-display btn-hover" id="target-word">Wait...</div>
 </header>
 
-<div class="bubble-container" id="bubble-area"></div>
+<div class="bubble-container btn-hover" id="bubble-area"></div>
 <div id="score-panel">第 <span id="q-num">1</span> / 10 題</div>
 
 <div id="finish-screen">
   <div style="font-size:6rem;">🧼</div>
   <h2 style="font-size:2rem; color:var(--blue);">Fantastic!</h2>
   <p style="font-size:1.2rem; margin:10px 0;">你成功打破了所有正確的泡泡！</p>
-  <button onclick="finishGame()" class="game-btn">
+  <button onclick="finishGame()" class="game-btn btn-hover">
     完成並回首頁
   </button>
 </div>
@@ -102,7 +102,7 @@ function createBubble() {
   bubble.className = 'bubble';
   bubble.style.left = Math.random() * 70 + 'vw';
   bubble.style.animationDuration = (Math.random() * 4 + 4) + 's';
-  bubble.innerHTML = `<div><span class="icon">${item.icon}</span><span class="word">${item.text}</span></div>`;
+  bubble.innerHTML = `<div><span class="icon btn-hover">${item.icon}</span><span class="word btn-hover">${item.text}</span></div>`;
   
   bubble.onclick = () => {
     if (item.text === targetItem.text) {

@@ -12,6 +12,13 @@
   --bg-gradient: linear-gradient(135deg, #E0F2F1, #E1F5FE);
 }
 
+/* Animation helper variables */
+:root {
+  --anim-duration-short: 0.2s;
+  --anim-ease: ease;
+  --green-dark: #45a049;
+}
+
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
@@ -80,6 +87,22 @@ header p {
 }
 .section-label::before { content: '🎈'; }
 
+/* Game flex wrapper for chapters with individual wrap IDs */
+.game-flex-wrap,
+.game-grid {
+  display: grid !important;
+  grid-template-columns: repeat(2, 1fr) !important;
+  gap: 12px !important;
+  margin-top: 12px !important;
+  width: 100%;
+  justify-items: stretch;
+}
+
+.game-grid .game-card {
+  width: 100%;
+}
+
+
 /* CARD GRID */
 .card-grid {
   display: grid;
@@ -124,7 +147,6 @@ header p {
 
 /* GAME CARD */
 .game-card {
-  grid-column: 1 / -1;
   border-radius: var(--radius); padding: 25px;
   text-align: center; cursor: pointer; text-decoration: none; display: flex;
   align-items: center; justify-content: center; gap: 20px;
@@ -171,7 +193,126 @@ header p {
   font-weight: 900;
   cursor: pointer;
   margin-top: 20px;
-  transition: background 0.2s ease, transform 0.1s ease;
+  transition: background var(--anim-duration-short) var(--anim-ease), transform var(--anim-duration-short) var(--anim-ease), box-shadow var(--anim-duration-short) var(--anim-ease);
 }
-.game-btn:hover { background: #45a049; }
-.game-btn:active { transform: translateY(2px); }
+.game-btn:hover {
+  background: var(--green-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+}
+.game-btn:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+}
+
+/* Additional hover/active for buttons with both classes */
+.game-btn.btn-hover:hover {
+  background: var(--green-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+}
+
+.game-btn.btn-hover:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+}
+/* Animation keyframes */
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-15px); }
+  60% { transform: translateY(-8px); }
+}
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  50% { transform: translateX(5px); }
+  75% { transform: translateX(-5px); }
+  100% { transform: translateX(0); }
+}
+@keyframes appear {
+  0% { opacity: 0; transform: scale(0.9); }
+  100% { opacity: 1; transform: scale(1); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+/* Utility animation classes */
+.pulse { animation: pulse var(--anim-duration-short) var(--anim-ease) forwards; }
+.bounce { animation: bounce 0.6s var(--anim-ease) forwards; }
+.shake { animation: shake 0.4s var(--anim-ease) forwards; }
+.appear { animation: appear 0.5s var(--anim-ease) forwards; }
+.fade-in { animation: fadeIn 0.6s var(--anim-ease) forwards; }
+
+/* Grid structures for grade index pages */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 16px;
+}
+.game-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+.game-grid.single {
+  grid-template-columns: 1fr;
+}
+
+/* Card layout overrides when inside a grid */
+.game-grid:not(.single) .game-card {
+  grid-column: auto !important;
+  margin: 0 !important;
+  flex-direction: column !important;
+  padding: 20px !important;
+  text-align: center !important;
+}
+.game-grid:not(.single) .game-card .card-icon {
+  margin-bottom: 8px !important;
+  margin-right: 0 !important;
+}
+.game-grid:not(.single) .game-card .content {
+  text-align: center !important;
+}
+.game-grid:not(.single) .game-card .card-title {
+  font-size: 1.1rem !important;
+}
+
+.game-grid.single .game-card {
+  grid-column: auto !important;
+  margin: 0 !important;
+  flex-direction: row !important;
+  padding: 20px 30px !important;
+  text-align: left !important;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.game-grid.single .game-card .card-icon {
+  margin-bottom: 0 !important;
+  margin-right: 20px !important;
+  font-size: 3rem;
+}
+.game-grid.single .game-card .content {
+  text-align: left !important;
+}
+.game-grid.single .game-card .card-title {
+  font-size: 1.3rem !important;
+}
+
+/* Responsive grid layout */
+@media (max-width: 600px) {
+  .card-grid, .game-grid {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)) !important;
+  }
+  .game-grid.single {
+    grid-template-columns: 1fr !important;
+  }
+}
+

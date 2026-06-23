@@ -51,15 +51,15 @@
   <p>單字大重組 🌪️</p>
 </header>
 
-<div class="game-container">
+<div class="game-container btn-hover">
   <div style="font-size:1.2rem; color:#7B1FA2; font-weight:800; margin-bottom:10px;">第 <span id="q-num">1</span> / 10 題</div>
   <div id="zh-hint">
     <span id="zh-text">載入中...</span>
-    <button class="speak-btn" onclick="playCurrent()">🔊</button>
+    <button class="speak-btn btn-hover" onclick="playCurrent()">🔊</button>
   </div>
   
-  <div class="answer-area" id="answer-area"></div>
-  <div class="scrambled-area" id="scrambled-area"></div>
+  <div class="answer-area btn-hover" id="answer-area"></div>
+  <div class="scrambled-area btn-hover" id="scrambled-area"></div>
   
   <button onclick="clearAnswer()" style="padding:12px 30px; border-radius:30px; border:none; background:#E1BEE7; color:#4A148C; font-weight:800; cursor:pointer;">
     ❌ 清除重填
@@ -70,7 +70,7 @@
   <div style="font-size:6rem;">🌪️</div>
   <h2 style="font-size:2.5rem; color:#7B1FA2;">Fantastic!</h2>
   <p style="font-size:1.4rem; margin:10px 0;">你對單字的拼法掌握得非常好！</p>
-  <button onclick="finishGame()" class="game-btn">
+  <button onclick="finishGame()" class="game-btn btn-hover">
     完成並回首頁
   </button>
 </div>
@@ -140,8 +140,8 @@ function updateDisplay() {
     if (!item) return;
     const target = item.en;
     const ansDiv = document.getElementById('answer-area');
-    ansDiv.innerHTML = userAns.split('').map(c => `<span class="ans-tile">${c}</span>`).join(' ') + 
-                      target.slice(userAns.length).split('').map(() => `<span class="ans-tile">_</span>`).join(' ');
+    ansDiv.innerHTML = userAns.split('').map(c => `<span class="ans-tile btn-hover">${c}</span>`).join(' ') + 
+                      target.slice(userAns.length).split('').map(() => `<span class="ans-tile btn-hover">_</span>`).join(' ');
     
     if (userAns.length === target.length) {
         if (userAns === target) {

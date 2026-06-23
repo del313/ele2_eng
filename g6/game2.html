@@ -210,45 +210,45 @@
 </head>
 <body>
 
-<a href="index.html#p2" class="home-btn">🏠 返回</a>
+<a href="index.html#p2" class="home-btn btn-hover">🏠 返回</a>
 
 <div id="game-viewport">
-  <div class="mountain left"></div>
-  <div class="mountain right"></div>
+  <div class="mountain left btn-hover"></div>
+  <div class="mountain right btn-hover"></div>
   
   <div id="ui-panel">
-    <div class="progress-hint" id="progressText">準備跨越邏輯之橋 (0/5)</div>
-    <div class="sentence-area" id="sentenceDisplay">
+    <div class="progress-hint btn-hover" id="progressText">準備跨越邏輯之橋 (0/5)</div>
+    <div class="sentence-area btn-hover" id="sentenceDisplay">
       載入中...
     </div>
-    <div class="options-grid" id="optionsGrid"></div>
+    <div class="options-grid btn-hover" id="optionsGrid"></div>
   </div>
 
   <div id="character">🚶</div>
   
-  <div class="cliff left"></div>
+  <div class="cliff left btn-hover"></div>
   <div id="bridge-container">
-    <div class="bridge-segment" id="seg0"></div>
-    <div class="bridge-segment" id="seg1"></div>
-    <div class="bridge-segment" id="seg2"></div>
-    <div class="bridge-segment" id="seg3"></div>
-    <div class="bridge-segment" id="seg4"></div>
-    <div class="bridge-segment" id="seg5"></div>
+    <div class="bridge-segment btn-hover" id="seg0"></div>
+    <div class="bridge-segment btn-hover" id="seg1"></div>
+    <div class="bridge-segment btn-hover" id="seg2"></div>
+    <div class="bridge-segment btn-hover" id="seg3"></div>
+    <div class="bridge-segment btn-hover" id="seg4"></div>
+    <div class="bridge-segment btn-hover" id="seg5"></div>
   </div>
-  <div class="cliff right"></div>
+  <div class="cliff right btn-hover"></div>
 
   <!-- Screens -->
   <div id="start-screen">
     <h1 style="font-size: 3.5rem;">🌉 Logic Bridge</h1>
     <p style="font-size: 1.2rem; margin-top: 15px;">運用邏輯連接詞搭建橋樑。<br>幫助小人成功抵達彼岸吧！</p>
-    <button class="btn-big" onclick="startGame()">開始搭建</button>
+    <button class="btn-big btn-hover" onclick="startGame()">開始搭建</button>
   </div>
 
   <div id="end-screen" style="display:none">
     <h1 id="endTitle">成功抵達！</h1>
     <p style="font-size: 1.2rem; margin: 20px 0;">你對邏輯連接詞的掌握非常熟練。</p>
     <div style="font-size: 4rem;">🏆</div>
-    <button class="btn-big" onclick="location.reload()">再次挑戰</button>
+    <button class="btn-big btn-hover" onclick="location.reload()">再次挑戰</button>
     <a href="index.html#p2" style="color: #eee; margin-top: 20px; display: block; text-decoration: none;">返回主選單</a>
   </div>
 </div>
@@ -260,6 +260,7 @@ let currentStep = 0;
 let totalSteps = 6;
 let pool = [];
 let currentQuestion = null;
+let questionAnswered = false;
 
 // 載入 Phase 2 (Units 7-11) 的句子
 async function loadData() {
@@ -272,7 +273,12 @@ async function loadData() {
     // 隨機排序
     pool.sort(() => Math.random() - 0.5);
   } catch (e) {
-    console.error("Data load failed:", e);
+    console.warn("Data load failed, fallback active:", e);
+    pool = [
+      ["分類", "I like apples ___ they are sweet.", "I like apples because they are sweet."],
+      ["分類", "He was tired ___ he went to sleep.", "He was tired so he went to sleep."],
+      ["分類", "She studied hard ___ she failed.", "She studied hard but she failed."]
+    ];
   }
 }
 
@@ -281,6 +287,7 @@ function nextQuestion() {
     winGame();
     return;
   }
+  questionAnswered = false;
 
   currentQuestion = pool[currentStep % pool.length];
   const fullSentence = currentQuestion[2]; // 正確答案句
@@ -302,7 +309,7 @@ function nextQuestion() {
 
 function renderSentence(text, answer) {
   const display = document.getElementById('sentenceDisplay');
-  display.innerHTML = text.replace('___', '<span class="blank" id="targetBlank">?</span>');
+  display.innerHTML = text.replace('___', '<span class="blank btn-hover" id="targetBlank">?</span>');
   // 朗讀完整句子 (不含答案)
   speak(text.replace('___', '...'));
 }
@@ -331,10 +338,12 @@ function renderOptions(correctAnswer) {
 }
 
 function checkAnswer(selected, correct, btn) {
+  if (questionAnswered) return;
   const isCorrect = selected.toLowerCase() === correct.toLowerCase();
   const blank = document.getElementById('targetBlank');
   
   if (isCorrect) {
+    questionAnswered = true;
     btn.classList.add('correct');
     blank.textContent = correct;
     blank.style.color = 'var(--correct)';

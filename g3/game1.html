@@ -47,20 +47,20 @@
   <p>拼字小蜜蜂 🐝</p>
 </header>
 
-<div class="game-container">
+<div class="game-container btn-hover">
   <div id="q-info">第 <span id="q-num">1</span> / 10 題</div>
-  <div class="hint-box">
-    <div class="zh-hint" id="zh-hint">載入中...</div>
-    <div class="speak-hint">
+  <div class="hint-box btn-hover">
+    <div class="zh-hint btn-hover" id="zh-hint">載入中...</div>
+    <div class="speak-hint btn-hover">
         <button onclick="playCurrentWord()" style="background:#2E7D32; color:white; border:none; padding:10px 20px; border-radius:30px; font-weight:800; cursor:pointer;">
             🔊 聽發音
         </button>
     </div>
   </div>
   
-  <div class="answer-area" id="answer-area"></div>
+  <div class="answer-area btn-hover" id="answer-area"></div>
   
-  <div class="scrambled-area" id="scrambled-area"></div>
+  <div class="scrambled-area btn-hover" id="scrambled-area"></div>
   
   <button onclick="clearAnswer()" style="padding:12px 30px; border-radius:30px; border:none; background:#EEE; color:#666; font-weight:800; cursor:pointer; margin-top:10px;">
     ❌ 清除重拼
@@ -71,7 +71,7 @@
   <div style="font-size:6rem;">🐝</div>
   <h2 style="font-size:2.5rem; color:#2E7D32;">Wonderful!</h2>
   <p style="font-size:1.4rem; margin:10px 0;">你拼對了所有單字！</p>
-  <button onclick="finishGame()" class="game-btn">
+  <button onclick="finishGame()" class="game-btn btn-hover">
     完成並回首頁
   </button>
 </div>
@@ -133,7 +133,7 @@ function nextRound() {
   
   // 顯示底線
   const ansDiv = document.getElementById('answer-area');
-  ansDiv.innerHTML = word.en.split('').map(() => `<span class="ans-tile">_</span>`).join(' ');
+  ansDiv.innerHTML = word.en.split('').map(() => `<span class="ans-tile btn-hover">_</span>`).join(' ');
   
   // 顯示打亂的字母
   const letters = word.en.split('');
@@ -166,8 +166,8 @@ function addLetter(l, el) {
   const ansDiv = document.getElementById('answer-area');
   
   // 更新畫面
-  ansDiv.innerHTML = userAns.split('').map(char => `<span class="ans-tile">${char}</span>`).join(' ') + 
-                    target.slice(userAns.length).split('').map(() => `<span class="ans-tile">_</span>`).join(' ');
+  ansDiv.innerHTML = userAns.split('').map(char => `<span class="ans-tile btn-hover">${char}</span>`).join(' ') + 
+                    target.slice(userAns.length).split('').map(() => `<span class="ans-tile btn-hover">_</span>`).join(' ');
 
   if (userAns.length === target.length) {
     if (userAns === target) {
@@ -185,7 +185,7 @@ function clearAnswer() {
   userAns = "";
   document.querySelectorAll('.letter-tile').forEach(t => t.style.visibility = 'visible');
   const target = shuffledQueue[currentIdx].en;
-  document.getElementById('answer-area').innerHTML = target.split('').map(() => `<span class="ans-tile">_</span>`).join(' ');
+  document.getElementById('answer-area').innerHTML = target.split('').map(() => `<span class="ans-tile btn-hover">_</span>`).join(' ');
 }
 
 function finishGame() {

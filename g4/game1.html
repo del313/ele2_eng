@@ -192,66 +192,66 @@
 <body>
 
 <header>
-  <a href="index.html#p1" class="home-btn">🏠 首頁</a>
+  <a href="index.html#p1" class="home-btn btn-hover">🏠 首頁</a>
   <h1>🎲 單字大富翁</h1>
   <p>Unit 1–4 複習闖關 · 先到終點贏！</p>
 </header>
 
 <!-- PLAYER BAR -->
-<div class="player-bar">
-  <div class="player-card active" id="p0card">
-    <div class="p-icon">🧒</div>
-    <div class="p-name">小孩</div>
-    <div class="p-pos" id="p0pos">格子 0</div>
+<div class="player-bar btn-hover">
+  <div class="player-card active btn-hover" id="p0card">
+    <div class="p-icon btn-hover">🧒</div>
+    <div class="p-name btn-hover">小孩</div>
+    <div class="p-pos btn-hover" id="p0pos">格子 0</div>
   </div>
   <div style="display:flex;align-items:center;font-size:1.5rem;color:var(--muted)">VS</div>
-  <div class="player-card" id="p1card">
-    <div class="p-icon">🧑</div>
-    <div class="p-name">家長</div>
-    <div class="p-pos" id="p1pos">格子 0</div>
+  <div class="player-card btn-hover" id="p1card">
+    <div class="p-icon btn-hover">🧑</div>
+    <div class="p-name btn-hover">家長</div>
+    <div class="p-pos btn-hover" id="p1pos">格子 0</div>
   </div>
 </div>
-<div class="turn-label" id="turnLabel">🧒 小孩的回合</div>
+<div class="turn-label btn-hover" id="turnLabel">🧒 小孩的回合</div>
 
 <!-- BOARD -->
-<div class="board-wrap">
-  <div class="board" id="board"></div>
+<div class="board-wrap btn-hover">
+  <div class="board btn-hover" id="board"></div>
 </div>
 
 <!-- DICE -->
-<div class="dice-area">
-  <div class="dice" id="dice">🎲</div>
-  <button class="roll-btn" id="rollBtn" onclick="rollDice()">擲骰子！</button>
+<div class="dice-area btn-hover">
+  <div class="dice btn-hover" id="dice">🎲</div>
+  <button class="roll-btn btn-hover" id="rollBtn" onclick="rollDice()">擲骰子！</button>
 </div>
 
 <!-- QUESTION MODAL -->
-<div class="modal-bg" id="qModal">
-  <div class="modal">
-    <div class="m-label">看中文，選英文單字</div>
-    <div class="m-zh" id="mZh"></div>
-    <div class="m-choices" id="mChoices"></div>
-    <div class="m-result" id="mResult"></div>
-    <button class="m-next-btn" id="mNextBtn" onclick="closeModal()">繼續 →</button>
+<div class="modal-bg btn-hover" id="qModal">
+  <div class="modal btn-hover">
+    <div class="m-label btn-hover">看中文，選英文單字</div>
+    <div class="m-zh btn-hover" id="mZh"></div>
+    <div class="m-choices btn-hover" id="mChoices"></div>
+    <div class="m-result btn-hover" id="mResult"></div>
+    <button class="m-next-btn btn-hover" id="mNextBtn" onclick="closeModal()">繼續 →</button>
   </div>
 </div>
 
 <!-- SPECIAL MODAL (bonus/penalty) -->
-<div class="modal-bg" id="spModal">
-  <div class="modal special-modal">
-    <div class="m-icon" id="spIcon"></div>
-    <div class="m-msg"  id="spMsg"></div>
-    <div class="m-sub"  id="spSub"></div>
-    <button class="m-next-btn" style="display:block" onclick="closeSpecial()">繼續 →</button>
+<div class="modal-bg btn-hover" id="spModal">
+  <div class="modal special-modal btn-hover">
+    <div class="m-icon btn-hover" id="spIcon"></div>
+    <div class="m-msg btn-hover"  id="spMsg"></div>
+    <div class="m-sub btn-hover"  id="spSub"></div>
+    <button class="m-next-btn btn-hover" style="display:block" onclick="closeSpecial()">繼續 →</button>
   </div>
 </div>
 
 <!-- WIN SCREEN -->
-<div class="win-screen" id="winScreen">
-  <div class="w-icon" id="winIcon"></div>
+<div class="win-screen btn-hover" id="winScreen">
+  <div class="w-icon btn-hover" id="winIcon"></div>
   <h2 id="winTitle"></h2>
   <p id="winMsg"></p>
-  <button class="win-btn" onclick="resetGame()">🔄 再玩一次</button>
-  <a class="win-btn" href="index.html#p1">🏠 回首頁</a>
+  <button class="win-btn btn-hover" onclick="resetGame()">🔄 再玩一次</button>
+  <a class="win-btn btn-hover" href="index.html#p1">🏠 回首頁</a>
 </div>
 
 <script>
@@ -344,7 +344,7 @@ gridOrder.forEach(idx => {
   const t = squareTypes[idx];
   cell.className = `sq ${t}`;
   cell.id = `sq-${idx}`;
-  cell.innerHTML = `<span class="sq-num">${idx === 0 ? 'S' : idx === TOTAL ? 'G' : idx}</span><span class="sq-icon">${squareIcons[t] || ''}</span><span class="sq-tokens" id="tok-${idx}"></span>`;
+  cell.innerHTML = `<span class="sq-num btn-hover">${idx === 0 ? 'S' : idx === TOTAL ? 'G' : idx}</span><span class="sq-icon btn-hover">${squareIcons[t] || ''}</span><span class="sq-tokens btn-hover" id="tok-${idx}"></span>`;
   boardEl.appendChild(cell);
 });
 

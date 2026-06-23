@@ -125,29 +125,29 @@
 <body>
 
 <header>
-  <a href="index.html#p2" class="home-btn">🏠</a>
+  <a href="index.html#p2" class="home-btn btn-hover">🏠</a>
   <h1>🎈 疾速氣球射手</h1>
 </header>
 
-<div class="hud">
-  <div class="hud-item">
-    <div class="hud-val" id="scoreVal">0</div>
-    <div class="hud-lbl">得分</div>
+<div class="hud btn-hover">
+  <div class="hud-item btn-hover">
+    <div class="hud-val btn-hover" id="scoreVal">0</div>
+    <div class="hud-lbl btn-hover">得分</div>
   </div>
-  <div class="hud-item">
-    <div class="hud-val lives" id="livesVal">❤️❤️❤️❤️❤️</div>
-    <div class="hud-lbl">生命值</div>
+  <div class="hud-item btn-hover">
+    <div class="hud-val lives btn-hover" id="livesVal">❤️❤️❤️❤️❤️</div>
+    <div class="hud-lbl btn-hover">生命值</div>
   </div>
-  <div class="hud-item">
-    <div class="hud-val" id="speedVal">1.0x</div>
-    <div class="hud-lbl">速度</div>
+  <div class="hud-item btn-hover">
+    <div class="hud-val btn-hover" id="speedVal">1.0x</div>
+    <div class="hud-lbl btn-hover">速度</div>
   </div>
 </div>
 
-<div class="target-hint" id="targetHint">
+<div class="target-hint btn-hover" id="targetHint">
   <div id="nextWordLabel" style="font-size:12px; color:#FF5252; font-weight:900; display:none;">NEW TARGET!</div>
-  <div class="target-label">擊破對應單字：</div>
-  <div class="target-zh" id="targetZh">---</div>
+  <div class="target-label btn-hover">擊破對應單字：</div>
+  <div class="target-zh btn-hover" id="targetZh">---</div>
 </div>
 
 <div id="screenFlash" style="position:fixed; inset:0; background:rgba(255,235,59,0.25); pointer-events:none; z-index:150; display:none;"></div>
@@ -155,23 +155,23 @@
 <div id="gameScene" style="position:relative; flex:1; overflow:hidden;"></div>
 
 <!-- START OVERLAY -->
-<div class="overlay show" id="startOverlay">
-  <div class="overlay-box">
-    <div class="o-icon">🎯</div>
+<div class="overlay show btn-hover" id="startOverlay">
+  <div class="overlay-box btn-hover">
+    <div class="o-icon btn-hover">🎯</div>
     <h2>疾速氣球！</h2>
     <p>看上方中文提示，擊破正確的氣球！<br><br>⚠️ <strong>氣球會越來越快！</strong><br>⚠️ <strong>注意拼寫相似的陷阱！</strong></p>
-    <button class="o-btn" onclick="startGame()">開始挑戰！</button>
+    <button class="o-btn btn-hover" onclick="startGame()">開始挑戰！</button>
   </div>
 </div>
 
 <!-- RESULT OVERLAY -->
-<div class="overlay" id="resultOverlay">
-  <div class="overlay-box">
-    <div class="o-icon" id="resIcon"></div>
+<div class="overlay btn-hover" id="resultOverlay">
+  <div class="overlay-box btn-hover">
+    <div class="o-icon btn-hover" id="resIcon"></div>
     <h2 id="resTitle"></h2>
     <p id="resMsg"></p>
-    <button class="o-btn" onclick="location.reload()">🔄 再試一次</button>
-    <a class="o-btn secondary" href="index.html#p2">🏠 回首頁</a>
+    <button class="o-btn btn-hover" onclick="location.reload()">🔄 再試一次</button>
+    <a class="o-btn secondary btn-hover" href="index.html#p2">🏠 回首頁</a>
   </div>
 </div>
 

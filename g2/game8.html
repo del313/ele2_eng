@@ -54,10 +54,10 @@
   <p>終極大考驗</p>
 </header>
 
-<div class="game-container">
-  <div class="question-hint" id="hint">題目讀取中...</div>
-  <div class="question-box" id="question">🍎</div>
-  <div class="balloon-area" id="balloon-area"></div>
+<div class="game-container btn-hover">
+  <div class="question-hint btn-hover" id="hint"></div>
+  <div class="question-box btn-hover" id="question">🍎</div>
+  <div class="balloon-area btn-hover" id="balloon-area"></div>
   <div id="score-info">第 <span id="q-num">1</span> / 10 題</div>
 </div>
 
@@ -65,7 +65,7 @@
   <div style="font-size:8rem;">👑</div>
   <h2 style="font-size:2rem; color:var(--blue);">Grade 2 Master!</h2>
   <p style="font-size:1.2rem; margin:10px 0;">恭喜你！你已經完成了所有挑戰！</p>
-  <button onclick="finishGame()" class="game-btn">
+  <button onclick="finishGame()" class="game-btn btn-hover">
     領取大獎杯回首頁
   </button>
 </div>
@@ -135,17 +135,19 @@ function nextRound() {
   });
 }
 
-function check(ans, el) {
+function check(ans, balloonEl) {
   if (ans === current.a) {
     playSound('success');
     score++;
-    el.style.transform = 'scale(0)';
+    const scoreInfo = document.querySelector('#score-info');
+    if (scoreInfo) { scoreInfo.classList.add('pulse'); setTimeout(() => scoreInfo.classList.remove('pulse'), 600); }
+    balloonEl.style.transform = 'scale(0)';
     speak("Yes! " + ans);
     setTimeout(nextRound, 600);
   } else {
     playSound('error');
     speak("No, try again");
-    el.style.opacity = '0.5';
+    balloonEl.style.opacity = '0.5';
   }
 }
 

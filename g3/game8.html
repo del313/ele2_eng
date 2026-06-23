@@ -56,21 +56,21 @@
   <h1>G3 Final Challenge</h1>
 </header>
 
-<div class="game-container">
-  <div class="level-indicator" id="level-title">正在準備考驗...</div>
+<div class="game-container btn-hover">
+  <div class="level-indicator btn-hover" id="level-title">正在準備考驗...</div>
   
-  <div class="challenge-card" id="card">
+  <div class="challenge-card btn-hover" id="card">
     <div id="content-area">載入資料中...</div>
   </div>
 
-  <div class="progress-dots" id="dots"></div>
+  <div class="progress-dots btn-hover" id="dots"></div>
 </div>
 
 <div id="finish-screen">
   <div style="font-size:6rem;">🏆</div>
   <h2 style="font-size:2.5rem; color:#00E676;">G3 MASTER!</h2>
   <p style="font-size:1.4rem; margin:10px 0;">你成功通過了小三英文的所有挑戰！</p>
-  <button onclick="finishGame()" class="game-btn">
+  <button onclick="finishGame()" class="game-btn btn-hover">
     領取勳章並回首頁
   </button>
 </div>
@@ -197,7 +197,7 @@ function renderStep() {
         speak(data.a);
     } else if(data.type === 'spelling') {
         title.textContent = "進階拼字挑戰";
-        area.innerHTML = `<div style="font-size:1.2rem; margin-bottom:10px;">${data.q}</div><div class="ans-display" id="ans-box"></div>`;
+        area.innerHTML = `<div style="font-size:1.2rem; margin-bottom:10px;">${data.q}</div><div class="ans-display btn-hover" id="ans-box"></div>`;
         const sArea = document.createElement('div');
         sArea.className = 'scrambled-area';
         let userStr = "";

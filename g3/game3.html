@@ -56,21 +56,21 @@
   <p>造句小老師 ✍️</p>
 </header>
 
-<div class="game-container">
-  <div class="instruction">第 <span id="q-num">1</span> / 6 題：請排列出正確的英文句子</div>
+<div class="game-container btn-hover">
+  <div class="instruction btn-hover">第 <span id="q-num">1</span> / 6 題：請排列出正確的英文句子</div>
   
-  <div class="sentence-display">
+  <div class="sentence-display btn-hover">
     <div style="display:flex; align-items:center; justify-content:center; gap:15px; margin-bottom: 20px;">
-        <div class="zh-sentence" id="zh-text" style="margin-bottom:0">載入中...</div>
+        <div class="zh-sentence btn-hover" id="zh-text" style="margin-bottom:0">載入中...</div>
         <button onclick="playTargetSentence()" style="background:#0277BD; color:white; border:none; padding:10px 15px; border-radius:15px; cursor:pointer; font-size:1.2rem;">🔊</button>
     </div>
-    <div class="build-area" id="build-area"></div>
+    <div class="build-area btn-hover" id="build-area"></div>
   </div>
 
-  <div class="scrambled-words" id="scrambled-words" style="display:flex; flex-wrap:wrap; justify-content:center; gap:12px;"></div>
+  <div class="scrambled-words btn-hover" id="scrambled-words" style="display:flex; flex-wrap:wrap; justify-content:center; gap:12px;"></div>
   
-  <div class="controls">
-    <button class="btn-reset" onclick="resetRound()">❌ 全部重選</button>
+  <div class="controls btn-hover">
+    <button class="btn-reset btn-hover" onclick="resetRound()">❌ 全部重選</button>
   </div>
 </div>
 
@@ -78,7 +78,7 @@
   <div style="font-size:6rem;">✍️</div>
   <h2 style="font-size:2.5rem; color:#0277BD;">Excellent!</h2>
   <p style="font-size:1.4rem; margin:10px 0;">你是一個造句小高手！</p>
-  <button onclick="finishGame()" class="game-btn">
+  <button onclick="finishGame()" class="game-btn btn-hover">
     完成並回首頁
   </button>
 </div>
@@ -117,8 +117,8 @@ async function loadData() {
     } catch (e) {
         console.warn("Fallback active");
         allSentences = [
-            { zh: "我有十一顆蘋果", en: "I have eleven apples", originalWords: ["I", "have", "eleven", "apples"] },
-            { zh: "這是我的手臂", en: "This is my arm", originalWords: ["This", "is", "my", "arm"] }
+            { zh: "我有十一顆蘋果", en: "I have eleven apples", words: ["I", "have", "eleven", "apples"], originalWords: ["I", "have", "eleven", "apples"] },
+            { zh: "這是我的手臂", en: "This is my arm", words: ["This", "is", "my", "arm"], originalWords: ["This", "is", "my", "arm"] }
         ];
     }
     initGame();

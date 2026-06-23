@@ -10,107 +10,107 @@
 <body>
 
 <header style="position:relative">
-  <a href="index.html#p2" class="home-btn">🏠 首頁</a>
-  <div class="unit-label">UNIT 6 OF 12 &nbsp;·&nbsp; GRADE 2</div>
+  <a href="index.html#p2" class="home-btn btn-hover">🏠 首頁</a>
+  <div class="unit-label btn-hover">UNIT 6 OF 12 &nbsp;·&nbsp; GRADE 2</div>
   <h1>😊 I Am Happy</h1>
 </header>
 
-<div class="step-nav" id="stepNav"></div>
+<div class="step-nav btn-hover" id="stepNav"></div>
 
 <!-- PAGE 1: WARM UP -->
-<div class="page active" id="page-0">
-  <div class="page-title"><span>🎵</span> 暖身</div>
-  <div class="page-sub">5 分鐘 · 表演心情</div>
-  <div class="video-btn-wrap">
-    <a class="video-btn" href="https://www.youtube.com/watch?v=l4WNrvVjiTw" target="_blank" rel="noopener">
-      <span class="yt-icon">▶️</span> 開啟 Feelings Song 影片
+<div class="page active btn-hover" id="page-0">
+  <div class="page-title btn-hover"><span>🎵</span> 暖身</div>
+  <div class="page-sub btn-hover">5 分鐘 · 表演心情</div>
+  <div class="video-btn-wrap btn-hover">
+    <a class="video-btn btn-hover" href="https://www.youtube.com/watch?v=l4WNrvVjiTw" target="_blank" rel="noopener">
+      <span class="yt-icon btn-hover">▶️</span> 開啟 Feelings Song 影片
     </a>
   </div>
-  <div class="task-card">
+  <div class="task-card btn-hover">
     <strong>一起做：</strong><br>
     <ul><li>1. 唱唱心情歌 🎤</li><li>2. 做個笑臉說 Happy</li><li>3. 做個哭臉說 Sad 😄</li></ul>
   </div>
 </div>
 
 <!-- PAGE 2: VOCABULARY -->
-<div class="page" id="page-1">
-  <div class="page-title"><span>🃏</span> 本期單字</div>
-  <div class="page-sub">10 分鐘 · 翻牌記單字 + 配對遊戲</div>
+<div class="page btn-hover" id="page-1">
+  <div class="page-title btn-hover"><span>🃏</span> 本期單字</div>
+  <div class="page-sub btn-hover">10 分鐘 · 翻牌記單字 + 配對遊戲</div>
 
-  <div class="vocab-section-label">⭐ 核心單字（要記住！）</div>
-  <div class="vocab-grid" id="coreGrid"></div>
+  <div class="vocab-section-label btn-hover">⭐ 核心單字（要記住！）</div>
+  <div class="vocab-grid btn-hover" id="coreGrid"></div>
 
-  <div class="vocab-section-label" style="color:#00897B">🌱 延伸單字（有印象就好）</div>
-  <div class="ext-note">點卡片翻面看中文，認識就好，不列入測驗</div>
-  <div class="vocab-grid" id="extGrid"></div>
+  <div class="vocab-section-label btn-hover" style="color:#00897B">🌱 延伸單字（有印象就好）</div>
+  <div class="ext-note btn-hover">點卡片翻面看中文，認識就好，不列入測驗</div>
+  <div class="vocab-grid btn-hover" id="extGrid"></div>
 
-  <button class="flip-all-btn" onclick="flipAll()">全部翻面 / 全部收起</button>
+  <button class="flip-all-btn btn-hover" onclick="flipAll()">全部翻面 / 全部收起</button>
 
-  <div class="game-label">🎮 配對遊戲：點左邊英文，再點右邊中文</div>
-  <div class="game-score" id="matchScore"></div>
-  <div class="match-board">
-    <div class="match-col" id="matchEn"></div>
-    <div class="match-col" id="matchZh"></div>
+  <div class="game-label btn-hover">🎮 配對遊戲：點左邊英文，再點右邊中文</div>
+  <div class="game-score btn-hover" id="matchScore"></div>
+  <div class="match-board btn-hover">
+    <div class="match-col btn-hover" id="matchEn"></div>
+    <div class="match-col btn-hover" id="matchZh"></div>
   </div>
-  <button class="reset-btn" onclick="initMatch()">🔄 重新開始</button>
+  <button class="reset-btn btn-hover" onclick="initMatch()">🔄 重新開始</button>
 </div>
 
 <!-- PAGE 3: SENTENCES + QUIZ -->
-<div class="page" id="page-2">
-  <div class="page-title"><span>✏️</span> 核心句型</div>
-  <div class="page-sub">換成你自己的資料試試看！</div>
+<div class="page btn-hover" id="page-2">
+  <div class="page-title btn-hover"><span>✏️</span> 核心句型</div>
+  <div class="page-sub btn-hover">換成你自己的資料試試看！</div>
 
   <div id="sentenceList"></div>
 
-  <div class="game-label" style="margin-top:22px">🧠 單字小測驗：看中文選英文</div>
-  <div class="quiz-progress" id="quizProgress"></div>
-  <div class="quiz-question">
-    <div class="quiz-q">這個中文是哪個英文單字？</div>
-    <div class="quiz-en" id="quizWord"></div>
+  <div class="game-label btn-hover" style="margin-top:22px">🧠 單字小測驗：看中文選英文</div>
+  <div class="quiz-progress btn-hover" id="quizProgress"></div>
+  <div class="quiz-question btn-hover">
+    <div class="quiz-q btn-hover">這個中文是哪個英文單字？</div>
+    <div class="quiz-en btn-hover" id="quizWord"></div>
   </div>
-  <div class="quiz-status" id="quizStatus"></div>
-  <div class="quiz-choices" id="quizChoices"></div>
-  <button class="next-quiz-btn" id="nextQuizBtn" onclick="nextQuiz()">下一題 →</button>
+  <div class="quiz-status btn-hover" id="quizStatus"></div>
+  <div class="quiz-choices btn-hover" id="quizChoices"></div>
+  <button class="next-quiz-btn btn-hover" id="nextQuizBtn" onclick="nextQuiz()">下一題 →</button>
 </div>
 
 <!-- PAGE 4: QA PRACTICE -->
-<div class="page" id="page-3">
-  <div class="page-title"><span>🎯</span> 問答接力</div>
-  <div class="page-sub">10 分鐘 · 輪流問答，練習說英文</div>
+<div class="page btn-hover" id="page-3">
+  <div class="page-title btn-hover"><span>🎯</span> 問答接力</div>
+  <div class="page-sub btn-hover">10 分鐘 · 輪流問答，練習說英文</div>
   <div id="qaList"></div>
-  <div class="tip-box">💡 家長小技巧：每天問孩子 How do you feel? 鼓勵表達情緒。</div>
+  <div class="tip-box btn-hover">💡 家長小技巧：每天問孩子 How do you feel? 鼓勵表達情緒。</div>
 </div>
 
 <!-- PAGE 5: WRAP UP -->
-<div class="page" id="page-4">
-  <div class="page-title"><span>🎤</span> 心情大師</div>
-  <div class="page-sub">5 分鐘 · 演戲猜心情</div>
-  <div class="intro-box">
+<div class="page btn-hover" id="page-4">
+  <div class="page-title btn-hover"><span>🎤</span> 心情大師</div>
+  <div class="page-sub btn-hover">5 分鐘 · 演戲猜心情</div>
+  <div class="intro-box btn-hover">
     <p>I am <fill>Happy</fill>.</p><p>I am <fill>Sad</fill>.</p><p>I am <fill>Angry</fill>.</p><p>I am <fill>Sleepy</fill>.</p><p>I am <fill>Good</fill>!</p>
   </div>
-  <div class="star-tip">⭐ 目標：能用英文表達當下的情緒！</div>
-  <div class="task-card" style="margin-bottom:0">
+  <div class="star-tip btn-hover">⭐ 目標：能用英文表達當下的情緒！</div>
+  <div class="task-card btn-hover" style="margin-bottom:0">
     <strong>最後挑戰：</strong><br>
     <ul><li>嘗試在生活中使用今天學到的單字。</li></ul>
   </div>
 
-  <div class="complete-area">
-    <button class="complete-btn" onclick="markDone()">✅ 完成本課！</button>
+  <div class="complete-area btn-hover">
+    <button class="complete-btn btn-hover" onclick="markDone()">✅ 完成本課！</button>
   </div>
-  <div class="complete-done" id="completeDone">
-    <div class="big">🎉</div>
+  <div class="complete-done btn-hover" id="completeDone">
+    <div class="big btn-hover">🎉</div>
     <h3>Unit 6 完成！</h3>
     <p>下一課：Unit 7：Rainbow Colors</p>
-    <a href="index.html#p2" class="home-btn" style="position:static; margin-top:15px; background:var(--orange)">🏠 返回課程列表</a>
+    <a href="index.html#p2" class="home-btn btn-hover" style="position:static; margin-top:15px; background:var(--orange)">🏠 返回課程列表</a>
   </div>
 </div>
 
 <!-- BOTTOM NAV -->
-<div class="bottom-nav-outer">
-  <div class="bottom-nav">
-    <button class="nav-btn nav-prev" id="prevBtn" onclick="changePage(-1)">← 上一步</button>
-    <div class="nav-step-info" id="stepInfo"></div>
-    <button class="nav-btn nav-next" id="nextBtn" onclick="changePage(1)">下一步 →</button>
+<div class="bottom-nav-outer btn-hover">
+  <div class="bottom-nav btn-hover">
+    <button class="nav-btn nav-prev btn-hover" id="prevBtn" onclick="changePage(-1)">← 上一步</button>
+    <div class="nav-step-info btn-hover" id="stepInfo"></div>
+    <button class="nav-btn nav-next btn-hover" id="nextBtn" onclick="changePage(1)">下一步 →</button>
   </div>
 </div>
 
@@ -153,9 +153,9 @@ function renderSentences() {
     const div = document.createElement('div');
     div.className = 'sentence-box';
     div.innerHTML = `
-      <div class="slabel">${s.label}</div>
-      <div class="pattern">${s.pattern.replace(/<blank>/g, '<span class="blank">').replace(/<\/blank>/g, '</span>')}</div>
-      <div class="example">→ ${s.example} <button class="speak-btn sentence-speak">🔊</button></div>
+      <div class="slabel btn-hover">${s.label}</div>
+      <div class="pattern btn-hover">${s.pattern.replace(/<blank>/g, '<span class="blank btn-hover">').replace(/<\/blank>/g, '</span>')}</div>
+      <div class="example btn-hover">→ ${s.example} <button class="speak-btn sentence-speak btn-hover">🔊</button></div>
     `;
     const btn = div.querySelector('.speak-btn');
     btn.onclick = () => speak(s.speak_text, btn);
@@ -171,10 +171,10 @@ function renderQA() {
     const div = document.createElement('div');
     div.className = 'qa-item';
     div.innerHTML = `
-      <div class="qa-num">${i + 1}</div>
+      <div class="qa-num btn-hover">${i + 1}</div>
       <div>
-        <div class="qa-q">Q: ${item.q} <button class="speak-btn qa-speak">🔊</button></div>
-        <div class="qa-a">A: ${item.a}</div>
+        <div class="qa-q btn-hover">Q: ${item.q} <button class="speak-btn qa-speak btn-hover">🔊</button></div>
+        <div class="qa-a btn-hover">A: ${item.a}</div>
       </div>
     `;
     const btn = div.querySelector('.speak-btn');
@@ -194,7 +194,7 @@ steps.forEach((s, i) => {
   const btn = document.createElement('button');
   btn.className = 'step-btn' + (i === 0 ? ' active' : '');
   btn.id = `step-${i}`;
-  btn.innerHTML = `<span class="si">${s.icon}</span>${s.label}`;
+  btn.innerHTML = `<span class="si btn-hover">${s.icon}</span>${s.label}`;
   btn.onclick = () => goTo(i);
   stepNav.appendChild(btn);
 });
@@ -223,12 +223,12 @@ function makeCards(arr, gridId, isExt) {
   arr.forEach(v => {
     const card = document.createElement('div');
     card.className = 'vocab-card';
-    card.innerHTML = `<div class="vocab-inner">
-      <div class="vocab-front${isExt?' ext':''}">
-        <div class="en">${v.en}</div>
-        <button class="speak-btn" onclick="event.stopPropagation();speak(\`${v.en}\`,this)">🔊</button>
+    card.innerHTML = `<div class="vocab-inner btn-hover">
+      <div class="vocab-front${isExt?' ext':''} btn-hover">
+        <div class="en btn-hover">${v.en}</div>
+        <button class="speak-btn btn-hover" onclick="event.stopPropagation();speak(\`${v.en}\`,this)">🔊</button>
       </div>
-      <div class="vocab-back${isExt?' ext':''}"><div class="zh">${v.zh}</div><div class="en2">${v.en}</div></div>
+      <div class="vocab-back${isExt?' ext':''} btn-hover"><div class="zh btn-hover">${v.zh}</div><div class="en2 btn-hover">${v.en}</div></div>
     </div>`;
     card.addEventListener('click', () => card.classList.toggle('flipped'));
     grid.appendChild(card);

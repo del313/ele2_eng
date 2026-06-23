@@ -119,30 +119,30 @@
 <div id="game-container">
   <canvas id="gameCanvas"></canvas>
   <div id="ui-layer">
-    <div class="hud-top">
-      <div class="score-box">SCORE: <span id="score">0</span></div>
-      <div class="target-box">
-        <div class="target-label" id="targetLabel">請切開正確的動詞形態</div>
-        <div class="target-word" id="targetWord">Loading...</div>
+    <div class="hud-top btn-hover">
+      <div class="score-box btn-hover">SCORE: <span id="score">0</span></div>
+      <div class="target-box btn-hover">
+        <div class="target-label btn-hover" id="targetLabel">請切開正確的動詞形態</div>
+        <div class="target-word btn-hover" id="targetWord">Loading...</div>
       </div>
       <div style="width:120px"></div> <!-- Spacer for balance -->
     </div>
-    <div class="combo-box" id="comboText">COMBO!</div>
+    <div class="combo-box btn-hover" id="comboText">COMBO!</div>
   </div>
   
-  <a href="index.html#p1-2" class="home-btn">🏠 返回</a>
+  <a href="index.html#p1-2" class="home-btn btn-hover">🏠 返回</a>
 
   <div id="start-screen">
     <h1>⚔️ Verb Dojo</h1>
     <p style="max-width:400px; margin: 20px 0;">聽指令，切開正確的動詞變化！<br>連續切對可獲得 Combo 加分。<br>小心別切錯喔！</p>
-    <button class="btn" onclick="startGame()">開始修行</button>
+    <button class="btn btn-hover" onclick="startGame()">開始修行</button>
   </div>
 
   <div id="end-screen" style="display:none">
     <h1 id="endTitle">修行結束</h1>
     <div style="font-size: 3rem; color: #f1c40f; margin: 20px 0;" id="finalScore">0</div>
     <p id="endMsg"></p>
-    <button class="btn" onclick="location.reload()">再次修行</button>
+    <button class="btn btn-hover" onclick="location.reload()">再次修行</button>
     <a href="index.html#p1-2" style="color: #aaa; margin-top: 20px; text-decoration: none;">返回首頁</a>
   </div>
 </div>

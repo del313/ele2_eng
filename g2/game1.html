@@ -49,16 +49,16 @@
   <p>配對大賽</p>
 </header>
 
-<div class="game-container">
-  <div class="stats">找到的配對: <span id="matches">0</span> / 6</div>
-  <div class="grid" id="grid"></div>
+<div class="game-container btn-hover">
+  <div class="stats btn-hover">找到的配對: <span id="matches">0</span> / 6</div>
+  <div class="grid btn-hover" id="grid"></div>
 </div>
 
 <div id="finish-screen">
   <div style="font-size:6rem;">🏆</div>
   <h2 style="font-size:2rem; color:var(--blue);">You Won!</h2>
   <p style="font-size:1.2rem; margin:10px 0;">太棒了！你完成了第一階段的挑戰！</p>
-  <button onclick="finishGame()" class="game-btn">
+  <button onclick="finishGame()" class="game-btn btn-hover">
     領取獎牌並回首頁
   </button>
 </div>
@@ -95,16 +95,19 @@ function init() {
     card.className = 'card';
     card.dataset.id = data.id;
     card.innerHTML = `
-      <div class="card-inner">
-        <div class="card-front">❓</div>
-        <div class="card-back">
-          <div class="content">${data.type === 'icon' ? data.value : ''}</div>
-          <div class="word">${data.type === 'word' ? data.value : ''}</div>
+      <div class="card-inner btn-hover">
+        <div class="card-front btn-hover">❓</div>
+        <div class="card-back btn-hover">
+          <div class="content btn-hover">${data.type === 'icon' ? data.value : ''}</div>
+          <div class="word btn-hover">${data.type === 'word' ? data.value : ''}</div>
         </div>
       </div>
     `;
     card.onclick = () => flipCard(card);
     grid.appendChild(card);
+    // animation: appear when card is added
+    card.classList.add('appear');
+    setTimeout(() => card.classList.remove('appear'), 600);
   });
 }
 
@@ -124,19 +127,37 @@ function checkMatch() {
   if (c1.dataset.id === c2.dataset.id) {
     c1.classList.add('matched');
     c2.classList.add('matched');
+    // bounce animation for both cards after flip finishes
+    setTimeout(() => {
+      c1.classList.add('bounce');
+      c2.classList.add('bounce');
+      setTimeout(() => {
+        c1.classList.remove('bounce');
+        c2.classList.remove('bounce');
+      }, 600);
+    }, 600);
     matchCount++;
+    const el = document.querySelector('#matches');
+    if (el) { el.classList.add('pulse'); setTimeout(() => el.classList.remove('pulse'), 600); }
     playSound('success');
     document.getElementById('matches').textContent = matchCount;
     speak(c1.dataset.id);
     flippedCards = [];
     if (matchCount === 6) {
       setTimeout(() => {
-        document.getElementById('finish-screen').style.display = 'flex';
+        const finish = document.getElementById('finish-screen');
+        finish.style.display = 'flex';
+        finish.classList.add('fade-in');
       }, 500);
     }
   } else {
     playSound('error');
+    // shake animation for both cards
+    c1.classList.add('shake');
+    c2.classList.add('shake');
     setTimeout(() => {
+      c1.classList.remove('shake');
+      c2.classList.remove('shake');
       c1.classList.remove('flipped');
       c2.classList.remove('flipped');
       flippedCards = [];

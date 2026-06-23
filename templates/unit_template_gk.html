@@ -17,31 +17,31 @@
 <body>
 
 <header style="position:relative">
-  <a href="index.html#{{anchor_id}}" class="home-btn">🏠 首頁</a>
-  <div class="unit-label">{{grade_label}} &nbsp;·&nbsp; GRADE {{grade_num}}</div>
+  <a href="index.html#{{anchor_id}}" class="home-btn btn-hover">🏠 首頁</a>
+  <div class="unit-label btn-hover">{{grade_label}} &nbsp;·&nbsp; GRADE {{grade_num}}</div>
   <h1>{{icon}} {{title}}</h1>
 </header>
 
-<div class="step-nav" id="stepNav"></div>
+<div class="step-nav btn-hover" id="stepNav"></div>
 
-<div class="page active" id="page-0">
-  <div class="page-title"><span>🎵</span> 暖身</div>
-  <div class="video-btn-wrap">
-    <a class="video-btn" href="{{video_url}}" target="_blank" rel="noopener">
-      <span class="yt-icon">▶️</span> {{video_label}}
+<div class="page active btn-hover" id="page-0">
+  <div class="page-title btn-hover"><span>🎵</span> 暖身</div>
+  <div class="video-btn-wrap btn-hover">
+    <a class="video-btn btn-hover" href="{{video_url}}" target="_blank" rel="noopener">
+      <span class="yt-icon btn-hover">▶️</span> {{video_label}}
     </a>
   </div>
 </div>
 
-<div class="page" id="page-1">
-  <div class="page-title"><span>🃏</span> 認識字母</div>
-  <div class="vocab-grid" id="letterGrid"></div>
+<div class="page btn-hover" id="page-1">
+  <div class="page-title btn-hover"><span>🃏</span> 認識字母</div>
+  <div class="vocab-grid btn-hover" id="letterGrid"></div>
 </div>
 
-<div class="page page-center" id="page-2">
-  <div class="page-title"><span>🎉</span> 完成！</div>
-  <button class="complete-btn" id="completeBtn" onclick="markDone()">✅ 完成本課！</button>
-  <div class="complete-done" id="completeDone" style="text-align: center; display: none;">
+<div class="page page-center btn-hover" id="page-2">
+  <div class="page-title btn-hover"><span>🎉</span> 完成！</div>
+  <button class="complete-btn btn-hover" id="completeBtn" onclick="markDone()">✅ 完成本課！</button>
+  <div class="complete-done btn-hover" id="completeDone" style="text-align: center; display: none;">
     <h3>恭喜完成 Unit {{num}}！</h3>
     <p>{{complete_next_text}}</p>
     {{home_btn}}
@@ -57,7 +57,7 @@ const stepNav = document.getElementById('stepNav');
 steps.forEach((s, i) => {
   const btn = document.createElement('button');
   btn.className = 'step-btn' + (i === 0 ? ' active' : '');
-  btn.innerHTML = `<span class="si">${s.icon}</span>${s.label}`;
+  btn.innerHTML = `<span class="si btn-hover">${s.icon}</span>${s.label}`;
   btn.onclick = () => goTo(i);
   btn.id = `step-${i}`;
   stepNav.appendChild(btn);
@@ -68,10 +68,10 @@ items.forEach(item => {
   const card = document.createElement('div');
   card.className = 'vocab-card';
   card.innerHTML = `
-    <div class="en" style="font-size:2em">${item.letter}</div>
+    <div class="en btn-hover" style="font-size:2em">${item.letter}</div>
     <div style="font-size:3em">${item.icon}</div>
-    <div class="en">${item.word}</div>
-    <button class="speak-btn" onclick="speak('${item.letter} is for ${item.word}')">🔊</button>
+    <div class="en btn-hover">${item.word}</div>
+    <button class="speak-btn btn-hover" onclick="speak('${item.letter} is for ${item.word}')">🔊</button>
   `;
   grid.appendChild(card);
 });

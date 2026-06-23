@@ -44,16 +44,16 @@
   <h1>🎴 對對碰</h1>
 </header>
 
-<div class="game-container">
+<div class="game-container btn-hover">
   <div style="font-weight:800; color:var(--text); margin-bottom:10px;">找出一樣的圖片！</div>
-  <div class="board" id="board"></div>
+  <div class="board btn-hover" id="board"></div>
 </div>
 
 <div id="finish-screen">
   <div style="font-size:6rem;">🏆</div>
   <h2 style="font-size:2.5rem; color:var(--pink);">你好棒！</h2>
   <p style="font-size:1.2rem;">你記住了所有的圖案！</p>
-  <button onclick="finishGame()" class="game-btn">
+  <button onclick="finishGame()" class="game-btn btn-hover">
     領取獎牌 🏅
   </button>
 </div>
@@ -79,8 +79,8 @@ function init() {
     card.className = 'card';
     card.dataset.word = item.word;
     card.innerHTML = `
-      <div class="card-face card-front">🎁</div>
-      <div class="card-face card-back">${item.icon}</div>
+      <div class="card-face card-front btn-hover">🎁</div>
+      <div class="card-face card-back btn-hover">${item.icon}</div>
     `;
     card.onclick = () => flipCard(card);
     board.appendChild(card);

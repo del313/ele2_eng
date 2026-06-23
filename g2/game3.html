@@ -46,21 +46,21 @@
   <p>餵食小怪物</p>
 </header>
 
-<div class="game-container">
+<div class="game-container btn-hover">
   <div id="q-panel">第 <span id="q-num">1</span> / 6 題</div>
-  <div class="monster-area">
-    <div id="monster" class="monster">👾</div>
-    <div class="monster-bubble" id="instruction">I want...</div>
+  <div class="monster-area btn-hover">
+    <div id="monster" class="monster btn-hover">👾</div>
+    <div class="monster-bubble btn-hover" id="instruction">I want...</div>
   </div>
 
-  <div class="food-grid" id="food-grid"></div>
+  <div class="food-grid btn-hover" id="food-grid"></div>
 </div>
 
 <div id="finish-screen">
   <div style="font-size:6rem;">😋</div>
   <h2 style="font-size:2rem; color:var(--green);">Yummy!</h2>
   <p style="font-size:1.2rem; margin:10px 0;">小怪物吃飽了！謝謝你的幫忙！</p>
-  <button onclick="finishGame()" class="game-btn">
+  <button onclick="finishGame()" class="game-btn btn-hover">
     完成並回首頁
   </button>
 </div>
@@ -114,7 +114,7 @@ function renderFood() {
     const div = document.createElement('div');
     div.className = 'food-item';
     div.style.borderColor = item.color;
-    div.innerHTML = `${item.icon}<span class="name" style="color:${item.color}">${item.name}</span>`;
+    div.innerHTML = `${item.icon}<span class="name btn-hover" style="color:${item.color}">${item.name}</span>`;
     div.onclick = () => feed(item);
     grid.appendChild(div);
   });

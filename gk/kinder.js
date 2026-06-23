@@ -4,6 +4,12 @@ const unit1Data = {
   id: 'unit1',
   title: 'Letters A-D',
   videoUrl: 'https://www.youtube.com/watch?v=75p-N9YKqNo',
+  vocab: [
+    { letter: 'A', word: 'Apple', icon: '🍎' },
+    { letter: 'B', word: 'Bear', icon: '🐻' },
+    { letter: 'C', word: 'Cat', icon: '🐱' },
+    { letter: 'D', word: 'Dog', icon: '🐶' }
+  ],
   items: [
     { letter: 'A', word: 'Apple', icon: '🍎' },
     { letter: 'B', word: 'Bear', icon: '🐻' },

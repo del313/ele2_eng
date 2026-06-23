@@ -172,15 +172,15 @@
 <div id="game-container">
   
   <div id="arena">
-    <div class="fighter" id="hero">
-      <div class="hp-bar-wrap"><div class="hp-bar-fill" id="hero-hp"></div></div>
-      <div class="sprite">⚔️</div>
+    <div class="fighter btn-hover" id="hero">
+      <div class="hp-bar-wrap btn-hover"><div class="hp-bar-fill btn-hover" id="hero-hp"></div></div>
+      <div class="sprite btn-hover">⚔️</div>
       <div style="margin-top:10px; font-weight:bold;">HERO</div>
     </div>
 
-    <div class="fighter" id="monster">
-      <div class="hp-bar-wrap"><div class="hp-bar-fill" id="monster-hp"></div></div>
-      <div class="sprite" id="monster-sprite">🐉</div>
+    <div class="fighter btn-hover" id="monster">
+      <div class="hp-bar-wrap btn-hover"><div class="hp-bar-fill btn-hover" id="monster-hp"></div></div>
+      <div class="sprite btn-hover" id="monster-sprite">🐉</div>
       <div style="margin-top:10px; font-weight:bold;" id="monster-name">DRAGON</div>
     </div>
   </div>
@@ -201,16 +201,16 @@
       運用你在小六學到的所有文法知識，<br>
       擊敗守護知識之門的魔王。
     </p>
-    <button class="btn-start" onclick="startGame()">開始戰鬥！</button>
+    <button class="btn-start btn-hover" onclick="startGame()">開始戰鬥！</button>
     <a href="index.html#p3" style="color:#aaa; margin-top:20px; display:block;">暫時撤退</a>
   </div>
 
   <!-- Result Screen -->
-  <div id="result-screen" class="hidden">
+  <div id="result-screen" class="hidden btn-hover">
     <div style="font-size:5rem;" id="res-icon">🏆</div>
     <h2 id="res-title" style="font-size:2.5rem;">勝利！</h2>
     <p id="res-text" style="margin:20px 0;"></p>
-    <button class="btn-start" onclick="location.reload()">重新挑戰</button>
+    <button class="btn-start btn-hover" onclick="location.reload()">重新挑戰</button>
     <a href="index.html#p3" style="color:#aaa; margin-top:20px; display:block;">回到主選單</a>
   </div>
 

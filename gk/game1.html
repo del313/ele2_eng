@@ -66,11 +66,11 @@
   <h1 style="font-size:1.5rem;">🎈 氣球快手</h1>
 </header>
 
-<div class="ui-layer" style="text-align:center;">
-  <div class="score-badge">進度: <span id="score">0</span> / 8</div>
+<div class="ui-layer btn-hover" style="text-align:center;">
+  <div class="score-badge btn-hover">進度: <span id="score">0</span> / 8</div>
   <br>
-  <div class="target-prompt" id="prompt">
-    <div class="target-word">準備好了嗎？</div>
+  <div class="target-prompt btn-hover" id="prompt">
+    <div class="target-word btn-hover">準備好了嗎？</div>
   </div>
 </div>
 
@@ -80,7 +80,7 @@
   <div style="font-size:6rem;">🌟</div>
   <h2 style="font-size:2.5rem; color:var(--pink);">太棒了！</h2>
   <p style="font-size:1.2rem; margin:15px;">你接住了所有氣球！</p>
-  <button onclick="finishGame()" class="game-btn">
+  <button onclick="finishGame()" class="game-btn btn-hover">
     領取獎牌 🏆
   </button>
 </div>
@@ -110,8 +110,8 @@ function updatePrompt() {
   const target = vocab[targetIndex];
   const prompt = document.getElementById('prompt');
   prompt.innerHTML = `
-    <div class="target-word">點擊: ${target.word}</div>
-    <div class="target-icon">${target.icon}</div>
+    <div class="target-word btn-hover">點擊: ${target.word}</div>
+    <div class="target-icon btn-hover">${target.icon}</div>
   `;
   speakText("Find the " + target.word);
 }
@@ -134,8 +134,8 @@ function spawnBalloon() {
   balloon.style.bottom = '-150px';
   
   balloon.innerHTML = `
-    <div class="balloon-body" style="background:${color}; color:white;">${item.icon}</div>
-    <div class="balloon-string"></div>
+    <div class="balloon-body btn-hover" style="background:${color}; color:white;">${item.icon}</div>
+    <div class="balloon-string btn-hover"></div>
   `;
 
   balloon.onclick = () => {
